@@ -1,2 +1,32 @@
-Execute = execute, reset, ...
-@Wouter
+## Use Case 2: Execute the code
+### Scope: Blockr programming game
+### Level: User goal
+### Primary actor: System
+### Stakeholders and Interests:
+- Player: Wants the code they created to run. Wants visual feedback of the code with in the Program Area and Game World.
+### Preconditions:
+- The window of the game is divided into three parts:
+on the left-hand side is the Palette that contains valid and draggable blocks; in the center is the Program Area; and on the
+right-hand side is the Game World.
+- Program is not running.
+- The Program Area contains exactly one group of connected blocks, where all condition sockets are connected to condition blocks.
+### Success Guarantee (or Postconditions):
+- The programmed code is executed until either the goal is reached or it reaches a failstate
+### Main Success Scenario:
+1. The user presses F5, the system removes the highlight for the current block, the system selects the next program block and highlights it.
+2. The system executes the code in the current program block and the system updates the Game World to the new state.
+3. Step 1-2 get repeated until the goal is reached. Then the system stops the execution.
+### Extensions (or Alternative Flows):
+*a After execution stops, the user left-clicks the reset button.
+	1. The system reverts the Game World to the initial state.
+	2. The system stops highlighting the program blocks.
+*b During execution, the user presses Escape key or makes changes to the program.
+	1. The system stops execution.
+	2. The system reverts the Game World to the initial state.
+	3. The system stops highlighting the program blocks.
+1a. The user presses F5 when there are no blocks to be executed anymore and the goal is not reached.
+	1. The system ends the execution and gives feedback to the user.
+	2. The user can reset.
+2a. When the system analyses the current code and finds it to lead to a failstate.
+	1. The system ends execution and gives feedback to the user.
+	2. The user can reset.
