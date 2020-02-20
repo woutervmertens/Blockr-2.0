@@ -7,6 +7,7 @@
 - ...
 
 ### Preconditions:
+- The Palette contains valid and draggable blocks.
 - Program is not running.
 
 ### Success Guarantee (or Postconditions):
