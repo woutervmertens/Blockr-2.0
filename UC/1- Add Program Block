@@ -7,9 +7,6 @@
 - ...
 
 ### Preconditions:
-- The window of the game is divided into three parts:
-on the left-hand side is the Palette that contains valid and draggable blocks; in the center is the Program Area; and on the
-right-hand side is the Game World.
 - Program is not running.
 
 ### Success Guarantee (or Postconditions):
