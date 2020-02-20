@@ -1,29 +1,34 @@
-## Use Case 2: Execute the code
+## Use Case 2: Execute Program
 ### Scope: Blockr programming game
 ### Level: User goal
 ### Primary actor: User of the game
 ### Stakeholders and Interests:
 - Player: Wants the code they created to run. Wants visual feedback of the code with in the Program Area and Game World.
+
 ### Preconditions:
 - Program is not running.
-- The Program Area contains exactly one group of connected blocks, where all condition sockets are connected to condition blocks.
+- The Program Area contains maximum one group of connected blocks, where all condition sockets are connected to condition blocks.
+
 ### Success Guarantee (or Postconditions):
 - The programmed code is executed until either the goal is reached or it reaches a failstate
+
 ### Main Success Scenario:
-1. The user presses F5, the system removes the highlight for the current block, the system selects the next program block and highlights it.
-2. The system executes the code in the current program block and the system updates the Game World to the new state.
-3. Step 1-2 get repeated until the goal is reached. Then the system stops the execution.
+1. User presses F5, the system removes the highlight for the current block, the system selects the next program block and highlights it.
+2. System executes the code in the current program block and the system updates the Game World to the new state.
+3. Step 1-2 get repeated until the goal is reached. 
+4. System stops the execution.
+
 ### Extensions (or Alternative Flows):
 *a After execution stops, the user left-clicks the reset button.
-	1. The system reverts the Game World to the initial state.
-	2. The system stops highlighting the program blocks.
+	1. System reverts the Game World to the initial state.
+	2. System stops highlighting the program blocks.
 *b During execution, the user presses Escape key or makes changes to the program.
-	1. The system stops execution.
-	2. The system reverts the Game World to the initial state.
-	3. The system stops highlighting the program blocks.
-1a. The user presses F5 when there are no blocks to be executed anymore and the goal is not reached.
-	1. The system ends the execution and gives feedback to the user.
-	2. The user can reset.
-2a. When the system analyses the current code and finds it to lead to a failstate.
-	1. The system ends execution and gives feedback to the user.
-	2. The user can reset.
+	1. System stops execution.
+	2. System reverts the Game World to the initial state.
+	3. System stops highlighting the program blocks.
+1a. User presses F5 when there are no blocks to be executed anymore and the goal is not reached.
+	1. System ends the execution and gives feedback to the user.
+	2. User can reset.
+2a. System analyses the current code and finds it to lead to a failstate.
+	1. System ends execution and gives feedback to the user.
+	2. User can reset.

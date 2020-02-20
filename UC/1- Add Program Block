@@ -3,8 +3,9 @@
 ### Level: User goal
 ### Primary Actor: User of the game
 ### Stakeholders and Interests:
-- Player: Wants easily visible display of a palette of available blocks that he can add to his program. Wants an easy drag and drop system from the palette of blocks to the program area.
-- ...
+- Player: Wants an easy drag and drop system from the palette of blocks 
+	  to the program area. Wants no overlap after the drop. Wants
+	  the executable program to be edited accordingly.
 
 ### Preconditions:
 - The Palette contains valid and draggable blocks.
@@ -12,48 +13,51 @@
 - The maximum number of blocks available has not been reached.
 
 ### Success Guarantee (or Postconditions):
-Block is added in appropriate position without overlap when dropped in 
-program area.
+Block is (when dropped in the program area) added in the by user wished 
+position eventually connected to compatible blocks near the drop 
+position without overlap with other blocks.
 
 ### Main Success Scenario;
-1. The user moves the mouse cursor over a block in the Palette,
-then presses the left mouse key, then moves the mouse cursor
+1. User moves the mouse cursor over a block in the Palette,
+then presses the left mouse key on that block.
+2. System makes a duplicate of that same block that can be 
+dragged with the mouse.
+3. While pressing the left mouse key, the user moves the mouse cursor
 to the Program Area, and then releases the left mouse key.
-2. The system adds a new block of the same type to the Program
-Area.
-3. The system decreases the number of available blocks with one.
+4. System adds the new block to the Program Area at the position of 
+the mouse.
+5. System decreases the number of available blocks by one.
 
 
 ### Extensions (or Alternative Flows):
-*a At any time, user releases the left mouse key inside a if 
+*a At any time, user releases the left mouse key inside an if 
    or while block.
-	1. The system expands the cavity of that block 
+	1. System expands the cavity of that block 
 	   and accommodates the block or group of blocks inside
 	   that if or while block.
 
-1a. When the user releases the mouse key, one of the block’s
-connectors is near a compatible opposite connector of another
-block.
-	1. The system adds a new block of the same type to the Program
-	   Area; the new block is inserted into an existing group of
+1-3a. When the user releases the mouse key, one of the block’s
+      connectors is near a compatible opposite connector of 
+      another block.
+	1. System adds that new block to the Program Area; 
+	   the new block is inserted into an existing group of
 	   connected blocks at the matching connection point.
 	
-1b. The user releases the left mouse key on an area that is not
-    the program area.
+1-3b. User releases the left mouse key on an area that is not
+      the program area.
 	1. The system removes the duplicated dragged block.
 
-2a. The block is released by the user near the complete bottom or top 
+4a. Block is released by the user near the complete bottom or top 
     of a compatible group (eventually single) of blocks.	
-	1. The system adds the block:
-		1a. The to be added block is a while or if block
-			1. The system expands the cavity of that block 
-			   and accommodate the block or group of blocks.
-		1b. The to be added block is a move or turn block
-			1. The system simply adds that block to that endpoint.
+	1. System adds that block at that place and
+	   connects it to the endpoint.
 
-2b. The block is released by the user between two allowable blocks or group of blocks 
-    (left/upper allowable blockor group of blocks is the parent, right/lower block or group of blocks is the child).
-	1. The system adds the duplicated block to the parent block.
-	2. The system adds the child block to the duplicated block.
+4b. Block is released by the user between two compatible blocks 
+    or group of blocks (left/upper block = "previous"-block, 
+                       right/lower block = "next"-block).
+	1. System pushes the "next" block and all eventual next blocks
+	   down for fitting the new block.
+	2. System adds the duplicated block at the matching connection 
+	   point under the "previous" block and above the "next" block.
 
 
