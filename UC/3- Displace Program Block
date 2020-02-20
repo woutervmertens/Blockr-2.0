@@ -1,4 +1,4 @@
-﻿## Use Case 1: displace block
+﻿## Use Case 3: displace block
 ### Scope: Blockr programming game
 ### Level: User goal
 ### Primary Actor: User of the game
@@ -7,13 +7,11 @@
 - ...
 
 ### Preconditions:
-- The window of the game is divided into three parts:
-on the left-hand side is the Palette that contains valid and draggable blocks; in the center is the Program Area; and on the
-right-hand side is the Game World.
+- there is at least 1 block on the program area.
 - Program is not running.
 
 ### Success Guarantee (or Postconditions):
-the block or group of blocks is displaced to appropriate position without overlap when dropped in 
+the block &&or group of blocks&& is displaced to appropriate position without overlap when dropped in 
 program area or is removed from the program area.
 
 ### Main Success Scenario;
