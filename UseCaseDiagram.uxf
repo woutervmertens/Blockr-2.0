@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
+<diagram program="umlet" version="13.3">
   <zoom_level>10</zoom_level>
   <element>
     <id>UMLActor</id>
@@ -7,7 +7,7 @@
       <x>20</x>
       <y>180</y>
       <w>60</w>
-      <h>110</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>User</panel_attributes>
     <additional_attributes/>
@@ -18,7 +18,7 @@
       <x>170</x>
       <y>90</y>
       <w>140</w>
-      <h>110</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>Add Program Block
 --
@@ -78,8 +78,8 @@ halign=left</panel_attributes>
     <coordinates>
       <x>180</x>
       <y>370</y>
-      <w>120</w>
-      <h>130</h>
+      <w>130</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>Displace Block
 --
@@ -105,7 +105,7 @@ Program Area</panel_attributes>
     <coordinates>
       <x>400</x>
       <y>260</y>
-      <w>130</w>
+      <w>160</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>Update game world</panel_attributes>
@@ -137,22 +137,22 @@ Program Area</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
+      <x>300</x>
       <y>440</y>
-      <w>140</w>
+      <w>130</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;30.0;10.0;10.0</additional_attributes>
+    <additional_attributes>110.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
       <x>390</x>
       <y>320</y>
-      <w>180</w>
-      <h>40</h>
+      <w>190</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>Invalid Program feedback</panel_attributes>
     <additional_attributes/>
@@ -174,7 +174,7 @@ Program Area</panel_attributes>
     <coordinates>
       <x>400</x>
       <y>110</y>
-      <w>130</w>
+      <w>170</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>Hide Palette Blocks</panel_attributes>
@@ -197,7 +197,7 @@ Program Area</panel_attributes>
     <coordinates>
       <x>410</x>
       <y>200</y>
-      <w>120</w>
+      <w>150</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>Validate Program</panel_attributes>
