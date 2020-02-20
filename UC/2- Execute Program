@@ -1,7 +1,7 @@
 ## Use Case 2: Execute the code
 ### Scope: Blockr programming game
 ### Level: User goal
-### Primary actor: User
+### Primary actor: User of the game
 ### Stakeholders and Interests:
 - Player: Wants the code they created to run. Wants visual feedback of the code with in the Program Area and Game World.
 ### Preconditions:
