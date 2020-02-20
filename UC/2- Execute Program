@@ -1,13 +1,10 @@
 ## Use Case 2: Execute the code
 ### Scope: Blockr programming game
 ### Level: User goal
-### Primary actor: System
+### Primary actor: User
 ### Stakeholders and Interests:
 - Player: Wants the code they created to run. Wants visual feedback of the code with in the Program Area and Game World.
 ### Preconditions:
-- The window of the game is divided into three parts:
-on the left-hand side is the Palette that contains valid and draggable blocks; in the center is the Program Area; and on the
-right-hand side is the Game World.
 - Program is not running.
 - The Program Area contains exactly one group of connected blocks, where all condition sockets are connected to condition blocks.
 ### Success Guarantee (or Postconditions):
