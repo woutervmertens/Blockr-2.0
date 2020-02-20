@@ -16,11 +16,15 @@
     <id>UMLUseCase</id>
     <coordinates>
       <x>170</x>
-      <y>120</y>
+      <y>90</y>
       <w>140</w>
-      <h>40</h>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>Add Program Block</panel_attributes>
+    <panel_attributes>Add Program Block
+--
+extension point
+valign=top
+Out of blocks</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -32,7 +36,7 @@
       <h>100</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;80.0;120.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;120.0;17.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -49,34 +53,13 @@ halign=left</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>190</x>
-      <y>260</y>
-      <w>120</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>Execute Program</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>50</x>
-      <y>200</y>
-      <w>160</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;10.0;140.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
       <x>180</x>
-      <y>450</y>
-      <w>120</w>
-      <h>40</h>
+      <y>240</y>
+      <w>130</w>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>Displace Block</panel_attributes>
+    <panel_attributes>Execute Program
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -85,10 +68,37 @@ halign=left</panel_attributes>
       <x>50</x>
       <y>200</y>
       <w>150</w>
-      <h>290</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;10.0;130.0;270.0</additional_attributes>
+    <additional_attributes>10.0;10.0;130.0;62.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>180</x>
+      <y>370</y>
+      <w>120</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Displace Block
+--
+extension point
+valign=top
+Displaced out of
+Program Area</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>50</x>
+      <y>200</y>
+      <w>150</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;130.0;227.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -105,13 +115,13 @@ halign=left</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>300</x>
-      <y>260</y>
+      <y>240</y>
       <w>120</w>
-      <h>40</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>10.0;18.0;100.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -128,13 +138,13 @@ halign=left</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>290</x>
-      <y>450</y>
+      <y>440</y>
       <w>140</w>
-      <h>40</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>120.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -151,13 +161,13 @@ halign=left</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>300</x>
-      <y>270</y>
+      <y>260</y>
       <w>110</w>
-      <h>90</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>90.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -174,13 +184,13 @@ halign=left</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>300</x>
-      <y>110</y>
+      <y>120</y>
       <w>120</w>
-      <h>50</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>100.0;20.0;10.0;30.0</additional_attributes>
+    <additional_attributes>100.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -199,10 +209,10 @@ halign=left</panel_attributes>
       <x>300</x>
       <y>210</y>
       <w>130</w>
-      <h>90</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;70.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;48.0;110.0;10.0</additional_attributes>
   </element>
 </diagram>
