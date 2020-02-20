@@ -9,6 +9,7 @@
 ### Preconditions:
 - The Palette contains valid and draggable blocks.
 - Program is not running.
+- The maximum number of blocks available has not been reached.
 
 ### Success Guarantee (or Postconditions):
 Block is added in appropriate position without overlap when dropped in 
