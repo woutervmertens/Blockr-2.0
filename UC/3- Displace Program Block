@@ -3,7 +3,7 @@
 ### Level: User goal
 ### Primary Actor: User of the game
 ### Stakeholders and Interests:
-- Player: Wants easily displacement of blocks. Wants an easy drag and drop system.
+- Player: Wants easily visible displacement of blocks. Wants an easy drag and drop system and option to remove a block.
 - ...
 
 ### Preconditions:
@@ -42,6 +42,7 @@ block.
 1b. The user releases the left mouse key on an area that is not
     the program area.
 	1. The system removes the block from the program area.
+	2. The system increases the number of available blocks with one.
 
 2a. The block is released by the user near the complete bottom or top 
     of a compatible group (eventually single) of blocks.	

@@ -21,6 +21,7 @@ then presses the left mouse key, then moves the mouse cursor
 to the Program Area, and then releases the left mouse key.
 2. The system adds a new block of the same type to the Program
 Area.
+3. The system decreases the number of available blocks with one.
 
 
 ### Extensions (or Alternative Flows):
