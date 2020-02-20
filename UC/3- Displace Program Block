@@ -1,2 +1,72 @@
-Displace = remove (clear), move ...
-@Kristof
+﻿## Use Case 1: displace block
+### Scope: Blockr programming game
+### Level: User goal
+### Primary Actor: User of the game
+### Stakeholders and Interests:
+- Player: Wants easily displacement of blocks. Wants an easy drag and drop system.
+- ...
+
+### Preconditions:
+- The window of the game is divided into three parts:
+on the left-hand side is the Palette that contains valid and draggable blocks; in the center is the Program Area; and on the
+right-hand side is the Game World.
+- Program is not running.
+
+### Success Guarantee (or Postconditions):
+the block or group of blocks is displaced to appropriate position without overlap when dropped in 
+program area or is removed from the program area.
+
+### Main Success Scenario;
+1. The user moves the mouse cursor over a block in the program area,
+then presses the left mouse key, then moves the mouse cursor
+to the Program Area, and then releases the left mouse key.
+2. The system moves the block and the connected blocks beneath to the new appropiate position.
+
+
+### Extensions (or Alternative Flows):
+*a At any time, user releases the left mouse key inside an if 
+   or while block.
+	1. The system expands the cavity of that if or while block 
+	   and accommodates the block or group of blocks inside
+	   that if or while block.
+*b At any time,the inital position of the moved block was inside an if or while block and the
+   user releases the left mouse key outside the if or while block.
+	1. The system decreases the cavity of that if or while block 
+	   and accommodates the optional remaining block or group of blocks inside
+	   that if or while block.
+
+1a. When the user releases the mouse key, one of the block’s or the group's
+connectors is near a compatible opposite connector of another
+block.
+	1. The system moves the block or group of blocks; the block or group of blocks are inserted into an existing group of
+	   connected blocks at the matching connection point.
+	
+1b. The user releases the left mouse key on an area that is not
+    the program area.
+	1. The system removes the block or group of blocks from the program area.
+
+2a. The block or group of blocks is released by the user near the complete bottom or top 
+    of a compatible group (eventually single) of blocks.	
+	1. The system adds the block or group:
+		1a. The to be added block is a while or if block 
+			1. The system expands the cavity of that block 
+			   and accommodate the block or group of blocks.
+		1b. The to be added block is a move, turn block or is a group.
+			1. The system simply adds that block or group to that endpoint.
+
+2b. The block or group of blocks is released by the user between (vertically) two blocks or group of blocks.
+	1. The system adds the block or group under the upper block.
+	2. The systems pushes down the other block or other group of blocks below.
+
+2c. The block or group of blocks is released by the user near the right or endpoint of a compatible 
+    group (eventually single) of blocks.
+	1. The system adds the block or group:
+		1a. The to be added block is a condition block or a group of conditions connected horizontally.
+		    (= wall in front block or not block)
+			1. The system simply adds that block to that endpoint.
+
+
+
+2d. The block is released by the user between (horizontally) two blocks or group of blocks.
+	TODO:
+
