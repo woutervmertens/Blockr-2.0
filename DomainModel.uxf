@@ -4,84 +4,243 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
+      <x>360</x>
+      <y>160</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Palette
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>350</y>
+      <w>100</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Block
+--
+type
+next
+previous</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>130</x>
+      <y>350</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Move
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>390</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>BlockGroup
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>240</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Program
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
       <y>130</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>BlockType</panel_attributes>
+    <panel_attributes>ProgramArea
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
+      <x>900</x>
       <y>230</y>
       <w>100</w>
-      <h>30</h>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>CodeBlock</panel_attributes>
+    <panel_attributes>Player
+--
+position
+orientation</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>330</y>
+      <x>1010</x>
+      <y>100</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Program</panel_attributes>
+    <panel_attributes>GameWorld
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>430</y>
+      <x>1100</x>
+      <y>230</y>
       <w>100</w>
-      <h>30</h>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>GameWorld</panel_attributes>
+    <panel_attributes>Square
+--
+isWall</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
+      <x>220</x>
+      <y>340</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+change_pos_of</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>380</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..*
+m2=0..1
+is_part_of</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>250</y>
+      <w>190</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..*
+m2=0..1
+implemented_by</panel_attributes>
+    <additional_attributes>10.0;120.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>180</y>
+      <w>90</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..N
+m2=0..1
+contains</panel_attributes>
+    <additional_attributes>10.0;170.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
       <y>150</y>
       <w>50</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
-m2=1..*</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+m2=0..1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
-      <y>250</y>
-      <w>50</w>
-      <h>100</h>
+      <x>700</x>
+      <y>230</y>
+      <w>220</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=0..*
-m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+m1=1
+m2=0..1
+changes_properties_of
+</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>290</x>
-      <y>350</y>
-      <w>40</w>
-      <h>100</h>
+      <x>940</x>
+      <y>120</y>
+      <w>130</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
-m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;110.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>230</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+is_on</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1060</x>
+      <y>120</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=N
+m2=1
+is_composed_of
+</panel_attributes>
+    <additional_attributes>90.0;110.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
