@@ -1,5 +1,0 @@
-QUESTIONS:
-* Start Game --> a use case ? Or inculded in another use case ?
-* Should there be a countdown for number of used blocks ?
-* What if only one of both connectors connect ? Is that possible ? (Plug/socket ...)
-* Between two groups of blocks horizontally and vertically (different extensions ?)
