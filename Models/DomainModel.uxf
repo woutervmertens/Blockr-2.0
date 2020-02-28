@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>250</y>
-      <w>100</w>
-      <h>30</h>
+      <x>384</x>
+      <y>384</y>
+      <w>120</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>Palette
---</panel_attributes>
+--
+maxBlocks</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>220</x>
-      <y>440</y>
-      <w>100</w>
-      <h>90</h>
+      <x>372</x>
+      <y>636</y>
+      <w>120</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Block
 --
@@ -32,10 +33,10 @@ isAvailable</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>440</y>
-      <w>100</w>
-      <h>30</h>
+      <x>108</x>
+      <y>636</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Move
 --</panel_attributes>
@@ -44,10 +45,10 @@ isAvailable</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>480</y>
-      <w>100</w>
-      <h>30</h>
+      <x>636</x>
+      <y>684</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>BlockGroup
 --</panel_attributes>
@@ -56,10 +57,10 @@ isAvailable</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>330</y>
-      <w>100</w>
-      <h>30</h>
+      <x>684</x>
+      <y>504</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Program
 --</panel_attributes>
@@ -68,10 +69,10 @@ isAvailable</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>220</y>
-      <w>100</w>
-      <h>30</h>
+      <x>684</x>
+      <y>372</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>ProgramArea
 --</panel_attributes>
@@ -80,10 +81,10 @@ isAvailable</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>320</y>
-      <w>100</w>
-      <h>60</h>
+      <x>1032</x>
+      <y>492</y>
+      <w>120</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -94,10 +95,10 @@ orientation</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
-      <y>190</y>
-      <w>100</w>
-      <h>30</h>
+      <x>1164</x>
+      <y>336</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>GameWorld
 --</panel_attributes>
@@ -106,10 +107,10 @@ orientation</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>970</x>
-      <y>320</y>
-      <w>100</w>
-      <h>60</h>
+      <x>1272</x>
+      <y>492</y>
+      <w>120</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Square
 --
@@ -119,10 +120,10 @@ isWall</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>430</y>
-      <w>150</w>
-      <h>50</h>
+      <x>216</x>
+      <y>624</y>
+      <w>180</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
@@ -133,10 +134,10 @@ changes-pos-of</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>310</x>
-      <y>470</y>
-      <w>150</w>
-      <h>50</h>
+      <x>480</x>
+      <y>672</y>
+      <w>180</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..*
@@ -147,10 +148,10 @@ is-part-of</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>350</y>
-      <w>140</w>
-      <h>150</h>
+      <x>684</x>
+      <y>528</y>
+      <w>168</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..*
@@ -161,10 +162,10 @@ implemented-by</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>270</x>
-      <y>270</y>
-      <w>80</w>
-      <h>190</h>
+      <x>432</x>
+      <y>432</y>
+      <w>96</w>
+      <h>228</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..*
@@ -175,10 +176,10 @@ contains</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>520</x>
-      <y>240</y>
-      <w>50</w>
-      <h>110</h>
+      <x>732</x>
+      <y>396</y>
+      <w>60</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
@@ -189,10 +190,10 @@ has</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>320</y>
-      <w>220</w>
-      <h>50</h>
+      <x>792</x>
+      <y>492</y>
+      <w>264</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
@@ -203,10 +204,10 @@ changes-properties-of</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>810</x>
-      <y>210</y>
-      <w>140</w>
-      <h>130</h>
+      <x>1080</x>
+      <y>360</y>
+      <w>168</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
@@ -217,10 +218,10 @@ has</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>860</x>
-      <y>320</y>
-      <w>130</w>
-      <h>50</h>
+      <x>1140</x>
+      <y>492</y>
+      <w>156</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..1
@@ -231,10 +232,10 @@ is-on</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>210</y>
-      <w>110</w>
-      <h>130</h>
+      <x>1248</x>
+      <y>360</y>
+      <w>132</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=*
@@ -242,46 +243,5 @@ m2=1
 is-composed-of
 </panel_attributes>
     <additional_attributes>90.0;110.0;90.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>500</x>
-      <y>40</y>
-      <w>100</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>GameLevel
---
-maxBlocks</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>290</x>
-      <y>60</y>
-      <w>230</w>
-      <h>210</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=1
-m2=1
-defines</panel_attributes>
-    <additional_attributes>10.0;190.0;10.0;10.0;210.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>590</x>
-      <y>60</y>
-      <w>370</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=1
-m2=1
-defines</panel_attributes>
-    <additional_attributes>310.0;130.0;310.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
