@@ -11,7 +11,7 @@
       <h>1060</h>
     </coordinates>
     <panel_attributes>title=Blocks
-obj=_:UserInterfaceManager_~ui
+obj=_:UserInterfacerManager_~ui
 obj=:Palette~pal
 obj=_:Block_~b CREATED_LATER
 obj=:Program~p
