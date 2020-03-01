@@ -6,15 +6,15 @@
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>0</x>
-      <y>20</y>
+      <y>0</y>
       <w>1890</w>
-      <h>850</h>
+      <h>1060</h>
     </coordinates>
-    <panel_attributes>title=
-obj=:UserInterfaceManager~ui
-obj=Palette~pal
-obj=Block~b CREATED_LATER
-obj=Program~p
+    <panel_attributes>title=Blocks
+obj=_:UserInterfaceManager_~ui
+obj=:Palette~pal
+obj=_:Block_~b CREATED_LATER
+obj=:Program~p
 
 found-&gt;&gt;&gt;ui: createBlock(type,pos); on=ui;
 ui.&gt;&gt;&gt;b : create(type,pos); 
@@ -37,6 +37,12 @@ combinedFragment=alt~
 ..
 	ui:[pos outside ProgramArea]
 	ui-&gt;&gt;&gt;b: &lt;&lt;destroy&gt;&gt;;destroy=b
+	ui-&gt;&gt;&gt;pal: decreaseBlocks; on=pal;
+	combinedFragment=alt~alt1 pal pal; pal:[numBlocksAvailable &gt; 0];
+	pal-&gt;&gt;&gt;pal + : revealBlocks
+	--=alt1;
+	pal.&gt;ui: numBlocksAvailable; off=pal;
+	off=ui
 --
 
 
