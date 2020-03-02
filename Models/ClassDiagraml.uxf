@@ -82,10 +82,12 @@ addChildrenToQueue(BlockGroup,isLoop)
     <coordinates>
       <x>720</x>
       <y>336</y>
-      <w>120</w>
-      <h>36</h>
+      <w>168</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>ProgramArea</panel_attributes>
+    <panel_attributes>ProgramArea
+--
+programs : Program</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -214,12 +216,12 @@ highlight(blockId)
     <id>Relation</id>
     <coordinates>
       <x>756</x>
-      <y>360</y>
+      <y>384</y>
       <w>36</w>
-      <h>192</h>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
