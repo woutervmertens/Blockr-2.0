@@ -101,7 +101,7 @@
     </coordinates>
     <panel_attributes>&lt;&lt;StatementBlock&gt;&gt;
 --
--children : Block[]
+-children : BlockGroup
 -conditions : ConditionBlock[]
 -isLoop : bool</panel_attributes>
     <additional_attributes/>
@@ -233,22 +233,26 @@
     <id>UMLClass</id>
     <coordinates>
       <x>680</x>
-      <y>30</y>
+      <y>10</y>
       <w>100</w>
-      <h>30</h>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>BlockGroup</panel_attributes>
+    <panel_attributes>BlockGroup
+--
+-pos : (int,int)
+--
++move(int,int)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>720</x>
-      <y>50</y>
+      <y>70</y>
       <w>30</w>
-      <h>100</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
 </diagram>
