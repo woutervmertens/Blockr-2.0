@@ -7,6 +7,7 @@ Project/.gradle/5.2.1/fileHashes/fileHashes.lock
 Project/.gradle/5.2.1/javaCompile/javaCompile.lock
 Project/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 
+########################################################################################################
 # Created by https://www.gitignore.io/api/java,gradle,intellij
 # Edit at https://www.gitignore.io/?templates=java,gradle,intellij
 
@@ -143,4 +144,15 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/java,gradle,intellij
+###############################################################################
 
+
+##########################################
+# src: https://www.hexa1.com/visual-paradigm-gitignore/
+.vpprefdata/
+*.vpp~*
+*.vpp.working
+*.vpp.working-journal
+*.lock
+tmp/*
+##########################################
