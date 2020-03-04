@@ -103,7 +103,8 @@
 --
 -children : BlockGroup
 -conditions : ConditionBlock[]
--isLoop : bool</panel_attributes>
+--
++isLoop()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
