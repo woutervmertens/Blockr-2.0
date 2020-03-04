@@ -18,9 +18,7 @@ program area or is removed from the program area.
 ### Main Success Scenario;
 1. User moves the mouse cursor over a block in the program area,
 then presses the left mouse key.
-2. While pressing the left mouse key, user moves the mouse cursor
-to Program Area, and then releases the left mouse key.
-3. System performs "Add Program Block".
+2. System performs "Add Program Block"-use case (step 2).
 
 
 ### Extensions (or Alternative Flows):
