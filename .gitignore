@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+/Project/.idea/
+*/debug.log
+Project/.gradle/5.2.1/executionHistory/executionHistory.bin
+Project/.gradle/5.2.1/executionHistory/executionHistory.lock
+Project/.gradle/5.2.1/fileHashes/fileHashes.bin
+Project/.gradle/5.2.1/fileHashes/fileHashes.lock
+Project/.gradle/5.2.1/javaCompile/javaCompile.lock
+Project/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+Models/.class diagram.vpp.lck
+*.bak_001d
+=======
 /Project/.idea/
 */debug.log
 Project/.gradle/
@@ -151,3 +163,4 @@ gradle-app.setting
 *.lock
 tmp/*
 ##########################################
+>>>>>>> 3ccc00a6481634031684874efd4845b63d317436
