@@ -1,6 +1,7 @@
 
 Project/.idea/
 */debug.log
+Project/.gradle/*
 Project/.gradle/5.2.1/executionHistory/executionHistory.bin
 Project/.gradle/5.2.1/executionHistory/executionHistory.lock
 Project/.gradle/5.2.1/fileHashes/fileHashes.bin
@@ -162,3 +163,10 @@ gradle-app.setting
 *.lock
 tmp/*
 ##########################################
+Project/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+Project/.gradle/5.2.1/javaCompile/javaCompile.lock
+Project/.gradle/5.2.1/javaCompile/classAnalysis.bin
+Project/.gradle/5.2.1/fileHashes/fileHashes.lock
+Project/.gradle/5.2.1/fileHashes/fileHashes.bin
+Project/.gradle/5.2.1/executionHistory/executionHistory.lock
+Project/.gradle/5.2.1/executionHistory/executionHistory.bin
