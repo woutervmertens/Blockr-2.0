@@ -1,18 +1,9 @@
 
-Project/.idea/
+Code/.idea/
 */debug.log
-Project/.gradle/*
-Project/.gradle/5.2.1/executionHistory/executionHistory.bin
-Project/.gradle/5.2.1/executionHistory/executionHistory.lock
-Project/.gradle/5.2.1/fileHashes/fileHashes.bin
-Project/.gradle/5.2.1/fileHashes/fileHashes.lock
-Project/.gradle/5.2.1/javaCompile/javaCompile.lock
-Project/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 Models/.class diagram.vpp.lck
 *.bak_001d
-/Project/.idea/
 */debug.log
-Project/.gradle/
 
 ########################################################################################################
 # Created by https://www.gitignore.io/api/java,gradle,intellij
