@@ -1,8 +1,4 @@
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -218,7 +214,7 @@ class CanvasWindowRecording {
 }
 
 public class CanvasWindow {
-	
+
 	int width = 600;
 	int height = 600;
 	String title;
