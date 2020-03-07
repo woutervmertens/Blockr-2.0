@@ -16,6 +16,7 @@ public class Palette {
 
     public void draw(Graphics g, Point pos)
     {
+        paletteButtons = new ArrayList<>();
         int blockspace = blockheight + 10;
         //Background
         g.setColor(Color.LIGHT_GRAY);
