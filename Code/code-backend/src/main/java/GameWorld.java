@@ -42,6 +42,10 @@ public class GameWorld {
         this.grid = grid;
     }
 
+    /**
+     * Applies actionblock to the world and checks if the action was valid, if not the action gets undone
+     * @param block The ActionBlock to apply
+     */
     public void parse(ActionBlock block)
     {
         Player playerCopy = new Player(player);
@@ -53,6 +57,10 @@ public class GameWorld {
         }
     }
 
+    /**
+     * @param position A position to validate.
+     * @return is the given position valid
+     */
     private boolean checkValidPosition(Point position) {
         //if outside of grid
         if(position.x < 0 || position.y < 0 || position.y >= grid.length || position.x >= grid[0].length){
@@ -65,6 +73,11 @@ public class GameWorld {
         return true;
     }
 
+    /**
+     * Goes through the given list of ConditionBlocks from back to front and calls their checks
+     * @param conditions A list of ConditionBlocks to check.
+     * @return The overall result of all conditions.
+     */
     public boolean checkConditions(ArrayList<ConditionBlock> conditions)
     {
         boolean result = true;
