@@ -26,22 +26,26 @@ public class BlockGroup {
         return blocks;
     }
 
+    public void setBlocks(ArrayList<Block> blocks) {
+        this.blocks = blocks;
+    }
+
     public Block getBlock(int id)
     {
         return blocks.get(id);
     }
 
     /**
-     * Adds children of statementBlock to end of program queue, if statement is a loop: current block gets added to end again
+     * Adds children of statementBlock behind the parent in the program queue, if statement is a loop: current block gets added to end again
      * @param id The ID of the currentBlock in the queue
      */
-    public void addChildrenToEnd(int id)
+    public void addChildrenBehindParent(int id)
     {
         StatementBlock sb = ((StatementBlock)blocks.get(id));
-        blocks.addAll((Collection<? extends Block>) sb.getChildren());
+        blocks.addAll(id + 1,(Collection<? extends Block>) sb.getChildren());
         if(sb.isLoop())
         {
-            blocks.add(sb);
+            blocks.add(id + ((Collection<? extends Block>) sb.getChildren()).size() + 1,sb);
         }
     }
 }

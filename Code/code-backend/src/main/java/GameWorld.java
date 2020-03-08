@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameWorld {
-    Player player;
+    Player player, start;
     Point goalPosition;
     Square[][] grid;
 
     public GameWorld(Player player, Square[][] grid, Point goalPosition) {
         this.player = player;
+        this.start = player;
         this.grid = grid;
         this.goalPosition = goalPosition;
     }
@@ -40,6 +41,13 @@ public class GameWorld {
 
     public void setGrid(Square[][] grid) {
         this.grid = grid;
+    }
+
+    /**
+     * Resets player to start position and orientation
+     */
+    public void Reset(){
+        player = start;
     }
 
     /**

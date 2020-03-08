@@ -1,13 +1,20 @@
+import Blocks.ActionBlock;
+import Blocks.Block;
+import Blocks.StatementBlock;
+
+import java.util.ArrayList;
+
 /**
  * A program written by the player, represented as Block elements in a List
  */
 public class Program {
     int currentBlockId;
     BlockGroup blockQueue;
+    ArrayList<Block> blockQueueBackup;
 
     public Program(int currentBlockId, BlockGroup blockQueue) {
         this.currentBlockId = currentBlockId;
-        this.blockQueue = blockQueue;
+        setBlockQueue(blockQueue);
     }
 
     public int getCurrentBlockId() {
@@ -24,16 +31,36 @@ public class Program {
 
     public void setBlockQueue(BlockGroup blockQueue) {
         this.blockQueue = blockQueue;
+        this.blockQueueBackup = this.blockQueue.getBlocks();
     }
 
     /**
-     * Runs program block
+     * Resets active block to start and reverts to first blockQueue
+     */
+    public void Reset()
+    {
+        currentBlockId = 0;
+        blockQueue.setBlocks(blockQueueBackup);
+    }
+
+    /**
+     * Runs program block:
+     * - ActionBlock: parse result to gameworld
+     * - StatementBlock: check conditions, if true: add children to queue
      */
     public void executeNextStep(){
         currentBlockId++;
-        //TODO parse current block
-        //TODO check conditions if needed
-        //TODO call changes to gameworld if needed
+        Block cb = blockQueue.getBlock(currentBlockId);
+        if(cb instanceof ActionBlock) {
+            //TODO parse current block: GameWorld.parse(cb);
+        }else if(cb instanceof StatementBlock)
+        {
+            //TODO check conditions: if(GameWorld.checkConditions(cb.getConditions()))
+            {
+                addChildrenToQueue();
+            }
+        }
+        //conditionBlock not allowed
     }
 
     /**
@@ -41,6 +68,6 @@ public class Program {
      * Adds children of statementBlock to end of program queue, if statement is a loop: current block gets added to end again
      */
     public void addChildrenToQueue(){
-        blockQueue.addChildrenToEnd(currentBlockId);
+        blockQueue.addChildrenBehindParent(currentBlockId);
     }
 }
