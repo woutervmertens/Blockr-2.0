@@ -1,12 +1,20 @@
+package WorldElements;
+
 import java.awt.*;
 
-public class Player {
+public class Player{
     Point position;
-    int direction;
+    Directions direction;
 
-    public Player(Point position, int direction) {
+    public Player(Point position, Directions direction) {
         this.position = position;
         this.direction = direction;
+    }
+
+    public Player(Player p)
+    {
+        this.position = p.getPosition();
+        this.direction = p.getDirection();
     }
 
     public Point getPosition() {
@@ -17,11 +25,11 @@ public class Player {
         this.position = position;
     }
 
-    public int getDirection() {
+    public Directions getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(Directions direction) {
         this.direction = direction;
     }
 }

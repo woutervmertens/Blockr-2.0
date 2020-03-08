@@ -1,8 +1,10 @@
+package WorldElements;
+
 public abstract class Square {
     boolean isPassable;
 
-    public Square(boolean isPassable) {
-        this.isPassable = isPassable;
+    public Square() {
+
     }
 
     public boolean isPassable() {
