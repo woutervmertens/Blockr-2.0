@@ -1,4 +1,4 @@
-import Blocks.Block;
+import blocks.Block;
 
 import java.util.ArrayList;
 

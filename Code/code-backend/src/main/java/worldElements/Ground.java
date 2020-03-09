@@ -1,4 +1,4 @@
-package WorldElements;
+package worldElements;
 
 public class Ground extends Square {
     public Ground() {

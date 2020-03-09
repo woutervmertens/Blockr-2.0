@@ -1,6 +1,6 @@
-package Blocks;
+package blocks;
 
-import WorldElements.Character;
+import worldElements.Character;
 
 public class TurnBlock extends ActionBlock {
     @Override

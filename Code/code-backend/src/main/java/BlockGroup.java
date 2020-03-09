@@ -1,13 +1,13 @@
-import Blocks.Block;
-import Blocks.StatementBlock;
+import blocks.Block;
+import blocks.StatementBlock;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class BlockGroup {
-    Point position;
-    ArrayList<Block> blocks;
+    private Point position;
+    private ArrayList<Block> blocks;
 
     public BlockGroup(Point position, ArrayList<Block> blocks) {
         this.position = position;

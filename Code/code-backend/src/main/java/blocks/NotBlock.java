@@ -1,6 +1,6 @@
-package Blocks;
+package blocks;
 
-import WorldElements.Square;
+import worldElements.Square;
 
 public class NotBlock extends ConditionBlock {
     @Override

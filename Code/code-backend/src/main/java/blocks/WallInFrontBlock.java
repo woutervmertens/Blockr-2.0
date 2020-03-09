@@ -1,11 +1,10 @@
-package Blocks;
+package blocks;
 
-import WorldElements.Square;
-import WorldElements.Wall;
+import worldElements.Square;
 
 public class WallInFrontBlock extends ConditionBlock{
     @Override
     public boolean checkCondition(boolean result, Square squareInFront) {
-        return (squareInFront instanceof Wall);
+        return (squareInFront.isPassable());
     }
 }
