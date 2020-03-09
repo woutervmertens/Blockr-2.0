@@ -1,13 +1,15 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class MyCanvasWindow extends CanvasWindow {
 
-    Point pos = new Point(0, 0);
-    UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
-    UIProgramArea UIProgramArea = new UIProgramArea();
+    private Point pos = new Point(0, 0);
+    private UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
+    private UIProgramArea UIProgramArea = new UIProgramArea();
+    private UIGameWorld UIGameWorld = new UIGameWorld();
     //Handlers
-    ClickHandler clickHandler = new ClickHandler(UIPalette);
+    private ClickHandler clickHandler = new ClickHandler(UIPalette);
 
     /**
      * Initializes a CanvasWindow object.
@@ -22,7 +24,7 @@ public class MyCanvasWindow extends CanvasWindow {
     protected void paint(Graphics g) {
         UIPalette.draw(g,new Point(0,0));
         UIProgramArea.draw(g,new Point(200,0));
-
+        UIGameWorld.draw(g,new Point(400,0));
     }
 
     /**
@@ -55,12 +57,22 @@ public class MyCanvasWindow extends CanvasWindow {
 
     /**
      * Calls the respective handlers for each supported key input.
-     * @param id The KeyEvent id.
-     * @param keyCode
-     * @param keyChar
+     * @param id The KeyEvent id (Pressed or typed).
+     * @param keyCode The numerical value of the key.
+     * @param keyChar The char value of the key.
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
         super.handleKeyEvent(id, keyCode, keyChar);
+        if(id == KeyEvent.KEY_PRESSED) {
+            switch (keyCode) {
+                case 116: //F5
+                    //TODO: handle step through code
+                    break;
+                case 27: //Escape
+                    //TODO: handle reset
+                    break;
+            }
+        }
     }
 }

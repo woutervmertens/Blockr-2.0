@@ -3,19 +3,19 @@ package UIElements;
 import java.awt.*;
 
 public abstract class UIGridElement {
-    protected Point gridPosition;
+    protected Point posInGrid;
     protected Color color;
 
-    public UIGridElement(Point gridPosition) {
-        this.gridPosition = gridPosition;
+    public UIGridElement(Point posInGrid) {
+        this.posInGrid = posInGrid;
     }
 
-    public Point getGridPosition() {
-        return gridPosition;
+    public Point getPosInGrid() {
+        return posInGrid;
     }
 
-    public void setGridPosition(Point gridPosition) {
-        this.gridPosition = gridPosition;
+    public void setPosInGrid(Point posInGrid) {
+        this.posInGrid = posInGrid;
     }
 
     public Color getColor() {
@@ -26,9 +26,13 @@ public abstract class UIGridElement {
         this.color = color;
     }
 
-    public Polygon getPolygon(int size)
+    public Polygon getPolygon(int size, Point gridPos)
     {
         return new Polygon();
+    }
+
+    protected Point getOffset(int size,Point posOfGrid){
+        return new Point(posOfGrid.x + posInGrid.x * size,posOfGrid.y + posInGrid.y * size);
     }
 
 }
