@@ -3,18 +3,19 @@ package UIElements;
 import java.awt.*;
 
 public class UIGridGround extends UIGridElement {
-    public UIGridGround(Point gridPosition) {
-        super(gridPosition);
+    public UIGridGround(Point posInGrid) {
+        super(posInGrid);
         color = Color.WHITE;
     }
 
     @Override
-    public Polygon getPolygon(int size) {
+    public Polygon getPolygon(int size,Point gridPos) {
+        Point offset = getOffset(size,gridPos);
         Polygon p = new Polygon();
-        p.addPoint(5,5);
-        p.addPoint(size - 5,5);
-        p.addPoint(size - 5,size - 5);
-        p.addPoint(5, size - 5);
+        p.addPoint(offset.x + 5,offset.y + 5);
+        p.addPoint(offset.x + size - 5,offset.y + 5);
+        p.addPoint(offset.x + size - 5,offset.y + size - 5);
+        p.addPoint(offset.x + 5, offset.y + size - 5);
         return p;
     }
 }
