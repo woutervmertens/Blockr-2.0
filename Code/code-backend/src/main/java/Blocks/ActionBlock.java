@@ -1,7 +1,7 @@
 package Blocks;
 
-import WorldElements.Player;
+import WorldElements.Character;
 
 public abstract class ActionBlock extends Block{
-    public void doAction(Player player){};
+    public void doAction(Character character){};
 }

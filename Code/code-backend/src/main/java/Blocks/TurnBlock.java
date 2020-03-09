@@ -1,10 +1,10 @@
 package Blocks;
 
-import WorldElements.Player;
+import WorldElements.Character;
 
 public class TurnBlock extends ActionBlock {
     @Override
-    public void doAction(Player player) {
+    public void doAction(Character character) {
 
     }
 }

@@ -4,10 +4,10 @@ import java.awt.event.MouseEvent;
 public class MyCanvasWindow extends CanvasWindow {
 
     Point pos = new Point(0, 0);
-    Palette palette = new Palette(super.width/3,super.height,30);
-    ProgramArea programArea = new ProgramArea();
+    UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
+    UIProgramArea UIProgramArea = new UIProgramArea();
     //Handlers
-    ClickHandler clickHandler = new ClickHandler(palette);
+    ClickHandler clickHandler = new ClickHandler(UIPalette);
 
     /**
      * Initializes a CanvasWindow object.
@@ -20,8 +20,8 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        palette.draw(g,new Point(0,0));
-        programArea.draw(g,new Point(200,0));
+        UIPalette.draw(g,new Point(0,0));
+        UIProgramArea.draw(g,new Point(200,0));
 
     }
 
