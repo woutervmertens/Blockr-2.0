@@ -2,16 +2,16 @@ package WorldElements;
 
 import java.awt.*;
 
-public class Player{
+public class Character {
     Point position;
     Directions direction;
 
-    public Player(Point position, Directions direction) {
+    public Character(Point position, Directions direction) {
         this.position = position;
         this.direction = direction;
     }
 
-    public Player(Player p)
+    public Character(Character p)
     {
         this.position = p.getPosition();
         this.direction = p.getDirection();

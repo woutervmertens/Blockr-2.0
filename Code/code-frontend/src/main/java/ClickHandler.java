@@ -1,15 +1,15 @@
 public class ClickHandler {
-    Palette palette;
+    UIPalette UIPalette;
     ClickOnBlockHandler clickOnBlockHandler = new ClickOnBlockHandler();
 
-    public ClickHandler(Palette p)
+    public ClickHandler(UIPalette p)
     {
-        palette = p;
+        UIPalette = p;
     }
 
     public void handleClick(int x, int y){
-        if(x <= palette.getWidth()) {
-            BlockTypes bt = palette.getBlockTypeClicked(y);
+        if(x <= UIPalette.getWidth()) {
+            BlockTypes bt = UIPalette.getBlockTypeClicked(y);
             if(bt == BlockTypes.INVALIDTYPE) System.out.println("not valid");
             else
                 clickOnBlockHandler.createBlock(bt,x,y);

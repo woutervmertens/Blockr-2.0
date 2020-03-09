@@ -1,13 +1,13 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Palette {
+public class UIPalette {
 
     int blockheight = 30;
     int height = 600;
     int width = 200;
     ArrayList<PaletteButton> paletteButtons = new ArrayList<>();
-    public Palette(int width, int height, int blockheight)
+    public UIPalette(int width, int height, int blockheight)
     {
         this.width = width;
         this.height = height;

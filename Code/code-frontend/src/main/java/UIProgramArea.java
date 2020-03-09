@@ -1,8 +1,8 @@
 
 import java.awt.*;
 
-public class ProgramArea {
-    public ProgramArea(){
+public class UIProgramArea {
+    public UIProgramArea(){
 
     }
 

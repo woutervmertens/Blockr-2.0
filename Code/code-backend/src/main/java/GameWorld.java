@@ -1,6 +1,6 @@
 import Blocks.ActionBlock;
 import Blocks.ConditionBlock;
-import WorldElements.Player;
+import WorldElements.Character;
 import WorldElements.Square;
 
 import java.awt.*;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameWorld {
-    Player player, start;
+    Character character, start;
     Point goalPosition;
     Square[][] grid;
 
-    public GameWorld(Player player, Square[][] grid, Point goalPosition) {
-        this.player = player;
-        this.start = player;
+    public GameWorld(Character character, Square[][] grid, Point goalPosition) {
+        this.character = character;
+        this.start = character;
         this.grid = grid;
         this.goalPosition = goalPosition;
     }
@@ -27,12 +27,12 @@ public class GameWorld {
         this.goalPosition = goalPosition;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Character getCharacter() {
+        return character;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     public Square[][] getGrid() {
@@ -47,7 +47,7 @@ public class GameWorld {
      * Resets player to start position and orientation
      */
     public void Reset(){
-        player = start;
+        character = start;
     }
 
     /**
@@ -56,12 +56,12 @@ public class GameWorld {
      */
     public void parse(ActionBlock block)
     {
-        Player playerCopy = new Player(player);
-        block.doAction(player);
-        if(!checkValidPosition(player.getPosition()))
+        Character characterCopy = new Character(character);
+        block.doAction(character);
+        if(!checkValidPosition(character.getPosition()))
         {
             //TODO error, buiten speelveld/op muur: INVALID ACTION
-            player.setPosition(playerCopy.getPosition());
+            character.setPosition(characterCopy.getPosition());
         }
     }
 
@@ -92,21 +92,21 @@ public class GameWorld {
         Collections.reverse(conditions);
         Square sq;
         //Get square in front
-        switch (player.getDirection()) {
+        switch (character.getDirection()) {
             case UP:
-                sq = (grid[player.getPosition().y - 1][player.getPosition().x]);
+                sq = (grid[character.getPosition().y - 1][character.getPosition().x]);
                 break;
             case RIGHT:
-                sq = (grid[player.getPosition().y][player.getPosition().x + 1]);
+                sq = (grid[character.getPosition().y][character.getPosition().x + 1]);
                 break;
             case DOWN:
-                sq = (grid[player.getPosition().y + 1][player.getPosition().x]);
+                sq = (grid[character.getPosition().y + 1][character.getPosition().x]);
                 break;
             case LEFT:
-                sq = (grid[player.getPosition().y][player.getPosition().x - 1]);
+                sq = (grid[character.getPosition().y][character.getPosition().x - 1]);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + player.getDirection());
+                throw new IllegalStateException("Unexpected value: " + character.getDirection());
         }
         for (ConditionBlock cond : conditions)
         {
