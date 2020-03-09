@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
+import Blocks.*;
 
-public class BlockTest {
+public class BlocksTest {
 
     @Test
     public void test() {

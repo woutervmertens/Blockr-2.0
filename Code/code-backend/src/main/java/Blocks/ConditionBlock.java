@@ -1,6 +1,8 @@
 package Blocks;
 
-public abstract class ConditionBlock extends Block {
+import WorldElements.Square;
 
+public abstract class ConditionBlock extends Block {
+    public boolean checkCondition(boolean result, Square squareInFront){return result;}
 
 }
