@@ -1,3 +1,5 @@
+import UIElements.BlockTypes;
+
 public class ClickHandler {
     UIPalette UIPalette;
     ClickOnBlockHandler clickOnBlockHandler = new ClickOnBlockHandler();

@@ -3,8 +3,10 @@ package UIElements;
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
-    public UIActionBlock(int width, int height, Point position) {
-        super(width, height, position);
+    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
+        super(width, height, position, text, type);
+        color = Color.red;
+        highlightColor = Color.getHSBColor(0,80,100); //light red
     }
 
 

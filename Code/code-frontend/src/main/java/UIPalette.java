@@ -1,3 +1,6 @@
+import UIElements.BlockTypes;
+import UIElements.UIStatementBlock;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -24,7 +27,7 @@ public class UIPalette {
 
         //BlockButtons
         //action
-        paletteButtons.add(new PaletteButton(Color.RED,"Move forward",BlockTypes.MoveForward));
+        paletteButtons.add(new PaletteButton(Color.RED,"Move forward", BlockTypes.MoveForward));
         paletteButtons.add(new PaletteButton(Color.RED,"Turn Left",BlockTypes.TurnLeft));
         paletteButtons.add(new PaletteButton(Color.RED,"Turn Right",BlockTypes.TurnRight));
         //statement
@@ -41,6 +44,11 @@ public class UIPalette {
             g.setColor(paletteButtons.get(i).getFontColor());
             g.drawString(paletteButtons.get(i).getText(),pos.x + 55,pos.y + blockheight + blockspace*i);
         }
+        UIStatementBlock sb = new UIStatementBlock(180,30,new Point(pos.x + 10, pos.y + 300),"Test",BlockTypes.IfStatement,30);
+        g.setColor(sb.getColor(false));
+        g.fillPolygon(sb.getPolygon());
+        g.setColor(Color.black);
+        g.drawString(sb.getText(),sb.getTextPosition().x,sb.getTextPosition().y);
     }
 
     public BlockTypes getBlockTypeClicked(int y) {

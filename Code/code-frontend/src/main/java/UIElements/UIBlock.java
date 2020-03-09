@@ -6,11 +6,16 @@ public abstract class UIBlock {
     int width;
     int height = 30;
     Point position;
+    Color color, highlightColor;
+    String text;
+    BlockTypes type;
 
-    public UIBlock(int width, int height, Point position) {
+    public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;
         this.height = height;
         this.position = position;
+        this.text = text;
+        this.type = type;
     }
 
     public int getWidth() {
@@ -33,8 +38,31 @@ public abstract class UIBlock {
         return position;
     }
 
+    public Point getTextPosition(){ return new Point(position.x + 20, position.y + 20);}
+
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public BlockTypes getType() {
+        return type;
+    }
+
+    public void setType(BlockTypes type) {
+        this.type = type;
+    }
+
+    public Color getColor(boolean isHiglighted) {
+        if(isHiglighted) return highlightColor;
+        return color;
     }
 
     public Polygon getPolygon()

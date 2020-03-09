@@ -1,3 +1,5 @@
+package UIElements;
+
 public enum BlockTypes {
     MoveForward,
     TurnLeft,

@@ -4,8 +4,10 @@ import java.awt.*;
 
 public class UIConditionBlock extends UIBlock
 {
-    public UIConditionBlock(int width, int height, Point position) {
-        super(width, height, position);
+    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
+        super(width, height, position, text, type);
+        color = Color.orange;
+        highlightColor = Color.getHSBColor(45,65,100); //light orange
     }
 
     @Override

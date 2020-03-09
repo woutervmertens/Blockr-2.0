@@ -4,9 +4,11 @@ import java.awt.*;
 
 public class UIStatementBlock extends UIBlock{
     int gapSize;
-    public UIStatementBlock(int width, int height, Point position, int gapSize) {
-        super(width, height, position);
+    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
+        super(width, height, position, text, type);
         this.gapSize = gapSize;
+        color = Color.CYAN;
+        highlightColor = Color.getHSBColor(180,100,30);
     }
 
     public int getGapSize() {
@@ -15,6 +17,11 @@ public class UIStatementBlock extends UIBlock{
 
     public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
+    }
+
+    @Override
+    public int getHeight() {
+        return super.getHeight();
     }
 
     @Override
@@ -42,11 +49,11 @@ public class UIStatementBlock extends UIBlock{
         pol.addPoint(position.x + width, position.y + height*2 + gapSize);
 
         //plug bottom
-        pol.addPoint(position.x + step*4, position.y + height);
-        pol.addPoint(position.x + step*3, position.y + height + step);
-        pol.addPoint(position.x + step*2, position.y + height);
+        pol.addPoint(position.x + step*4, position.y + height*2 + gapSize);
+        pol.addPoint(position.x + step*3, position.y + height*2 + gapSize + step);
+        pol.addPoint(position.x + step*2, position.y + height*2 + gapSize);
 
-        pol.addPoint(position.x,position.y + height);
+        pol.addPoint(position.x,position.y + height*2 + gapSize);
         return pol;
     }
 }
