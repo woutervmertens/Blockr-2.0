@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UIProgramArea {
-    ArrayList<UIBlock> blocks = new ArrayList<>();
-    int highlightedBlockNumber;
+    private ArrayList<UIBlock> blocks = new ArrayList<>();
+    private int highlightedBlockNumber;
 
     public UIProgramArea(){
 

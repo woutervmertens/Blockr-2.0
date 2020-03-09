@@ -3,7 +3,7 @@ package UIElements;
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock{
-    int gapSize;
+    private int gapSize;
     public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
         super(width, height, position, text, type);
         this.gapSize = gapSize;

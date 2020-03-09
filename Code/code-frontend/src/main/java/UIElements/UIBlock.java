@@ -3,12 +3,12 @@ package UIElements;
 import java.awt.*;
 
 public abstract class UIBlock {
-    int width;
-    int height = 30;
-    Point position;
-    Color color, highlightColor;
-    String text;
-    BlockTypes type;
+    protected int width;
+    protected int height = 30;
+    protected Point position;
+    protected Color color, highlightColor;
+    protected String text;
+    protected BlockTypes type;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;

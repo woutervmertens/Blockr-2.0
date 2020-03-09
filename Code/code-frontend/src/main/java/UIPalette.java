@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class UIPalette {
 
-    int blockheight = 30;
-    int height = 600;
-    int width = 200;
-    ArrayList<PaletteButton> paletteButtons = new ArrayList<>();
+    private int blockheight = 30;
+    private int height = 600;
+    private int width = 200;
+    private ArrayList<PaletteButton> paletteButtons = new ArrayList<>();
     public UIPalette(int width, int height, int blockheight)
     {
         this.width = width;
