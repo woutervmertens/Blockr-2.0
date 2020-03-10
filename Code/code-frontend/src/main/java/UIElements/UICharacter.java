@@ -6,8 +6,10 @@ public class UICharacter extends UIGridElement{
 
 
 
-    public UICharacter(Point posInGrid) {
+    public UICharacter(Point posInGrid, Directions direction) {
         super(posInGrid);
+        color = Color.red;
+        this.direction = direction;
     }
 
     Directions direction; //replace with the one from backend
@@ -41,9 +43,3 @@ public class UICharacter extends UIGridElement{
     }
 }
 
-enum Directions {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT
-}

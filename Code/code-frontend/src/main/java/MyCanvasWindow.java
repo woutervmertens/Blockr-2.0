@@ -7,8 +7,9 @@ public class MyCanvasWindow extends CanvasWindow {
     private Point pos = new Point(0, 0);
     private UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
     private UIProgramArea UIProgramArea = new UIProgramArea();
-    private UIGameWorld UIGameWorld = new UIGameWorld();
+    private UIGameWorld UIGameWorld = new UIGameWorld(30);
     //Handlers
+    private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
     private ClickHandler clickHandler = new ClickHandler(UIPalette);
 
     /**

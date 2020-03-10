@@ -5,6 +5,7 @@ import java.awt.*;
 public abstract class UIBlock {
     protected int width;
     protected int height = 30;
+    protected  boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
     protected String text;
@@ -16,6 +17,7 @@ public abstract class UIBlock {
         this.position = position;
         this.text = text;
         this.type = type;
+        isAvailable = false;
     }
 
     public int getWidth() {
@@ -63,6 +65,14 @@ public abstract class UIBlock {
     public Color getColor(boolean isHiglighted) {
         if(isHiglighted) return highlightColor;
         return color;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public Polygon getPolygon()

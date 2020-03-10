@@ -5,7 +5,7 @@ import java.awt.*;
 public class UIGridGround extends UIGridElement {
     public UIGridGround(Point posInGrid) {
         super(posInGrid);
-        color = Color.WHITE;
+        color = Color.lightGray;
     }
 
     @Override
