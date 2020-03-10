@@ -5,22 +5,26 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UIProgramArea {
+    private Point pos;
+    private int width;
+    private int height;
     private ArrayList<UIBlock> blocks = new ArrayList<>();
     private int highlightedBlockNumber = -1;
 
-    public UIProgramArea(){
-
+    public UIProgramArea(Point pos, int width, int height){
+        this.pos = pos;
+        this.width = width;
+        this.height = height;
     }
 
     /**
      * Draws the backdrop and the blocks
      * @param g The Graphics element
-     * @param pos The position of the ProgramArea
      */
-    public void draw(Graphics g, Point pos)
+    public void draw(Graphics g)
     {
         g.setColor(Color.PINK);
-        g.fillRect(pos.x,pos.y,200,600);
+        g.fillRect(pos.x,pos.y,width,height);
 
         int i = 0;
         for (UIBlock block : blocks)
@@ -39,5 +43,13 @@ public class UIProgramArea {
     public void Reset()
     {
         highlightedBlockNumber = -1;
+    }
+
+    public boolean isWithin(int x, int y)
+    {
+        return (x > pos.x
+                && x < pos.x + width
+                && y > pos.y
+                && y < pos.y + height);
     }
 }

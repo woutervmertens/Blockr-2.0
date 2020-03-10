@@ -10,14 +10,14 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock dragBlock;
     private Point pos = new Point(0, 0);
     //Views
-    private UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
-    private UIProgramArea UIProgramArea = new UIProgramArea();
-    private UIGameWorld UIGameWorld = new UIGameWorld(30);
+    private UIPalette UIPalette = new UIPalette(new Point(0,0),super.width/3,super.height,30);
+    private UIProgramArea UIProgramArea = new UIProgramArea(new Point(0,0),super.width/3,super.height);
+    private UIGameWorld UIGameWorld = new UIGameWorld(new Point(0,0),30);
     //Handlers
     private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
-    private ClickHandler clickHandler = new ClickHandler(UIPalette);
-    private KeyHandler keyHandler = new KeyHandler(UIGameWorld);
-    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler();
+    private ClickHandler clickHandler = new ClickHandler(UIPalette, UIProgramArea);
+    private KeyHandler keyHandler = new KeyHandler(UIGameWorld, UIProgramArea);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(UIProgramArea,UIPalette);
 
 
     /**
@@ -31,9 +31,9 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        UIPalette.draw(g,new Point(0,0));
-        UIProgramArea.draw(g,new Point(200,0));
-        UIGameWorld.draw(g,new Point(400,0));
+        UIPalette.draw(g);
+        UIProgramArea.draw(g);
+        UIGameWorld.draw(g);
         if(dragBlock != null)
         {
             g.setColor(dragBlock.getColor(false));
@@ -70,7 +70,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
-                displaceBlockHandler.handleRelease();
+                displaceBlockHandler.handleRelease(x,y, dragBlock);
                 dragBlock = null;
                 repaint();
                 break;

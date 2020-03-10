@@ -2,20 +2,25 @@ import UIElements.BlockTypes;
 import UIElements.UIBlock;
 
 public class ClickHandler {
-    UIPalette UIPalette;
-    ClickOnBlockHandler clickOnBlockHandler = new ClickOnBlockHandler();
+    private UIPalette uiPalette;
+    private UIProgramArea uiProgramArea;
+    private ClickOnBlockHandler clickOnBlockHandler = new ClickOnBlockHandler();
 
-    public ClickHandler(UIPalette p)
+    public ClickHandler(UIPalette palette, UIProgramArea programArea)
     {
-        UIPalette = p;
+        uiPalette = palette;
+        this.uiProgramArea = programArea;
     }
 
     public UIBlock handleClick(int x, int y){
-        if(x <= UIPalette.getWidth()) {
-            BlockTypes bt = UIPalette.getBlockTypeClicked(y);
+        if(uiPalette.isWithin(x,y) && !uiPalette.isHidden()) {
+            BlockTypes bt = uiPalette.getBlockTypeClicked(y);
             if(bt == BlockTypes.INVALIDTYPE) System.out.println("not valid");
             else
-                return clickOnBlockHandler.createBlock(bt,x,y,UIPalette.getWidth() - 20,UIPalette.getBlockheight());
+                return clickOnBlockHandler.createBlock(bt,x,y,uiPalette.getWidth() - 20,uiPalette.getBlockheight());
+        }else if(uiProgramArea.isWithin(x,y))
+        {
+            //TODO: click in ProgramArea
         }
         return null;
     }

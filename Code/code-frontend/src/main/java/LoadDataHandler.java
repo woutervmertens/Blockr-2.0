@@ -3,8 +3,8 @@ import UIElements.*;
 import java.awt.*;
 
 public class LoadDataHandler {
-    UIGameWorld uiGameWorld;
-    UIGridElement[][] grid;
+    private UIGameWorld uiGameWorld;
+    private UIGridElement[][] grid;
 
     public LoadDataHandler(UIGameWorld uiGameWorld) {
         this.uiGameWorld = uiGameWorld;

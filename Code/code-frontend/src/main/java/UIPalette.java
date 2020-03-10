@@ -4,14 +4,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UIPalette {
-
+    private Point pos;
     private int blockheight = 30;
     private int height = 600;
     private int width = 200;
     private boolean hidden;
     private ArrayList<UIBlock> paletteButtons = new ArrayList<>();
-    public UIPalette(int width, int height, int blockheight)
+    public UIPalette(Point pos, int width, int height, int blockheight)
     {
+        this.pos = pos;
         this.width = width;
         this.height = height;
         this.blockheight = blockheight;
@@ -40,7 +41,7 @@ public class UIPalette {
         }
     }
 
-    public void draw(Graphics g, Point pos)
+    public void draw(Graphics g)
     {
         //Background
         g.setColor(Color.LIGHT_GRAY);
@@ -91,5 +92,13 @@ public class UIPalette {
 
     public int getBlockheight() {
         return blockheight;
+    }
+
+    public boolean isWithin(int x, int y)
+    {
+        return (x > pos.x
+                && x < pos.x + width
+                && y > pos.y
+                && y < pos.y + height);
     }
 }
