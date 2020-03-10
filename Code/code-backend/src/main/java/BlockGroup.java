@@ -2,17 +2,20 @@ import blocks.Block;
 import blocks.StatementBlock;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class BlockGroup {
-    private Point position;
-    private ArrayList<Block> blocks;
-
-    public BlockGroup(Point position, ArrayList<Block> blocks) {
+    public BlockGroup(Point position, List<Block> blocks) {
         this.position = position;
-        this.blocks = blocks;
+        this.blocks = new LinkedList<>(blocks);
     }
+
+    /**
+     * The position of this BlockGroup in the canvas.
+     */
+    private Point position;
 
     public Point getPosition() {
         return position;
@@ -22,30 +25,32 @@ public class BlockGroup {
         this.position = position;
     }
 
-    public ArrayList<Block> getBlocks() {
+    /**
+     * The blocks who represent the linked list.
+     */
+    private List<Block> blocks = new LinkedList<>();
+
+    public List<Block> getBlocks() {
         return blocks;
     }
 
-    public void setBlocks(ArrayList<Block> blocks) {
-        this.blocks = blocks;
-    }
-
-    public Block getBlock(int id)
-    {
-        return blocks.get(id);
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = new LinkedList<>(blocks);
     }
 
     /**
-     * Adds children of statementBlock behind the parent in the program queue, if statement is a loop: current block gets added to end again
-     * @param id The ID of the currentBlock in the queue
+     * Add the given BlockGroup behind/after the given block.
+     *
+     * @param group The to be added block group
+     * @param block The block of this block group to queue the given group behind
+     * @pre The given block is part of this BlockGroup
+     * @post If given block is last block of group, then simply add given group to queue
+     * @post Otherwise If given block is in the middle of this BlockGroup, then insert given group
      */
-    public void addChildrenBehindParent(int id)
-    {
-        StatementBlock sb = ((StatementBlock)blocks.get(id));
-        blocks.addAll(id + 1,(Collection<? extends Block>) sb.getChildren());
-        if(sb.isLoop())
-        {
-            blocks.add(id + ((Collection<? extends Block>) sb.getChildren()).size() + 1,sb);
-        }
+    public void addGroupBehindBlock(BlockGroup group, Block block) {
+        assert getBlocks().contains(block);
+
+        int i = getBlocks().indexOf(block);
+        getBlocks().addAll(i + 1, group.getBlocks());
     }
 }
