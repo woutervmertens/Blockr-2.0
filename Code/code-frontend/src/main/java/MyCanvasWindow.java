@@ -6,14 +6,19 @@ import java.awt.event.MouseEvent;
 
 public class MyCanvasWindow extends CanvasWindow {
 
+    //Variables
+    private UIBlock dragBlock;
     private Point pos = new Point(0, 0);
+    //Views
     private UIPalette UIPalette = new UIPalette(super.width/3,super.height,30);
     private UIProgramArea UIProgramArea = new UIProgramArea();
     private UIGameWorld UIGameWorld = new UIGameWorld(30);
     //Handlers
     private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
     private ClickHandler clickHandler = new ClickHandler(UIPalette);
-    private UIBlock dragBlock;
+    private KeyHandler keyHandler = new KeyHandler(UIGameWorld);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler();
+
 
     /**
      * Initializes a CanvasWindow object.
@@ -50,6 +55,7 @@ public class MyCanvasWindow extends CanvasWindow {
         super.handleMouseEvent(id, x, y, clickCount);
         switch (id){
             case MouseEvent.MOUSE_PRESSED:
+                keyHandler.reset();
                 dragBlock = clickHandler.handleClick(x,y);
                 break;
             case MouseEvent.MOUSE_CLICKED:
@@ -64,7 +70,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
-                //TODO: create block where needed
+                displaceBlockHandler.handleRelease();
                 dragBlock = null;
                 repaint();
                 break;
@@ -85,10 +91,10 @@ public class MyCanvasWindow extends CanvasWindow {
         if(id == KeyEvent.KEY_PRESSED) {
             switch (keyCode) {
                 case 116: //F5
-                    //TODO: handle step through code
+                    keyHandler.stepThroughCode();
                     break;
                 case 27: //Escape
-                    //TODO: handle reset
+                    keyHandler.reset();
                     break;
             }
         }

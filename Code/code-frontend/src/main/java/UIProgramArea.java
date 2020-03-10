@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class UIProgramArea {
     private ArrayList<UIBlock> blocks = new ArrayList<>();
-    private int highlightedBlockNumber;
+    private int highlightedBlockNumber = -1;
 
     public UIProgramArea(){
 
@@ -29,5 +29,15 @@ public class UIProgramArea {
             g.fillPolygon(block.getPolygon());
             g.drawString(block.getText(),block.getPosition().x + 10, block.getPosition().y + 10);
         }
+    }
+
+    public void increaseHighlightedBlockNumber()
+    {
+        highlightedBlockNumber++;
+    }
+
+    public void Reset()
+    {
+        highlightedBlockNumber = -1;
     }
 }
