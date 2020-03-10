@@ -20,7 +20,7 @@ public abstract class UIBlock {
         this.text = text;
         this.type = type;
         isAvailable = false;
-        //TODO connectionpoints
+        connectionPoints = new ArrayList<>();
     }
 
     public int getWidth() {

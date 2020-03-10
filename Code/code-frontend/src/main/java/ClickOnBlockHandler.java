@@ -15,9 +15,9 @@ public class ClickOnBlockHandler {
             case TurnRight:
                 return new UIActionBlock(width,height,p,"Turn right",type);
             case IfStatement:
-                return new UIStatementBlock(width,height,p,"If statement",type,10);
+                return new UIStatementBlock(width,height,p,"If",type,10);
             case WhileStatement:
-                return new UIStatementBlock(width,height,p,"While statement",type,10);
+                return new UIStatementBlock(width,height,p,"While",type,10);
             case NotCondition:
                 return new UIConditionBlock(width,height,p,"Not",type);
             case WallInFrontCondition:

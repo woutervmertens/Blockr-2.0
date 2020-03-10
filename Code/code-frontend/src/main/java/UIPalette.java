@@ -29,8 +29,8 @@ public class UIPalette {
         paletteButtons.add(new UIActionBlock(width - 20,blockheight,new Point(0,0),"Turn Right",BlockTypes.TurnRight));
 
         //statement
-        paletteButtons.add(new UIStatementBlock(width - 20,blockheight,new Point(0,0),"If statement",BlockTypes.IfStatement,10));
-        paletteButtons.add(new UIStatementBlock(width - 20,blockheight,new Point(0,0),"While statement",BlockTypes.WhileStatement,10));
+        paletteButtons.add(new UIStatementBlock(width - 20,blockheight,new Point(0,0),"If",BlockTypes.IfStatement,10));
+        paletteButtons.add(new UIStatementBlock(width - 20,blockheight,new Point(0,0),"While",BlockTypes.WhileStatement,10));
         //condition
         paletteButtons.add(new UIConditionBlock(width - 20,blockheight,new Point(0,0),"NOT",BlockTypes.NotCondition));
         paletteButtons.add(new UIConditionBlock(width - 20,blockheight,new Point(0,0),"Wall in front",BlockTypes.WallInFrontCondition));

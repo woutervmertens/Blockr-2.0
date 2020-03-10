@@ -7,6 +7,8 @@ public class UIActionBlock extends UIBlock {
         super(width, height, position, text, type);
         color = Color.red;
         highlightColor = Color.getHSBColor(0,80,100); //light red
+        //plug
+        connectionPoints.add(new Point(position.x,position.y + height));
     }
 
 

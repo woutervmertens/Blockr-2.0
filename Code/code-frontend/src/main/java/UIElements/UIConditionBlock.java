@@ -8,6 +8,8 @@ public class UIConditionBlock extends UIBlock
         super(width, height, position, text, type);
         color = Color.orange;
         highlightColor = Color.getHSBColor(45,65,100); //light orange
+        //plug
+        connectionPoints.add(new Point(position.x + width,position.y));
     }
 
     @Override
