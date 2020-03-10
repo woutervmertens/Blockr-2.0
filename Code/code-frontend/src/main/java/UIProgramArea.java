@@ -52,4 +52,8 @@ public class UIProgramArea {
                 && y > pos.y
                 && y < pos.y + height);
     }
+
+    public ArrayList<UIBlock> getBlocks() {
+        return blocks;
+    }
 }

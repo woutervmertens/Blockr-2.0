@@ -1,6 +1,7 @@
 package UIElements;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class UIBlock {
     protected int width;
@@ -10,6 +11,7 @@ public abstract class UIBlock {
     protected Color color, highlightColor;
     protected String text;
     protected BlockTypes type;
+    protected ArrayList<Point> connectionPoints;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;
@@ -18,6 +20,7 @@ public abstract class UIBlock {
         this.text = text;
         this.type = type;
         isAvailable = false;
+        //TODO connectionpoints
     }
 
     public int getWidth() {
@@ -78,6 +81,10 @@ public abstract class UIBlock {
     public Polygon getPolygon()
     {
         return new Polygon();
+    }
+
+    public ArrayList<Point> getConnectionPoints() {
+        return connectionPoints;
     }
 }
 
