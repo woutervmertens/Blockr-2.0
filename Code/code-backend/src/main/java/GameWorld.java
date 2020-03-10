@@ -1,39 +1,25 @@
-import Blocks.ActionBlock;
-import Blocks.ConditionBlock;
-import WorldElements.Character;
-import WorldElements.Square;
+import blocks.ConditionBlock;
+import worldElements.Character;
+import worldElements.Square;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameWorld {
-    Character character, start;
-    Point goalPosition;
-    Square[][] grid;
 
-    public GameWorld(Character character, Square[][] grid, Point goalPosition) {
-        this.character = character;
-        this.start = character;
-        this.grid = grid;
+    public GameWorld(int[] gridDimension, int[] goalPosition) {
+        // TODO: build whole square with nested for loop
+        // TODO: include wall positions in constructor params
+        grid = new Square[gridDimension[0]][gridDimension[1]];
         this.goalPosition = goalPosition;
+        this.character = new Character();
     }
 
-    public Point getGoalPosition() {
-        return goalPosition;
-    }
-
-    public void setGoalPosition(Point goalPosition) {
-        this.goalPosition = goalPosition;
-    }
-
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
+    /**
+     * Grid representing the game world.
+     * Every cell on the grid is a Square. Pos {0,0} on the grid is the lowest leftmost position.
+     */
+    private Square[][] grid;
 
     public Square[][] getGrid() {
         return grid;
@@ -44,75 +30,77 @@ public class GameWorld {
     }
 
     /**
-     * Resets player to start position and orientation
+     * Checks whether any character can have the given position in this world.
      */
-    public void Reset(){
-        character = start;
+    public boolean characterCanHaveAsPosition(int[] position) {
+        if (isPositionInBoundaries(position)) return false;
+        // non-passable square
+        return grid[position[1]][position[0]].isPassable();
+    }
+
+    public boolean isPositionInBoundaries(int[] position) {
+        return position[0] < 0 || position[1] < 0 ||
+                position[1] >= getGrid().length || position[0] >= getGrid()[0].length;
     }
 
     /**
-     * Applies actionblock to the world and checks if the action was valid, if not the action gets undone
-     * @param block The ActionBlock to apply
+     * The goal position of this world that has to be reached by the character controlled by the player.
      */
-    public void parse(ActionBlock block)
-    {
-        Character characterCopy = new Character(character);
-        block.doAction(character);
-        if(!checkValidPosition(character.getPosition()))
-        {
-            //TODO error, buiten speelveld/op muur: INVALID ACTION
-            character.setPosition(characterCopy.getPosition());
-        }
+    private int[] goalPosition;
+
+    public int[] getGoalPosition() {
+        return goalPosition;
+    }
+
+    public void setGoalPosition(int[] goalPosition) {
+        this.goalPosition = goalPosition;
     }
 
     /**
-     * @param position A position to validate.
-     * @return is the given position valid
+     * The character of this game world controlled by the player of the game.
      */
-    private boolean checkValidPosition(Point position) {
-        //if outside of grid
-        if(position.x < 0 || position.y < 0 || position.y >= grid.length || position.x >= grid[0].length){
-            return false;
-        }
-        //if on non-passable square
-        if(!grid[position.y][position.x].isPassable())
-            return false;
+    private Character character;
 
-        return true;
+    public Character getCharacter() {
+        return character;
     }
 
-    /**
-     * Goes through the given list of ConditionBlocks from back to front and calls their checks
-     * @param conditions A list of ConditionBlocks to check.
-     * @return The overall result of all conditions.
-     */
-    public boolean checkConditions(ArrayList<ConditionBlock> conditions)
-    {
-        boolean result = true;
-        Collections.reverse(conditions);
-        Square sq;
-        //Get square in front
-        switch (character.getDirection()) {
-            case UP:
-                sq = (grid[character.getPosition().y - 1][character.getPosition().x]);
-                break;
-            case RIGHT:
-                sq = (grid[character.getPosition().y][character.getPosition().x + 1]);
-                break;
-            case DOWN:
-                sq = (grid[character.getPosition().y + 1][character.getPosition().x]);
-                break;
-            case LEFT:
-                sq = (grid[character.getPosition().y][character.getPosition().x - 1]);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + character.getDirection());
-        }
-        for (ConditionBlock cond : conditions)
-        {
-            result = cond.checkCondition(result,sq);
-        }
-
-        return result;
+    public void setCharacter(Character character) {
+        this.character = character;
     }
+
+//    TODO: Refactor this method to Program class:
+//    /**
+//     * Goes through the given list of ConditionBlocks from back to front and calls their checks
+//     *
+//     * @param conditions A list of ConditionBlocks to check.
+//     * @return The overall result of all conditions.
+//     */
+//    public boolean checkConditions(ArrayList<ConditionBlock> conditions) {
+//        boolean result = true;
+//        Collections.reverse(conditions);
+//        Square sq;
+//        //Get square in front
+//        switch (character.getDirection()) {
+//            case UP:
+//                sq = (grid[character.getPosition().y - 1][character.getPosition().x]);
+//                break;
+//            case RIGHT:
+//                sq = (grid[character.getPosition().y][character.getPosition().x + 1]);
+//                break;
+//            case DOWN:
+//                sq = (grid[character.getPosition().y + 1][character.getPosition().x]);
+//                break;
+//            case LEFT:
+//                sq = (grid[character.getPosition().y][character.getPosition().x - 1]);
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + character.getDirection());
+//        }
+//        for (ConditionBlock cond : conditions) {
+//            result = cond.checkCondition(result, sq);
+//        }
+//
+//        return result;
+//    }
 }

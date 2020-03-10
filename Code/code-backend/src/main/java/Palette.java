@@ -1,10 +1,11 @@
-import Blocks.Block;
+import blocks.Block;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Palette {
     int maxBlocks;
-    ArrayList<Block> allBlocks;
+    List<Block> allBlocks;
 
     public void hideBlocks(){
         setBlocksAvailable(false);

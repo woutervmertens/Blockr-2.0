@@ -1,4 +1,4 @@
-package Blocks;
+package blocks;
 
 public class IfBlock extends StatementBlock {
 }
