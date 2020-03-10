@@ -32,6 +32,14 @@ public class UIProgramArea {
             g.setColor(block.getColor(highlightedBlockNumber == i++));
             g.fillPolygon(block.getPolygon());
             g.drawString(block.getText(),block.getPosition().x + 10, block.getPosition().y + 10);
+            switch (block.getType()){
+                case IfStatement:
+                case WhileStatement:
+                    //TODO: statement children/conditions
+                    //draw conditions
+                    //draw children
+                    break;
+            }
         }
     }
 

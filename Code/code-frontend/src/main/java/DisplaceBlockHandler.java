@@ -6,10 +6,13 @@ import java.awt.*;
 public class DisplaceBlockHandler {
     private UIProgramArea uiProgramArea;
     private UIPalette uiPalette;
+    private ExecuteProgramHandler executeProgramHandler;
 
-    public DisplaceBlockHandler(UIProgramArea uiProgramArea, UIPalette uiPalette) {
+    public DisplaceBlockHandler(UIProgramArea uiProgramArea, UIPalette uiPalette, UIGameWorld uiGameWorld) {
         this.uiProgramArea = uiProgramArea;
         this.uiPalette = uiPalette;
+
+        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
     }
 
     private UIBlock closeBlock = null;
@@ -28,7 +31,8 @@ public class DisplaceBlockHandler {
                 //TODO: handle backend
 
             }else{
-                //TODO: create new program in backend (and disable execution i think)
+                //TODO: create new program in backend
+                executeProgramHandler.reset();
             }
         }
         else

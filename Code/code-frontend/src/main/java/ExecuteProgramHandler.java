@@ -11,4 +11,9 @@ public class ExecuteProgramHandler {
         uiProgramArea.increaseHighlightedBlockNumber();
         //TODO: backend
     }
+
+    public void reset(){
+        uiGameWorld.Reset();
+        uiProgramArea.Reset();
+    }
 }

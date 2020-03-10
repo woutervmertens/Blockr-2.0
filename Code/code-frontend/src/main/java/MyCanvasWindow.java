@@ -17,7 +17,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
     private ClickHandler clickHandler = new ClickHandler(UIPalette, UIProgramArea);
     private KeyHandler keyHandler = new KeyHandler(UIGameWorld, UIProgramArea);
-    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(UIProgramArea,UIPalette);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(UIProgramArea,UIPalette,UIGameWorld);
 
 
     /**

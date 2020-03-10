@@ -14,7 +14,6 @@ public class KeyHandler {
     }
 
     public void reset(){
-        uiGameWorld.Reset();
-        uiProgramArea.Reset();
+        executeProgramHandler.reset();
     }
 }
