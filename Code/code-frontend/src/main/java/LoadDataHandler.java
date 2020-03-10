@@ -25,7 +25,7 @@ public class LoadDataHandler {
         initializeGameWorld();
     }
 
-    public void initializeGameWorld(){
+    private void initializeGameWorld(){
         //Get data
 
         //load data into gameworld

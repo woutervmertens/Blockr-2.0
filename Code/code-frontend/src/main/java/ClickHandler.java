@@ -1,4 +1,5 @@
 import UIElements.BlockTypes;
+import UIElements.UIBlock;
 
 public class ClickHandler {
     UIPalette UIPalette;
@@ -9,12 +10,13 @@ public class ClickHandler {
         UIPalette = p;
     }
 
-    public void handleClick(int x, int y){
+    public UIBlock handleClick(int x, int y){
         if(x <= UIPalette.getWidth()) {
             BlockTypes bt = UIPalette.getBlockTypeClicked(y);
             if(bt == BlockTypes.INVALIDTYPE) System.out.println("not valid");
             else
-                clickOnBlockHandler.createBlock(bt,x,y);
+                return clickOnBlockHandler.createBlock(bt,x,y,UIPalette.getWidth() - 20,UIPalette.getBlockheight());
         }
+        return null;
     }
 }

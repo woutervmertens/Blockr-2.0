@@ -3,7 +3,7 @@ import UIElements.UIGridElement;
 import java.awt.*;
 
 public class UIGameWorld {
-    private UIGridElement[][] grid;
+    private UIGridElement[][] grid, initialGrid;
     private int elementSize;
 
     public UIGameWorld(int elementSize) {
@@ -12,6 +12,7 @@ public class UIGameWorld {
 
     public void setGrid(UIGridElement[][] grid) {
         this.grid = grid;
+        initialGrid = grid;
     }
 
     public void draw(Graphics g, Point pos)
@@ -24,5 +25,10 @@ public class UIGameWorld {
                 g.drawPolygon(el.getPolygon(elementSize,pos));
             }
         }
+    }
+
+    public void Reset()
+    {
+        grid = initialGrid;
     }
 }

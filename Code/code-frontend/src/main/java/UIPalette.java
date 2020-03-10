@@ -88,4 +88,8 @@ public class UIPalette {
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
+
+    public int getBlockheight() {
+        return blockheight;
+    }
 }

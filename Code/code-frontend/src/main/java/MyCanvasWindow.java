@@ -1,3 +1,5 @@
+import UIElements.UIBlock;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -11,6 +13,7 @@ public class MyCanvasWindow extends CanvasWindow {
     //Handlers
     private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
     private ClickHandler clickHandler = new ClickHandler(UIPalette);
+    private UIBlock dragBlock;
 
     /**
      * Initializes a CanvasWindow object.
@@ -26,6 +29,13 @@ public class MyCanvasWindow extends CanvasWindow {
         UIPalette.draw(g,new Point(0,0));
         UIProgramArea.draw(g,new Point(200,0));
         UIGameWorld.draw(g,new Point(400,0));
+        if(dragBlock != null)
+        {
+            g.setColor(dragBlock.getColor(false));
+            g.fillPolygon(dragBlock.getPolygon());
+            g.setColor(Color.BLACK);
+            g.drawString(dragBlock.getText(),dragBlock.getTextPosition().x,dragBlock.getTextPosition().y);
+        }
     }
 
     /**
@@ -40,16 +50,23 @@ public class MyCanvasWindow extends CanvasWindow {
         super.handleMouseEvent(id, x, y, clickCount);
         switch (id){
             case MouseEvent.MOUSE_PRESSED:
+                dragBlock = clickHandler.handleClick(x,y);
                 break;
             case MouseEvent.MOUSE_CLICKED:
-                clickHandler.handleClick(x,y);
                 break;
             case MouseEvent.MOUSE_DRAGGED:
-                pos.x = x;
-                pos.y = y;
-                repaint();
+                if(dragBlock != null)
+                {
+                    pos.x = x;
+                    pos.y = y;
+                    dragBlock.setPosition(pos);
+                    repaint();
+                }
                 break;
             case MouseEvent.MOUSE_RELEASED:
+                //TODO: create block where needed
+                dragBlock = null;
+                repaint();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + id);
