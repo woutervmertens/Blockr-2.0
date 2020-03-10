@@ -94,6 +94,8 @@ public class UIPalette {
         return blockheight;
     }
 
+    public int getNumBlocksAvailable() {return 0; /*TODO:retrieve from backend*/ }
+
     public boolean isWithin(int x, int y)
     {
         return (x > pos.x
