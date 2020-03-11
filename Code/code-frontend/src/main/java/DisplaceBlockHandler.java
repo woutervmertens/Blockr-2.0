@@ -14,21 +14,33 @@ public class DisplaceBlockHandler {
         executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld);
     }
 
-    public void handleRelease(int x, int y, UIBlock block) {
+    /**
+     *
+     * @param x
+     * @param y
+     * @param draggedBlock The block that was dragged until release (if any)
+     */
+    public void handleRelease(int x, int y, UIBlock draggedBlock) {
+        if (draggedBlock == null) throw new IllegalArgumentException("No block was dragged !");
+
         //TODO: create block where needed
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
-            //check if close enough to other blocks plug
-            int radius = 20;
-            UIBlock closeBlock = getBlockWithinRadius(x, y, radius);
-            if (closeBlock != null) {
-                //TODO: connect this block with the close block
-                //TODO: handle backend
 
-            } else {
-                //TODO: create new program in backend
-                executeProgramHandler.reset();
-            }
+
+//            //TODO: check if close enough to other blocks plug
+//            int radius = 20;
+//            UIBlock closeBlock = getBlockWithinRadius(x, y, radius);
+//            if (closeBlock != null) {
+//                //TODO: connect this block with the close block
+//                //TODO: handle backend
+//
+//            } else {
+//                //TODO: create new program in backend
+//                executeProgramHandler.reset();
+//            }
+
+
         } else {
             //TODO: backend: remove currently selected block
             uiPalette.setHidden(false);

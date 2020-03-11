@@ -1,9 +1,7 @@
-import blocks.ActionBlock;
 import blocks.Block;
-import blocks.StatementBlock;
 
 /**
- * A program written by the player, represented as Block elements in a (Linked) List
+ * A program written by the player, represented as blocks.Block elements in a (Linked) List
  */
 public class Program {
 

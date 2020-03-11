@@ -1,16 +1,36 @@
 package UIElements;
 
+import blocks.Block;
+import blocks.MoveBlock;
+import blocks.TurnBlock;
+
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
+    private final Block block;
+
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
         super(width, height, position, text, type);
+        switch (type) {
+            case MoveForward:
+                this.block = new MoveBlock();
+                break;
+            case TurnLeft:
+            case TurnRight:
+                this.block = new TurnBlock();
+                break;
+            default:
+                throw new IllegalArgumentException("Not an Action blocks.Block !");
+        }
         color = Color.red;
         highlightColor = Color.getHSBColor(0, 80, 100); //light red
         //plug
         connectionPoints.add(new Point(position.x, position.y + height));
     }
 
+    public Block getBlock() {
+        return this.block;
+    }
 
     @Override
     public Polygon getPolygon() {

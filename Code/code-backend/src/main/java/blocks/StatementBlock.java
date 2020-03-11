@@ -2,14 +2,9 @@ package blocks;
 
 import java.util.LinkedList;
 
-public abstract class StatementBlock extends Block {
-    LinkedList<ConditionBlock> conditions;
-    BlockGroup children;
-
-    public boolean isLoop()
-    {
-        return false;
-    }
+public abstract class StatementBlock extends Block{
+    LinkedList<ConditionBlock> conditions;  // Currently either WIF or Not WIF
+    BlockGroup body;
 
     public LinkedList<ConditionBlock> getConditions() {
         return conditions;
@@ -19,11 +14,23 @@ public abstract class StatementBlock extends Block {
         this.conditions = conditions;
     }
 
-    public BlockGroup getChildren() {
-        return children;
+    public boolean isConditionValid() {
+        if (conditions.get(0) instanceof WallInFrontBlock) {
+            return true;
+            // TODO: check if true ...
+        } else if (conditions.get(0) instanceof NotBlock) {
+            return false;
+        } else {
+            throw new IllegalStateException("Illegal Condition of StatementBlock !");
+        }
     }
 
-    public void setChildren(BlockGroup children) {
-        this.children = children;
+    public BlockGroup getBody() {
+        return body;
     }
+
+    public void setBody(BlockGroup children) {
+        this.body = children;
+    }
+
 }
