@@ -1,4 +1,3 @@
-import UIElements.BlockTypes;
 import UIElements.UIBlock;
 
 import java.awt.*;
@@ -12,50 +11,49 @@ public class DisplaceBlockHandler {
         this.uiProgramArea = uiProgramArea;
         this.uiPalette = uiPalette;
 
-        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
+        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld);
     }
 
-    private UIBlock closeBlock = null;
-    private Point connectionPoint = null;
-
-    public void handleRelease(int x, int y, UIBlock block){
+    public void handleRelease(int x, int y, UIBlock block) {
         //TODO: create block where needed
-        if(uiProgramArea.isWithin(x,y))
-        {
-            Point dropPos = new Point(x,y);
+        if (uiProgramArea.isWithin(x, y)) {
+            Point dropPos = new Point(x, y);
             //check if close enough to other blocks plug
-            getBlockConnectionsWithinRadius(x,y,20);
-            if(closeBlock != null){
-                Point newPos = closeBlock.getPosition();
-                block.setPosition(connectionPoint);
+            int radius = 20;
+            UIBlock closeBlock = getBlockWithinRadius(x, y, radius);
+            if (closeBlock != null) {
+                //TODO: connect this block with the close block
                 //TODO: handle backend
 
-            }else{
+            } else {
                 //TODO: create new program in backend
                 executeProgramHandler.reset();
             }
-        }
-        else
-        {
+        } else {
             //TODO: backend: remove currently selected block
             uiPalette.setHidden(false);
         }
     }
 
-    private void getBlockConnectionsWithinRadius(int x, int y, int radius) {
-        for (UIBlock b : uiProgramArea.getBlocks()){
-            for (Point con : b.getConnectionPoints()) {
-                if (getDistance(x, y, con) < radius) {
-                    closeBlock = b;
-                    connectionPoint = con;
-                    return;
+    private UIBlock getBlockWithinRadius(int x, int y, int radius) {
+        for (UIBlock b : uiProgramArea.getBlocks()) {
+            if (getDistance(x, y, b.getPosition()) < radius)  //TODO: make this condition more precise
+                for (Point con : b.getConnectionPoints()) {
+                    return b;
                 }
-            }
         }
-        closeBlock = null;
+        return null;
     }
 
+    /**
+     * Get the distance between two given points.
+     * TODO: why int and not double ?
+     *
+     * @param x X-value of point1
+     * @param y Y-value of point1
+     * @param p Point2
+     */
     private int getDistance(int x, int y, Point p) {
-        return (int) Math.sqrt((p.getX()-x)*(p.getX()-x) + (p.getY()-y)*(p.getY()-y));
+        return (int) Math.sqrt((p.getX() - x) * (p.getX() - x) + (p.getY() - y) * (p.getY() - y));
     }
 }

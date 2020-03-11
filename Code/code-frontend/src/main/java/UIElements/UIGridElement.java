@@ -26,13 +26,12 @@ public abstract class UIGridElement {
         this.color = color;
     }
 
-    public Polygon getPolygon(int size, Point gridPos)
-    {
+    public Polygon getPolygon(int size, Point gridPos) {
         return new Polygon();
     }
 
-    protected Point getOffset(int size,Point posOfGrid){
-        return new Point(posOfGrid.x + posInGrid.x * size,posOfGrid.y + posInGrid.y * size);
+    protected Point getOffset(int size, Point posOfGrid) {
+        return new Point(posOfGrid.x + posInGrid.x * size, posOfGrid.y + posInGrid.y * size);
     }
 
 }

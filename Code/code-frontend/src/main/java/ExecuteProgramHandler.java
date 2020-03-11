@@ -7,12 +7,12 @@ public class ExecuteProgramHandler {
         this.uiGameWorld = uiGameWorld;
     }
 
-    public void execute(){
+    public void execute() {
         uiProgramArea.increaseHighlightedBlockNumber();
         //TODO: backend
     }
 
-    public void reset(){
+    public void reset() {
         uiGameWorld.Reset();
         uiProgramArea.Reset();
     }

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public abstract class UIBlock {
     protected int width;
     protected int height = 30;
-    protected  boolean isAvailable;
+    protected boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
-    protected String text;
+    protected final String text;
     protected BlockTypes type;
     protected ArrayList<Point> connectionPoints;
 
@@ -43,7 +43,9 @@ public abstract class UIBlock {
         return position;
     }
 
-    public Point getTextPosition(){ return new Point(position.x + 20, position.y + 20);}
+    public Point getTextPosition() {
+        return new Point(position.x + 20, position.y + 20);
+    }
 
     public void setPosition(Point position) {
         this.position = position;
@@ -51,10 +53,6 @@ public abstract class UIBlock {
 
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public BlockTypes getType() {
@@ -66,7 +64,7 @@ public abstract class UIBlock {
     }
 
     public Color getColor(boolean isHiglighted) {
-        if(isHiglighted) return highlightColor;
+        if (isHiglighted) return highlightColor;
         return color;
     }
 
@@ -78,10 +76,7 @@ public abstract class UIBlock {
         isAvailable = available;
     }
 
-    public Polygon getPolygon()
-    {
-        return new Polygon();
-    }
+    public abstract Polygon getPolygon();
 
     public ArrayList<Point> getConnectionPoints() {
         return connectionPoints;

@@ -6,14 +6,14 @@ public class KeyHandler {
     public KeyHandler(UIGameWorld uiGameWorld, UIProgramArea uiProgramArea) {
         this.uiGameWorld = uiGameWorld;
         this.uiProgramArea = uiProgramArea;
-        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
+        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld);
     }
 
-    public void stepThroughCode(){
+    public void stepThroughCode() {
         executeProgramHandler.execute();
     }
 
-    public void reset(){
+    public void reset() {
         executeProgramHandler.reset();
     }
 }

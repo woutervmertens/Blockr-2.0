@@ -1,4 +1,3 @@
-
 import UIElements.UIBlock;
 
 import java.awt.*;
@@ -11,7 +10,7 @@ public class UIProgramArea {
     private ArrayList<UIBlock> blocks = new ArrayList<>();
     private int highlightedBlockNumber = -1;
 
-    public UIProgramArea(Point pos, int width, int height){
+    public UIProgramArea(Point pos, int width, int height) {
         this.pos = pos;
         this.width = width;
         this.height = height;
@@ -19,20 +18,19 @@ public class UIProgramArea {
 
     /**
      * Draws the backdrop and the blocks
+     *
      * @param g The Graphics element
      */
-    public void draw(Graphics g)
-    {
+    public void draw(Graphics g) {
         g.setColor(Color.PINK);
-        g.fillRect(pos.x,pos.y,width,height);
+        g.fillRect(pos.x, pos.y, width, height);
 
         int i = 0;
-        for (UIBlock block : blocks)
-        {
+        for (UIBlock block : blocks) {
             g.setColor(block.getColor(highlightedBlockNumber == i++));
             g.fillPolygon(block.getPolygon());
-            g.drawString(block.getText(),block.getPosition().x + 10, block.getPosition().y + 10);
-            switch (block.getType()){
+            g.drawString(block.getText(), block.getPosition().x + 10, block.getPosition().y + 10);
+            switch (block.getType()) {
                 case IfStatement:
                 case WhileStatement:
                     //TODO: statement children/conditions
@@ -43,18 +41,15 @@ public class UIProgramArea {
         }
     }
 
-    public void increaseHighlightedBlockNumber()
-    {
+    public void increaseHighlightedBlockNumber() {
         highlightedBlockNumber++;
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         highlightedBlockNumber = -1;
     }
 
-    public boolean isWithin(int x, int y)
-    {
+    public boolean isWithin(int x, int y) {
         return (x > pos.x
                 && x < pos.x + width
                 && y > pos.y

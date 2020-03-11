@@ -17,20 +17,17 @@ public class UIGameWorld {
         initialGrid = grid;
     }
 
-    public void draw(Graphics g)
-    {
-        if(grid == null) return;
-        for (UIGridElement[] elCol : grid)
-        {
-            for (UIGridElement el : elCol){
+    public void draw(Graphics g) {
+        if (grid == null) return;
+        for (UIGridElement[] elCol : grid) {
+            for (UIGridElement el : elCol) {
                 g.setColor(el.getColor());
-                g.drawPolygon(el.getPolygon(elementSize,pos));
+                g.drawPolygon(el.getPolygon(elementSize, pos));
             }
         }
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         grid = initialGrid;
     }
 }
