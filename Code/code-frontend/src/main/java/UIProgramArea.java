@@ -27,9 +27,11 @@ public class UIProgramArea {
 
         int i = 0;
         for (UIBlock block : blocks) {
+            // TODO: call the draw function on blocks instead of having duplicate draw code for UIPArea and UIPalette
             g.setColor(block.getColor(highlightedBlockNumber == i++));
             g.fillPolygon(block.getPolygon());
-            g.drawString(block.getText(), block.getPosition().x + 10, block.getPosition().y + 10);
+            g.setColor(Color.BLACK);
+            g.drawString(block.getText(), block.getTextPosition().x, block.getTextPosition().y);
             switch (block.getType()) {
                 case IfStatement:
                 case WhileStatement:
@@ -58,5 +60,10 @@ public class UIProgramArea {
 
     public ArrayList<UIBlock> getBlocks() {
         return blocks;
+    }
+
+    public void addBlock(UIBlock block) {
+        blocks.add(block);
+        // TODO test & implementation
     }
 }

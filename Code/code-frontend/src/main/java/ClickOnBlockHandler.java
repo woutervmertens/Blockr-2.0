@@ -5,7 +5,6 @@ import java.awt.*;
 public class ClickOnBlockHandler {
     //create a block at pos(x,y) of BlockType type
 
-    //TODO: No new block should be created on click, it should already exist and be dragged
     public UIBlock createBlock(BlockTypes type, int x, int y, int width, int height) {
         Point p = new Point(x, y);
         switch (type) {

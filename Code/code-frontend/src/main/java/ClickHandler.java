@@ -13,7 +13,7 @@ public class ClickHandler {
 
     public UIBlock getUIBlock(int x, int y) {
         if (uiPalette.isWithin(x, y) && !uiPalette.isHidden()) {
-            BlockTypes bt = uiPalette.getBlockTypeClicked(y);
+            BlockTypes bt = uiPalette.getBlockTypeClicked(x, y);
             if (bt == BlockTypes.INVALIDTYPE) System.out.println("not valid");
             else
                 return clickOnBlockHandler.createBlock(bt, x, y, uiPalette.getWidth() - 20, uiPalette.getBlockHeight());

@@ -24,6 +24,9 @@ public class DisplaceBlockHandler {
         //TODO: create block where needed
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
+            draggedBlock.setPosition(dropPos);
+
+            uiProgramArea.addBlock(draggedBlock);  // TODO: add it correctly !
 
 
 //            //TODO: check if close enough to other blocks plug

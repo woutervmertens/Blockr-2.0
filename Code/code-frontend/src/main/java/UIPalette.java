@@ -58,19 +58,24 @@ public class UIPalette {
         int step = height / s;
         for (int i = 0; i < s; i++) {
 
-            UIBlock button = uiBlocks.get(i);
-            if (!button.isAvailable()) continue;
-            button.setPosition(new Point(x, y + step * i));
+            UIBlock uiBlock = uiBlocks.get(i);
+            if (!uiBlock.isAvailable()) continue;
+            uiBlock.setPosition(new Point(x, y + step * i));
             g.setColor(Color.black);
             g.drawRoundRect(5, step * i, width - 10, step, 5, 5);
-            g.setColor(button.getColor(false));
-            g.fillPolygon(button.getPolygon());
+            g.setColor(uiBlock.getColor(false));
+            g.fillPolygon(uiBlock.getPolygon());
             g.setColor(Color.black);
-            g.drawString(button.getText(), button.getTextPosition().x, button.getTextPosition().y);
+            g.drawString(uiBlock.getText(), uiBlock.getTextPosition().x, uiBlock.getTextPosition().y);
         }
     }
 
-    public BlockTypes getBlockTypeClicked(int y) {
+    /**
+     * @pre x is within this palette
+     */
+    public BlockTypes getBlockTypeClicked(int x, int y) {
+        assert this.isWithin(x, y);
+
         int s = uiBlocks.size();
         int i = y / (height / s);
         BlockTypes bt = BlockTypes.INVALIDTYPE;
