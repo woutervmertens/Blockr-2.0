@@ -2,6 +2,7 @@ import UIElements.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UIPalette {
     private Point pos;
@@ -9,52 +10,34 @@ public class UIPalette {
     private int height = 600;
     private int width = 200;
     private boolean hidden;
-    private ArrayList<UIBlock> uiBlocks = new ArrayList<>();
+    private List<UIBlock> uiBlocks = new ArrayList<>();
 
-    public UIPalette(Point pos, int width, int height, int blockHeight,
-                     int nbMF, int nbTL, int nbTR, int nbIf, int nbWhile, int nbNot, int nbWIF) {
+    public UIPalette(Point pos, int width, int height, int blockHeight) {
         this.pos = pos;
         this.width = width;
         this.height = height;
         this.blockHeight = blockHeight;
         hidden = false;
-        createUIBlocks(nbMF, nbTL, nbTR, nbIf, nbWhile, nbNot, nbWIF);
+        createUIBlocks();
     }
 
-    private void createUIBlocks(int nbMF, int nbTL, int nbTR, int nbIf, int nbWhile, int nbNot, int nbWIF) {
+    /**
+     * Initializes the hashmap for all the available UI blocks based on the given nb for each type.
+     */
+    private void createUIBlocks() {
         uiBlocks = new ArrayList<>();
         //BlockButtons
         //action
-        for (int i = 0; i < nbMF; i++) {
-            uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "Move Forward", BlockTypes.MoveForward));
-        }
-        for (int i = 0; i < nbTL; i++) {
-            uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "Turn Left", BlockTypes.TurnLeft));
-        }
-        for (int i = 0; i < nbTR; i++) {
-            uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "Turn Right", BlockTypes.TurnRight));
-        }
+        uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0), "Move Forward", BlockTypes.MoveForward));
+        uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0), "Turn Left", BlockTypes.TurnLeft));
+        uiBlocks.add(new UIActionBlock(width - 20, blockHeight, new Point(0, 0), "Turn Right", BlockTypes.TurnRight));
+
         //statement
-        for (int i = 0; i < nbIf; i++) {
-            uiBlocks.add(new UIStatementBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "If", BlockTypes.IfStatement, 10));
-        }
-        for (int i = 0; i < nbWhile; i++) {
-            uiBlocks.add(new UIStatementBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "While", BlockTypes.WhileStatement, 10));
-        }
+        uiBlocks.add(new UIStatementBlock(width - 20, blockHeight, new Point(0, 0), "If", BlockTypes.IfStatement, 10));
+        uiBlocks.add(new UIStatementBlock(width - 20, blockHeight, new Point(0, 0), "While", BlockTypes.WhileStatement, 10));
         //condition
-        for (int i = 0; i < nbNot; i++) {
-            uiBlocks.add(new UIConditionBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "NOT", BlockTypes.NotCondition));
-        }
-        for (int i = 0; i < nbWIF; i++) {
-            uiBlocks.add(new UIConditionBlock(width - 20, blockHeight, new Point(0, 0),
-                                            "Wall in front", BlockTypes.WallInFrontCondition));
-        }
+        uiBlocks.add(new UIConditionBlock(width - 20, blockHeight, new Point(0, 0), "NOT", BlockTypes.NotCondition));
+        uiBlocks.add(new UIConditionBlock(width - 20, blockHeight, new Point(0, 0), "Wall in front", BlockTypes.WallInFrontCondition));
 
         //set which buttons are available
         for (UIBlock b : uiBlocks) {

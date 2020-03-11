@@ -10,8 +10,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     //Views
-    private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30,
-                                                1,1,1,1,1,1,1);
+    private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30);
     private UIProgramArea UIProgramArea = new UIProgramArea(new Point(200, 0), super.width / 3, super.height);
     private UIGameWorld UIGameWorld = new UIGameWorld(new Point(400, 0), 30);
     //Handlers

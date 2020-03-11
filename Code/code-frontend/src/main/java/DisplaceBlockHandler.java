@@ -16,8 +16,6 @@ public class DisplaceBlockHandler {
 
     /**
      *
-     * @param x
-     * @param y
      * @param draggedBlock The block that was dragged until release (if any)
      */
     public void handleRelease(int x, int y, UIBlock draggedBlock) {
