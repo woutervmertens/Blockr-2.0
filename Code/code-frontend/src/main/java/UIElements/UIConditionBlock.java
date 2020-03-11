@@ -1,10 +1,24 @@
 package UIElements;
 
+import blocks.WallInFrontBlock;
+import blocks.*;
 import java.awt.*;
 
 public class UIConditionBlock extends UIBlock {
+    private final Block block;
+
     public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
         super(width, height, position, text, type);
+        switch (type) {
+            case WallInFrontCondition:
+                this.block = new WallInFrontBlock();
+                break;
+            case NotCondition:
+                this.block = new NotBlock();
+                break;
+            default:
+                throw new IllegalArgumentException("Not a Condition Block !");
+        }
         color = Color.orange;
         highlightColor = Color.getHSBColor(45, 65, 100); //light orange
         //plug

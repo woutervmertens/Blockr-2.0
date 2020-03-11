@@ -7,19 +7,19 @@ import java.awt.*;
 public class MoveBlock extends ActionBlock {
     @Override
     public void doAction(Character character) {
-        Point pos = character.getPosition();
+        int[] pos = character.getPosition();
         switch (character.getDirection()) {
             case UP:
-                pos.y--;
+                pos[1]--;
                 break;
             case RIGHT:
-                pos.x++;
+                pos[0]++;
                 break;
             case DOWN:
-                pos.y++;
+                pos[1]++;
                 break;
             case LEFT:
-                pos.x--;
+                pos[0]--;
                 break;
         }
     }

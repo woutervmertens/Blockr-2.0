@@ -1,14 +1,28 @@
 package UIElements;
 
+import blocks.IfBlock;
+import blocks.WhileBlock;
+import blocks.*;
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock {
+    private final Block block;
     private int gapSize;
     private int pillarWidth = 10;
     private int conditionWidth;
 
     public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
         super(width, height, position, text, type);
+        switch (type) {
+            case IfStatement:
+                this.block = new IfBlock();
+                break;
+            case WhileStatement:
+                this.block = new WhileBlock();
+                break;
+            default:
+                throw new IllegalArgumentException("Not a Statement Block !");
+        }
         this.gapSize = gapSize;
         color = Color.CYAN;
         highlightColor = Color.getHSBColor(180, 100, 30);

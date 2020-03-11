@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 public class MyCanvasWindow extends CanvasWindow {
 
     //Variables
-    private UIBlock dragBlock;
+    private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     //Views
     private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30);
@@ -34,14 +34,21 @@ public class MyCanvasWindow extends CanvasWindow {
         UIPalette.draw(g);
         UIProgramArea.draw(g);
         UIGameWorld.draw(g);
-        if (dragBlock != null) {
-            g.setColor(dragBlock.getColor(false));
-            g.fillPolygon(dragBlock.getPolygon());
+        if (draggedBlock != null) {
+            g.setColor(draggedBlock.getColor(false));
+            g.fillPolygon(draggedBlock.getPolygon());
             g.setColor(Color.BLACK);
-            g.drawString(dragBlock.getText(), dragBlock.getTextPosition().x, dragBlock.getTextPosition().y);
+            g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
         g.drawString("Number of blocks available: " + UIPalette.getNumBlocksAvailable(), width - 180, height - 10);
+    }
+
+    /**
+     * Checks whether at this moment a block is being dragged.
+     */
+    private boolean isBlockDragged() {
+        return draggedBlock != null;
     }
 
     /**
@@ -58,22 +65,24 @@ public class MyCanvasWindow extends CanvasWindow {
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
                 keyHandler.reset();
-                dragBlock = clickHandler.handleClick(x, y);
+                draggedBlock = clickHandler.getUIBlock(x, y);
                 break;
             case MouseEvent.MOUSE_CLICKED:
                 break;
             case MouseEvent.MOUSE_DRAGGED:
-                if (dragBlock != null) {
+                if (draggedBlock != null) {
                     pos.x = x;
                     pos.y = y;
-                    dragBlock.setPosition(pos);
+                    draggedBlock.setPosition(pos);
                     repaint();
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
-                displaceBlockHandler.handleRelease(x, y, dragBlock);
-                dragBlock = null;
-                repaint();
+                if (draggedBlock != null) {
+                    displaceBlockHandler.handleRelease(x, y, draggedBlock);
+                    draggedBlock = null;
+                    repaint();
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + id);
