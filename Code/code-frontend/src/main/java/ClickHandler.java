@@ -16,7 +16,7 @@ public class ClickHandler {
             BlockTypes bt = uiPalette.getBlockTypeClicked(y);
             if (bt == BlockTypes.INVALIDTYPE) System.out.println("not valid");
             else
-                return clickOnBlockHandler.createBlock(bt, x, y, uiPalette.getWidth() - 20, uiPalette.getBlockheight());
+                return clickOnBlockHandler.createBlock(bt, x, y, uiPalette.getWidth() - 20, uiPalette.getBlockHeight());
         } else if (uiProgramArea.isWithin(x, y)) {
             //TODO: click in ProgramArea (on block --> displace)
         }

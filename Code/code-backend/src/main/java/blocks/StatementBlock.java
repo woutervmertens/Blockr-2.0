@@ -17,6 +17,7 @@ public abstract class StatementBlock extends Block{
     public boolean isConditionValid() {
         if (conditions.get(0) instanceof WallInFrontBlock) {
             return true;
+            // TODO: check if true ...
         } else if (conditions.get(0) instanceof NotBlock) {
             return false;
         } else {

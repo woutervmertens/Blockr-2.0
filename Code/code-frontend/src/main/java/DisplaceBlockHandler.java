@@ -21,6 +21,8 @@ public class DisplaceBlockHandler {
      * @param draggedBlock The block that was dragged until release (if any)
      */
     public void handleRelease(int x, int y, UIBlock draggedBlock) {
+        if (draggedBlock == null) throw new IllegalArgumentException("No block was dragged !");
+
         //TODO: create block where needed
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);

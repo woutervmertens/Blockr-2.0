@@ -10,7 +10,8 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     //Views
-    private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30);
+    private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30,
+                                                1,1,1,1,1,1,1);
     private UIProgramArea UIProgramArea = new UIProgramArea(new Point(200, 0), super.width / 3, super.height);
     private UIGameWorld UIGameWorld = new UIGameWorld(new Point(400, 0), 30);
     //Handlers
@@ -70,7 +71,7 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_CLICKED:
                 break;
             case MouseEvent.MOUSE_DRAGGED:
-                if (draggedBlock != null) {
+                if (isBlockDragged()) {
                     pos.x = x;
                     pos.y = y;
                     draggedBlock.setPosition(pos);
@@ -78,7 +79,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
-                if (draggedBlock != null) {
+                if (isBlockDragged()) {
                     displaceBlockHandler.handleRelease(x, y, draggedBlock);
                     draggedBlock = null;
                     repaint();

@@ -32,7 +32,6 @@ public class UIActionBlock extends UIBlock {
         return this.block;
     }
 
-
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
