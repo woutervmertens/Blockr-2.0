@@ -9,4 +9,5 @@ public class TurnBlock extends ActionBlock {
     public void doAction(Character character) {
 
     }
+
 }

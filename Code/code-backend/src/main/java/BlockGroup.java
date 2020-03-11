@@ -1,9 +1,7 @@
 import blocks.Block;
-import blocks.StatementBlock;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Collection;
 import java.util.LinkedList;
 
 public class BlockGroup {
@@ -28,7 +26,7 @@ public class BlockGroup {
     /**
      * The blocks who represent the linked list.
      */
-    private List<Block> blocks = new LinkedList<>();
+    private List<Block> blocks;
 
     public List<Block> getBlocks() {
         return blocks;

@@ -1,11 +1,13 @@
 package UIElements;
 
+import blocks.Block;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class UIBlock {
     protected int width;
-    protected int height = 30;
+    protected int height;  // default 30 ?
     protected boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
@@ -22,6 +24,11 @@ public abstract class UIBlock {
         isAvailable = false;
         connectionPoints = new ArrayList<>();
     }
+
+    /**
+     * @return A reference to the attached block in Backend
+     */
+    public abstract Block getBlock();
 
     public int getWidth() {
         return width;

@@ -17,12 +17,17 @@ public class UIConditionBlock extends UIBlock {
                 this.block = new NotBlock();
                 break;
             default:
-                throw new IllegalArgumentException("Not a Condition Block !");
+                throw new IllegalArgumentException("Not a Condition blocks.Block !");
         }
         color = Color.orange;
         highlightColor = Color.getHSBColor(45, 65, 100); //light orange
         //plug
         connectionPoints.add(new Point(position.x + width, position.y));
+    }
+
+    @Override
+    public Block getBlock() {
+        return this.block;
     }
 
     @Override

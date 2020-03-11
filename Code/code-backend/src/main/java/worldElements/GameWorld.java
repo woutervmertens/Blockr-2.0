@@ -1,3 +1,5 @@
+package worldElements;
+
 import blocks.ConditionBlock;
 import worldElements.Character;
 import worldElements.Square;

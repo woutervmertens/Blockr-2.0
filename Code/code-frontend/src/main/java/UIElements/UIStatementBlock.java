@@ -1,8 +1,9 @@
 package UIElements;
 
+import blocks.Block;
 import blocks.IfBlock;
 import blocks.WhileBlock;
-import blocks.*;
+
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock {
@@ -21,7 +22,7 @@ public class UIStatementBlock extends UIBlock {
                 this.block = new WhileBlock();
                 break;
             default:
-                throw new IllegalArgumentException("Not a Statement Block !");
+                throw new IllegalArgumentException("Not a Statement blocks.Block !");
         }
         this.gapSize = gapSize;
         color = Color.CYAN;
@@ -39,6 +40,11 @@ public class UIStatementBlock extends UIBlock {
 
     public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
+    }
+
+    @Override
+    public Block getBlock() {
+        return this.block;
     }
 
     @Override

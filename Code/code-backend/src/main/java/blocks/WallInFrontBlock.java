@@ -7,4 +7,5 @@ public class WallInFrontBlock extends ConditionBlock{
     public boolean checkCondition(boolean result, Square squareInFront) {
         return (squareInFront.isPassable());
     }
+
 }
