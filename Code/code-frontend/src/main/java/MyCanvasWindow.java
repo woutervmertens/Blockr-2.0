@@ -10,14 +10,14 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     //Views
-    private UIPalette UIPalette = new UIPalette(new Point(0, 0), super.width / 3, super.height, 30);
-    private UIProgramArea UIProgramArea = new UIProgramArea(new Point(200, 0), super.width / 3, super.height);
-    private UIGameWorld UIGameWorld = new UIGameWorld(new Point(400, 0), 30);
+    private UIPalette uiPalette = new UIPalette(new Point(0, 0), super.width / 4, super.height, 30);
+    private UIProgramArea uiProgramArea = new UIProgramArea(new Point(uiPalette.getWidth(), 0), super.width / 2, super.height);
+    private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30);
     //Handlers
-    private LoadDataHandler loadDatahandler = new LoadDataHandler(UIGameWorld);
-    private ClickHandler clickHandler = new ClickHandler(UIPalette, UIProgramArea);
-    private KeyHandler keyHandler = new KeyHandler(UIGameWorld, UIProgramArea);
-    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(UIProgramArea, UIPalette, UIGameWorld);
+    private LoadDataHandler loadDatahandler = new LoadDataHandler(uiGameWorld);
+    private ClickHandler clickHandler = new ClickHandler(uiPalette, uiProgramArea);
+    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld);
 
 
     /**
@@ -31,9 +31,9 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        UIPalette.draw(g);
-        UIProgramArea.draw(g);
-        UIGameWorld.draw(g);
+        uiPalette.draw(g);
+        uiProgramArea.draw(g);
+        uiGameWorld.draw(g);
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor(false));
             g.fillPolygon(draggedBlock.getPolygon());
@@ -41,7 +41,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("Number of blocks available: " + UIPalette.getNumBlocksAvailable(), width - 180, height - 10);
+        g.drawString("Number of blocks available: " + uiPalette.getNumBlocksAvailable(), width - 180, height - 10);
     }
 
     /**

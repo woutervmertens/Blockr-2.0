@@ -4,9 +4,23 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UIProgramArea {
-    private Point pos;
-    private int width;
-    private int height;
+    public Point getPos() {
+        return this.pos;
+    }
+
+    private final Point pos;
+
+    public int getWidth() {
+        return width;
+    }
+
+    private final int width;
+
+    public int getHeight() {
+        return height;
+    }
+
+    private final int height;
     private ArrayList<UIBlock> blocks = new ArrayList<>();
     private int highlightedBlockNumber = -1;
 
@@ -64,6 +78,6 @@ public class UIProgramArea {
 
     public void addBlock(UIBlock block) {
         blocks.add(block);
-        // TODO test & implementation
+        // TODO test & implement fit in the area
     }
 }
