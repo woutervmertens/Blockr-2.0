@@ -29,6 +29,7 @@ class ProgramTest {
     void setup(){
     kerel.setDirection(Direction.RIGHT);
     kerel.setPosition(startPos);
+    kerel.setpositon
     world1.setCharacter(kerel);
 }
 

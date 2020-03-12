@@ -1,7 +1,9 @@
-package worldElements;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import worldElements.Character;
+import worldElements.Direction;
+import worldElements.GameWorld;
+import worldElements.Square;
 
 import static org.junit.jupiter.api.Assertions.*;
 
