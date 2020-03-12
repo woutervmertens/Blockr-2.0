@@ -50,6 +50,13 @@ public abstract class UIBlock {
         return position;
     }
 
+    /**
+     * Check whether the given position is on this block.
+     */
+    public boolean isPositionOn(int x, int y) {
+        return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
+    }
+
     public Point getTextPosition() {
         return new Point(position.x + 10, position.y + 20);
     }

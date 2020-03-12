@@ -1,4 +1,3 @@
-import UIElements.BlockTypes;
 import UIElements.UIBlock;
 import UIElements.UIConditionBlock;
 import UIElements.UIStatementBlock;
@@ -64,7 +63,7 @@ public class DisplaceBlockHandler {
      * @return A viable position or null
      */
     private Point getConWithinRadius(UIBlock draggedBlock, int radius) {
-        for (UIBlock b : uiProgramArea.getBlocks()) {
+        for (UIBlock b : uiProgramArea.getUiBlocks()) {
             if(draggedBlock.getPosition() == b.getPosition()) continue; //this block
             if(draggedBlock instanceof UIConditionBlock) //Condition to statement
             {

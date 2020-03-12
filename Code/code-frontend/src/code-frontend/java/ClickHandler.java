@@ -16,7 +16,7 @@ public class ClickHandler {
             BlockTypes type = uiPalette.getBlockTypeClicked(x, y);
             return type.getNewUIBlock(x, y);
         } else if (uiProgramArea.isWithin(x, y)) {
-            //TODO: click in ProgramArea (on block --> displace)
+            return uiProgramArea.getUiBlockClicked(x, y);
         }
         return null;
     }
