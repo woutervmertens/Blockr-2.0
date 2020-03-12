@@ -34,6 +34,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="main" />
+    <orderEntry type="module" module-name="code-backend" />
   </component>
 </module>
