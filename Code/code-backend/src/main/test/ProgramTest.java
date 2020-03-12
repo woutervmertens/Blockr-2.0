@@ -2,6 +2,7 @@ import blocks.ActionBlock;
 import blocks.Block;
 import blocks.MoveBlock;
 import blocks.TurnBlock;
+import blocks.BlockGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,18 +17,19 @@ class ProgramTest {
 
     @BeforeEach
     void setUp() {
-        
-        MoveBlock mBlock1 = new MoveBlock();
 
-        TurnBlock tblock1 = new TurnBlock();
-
-        BlockGroup group1 = new BlockGroup(null , null);
-        group1.setBlocks((List<Block>) mBlock1);
-        group1.setPosition(mBlock1.getPosition());
-
-        Program program1 = new Program(group1);
-
-        ProgramArea pArea1 = new ProgramArea()
+//        TODO: er waren fouten: verbeter
+//        MoveBlock mBlock1 = new MoveBlock();
+//
+//        TurnBlock tblock1 = new TurnBlock();
+//
+//        BlockGroup group1 = new BlockGroup(null , null);
+//        group1.setBlocks((List<Block>) mBlock1);
+//        group1.setPosition(mBlock1.getPosition());
+//
+//        Program program1 = new Program(group1);
+//
+//        ProgramArea pArea1 = new ProgramArea()
 
     }
 
