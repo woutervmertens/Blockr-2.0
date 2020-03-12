@@ -105,9 +105,11 @@ public class MyCanvasWindow extends CanvasWindow {
             switch (keyCode) {
                 case 116: //F5
                     keyHandler.stepThroughCode();
+                    repaint();
                     break;
                 case 27: //Escape
                     keyHandler.reset();
+                    repaint();
                     break;
             }
         }

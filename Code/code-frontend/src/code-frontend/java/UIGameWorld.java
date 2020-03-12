@@ -1,3 +1,4 @@
+import UIElements.UICharacter;
 import UIElements.UIGridElement;
 
 import java.awt.*;
@@ -21,6 +22,12 @@ public class UIGameWorld {
         initialGrid = grid;
     }
 
+    public void switchElements(Point from, Point to){
+        UIGridElement el = grid[from.y][from.x];
+        grid[from.y][from.x] = grid[to.x][to.y];
+        grid[to.x][to.y] = el;
+    }
+
     /**
      * For each grid element, draws the polygon in the elements color.
      * @param g awt Graphics
@@ -40,5 +47,16 @@ public class UIGameWorld {
      */
     public void Reset() {
         grid = initialGrid;
+    }
+
+    public UICharacter getCharacter()
+    {
+        for (UIGridElement[] elCol : grid) {
+            for (UIGridElement el : elCol) {
+                if(el instanceof UICharacter)
+                    return (UICharacter) el;
+            }
+        }
+        return null;
     }
 }

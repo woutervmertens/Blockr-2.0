@@ -13,6 +13,14 @@ public class UICharacter extends UIGridElement {
 
     Directions direction; //replace with the one from backend
 
+    public void setDirection(Directions direction) {
+        this.direction = direction;
+    }
+
+    public Directions getDirection() {
+        return direction;
+    }
+
     @Override
     public Polygon getPolygon(int size, Point gridPos) {
         Point offset = getOffset(size, gridPos);
