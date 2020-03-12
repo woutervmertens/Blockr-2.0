@@ -9,6 +9,11 @@ public class UIPalette {
     private int height = 600;
     private int width = 100;
     private boolean hidden;
+
+    public List<UIBlock> getUiBlocks() {
+        return uiBlocks;
+    }
+
     private List<UIBlock> uiBlocks = new ArrayList<>();
     private DrawBlockHandler drawBlockHandler = new DrawBlockHandler();
 
@@ -60,19 +65,33 @@ public class UIPalette {
     }
 
     /**
-     * @pre x is within this palette
+     * @pre x is within this program area
      */
-    public BlockTypes getBlockTypeClicked(int x, int y) {
+    public UIBlock getUiBlockClicked(int x, int y) {
         assert this.isWithin(x, y);
 
-        int s = uiBlocks.size();
-        int i = y / (height / s);
-        BlockTypes bt = null;
-        System.out.println(i);
-        if (i < s)
-            bt = uiBlocks.get(i).getType();
-        return bt;
+        for (UIBlock uiBlock: getUiBlocks()) {
+            if (uiBlock.isPositionOn(x,y)) {
+                return uiBlock;
+            }
+        }
+        return null;
     }
+
+//    /**
+//     * @pre x is within this palette
+//     */
+//    public BlockTypes getBlockTypeClicked(int x, int y) {
+//        assert this.isWithin(x, y);
+//
+//        int s = uiBlocks.size();
+//        int i = y / (height / s);
+//        BlockTypes bt = null;
+//        System.out.println(i);
+//        if (i < s)
+//            bt = uiBlocks.get(i).getType();
+//        return bt;
+//    }
 
     public int getWidth() {
         return width;
