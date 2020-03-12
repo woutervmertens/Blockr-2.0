@@ -85,4 +85,8 @@ public class UIProgramArea {
         uiBlocks.add(block);
         // TODO test & implement fit in the area
     }
+
+    public void removeBlock(UIBlock block) {
+        uiBlocks.remove(block);
+    }
 }

@@ -51,6 +51,7 @@ public class DisplaceBlockHandler {
 
 
         } else {
+            uiProgramArea.removeBlock(draggedBlock);
             //TODO: backend: remove currently selected block
             uiPalette.setHidden(false);
         }
@@ -90,7 +91,7 @@ public class DisplaceBlockHandler {
                 for (Point con : b.getConnectionPoints()) {
                     if (getDistance(draggedBlock.getPosition(), con) < radius) {
                         if(i > 0) {
-                            addBlockToChildren(draggedBlock,b);
+                            addBlockToBody(draggedBlock,b);
                         }
                         closeBlock = b;
                         return con;
@@ -113,11 +114,11 @@ public class DisplaceBlockHandler {
     }
 
     /**
-     * Add the new block to the children of the closest Statement block
+     * Add the new block to the body of the closest Statement block
      * @param draggedBlock the new block
      * @param b the statement block
      */
-    private void addBlockToChildren(UIBlock draggedBlock, UIBlock b) {
+    private void addBlockToBody(UIBlock draggedBlock, UIBlock b) {
         ((StatementBlock)b.getBlock()).getBody().addBlockAtEnd(draggedBlock.getBlock());
         int gS = ((UIStatementBlock)b).getGapSize() + draggedBlock.getHeight();
         ((UIStatementBlock)b).setGapSize(gS);
