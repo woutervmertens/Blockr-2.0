@@ -82,7 +82,8 @@ public class UIProgramArea {
     }
 
     public void addBlock(UIBlock block) {
-        uiBlocks.add(block);
+        if(!uiBlocks.contains(block))
+            uiBlocks.add(block);
         // TODO test & implement fit in the area
     }
 

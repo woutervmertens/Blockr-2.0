@@ -45,7 +45,7 @@ public class DisplaceBlockHandler {
                 //TODO: create new program in backend
 
             }
-            uiProgramArea.addBlock(draggedBlock);  // TODO: add it correctly !
+            uiProgramArea.addBlock(draggedBlock);
             executeProgramHandler.reset();
 
 
