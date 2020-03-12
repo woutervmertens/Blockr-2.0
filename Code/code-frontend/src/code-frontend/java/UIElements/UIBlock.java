@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class UIBlock {
     protected int width;
     protected int height;  // default 30 ?
-    protected final int step = height / 6;  // steps in the plugs and sockets
+    protected int step;  // steps in the plugs and sockets
     protected boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
@@ -22,6 +22,7 @@ public abstract class UIBlock {
         this.text = text;
         this.type = type;
         isAvailable = false;
+        step = height / 6;
     }
 
     /**
