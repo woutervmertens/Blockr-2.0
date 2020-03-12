@@ -5,6 +5,7 @@ import blocks.MoveBlock;
 import blocks.TurnBlock;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class UIActionBlock extends UIBlock {
     private final Block block;
@@ -24,8 +25,6 @@ public class UIActionBlock extends UIBlock {
         }
         color = Color.red;
         highlightColor = Color.getHSBColor(0, 80, 100); //light red
-        //plug
-        connectionPoints.add(new Point(position.x, position.y + height));
     }
 
     public Block getBlock() {
@@ -51,5 +50,13 @@ public class UIActionBlock extends UIBlock {
 
         pol.addPoint(position.x, position.y + height);
         return pol;
+    }
+
+    @Override
+    public ArrayList<Point> getConnectionPoints() {
+        //plug
+        connectionPoints.clear();
+        connectionPoints.add(new Point(position.x, position.y + height + 2));
+        return super.getConnectionPoints();
     }
 }

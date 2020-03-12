@@ -6,6 +6,11 @@ public abstract class StatementBlock extends Block{
     LinkedList<ConditionBlock> conditions;  // Currently either WIF or Not WIF
     BlockGroup body;
 
+    public StatementBlock() {
+        this.conditions = new LinkedList<>();
+        this.body = new BlockGroup();
+    }
+
     public LinkedList<ConditionBlock> getConditions() {
         return conditions;
     }
@@ -33,4 +38,8 @@ public abstract class StatementBlock extends Block{
         this.body = children;
     }
 
+    public void addCondition(ConditionBlock b)
+    {
+        conditions.add(b);
+    }
 }

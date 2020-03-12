@@ -3,6 +3,7 @@ package UIElements;
 import blocks.WallInFrontBlock;
 import blocks.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class UIConditionBlock extends UIBlock {
     private final Block block;
@@ -21,8 +22,6 @@ public class UIConditionBlock extends UIBlock {
         }
         color = Color.orange;
         highlightColor = Color.getHSBColor(45, 65, 100); //light orange
-        //plug
-        connectionPoints.add(new Point(position.x + width, position.y));
     }
 
     @Override
@@ -48,5 +47,13 @@ public class UIConditionBlock extends UIBlock {
         pol.addPoint(position.x + step, position.y + step * 3);
         pol.addPoint(position.x, position.y + step * 4);
         return pol;
+    }
+
+    @Override
+    public ArrayList<Point> getConnectionPoints() {
+        //plug
+        connectionPoints.clear();
+        connectionPoints.add(new Point(position.x + width + 2, position.y));
+        return super.getConnectionPoints();
     }
 }
