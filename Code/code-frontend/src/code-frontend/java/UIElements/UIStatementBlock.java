@@ -7,7 +7,7 @@ import blocks.WhileBlock;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class UIStatementBlock extends UIBlock {
+public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
     private final Block block;
     private int gapSize;
     private int pillarWidth = 10;
@@ -52,7 +52,6 @@ public class UIStatementBlock extends UIBlock {
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
-        int step = height / 6;
         pol.addPoint(position.x, position.y);
         //socket top
         pol.addPoint(position.x + step * 2, position.y);
@@ -60,14 +59,14 @@ public class UIStatementBlock extends UIBlock {
         pol.addPoint(position.x + step * 4, position.y);
 
         pol.addPoint(position.x + conditionWidth, position.y);
-        //plug right
+        //plug condition
         pol.addPoint(position.x + conditionWidth, position.y + step * 2);
         pol.addPoint(position.x + conditionWidth + step, position.y + step * 3);
         pol.addPoint(position.x + conditionWidth, position.y + step * 4);
 
         pol.addPoint(position.x + conditionWidth, position.y + height);
 
-        //plug children
+        //plug body
         pol.addPoint(position.x + pillarWidth + step * 4, position.y + height);
         pol.addPoint(position.x + pillarWidth + step * 3, position.y + height + step);
         pol.addPoint(position.x + pillarWidth + step * 2, position.y + height);
@@ -88,16 +87,20 @@ public class UIStatementBlock extends UIBlock {
     }
 
     @Override
-    public ArrayList<Point> getConnectionPoints() {
-        //plug
-        connectionPoints.clear();
-        //connectionPoints.add(new Point(position.x + conditionWidth + 2, position.y)); //conditions
-        connectionPoints.add(new Point(position.x, position.y + getHeight() + 2)); //bottom
-        connectionPoints.add(new Point(position.x + pillarWidth, position.y + height + 2)); //children
-        return super.getConnectionPoints();
+    public Point getPlugPosition() {
+        return new Point(position.x + step * 3, position.y + height + pillarWidth + gapSize + step);
     }
 
-    public Point getConditionPoint(){
-        return new Point(position.x + conditionWidth + 2, position.y);
+    @Override
+    public Point getSocketPosition() {
+        return new Point(position.x + step * 3, position.y + step);
+    }
+
+    public Point getBodyPlugPosition() {
+        return new Point(position.x + pillarWidth + step * 3, position.y + height + step);
+    }
+
+    public Point getConditionPlugPosition(){
+        return new Point(position.x + conditionWidth + step, position.y + step * 3);
     }
 }

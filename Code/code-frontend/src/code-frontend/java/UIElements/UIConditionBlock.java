@@ -5,7 +5,7 @@ import blocks.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class UIConditionBlock extends UIBlock {
+public class UIConditionBlock extends UIBlock implements HorizontallyConnectable {
     private final Block block;
 
     public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
@@ -50,10 +50,14 @@ public class UIConditionBlock extends UIBlock {
     }
 
     @Override
-    public ArrayList<Point> getConnectionPoints() {
-        //plug
-        connectionPoints.clear();
-        connectionPoints.add(new Point(position.x + width + 2, position.y));
-        return super.getConnectionPoints();
+    public Point getPlugPosition() {
+        return new Point(position.x + width + step, position.y + step * 3);
     }
+
+    @Override
+    public Point getSocketPosition() {
+        return new Point(position.x + step, position.y + step * 3);
+    }
+
+
 }

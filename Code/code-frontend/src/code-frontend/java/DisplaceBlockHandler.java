@@ -35,12 +35,12 @@ public class DisplaceBlockHandler {
             //TODO: check if close enough to other blocks plug
             int radius = 20;
             closeBlock = null;
-            Point closeCon = getConWithinRadius(draggedBlock, radius);
+//            Point closeCon = getConWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
                 //TODO: connect this block with the close block
                 //TODO: handle backend
                 System.out.println("Close block: "+ closeBlock.getText());
-                draggedBlock.setPosition(closeCon);
+//                draggedBlock.setPosition(closeCon);
             } else {
                 //TODO: create new program in backend
 
@@ -57,52 +57,52 @@ public class DisplaceBlockHandler {
         }
     }
 
-    /**
-     * Finds a viable position within the radius to translate to and adds the blocks to the backend
-     * @param draggedBlock The new block
-     * @param radius The radius
-     * @return A viable position or null
-     */
-    private Point getConWithinRadius(UIBlock draggedBlock, int radius) {
-        for (UIBlock b : uiProgramArea.getUiBlocks()) {
-            if(draggedBlock.getPosition() == b.getPosition()) continue; //this block
-            if(draggedBlock instanceof UIConditionBlock) //Condition to statement
-            {
-                if(b instanceof UIStatementBlock){
-                    Point con = ((UIStatementBlock) b).getConditionPoint();
-                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
-                        addBlockToConditions(draggedBlock,b);
-                        closeBlock = b;
-                        return con;
-                    }
-                }
-                else if(b instanceof  UIConditionBlock){ //Condition to condition
-                    for (Point con : b.getConnectionPoints()) {
-                        if (getDistance(draggedBlock.getPosition(), con) < radius) {
-                            closeBlock = b;
-                            return con;
-                        }
-                    }
-                }
-                else continue;
-            }
-            else { //Statement/Action to Statement/Action
-                int i = 0;
-                for (Point con : b.getConnectionPoints()) {
-                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
-                        if(i > 0) {
-                            addBlockToBody(draggedBlock,b);
-                        }
-                        closeBlock = b;
-                        return con;
-                    }
-                    i++;
-                }
-            }
-        }
-        closeBlock = null;
-        return null;
-    }
+//    /**
+//     * Finds a viable position within the radius to translate to and adds the blocks to the backend
+//     * @param draggedBlock The new block
+//     * @param radius The radius
+//     * @return A viable position or null
+//     */
+//    private Point getConWithinRadius(UIBlock draggedBlock, int radius) {
+//        for (UIBlock b : uiProgramArea.getUiBlocks()) {
+//            if(draggedBlock.getPosition() == b.getPosition()) continue; //this block
+//            if(draggedBlock instanceof UIConditionBlock) //Condition to statement
+//            {
+//                if(b instanceof UIStatementBlock){
+//                    Point con = ((UIStatementBlock) b).getConditionPlugPosition();
+//                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
+//                        addBlockToConditions(draggedBlock,b);
+//                        closeBlock = b;
+//                        return con;
+//                    }
+//                }
+//                else if(b instanceof  UIConditionBlock){ //Condition to condition
+//                    for (Point con : b.getConnectionPoints()) {
+//                        if (getDistance(draggedBlock.getPosition(), con) < radius) {
+//                            closeBlock = b;
+//                            return con;
+//                        }
+//                    }
+//                }
+//                else continue;
+//            }
+//            else { //Statement/Action to Statement/Action
+//                int i = 0;
+//                for (Point con : b.getConnectionPoints()) {
+//                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
+//                        if(i > 0) {
+//                            addBlockToBody(draggedBlock,b);
+//                        }
+//                        closeBlock = b;
+//                        return con;
+//                    }
+//                    i++;
+//                }
+//            }
+//        }
+//        closeBlock = null;
+//        return null;
+//    }
 
     /**
      * Add the new block to the conditions of the closest Statement block

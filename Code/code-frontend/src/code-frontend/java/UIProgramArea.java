@@ -89,4 +89,11 @@ public class UIProgramArea {
     public void removeBlock(UIBlock block) {
         uiBlocks.remove(block);
     }
+
+    public UIBlock getBlockAtPositionWithinRadius(int x, int y, int radius) {
+        for (UIBlock b : getUiBlocks()) {
+            // TODO
+        }
+        return null;
+    }
 }

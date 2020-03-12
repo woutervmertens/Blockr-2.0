@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public abstract class UIBlock {
     protected int width;
     protected int height;  // default 30 ?
+    protected final int step = height / 6;  // steps in the plugs and sockets
     protected boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
     protected final String text;
     protected BlockTypes type;
-    protected ArrayList<Point> connectionPoints;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;
@@ -22,7 +22,6 @@ public abstract class UIBlock {
         this.text = text;
         this.type = type;
         isAvailable = false;
-        connectionPoints = new ArrayList<>();
     }
 
     /**
@@ -91,9 +90,5 @@ public abstract class UIBlock {
     }
 
     public abstract Polygon getPolygon();
-
-    public ArrayList<Point> getConnectionPoints() {
-        return connectionPoints;
-    }
 }
 

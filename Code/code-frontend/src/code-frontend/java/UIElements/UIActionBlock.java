@@ -7,7 +7,7 @@ import blocks.TurnBlock;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class UIActionBlock extends UIBlock {
+public class UIActionBlock extends UIBlock implements VerticallyConnectable {
     private final Block block;
 
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
@@ -52,11 +52,14 @@ public class UIActionBlock extends UIBlock {
         return pol;
     }
 
+
     @Override
-    public ArrayList<Point> getConnectionPoints() {
-        //plug
-        connectionPoints.clear();
-        connectionPoints.add(new Point(position.x, position.y + height + 2));
-        return super.getConnectionPoints();
+    public Point getPlugPosition() {
+        return new Point(position.x + step * 3, position.y + height + step);
+    }
+
+    @Override
+    public Point getSocketPosition() {
+        return new Point(position.x + step * 3, position.y + step);
     }
 }
