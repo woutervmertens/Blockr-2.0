@@ -19,7 +19,11 @@ public class UIGameWorld {
      */
     public void setGrid(UIGridElement[][] grid) {
         this.grid = grid;
-        initialGrid = grid;
+        initialGrid = deepCopy(grid);
+    }
+
+    public UIGridElement[][] getGrid() {
+        return grid;
     }
 
     public void switchElements(Point from, Point to){
@@ -49,7 +53,7 @@ public class UIGameWorld {
      * Reset grid to backup
      */
     public void Reset() {
-        grid = initialGrid;
+        this.grid = deepCopy(initialGrid);
     }
 
     public UICharacter getCharacter()
@@ -61,5 +65,9 @@ public class UIGameWorld {
             }
         }
         return null;
+    }
+
+    private <T> T[][] deepCopy(T[][] matrix) {
+        return java.util.Arrays.stream(matrix).map(el -> el.clone()).toArray($ -> matrix.clone());
     }
 }

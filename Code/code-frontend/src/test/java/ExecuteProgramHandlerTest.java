@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.BeforeClass;
 
 import java.awt.*;
-import java.util.Arrays;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -39,7 +38,6 @@ public class ExecuteProgramHandlerTest {
     @Test
     public void turnCharacter() {
         ExecuteProgramHandler tester = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
-        UIGridElement[][] gridCopy = grid.clone();
         UIGridElement[][] grid2 = new UIGridElement[5][5];
         for (int i = 0; i < grid2.length; i++) {
             for (int j = 0; j < grid2[i].length; j++) {
@@ -55,7 +53,7 @@ public class ExecuteProgramHandlerTest {
         tester.turnCharacter(Directions.DOWN);
 
         try{
-            assertTrue(compareGrid(gridCopy,grid2));
+            assertTrue(compareGrid(grid,grid2));
         }catch (Exception e){
             Assert.fail("Exception " + e);
         }
@@ -64,7 +62,6 @@ public class ExecuteProgramHandlerTest {
     @Test
     public void moveCharacter() {
         ExecuteProgramHandler tester = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
-        UIGridElement[][] gridCopy = grid.clone();
         UIGridElement[][] grid2 = new UIGridElement[5][5];
         for (int i = 0; i < grid2.length; i++) {
             for (int j = 0; j < grid2[i].length; j++) {
@@ -81,7 +78,38 @@ public class ExecuteProgramHandlerTest {
         tester.moveCharacter(4,2);
 
         try {
-            assertTrue(compareGrid(gridCopy,grid2));
+            assertTrue(compareGrid(grid,grid2));
+        }catch (Exception e){
+            Assert.fail("Exception " + e);
+        }
+    }
+
+    @Test
+    public void reset()
+    {
+        ExecuteProgramHandler tester = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
+        UIGridElement[][] grid2 = new UIGridElement[5][5];
+        for (int i = 0; i < grid2.length; i++) {
+            for (int j = 0; j < grid2[i].length; j++) {
+                grid2[i][j] = new UIGridWall(new Point(j, i));
+            }
+        }
+
+        grid2[4][1] = new UICharacter(new Point(1, 4), Directions.RIGHT);
+        grid2[4][2] = new UIGridGround(new Point(2, 4));
+        grid2[3][2] = new UIGridGround(new Point(2, 3));
+        grid2[3][3] = new UIGridGround(new Point(3, 3));
+        grid2[3][4] = new UIGridGround(new Point(4, 3));
+
+        tester.moveCharacter(4,2);
+        tester.reset();
+        UIGridElement[][] g3 = uiGameWorld.getGrid();
+
+        boolean t1 = compareGrid(g3,grid2);
+        boolean t2 = compareGrid(g3,grid);
+
+        try {
+            assertTrue(compareGrid(grid,grid2));
         }catch (Exception e){
             Assert.fail("Exception " + e);
         }
