@@ -5,6 +5,7 @@ import blocks.IfBlock;
 import blocks.WhileBlock;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class UIStatementBlock extends UIBlock {
     private final Block block;
@@ -28,10 +29,6 @@ public class UIStatementBlock extends UIBlock {
         color = Color.CYAN;
         highlightColor = Color.getHSBColor(180, 100, 30);
         conditionWidth = width / 2;
-        //plugs
-        connectionPoints.add(new Point(position.x + conditionWidth, position.y)); //conditions
-        connectionPoints.add(new Point(position.x + pillarWidth, position.y + height)); //children
-        connectionPoints.add(new Point(position.x, position.y + getHeight())); //bottom
     }
 
     public int getGapSize() {
@@ -88,5 +85,19 @@ public class UIStatementBlock extends UIBlock {
 
         pol.addPoint(position.x, position.y + height + pillarWidth + gapSize);
         return pol;
+    }
+
+    @Override
+    public ArrayList<Point> getConnectionPoints() {
+        //plug
+        connectionPoints.clear();
+        //connectionPoints.add(new Point(position.x + conditionWidth + 2, position.y)); //conditions
+        connectionPoints.add(new Point(position.x, position.y + getHeight() + 2)); //bottom
+        connectionPoints.add(new Point(position.x + pillarWidth, position.y + height + 2)); //children
+        return super.getConnectionPoints();
+    }
+
+    public Point getConditionPoint(){
+        return new Point(position.x + conditionWidth + 2, position.y);
     }
 }
