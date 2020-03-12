@@ -9,6 +9,7 @@ public class MyCanvasWindow extends CanvasWindow {
     //Variables
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
+    private int maxBlocks = 10;
     //Views
     private UIPalette uiPalette = new UIPalette(new Point(0, 0), super.width / 4, super.height, 30);
     private UIProgramArea uiProgramArea = new UIProgramArea(new Point(uiPalette.getWidth(), 0), super.width / 2, super.height);
@@ -41,7 +42,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("# blocks available: " + uiPalette.getNumBlocksAvailable(), width - 140, height - 10);
+        g.drawString("# blocks available: " + (maxBlocks - uiProgramArea.getNumBlocks()), width - 140, height - 10);
     }
 
     /**

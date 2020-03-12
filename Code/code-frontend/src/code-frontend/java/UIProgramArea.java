@@ -82,8 +82,10 @@ public class UIProgramArea {
     }
 
     public void addBlock(UIBlock block) {
-        if(!uiBlocks.contains(block))
+        if(!uiBlocks.contains(block)) {
             uiBlocks.add(block);
+
+        }
         // TODO test & implement fit in the area
     }
 
@@ -93,8 +95,12 @@ public class UIProgramArea {
 
     public UIBlock getBlockAtPositionWithinRadius(int x, int y, int radius) {
         for (UIBlock b : getUiBlocks()) {
-            // TODO
+            //TODO
         }
         return null;
+    }
+
+    public int getNumBlocks() {
+        return uiBlocks.size();
     }
 }
