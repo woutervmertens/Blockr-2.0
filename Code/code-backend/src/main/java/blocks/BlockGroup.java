@@ -10,19 +10,6 @@ public class BlockGroup {
     }
 
     /**
-     * The position of this BlockGroup in the canvas.
-     */
-    private Point position;
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    /**
      * The blocks who represent the linked list.
      */
     private List<Block> blocks;
