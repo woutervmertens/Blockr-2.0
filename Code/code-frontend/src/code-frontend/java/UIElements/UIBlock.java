@@ -6,6 +6,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class UIBlock {
+    protected UIBlock previous;
+    protected UIBlock next;
     protected int width;
     protected int height;  // default 30 ?
     protected int step;  // steps in the plugs and sockets
@@ -29,6 +31,22 @@ public abstract class UIBlock {
      * @return A reference to the attached block in Backend
      */
     public abstract Block getBlock();
+
+    public UIBlock getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(UIBlock previous) {
+        this.previous = previous;
+    }
+
+    public UIBlock getNext() {
+        return next;
+    }
+
+    public void setNext(UIBlock next) {
+        this.next = next;
+    }
 
     public int getWidth() {
         return width;
@@ -91,5 +109,11 @@ public abstract class UIBlock {
     }
 
     public abstract Polygon getPolygon();
+
+    public abstract Point getSocketPosition();
+
+    public abstract Point getPlugPosition();
+
+
 }
 
