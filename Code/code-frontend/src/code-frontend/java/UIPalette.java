@@ -10,6 +10,7 @@ public class UIPalette {
     private int width = 100;
     private boolean hidden;
     private List<UIBlock> uiBlocks = new ArrayList<>();
+    private DrawBlockHandler drawBlockHandler = new DrawBlockHandler();
 
     public UIPalette(Point pos, int width, int height, int blockHeight) {
         this.pos = pos;
@@ -54,10 +55,7 @@ public class UIPalette {
             uiBlock.setPosition(new Point(x, y + step * i));
             g.setColor(Color.black);
             g.drawRoundRect(5, step * i, width - 10, step, 5, 5);
-            g.setColor(uiBlock.getColor(false));
-            g.fillPolygon(uiBlock.getPolygon());
-            g.setColor(Color.black);
-            g.drawString(uiBlock.getText(), uiBlock.getTextPosition().x, uiBlock.getTextPosition().y);
+            drawBlockHandler.draw(uiBlock,g,false);
         }
     }
 

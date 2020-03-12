@@ -41,7 +41,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("Number of blocks available: " + uiPalette.getNumBlocksAvailable(), width - 180, height - 10);
+        g.drawString("# blocks available: " + uiPalette.getNumBlocksAvailable(), width - 140, height - 10);
     }
 
     /**
