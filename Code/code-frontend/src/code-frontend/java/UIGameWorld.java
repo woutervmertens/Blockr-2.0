@@ -26,6 +26,9 @@ public class UIGameWorld {
         UIGridElement el = grid[from.y][from.x];
         grid[from.y][from.x] = grid[to.x][to.y];
         grid[to.x][to.y] = el;
+        Point p = grid[to.x][to.y].getPosInGrid();
+        grid[to.x][to.y].setPosInGrid(grid[from.y][from.x].getPosInGrid());
+        grid[from.y][from.x].setPosInGrid(p);
     }
 
     /**
