@@ -90,6 +90,9 @@ public abstract class UIBlock {
         isAvailable = available;
     }
 
+    /**
+     * @return the polygon for this type of UIBlock
+     */
     public abstract Polygon getPolygon();
 }
 

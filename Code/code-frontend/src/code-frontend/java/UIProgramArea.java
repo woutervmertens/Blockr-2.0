@@ -81,14 +81,21 @@ public class UIProgramArea {
         return uiBlocks;
     }
 
+    /**
+     * Adds UIBlock to list of blocks if not already in list
+     * @param block UIBlock to add
+     */
     public void addBlock(UIBlock block) {
         if(!uiBlocks.contains(block)) {
             uiBlocks.add(block);
-
         }
         // TODO test & implement fit in the area
     }
 
+    /**
+     * Removes UIBlock from list of blocks
+     * @param block UIBlock to remove
+     */
     public void removeBlock(UIBlock block) {
         uiBlocks.remove(block);
     }

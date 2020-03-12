@@ -12,11 +12,19 @@ public class UIGameWorld {
         this.pos = pos;
     }
 
+    /**
+     * Sets the game world grid and a backup
+     * @param grid The grid info to set
+     */
     public void setGrid(UIGridElement[][] grid) {
         this.grid = grid;
         initialGrid = grid;
     }
 
+    /**
+     * For each grid element, draws the polygon in the elements color.
+     * @param g awt Graphics
+     */
     public void draw(Graphics g) {
         if (grid == null) return;
         for (UIGridElement[] elCol : grid) {
@@ -27,6 +35,9 @@ public class UIGameWorld {
         }
     }
 
+    /**
+     * Reset grid to backup
+     */
     public void Reset() {
         grid = initialGrid;
     }
