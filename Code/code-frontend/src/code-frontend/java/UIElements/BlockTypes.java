@@ -30,6 +30,12 @@ public enum BlockTypes {
     }
     private final int width;
 
+    /**
+     * Return new UIBlock of this type at position (x,y)
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return the new UIBlock
+     */
     public UIBlock getNewUIBlock(int x, int y) {
         Point p = new Point(x, y);
         switch (this) {

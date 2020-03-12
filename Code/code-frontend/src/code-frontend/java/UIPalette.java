@@ -35,10 +35,9 @@ public class UIPalette {
             uiBlocks.add(type.getNewUIBlock(0,0));
         }
 
-        //set which buttons are available
+        //set which buttons are available aka can be used in this level (currently all)
         for (UIBlock b : uiBlocks) {
             b.setAvailable(true);
-            // TODO: instead of setting blocks available rather set the whole palette available ! hidden :)
         }
     }
 

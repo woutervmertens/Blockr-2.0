@@ -11,6 +11,12 @@ public class ClickHandler {
         this.uiProgramArea = programArea;
     }
 
+    /**
+     * Returns the UIBlock at the given click coordinates
+     * @param x Given x of click
+     * @param y Given y of click
+     * @return The UIBlock at the given coordinates or null
+     */
     public UIBlock getUIBlock(int x, int y) {
         if (uiPalette.isWithin(x, y) && !uiPalette.isHidden()) {
             BlockTypes type = uiPalette.getUiBlockClicked(x,y).getType();

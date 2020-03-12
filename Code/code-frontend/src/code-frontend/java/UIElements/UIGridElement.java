@@ -30,6 +30,12 @@ public abstract class UIGridElement {
         return new Polygon();
     }
 
+    /**
+     * Returns the position in pixels for the current grid element
+     * @param size The size of a grid element
+     * @param posOfGrid The position of the grid
+     * @return The position of the current grid element
+     */
     protected Point getOffset(int size, Point posOfGrid) {
         return new Point(posOfGrid.x + posInGrid.x * size, posOfGrid.y + posInGrid.y * size);
     }
