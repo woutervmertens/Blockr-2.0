@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UIProgramArea {
+    private DrawBlockHandler drawBlockHandler = new DrawBlockHandler();
     public Point getPos() {
         return this.pos;
     }
@@ -42,18 +43,7 @@ public class UIProgramArea {
         int i = 0;
         for (UIBlock block : blocks) {
             // TODO: call the draw function on blocks instead of having duplicate draw code for UIPArea and UIPalette
-            g.setColor(block.getColor(highlightedBlockNumber == i++));
-            g.fillPolygon(block.getPolygon());
-            g.setColor(Color.BLACK);
-            g.drawString(block.getText(), block.getTextPosition().x, block.getTextPosition().y);
-            switch (block.getType()) {
-                case IfStatement:
-                case WhileStatement:
-                    //TODO: statement children/conditions
-                    //draw conditions
-                    //draw children
-                    break;
-            }
+            drawBlockHandler.draw(block,g,highlightedBlockNumber == i++);
         }
     }
 
