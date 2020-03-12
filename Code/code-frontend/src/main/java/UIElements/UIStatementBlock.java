@@ -22,12 +22,12 @@ public class UIStatementBlock extends UIBlock {
                 this.block = new WhileBlock();
                 break;
             default:
-                throw new IllegalArgumentException("Not a Statement blocks.Block !");
+                throw new IllegalArgumentException("Not a Statement Block !");
         }
         this.gapSize = gapSize;
         color = Color.CYAN;
         highlightColor = Color.getHSBColor(180, 100, 30);
-        conditionWidth = width / 3;
+        conditionWidth = width / 2;
         //plugs
         connectionPoints.add(new Point(position.x + conditionWidth, position.y)); //conditions
         connectionPoints.add(new Point(position.x + pillarWidth, position.y + height)); //children

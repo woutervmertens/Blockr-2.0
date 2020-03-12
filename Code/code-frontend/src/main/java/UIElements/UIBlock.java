@@ -51,7 +51,7 @@ public abstract class UIBlock {
     }
 
     public Point getTextPosition() {
-        return new Point(position.x + 20, position.y + 20);
+        return new Point(position.x + 10, position.y + 20);
     }
 
     public void setPosition(Point position) {
