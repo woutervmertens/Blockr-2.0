@@ -1,4 +1,5 @@
 import blocks.Block;
+import blocks.BlockGroup;
 
 /**
  * A program written by the player, represented as blocks.Block elements in a (Linked) List

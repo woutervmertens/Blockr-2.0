@@ -19,8 +19,6 @@ public class UIPalette {
         createUIBlocks();
     }
 
-
-
     /**
      * Initializes the hashmap for all the available UI blocks based on the given nb for each type.
      */
