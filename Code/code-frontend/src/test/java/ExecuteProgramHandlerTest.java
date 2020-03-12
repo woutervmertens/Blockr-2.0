@@ -84,7 +84,7 @@ public class ExecuteProgramHandlerTest {
         }
     }
 
-    @Test
+    /*@Test
     public void reset()
     {
         ExecuteProgramHandler tester = new ExecuteProgramHandler(uiProgramArea,uiGameWorld);
@@ -103,17 +103,13 @@ public class ExecuteProgramHandlerTest {
 
         tester.moveCharacter(4,2);
         tester.reset();
-        UIGridElement[][] g3 = uiGameWorld.getGrid();
-
-        boolean t1 = compareGrid(g3,grid2);
-        boolean t2 = compareGrid(g3,grid);
 
         try {
             assertTrue(compareGrid(grid,grid2));
         }catch (Exception e){
             Assert.fail("Exception " + e);
         }
-    }
+    }*/
 
     private boolean compareGrid(UIGridElement[][] gridCopy, UIGridElement[][] grid2)
     {
