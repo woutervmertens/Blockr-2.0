@@ -1,7 +1,9 @@
 import blocks.*;
 import worldElements.GameWorld;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * A program written by the player, represented as blocks.Block elements in a (Linked) List
@@ -21,6 +23,16 @@ public class Program {
     }
 
     private Block currentBlock;
+
+    public Block getNextBlock() {
+        return nextBlock;
+    }
+
+    public void setNextBlock(Block nextBlock) {
+        this.nextBlock = nextBlock;
+    }
+
+    private Block nextBlock;
 
     public Block getCurrentBlock() {
         return currentBlock;
@@ -42,8 +54,45 @@ public class Program {
 
     public void setBlockGroup(BlockGroup blockGroup) { this.blockGroup = blockGroup; }
 
+    public LinkedList<Block> getCopy() {
+        return copy;
+    }
+
+    public void setCopy(LinkedList<Block> copy) {
+        this.copy = copy;
+    }
+
+    private LinkedList<Block> copy = new LinkedList<Block>(blockGroup.getBlocks());
+
 
     public void execute() {
-        blockGroup.getBlocks().forEach(block -> block.execute(world));
+        setCurrentBlock(getCopy().getFirst());
+        setNextBlock(getCopy().get(1));
+        if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
+
+            if (getCurrentBlock() instanceof WhileBlock){
+                LinkedList<Block> temp = new LinkedList<>();
+                temp.addAll(((WhileBlock) getCurrentBlock()).getBody().getBlocks());
+                temp.addAll(getCopy());
+                setCopy(temp);
+                setCurrentBlock(getCopy().getFirst());
+                setNextBlock(getCopy().get(1));
+            }
+
+            else{ //ifBlock
+                getCopy().removeFirst();
+                LinkedList<Block> temp = new LinkedList<>();
+                temp.addAll(((IfBlock) getCurrentBlock()).getBody().getBlocks());
+                temp.addAll(getCopy());
+                setCopy(temp);
+            }
+        } else{
+            if (getCurrentBlock() instanceof ActionBlock){
+                ((ActionBlock) getCurrentBlock()).execute(getWorld());
+            }
+            getCopy().removeFirst();
+            setCurrentBlock(null);
+        }
+
     }
 }
