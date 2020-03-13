@@ -31,9 +31,6 @@ public class DisplaceBlockHandler {
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
 
-
-            //TODO: check if close enough to other blocks plug
-
             // 1) EVENTUAL PLUG
             closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
             connectionPoint = (closeBlock != null) ?
@@ -46,6 +43,14 @@ public class DisplaceBlockHandler {
                 connectionPoint = (closeBlock != null) ?
                         new Point(closeBlock.getPosition().x, closeBlock.getPosition().y - closeBlock.getHeight() - 5)
                         : null;
+            }
+
+            // 3) EVENTUAL CONDITION
+            if (closeBlock == null && (draggedBlock.getType() == BlockTypes.NotCondition ||
+                                       draggedBlock.getType() == BlockTypes.WallInFrontCondition)) {
+                try {
+                    // TODO: (UIStatementBlock)
+                } catch (ClassCastException e) {}
             }
 
             if (closeBlock != null) {
