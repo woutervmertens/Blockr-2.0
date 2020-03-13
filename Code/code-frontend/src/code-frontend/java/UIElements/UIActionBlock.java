@@ -3,6 +3,7 @@ package UIElements;
 import blocks.Block;
 import blocks.MoveBlock;
 import blocks.TurnBlock;
+import worldElements.Direction;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,8 +18,10 @@ public class UIActionBlock extends UIBlock implements VerticallyConnectable {
                 this.block = new MoveBlock();
                 break;
             case TurnLeft:
+                this.block = new TurnBlock(Direction.LEFT);
+                break;
             case TurnRight:
-                this.block = new TurnBlock();
+                this.block = new TurnBlock(Direction.RIGHT);
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action blocks.Block !");
