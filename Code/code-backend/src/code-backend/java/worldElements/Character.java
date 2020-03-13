@@ -23,12 +23,12 @@ public class Character {
     /**
      * Move this character one cell in the given direction on the grid of its world.
      */
-    public void move(Direction direction) {
+    public void move() {
         // TODO: When not possible to move to the given direction throw exception.
         // TODO: Or alternatively let this class not be aware of the world and world
         // TODO: will only call this method when it's legal.
 
-        switch (direction) {
+        switch (getDirection()) {
             case UP:
                 setPosition(new int[]{getPosition()[0], getPosition()[1] + 1});
                 break;
@@ -45,6 +45,10 @@ public class Character {
                 setPosition(new int[]{getPosition()[0] + 1, getPosition()[1]});
                 break;
         }
+    }
+
+    private boolean isValidMove(){
+        // TODO: 13/03/2020
     }
 
     public void setPosition(int[] position) {
