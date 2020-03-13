@@ -1,15 +1,23 @@
-import blocks.Block;
-import blocks.BlockGroup;
+import blocks.*;
+import worldElements.GameWorld;
+
+import java.util.List;
 
 /**
  * A program written by the player, represented as blocks.Block elements in a (Linked) List
  */
 public class Program {
 
-    public Program() { }
+    public Program(GameWorld world) {
+        this.world = world;
 
-    public Program(BlockGroup blockGroup) {
-        setBlockGroup(blockGroup);
+    }
+    private GameWorld world;
+
+    public Program(GameWorld world, BlockGroup blockGroup) {
+        this.world = world;
+        this.blockGroup = blockGroup;
+        this.currentBlock = blockGroup.getBlocks().get(0);
     }
 
     private Block currentBlock;
@@ -22,6 +30,10 @@ public class Program {
         this.currentBlock = currentBlock;
     }
 
+    public GameWorld getWorld() {
+        return world;
+    }
+
     private BlockGroup blockGroup;
 
     public BlockGroup getBlockGroup() {
@@ -30,20 +42,9 @@ public class Program {
 
     public void setBlockGroup(BlockGroup blockGroup) { this.blockGroup = blockGroup; }
 
-    /**
-     * Runs program block:
-     * - ActionBlock: parse result to gameworld
-     * - StatementBlock: check conditions, if true: add children to queue
-     */
-    public void executeNextStep() {
-        if (getCurrentBlock() == null && ! getBlockGroup().getBlocks().isEmpty())
-            currentBlock = getBlockGroup().getBlocks().get(0);
-
-        // TODO: depending on the next block execute it
-    }
 
     public void execute() {
-        // TODO
+        blockGroup.getBlocks().forEach(block -> block.execute(world));
 
     }
 }
