@@ -47,7 +47,7 @@ public class Character {
         }
     }
 
-    private void setPosition(int[] position) {
+    public void setPosition(int[] position) {
         this.position = position;
     }
 
