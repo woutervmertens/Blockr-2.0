@@ -4,10 +4,15 @@ import worldElements.Character;
 import worldElements.GameWorld;
 
 public abstract class ActionBlock extends Block {
-    public void doAction(GameWorld world){}
+
     public void execute(GameWorld world){
         doAction(world);
     }
+
+    public void doAction(GameWorld world){
+        world.move();
+    }
+
 
     public Block getPrevious() {
         return previous;
