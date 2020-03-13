@@ -1,23 +1,59 @@
-import blocks.ActionBlock;
-import blocks.Block;
-import blocks.BlockGroup;
-import blocks.StatementBlock;
+import worldElements.Character;
+import worldElements.Direction;
+import worldElements.GameWorld;
+import worldElements.Square;
 
 public class BlockrGame {
+    private GameWorld gameWorld;
+    private Program program;
 
-    /**
-     * Execute the given blockGroup by changing the state of the gameWorld and character step by step.
-     *   Only the execution of block groups is *publicly* allowed and not of blocks !
-     */
-    public void executeBlockGroup(BlockGroup blockGroup) {
-        // TODO
+    public BlockrGame() {
+        gameWorld = new GameWorld(new int[]{5,5},new int[]{3,4});
+        gameWorld.setGrid(createGrid());
+        gameWorld.setCharacter(createCharacter());
+        program = new Program(gameWorld);
     }
 
-    /**
-     * @pre block instanceof ActionBlock || block instanceof StatementBlock
-     */
-    private void executeBlock(Block block) {
-        assert block instanceof ActionBlock || block instanceof StatementBlock;
-        // TODO: execute single block
+    private Character createCharacter() {
+        Character ch = new Character(new int[]{1, 4});
+        ch.setDirection(Direction.RIGHT);
+        return ch;
     }
+
+    private Square[][] createGrid(){
+        Square[][] grid = new Square[5][5];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = new Square(false);
+            }
+        }
+        grid[4][1] = new Square(true);
+        grid[4][2] = new Square(true);
+        grid[3][2] = new Square(true);
+        grid[3][3] = new Square(true);
+        grid[3][4] = new Square(true);
+        return grid;
+    }
+
+    public Character executeBlock() {
+        program.execute();
+        return gameWorld.getCharacter();
+    }
+
+    public Character getCharacter(){
+        return gameWorld.getCharacter();
+    }
+
+    public Square[][] getGrid()
+    {
+        return gameWorld.getGrid();
+    }
+
+    public void reset()
+    {
+        gameWorld.reset();
+        program.reset();
+    }
+
+
 }

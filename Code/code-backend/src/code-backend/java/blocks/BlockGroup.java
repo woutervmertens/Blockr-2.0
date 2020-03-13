@@ -5,16 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BlockGroup {
-    public BlockGroup(List<Block> blocks) {
-        this.blocks = new LinkedList<>(blocks);
+
+    public BlockGroup(){
+        this.blocks = new LinkedList<>();
     }
 
     /**
      * The blocks who represent the linked list.
      */
-    private List<Block> blocks;
+    private LinkedList<Block> blocks;
 
-    public List<Block> getBlocks() {
+    public LinkedList<Block> getBlocks() {
         return blocks;
     }
 
@@ -36,5 +37,14 @@ public class BlockGroup {
 
         int i = getBlocks().indexOf(block);
         getBlocks().addAll(i + 1, group.getBlocks());
+    }
+
+    /**
+     * Add a block to the end of the list
+     * @param block The block to add
+     */
+    public void addBlockAtEnd(Block block)
+    {
+        blocks.add(block);
     }
 }

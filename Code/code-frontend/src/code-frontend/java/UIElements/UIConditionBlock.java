@@ -3,8 +3,9 @@ package UIElements;
 import blocks.WallInFrontBlock;
 import blocks.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class UIConditionBlock extends UIBlock {
+public class UIConditionBlock extends UIBlock implements HorizontallyConnectable {
     private final Block block;
 
     public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
@@ -21,8 +22,6 @@ public class UIConditionBlock extends UIBlock {
         }
         color = Color.orange;
         highlightColor = Color.getHSBColor(45, 65, 100); //light orange
-        //plug
-        connectionPoints.add(new Point(position.x + width, position.y));
     }
 
     @Override
@@ -49,4 +48,16 @@ public class UIConditionBlock extends UIBlock {
         pol.addPoint(position.x, position.y + step * 4);
         return pol;
     }
+
+    @Override
+    public Point getPlugPosition() {
+        return new Point(position.x + width + step, position.y + step * 3);
+    }
+
+    @Override
+    public Point getSocketPosition() {
+        return new Point(position.x + step, position.y + step * 3);
+    }
+
+
 }

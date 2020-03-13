@@ -6,18 +6,20 @@ import java.awt.event.MouseEvent;
 
 public class MyCanvasWindow extends CanvasWindow {
 
+    private BlockrGame blockrGame = new BlockrGame();
     //Variables
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
+    private int maxBlocks = 10;
     //Views
     private UIPalette uiPalette = new UIPalette(new Point(0, 0), super.width / 4, super.height, 30);
     private UIProgramArea uiProgramArea = new UIProgramArea(new Point(uiPalette.getWidth(), 0), super.width / 2, super.height);
-    private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30);
+    private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30,blockrGame);
     //Handlers
-    private LoadDataHandler loadDatahandler = new LoadDataHandler(uiGameWorld);
+    private LoadDataHandler loadDatahandler = new LoadDataHandler(blockrGame,uiGameWorld);
     private ClickHandler clickHandler = new ClickHandler(uiPalette, uiProgramArea);
-    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea);
-    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld);
+    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea, blockrGame);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld, blockrGame);
 
 
     /**
@@ -31,6 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
+        uiPalette.setHidden((maxBlocks - uiProgramArea.getNumBlocks()) <= 0);
         uiPalette.draw(g);
         uiProgramArea.draw(g);
         uiGameWorld.draw(g);
@@ -41,7 +44,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("Number of blocks available: " + uiPalette.getNumBlocksAvailable(), width - 180, height - 10);
+        g.drawString("# blocks available: " + (maxBlocks - uiProgramArea.getNumBlocks()), width - 140, height - 10);
     }
 
     /**
@@ -103,9 +106,11 @@ public class MyCanvasWindow extends CanvasWindow {
             switch (keyCode) {
                 case 116: //F5
                     keyHandler.stepThroughCode();
+                    repaint();
                     break;
                 case 27: //Escape
                     keyHandler.reset();
+                    repaint();
                     break;
             }
         }

@@ -6,14 +6,16 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class UIBlock {
+    protected UIBlock previous;
+    protected UIBlock next;
     protected int width;
     protected int height;  // default 30 ?
+    protected int step;  // steps in the plugs and sockets
     protected boolean isAvailable;
     protected Point position;
     protected Color color, highlightColor;
     protected final String text;
     protected BlockTypes type;
-    protected ArrayList<Point> connectionPoints;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;
@@ -22,13 +24,29 @@ public abstract class UIBlock {
         this.text = text;
         this.type = type;
         isAvailable = false;
-        connectionPoints = new ArrayList<>();
+        step = height / 6;
     }
 
     /**
      * @return A reference to the attached block in Backend
      */
     public abstract Block getBlock();
+
+    public UIBlock getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(UIBlock previous) {
+        this.previous = previous;
+    }
+
+    public UIBlock getNext() {
+        return next;
+    }
+
+    public void setNext(UIBlock next) {
+        this.next = next;
+    }
 
     public int getWidth() {
         return width;
@@ -48,6 +66,13 @@ public abstract class UIBlock {
 
     public Point getPosition() {
         return position;
+    }
+
+    /**
+     * Check whether the given position is on this block.
+     */
+    public boolean isPositionOn(int x, int y) {
+        return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
     public Point getTextPosition() {
@@ -83,10 +108,15 @@ public abstract class UIBlock {
         isAvailable = available;
     }
 
+    /**
+     * @return the polygon for this type of UIBlock
+     */
     public abstract Polygon getPolygon();
 
-    public ArrayList<Point> getConnectionPoints() {
-        return connectionPoints;
-    }
+    public abstract Point getSocketPosition();
+
+    public abstract Point getPlugPosition();
+
+
 }
 

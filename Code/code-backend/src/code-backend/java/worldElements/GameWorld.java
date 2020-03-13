@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameWorld {
+    private Character originalCharacter;
 
     public GameWorld(int[] gridDimension, int[] goalPosition) {
         // TODO: build whole square with nested for loop
@@ -15,6 +16,7 @@ public class GameWorld {
         grid = new Square[gridDimension[0]][gridDimension[1]];
         this.goalPosition = goalPosition;
         this.character = new Character();
+        originalCharacter = new Character();
     }
 
     /**
@@ -45,6 +47,12 @@ public class GameWorld {
                 position[1] >= getGrid().length || position[0] >= getGrid()[0].length;
     }
 
+    public void reset()
+    {
+        character.setPosition(originalCharacter.getPosition());
+        character.setDirection(originalCharacter.getDirection());
+    }
+
     /**
      * The goal position of this world that has to be reached by the character controlled by the player.
      */
@@ -69,40 +77,71 @@ public class GameWorld {
 
     public void setCharacter(Character character) {
         this.character = character;
+        originalCharacter.setDirection(character.getDirection());
+        originalCharacter.setPosition(character.getPosition());
     }
 
-//    TODO: Refactor this method to Program class:
-//    /**
-//     * Goes through the given list of ConditionBlocks from back to front and calls their checks
-//     *
-//     * @param conditions A list of ConditionBlocks to check.
-//     * @return The overall result of all conditions.
-//     */
-//    public boolean checkConditions(ArrayList<ConditionBlock> conditions) {
-//        boolean result = true;
-//        Collections.reverse(conditions);
-//        Square sq;
-//        //Get square in front
-//        switch (character.getDirection()) {
-//            case UP:
-//                sq = (grid[character.getPosition().y - 1][character.getPosition().x]);
-//                break;
-//            case RIGHT:
-//                sq = (grid[character.getPosition().y][character.getPosition().x + 1]);
-//                break;
-//            case DOWN:
-//                sq = (grid[character.getPosition().y + 1][character.getPosition().x]);
-//                break;
-//            case LEFT:
-//                sq = (grid[character.getPosition().y][character.getPosition().x - 1]);
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + character.getDirection());
-//        }
-//        for (ConditionBlock cond : conditions) {
-//            result = cond.checkCondition(result, sq);
-//        }
-//
-//        return result;
-//    }
+    private boolean isValidMove(int[] position) {
+        if (isPositionInBoundaries(position) && getGrid()[position[0]][position[1]].isPassable()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void move() {
+        switch (getCharacter().getDirection()) {
+            case UP:
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] + 1, getCharacter().getPosition()[1]});
+                break;
+
+            case DOWN:
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] - 1, getCharacter().getPosition()[1]});
+                break;
+
+            case LEFT:
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1});
+                break;
+
+            case RIGHT:
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1});
+                break;
+        }
+    }
+
+    public void turn() {
+        if (getCharacter().getDirection() == Direction.LEFT) {
+            switch (character.getDirection()) {
+                case UP:
+                    character.setDirection(Direction.LEFT);
+                    break;
+                case RIGHT:
+                    character.setDirection(Direction.UP);
+                    break;
+                case DOWN:
+                    character.setDirection(Direction.RIGHT);
+                    break;
+                case LEFT:
+                    character.setDirection(Direction.DOWN);
+                    break;
+            }
+        } else {
+            switch (character.getDirection()) {
+                case UP:
+                    character.setDirection(Direction.RIGHT);
+                    break;
+                case RIGHT:
+                    character.setDirection(Direction.DOWN);
+                    break;
+                case DOWN:
+                    character.setDirection(Direction.LEFT);
+                    break;
+                case LEFT:
+                    character.setDirection(Direction.UP);
+                    break;
+            }
+        }
+    }
 }
+
+

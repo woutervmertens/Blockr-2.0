@@ -44,20 +44,9 @@ public class UIProgramArea {
         g.fillRect(pos.x, pos.y, width, height);
 
         int i = 0;
-        for (UIBlock block : blocks) {
+        for (UIBlock block : uiBlocks) {
             // TODO: call the draw function on blocks instead of having duplicate draw code for UIPArea and UIPalette
-            g.setColor(block.getColor(highlightedBlockNumber == i++));
-            g.fillPolygon(block.getPolygon());
-            g.setColor(Color.BLACK);
-            g.drawString(block.getText(), block.getTextPosition().x, block.getTextPosition().y);
-            switch (block.getType()) {
-                case IfStatement:
-                case WhileStatement:
-                    //TODO: statement children/conditions
-                    //draw conditions
-                    //draw children
-                    break;
-            }
+            drawBlockHandler.draw(block, g, highlightedBlockNumber == i++);
         }
     }
 

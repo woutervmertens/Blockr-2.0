@@ -1,23 +1,50 @@
+import UIElements.UICharacter;
 import UIElements.UIGridElement;
 
 import java.awt.*;
 
 public class UIGameWorld {
     private Point pos;
-    private UIGridElement[][] grid, initialGrid;
+    private UIGridElement[][] grid;
     private int elementSize;
+    private BlockrGame blockrGame;
+    private UICharacter uiCharacter;
+    private BackendConverter converter;
 
-    public UIGameWorld(Point pos, int elementSize) {
+    public UIGameWorld(Point pos, int elementSize, BlockrGame blockrGame) {
         this.elementSize = elementSize;
         this.pos = pos;
+        this.blockrGame = blockrGame;
+        converter = new BackendConverter();
+        getUiCharacter();
     }
 
+    /**
+     * Sets the game world grid and a backup
+     * @param grid The grid info to set
+     */
     public void setGrid(UIGridElement[][] grid) {
         this.grid = grid;
-        initialGrid = grid;
     }
 
+    public void setUiCharacter(UICharacter uiCharacter){
+        this.uiCharacter = uiCharacter;
+    }
+
+    private void getUiCharacter(){
+        setUiCharacter(converter.convertCharacter(blockrGame.getCharacter()));
+    }
+
+    public UIGridElement[][] getGrid() {
+        return grid;
+    }
+
+    /**
+     * For each grid element, draws the polygon in the elements color.
+     * @param g awt Graphics
+     */
     public void draw(Graphics g) {
+        getUiCharacter();
         if (grid == null) return;
         for (UIGridElement[] elCol : grid) {
             for (UIGridElement el : elCol) {
@@ -25,9 +52,13 @@ public class UIGameWorld {
                 g.drawPolygon(el.getPolygon(elementSize, pos));
             }
         }
+        g.setColor(uiCharacter.getColor());
+        g.drawPolygon(uiCharacter.getPolygon(elementSize,pos));
     }
 
-    public void Reset() {
-        grid = initialGrid;
+    public UICharacter getCharacter()
+    {
+        getUiCharacter();
+        return uiCharacter;
     }
 }

@@ -1,5 +1,6 @@
 package blocks;
 
-public class IfBlock extends StatementBlock {
 
+
+public class IfBlock extends StatementBlock {
 }

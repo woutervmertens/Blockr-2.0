@@ -3,10 +3,12 @@ package UIElements;
 import blocks.Block;
 import blocks.MoveBlock;
 import blocks.TurnBlock;
+import worldElements.Direction;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class UIActionBlock extends UIBlock {
+public class UIActionBlock extends UIBlock implements VerticallyConnectable {
     private final Block block;
 
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
@@ -16,16 +18,16 @@ public class UIActionBlock extends UIBlock {
                 this.block = new MoveBlock();
                 break;
             case TurnLeft:
+                this.block = new TurnBlock(Direction.LEFT);
+                break;
             case TurnRight:
-                this.block = new TurnBlock();
+                this.block = new TurnBlock(Direction.RIGHT);
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action blocks.Block !");
         }
         color = Color.red;
         highlightColor = Color.getHSBColor(0, 80, 100); //light red
-        //plug
-        connectionPoints.add(new Point(position.x, position.y + height));
     }
 
     public Block getBlock() {
@@ -51,5 +53,16 @@ public class UIActionBlock extends UIBlock {
 
         pol.addPoint(position.x, position.y + height);
         return pol;
+    }
+
+
+    @Override
+    public Point getPlugPosition() {
+        return new Point(position.x + step * 3, position.y + height + step);
+    }
+
+    @Override
+    public Point getSocketPosition() {
+        return new Point(position.x + step * 3, position.y + step);
     }
 }
