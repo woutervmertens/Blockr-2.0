@@ -60,6 +60,7 @@ public class Program {
     public void setBlockGroup(BlockGroup blockGroup) { this.blockGroup = blockGroup; }
 
     public LinkedList<Block> getCopy() {
+        if (copy == null) copy = new LinkedList<Block>(blockGroup.getBlocks());
         return copy;
     }
 
@@ -67,7 +68,7 @@ public class Program {
         this.copy = copy;
     }
 
-    private LinkedList<Block> copy = new LinkedList<Block>(blockGroup.getBlocks());
+    private LinkedList<Block> copy;
 
 
     public void execute() {

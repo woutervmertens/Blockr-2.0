@@ -64,6 +64,8 @@ public class DisplaceBlockHandler {
                 draggedBlock.setPosition(dropPos);
             }
             uiProgramArea.addBlock(draggedBlock);
+            //Backend add block to current blockgroup
+            executeProgramHandler.addBlockToProgram(draggedBlock);
             executeProgramHandler.reset();
 
 
