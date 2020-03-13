@@ -16,7 +16,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIProgramArea uiProgramArea = new UIProgramArea(new Point(uiPalette.getWidth(), 0), super.width / 2, super.height);
     private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30,blockrGame);
     //Handlers
-    private LoadDataHandler loadDatahandler = new LoadDataHandler(uiGameWorld);
+    private LoadDataHandler loadDatahandler = new LoadDataHandler(blockrGame,uiGameWorld);
     private ClickHandler clickHandler = new ClickHandler(uiPalette, uiProgramArea);
     private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea, blockrGame);
     private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld, blockrGame);
