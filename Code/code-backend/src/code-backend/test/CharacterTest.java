@@ -40,7 +40,7 @@ class CharacterTest {
     @Test
     void canMoveForward() {
         world1.setCharacter(kerel);
-        kerel.move();
+        world1.move();
         int[] newPos = {startY, startX + 1};
         assertEquals(newPos, kerel.getPosition());
     }
@@ -49,7 +49,7 @@ class CharacterTest {
     void playerOnEdgeOfField() throws Exception{
         world1.setCharacter(kerelEdge);
         try {
-            kerelEdge.move();
+            world1.move();
         }catch (Exception e){
             System.out.println("Player can't go outside the world");
         }
@@ -62,7 +62,7 @@ class CharacterTest {
         world1.setGrid(small);
         world1.setCharacter(kerel);
         try {
-            kerel.move();
+            world1.move();
         } catch (Exception e){
             System.out.println("player can't move to a wall");
         }
