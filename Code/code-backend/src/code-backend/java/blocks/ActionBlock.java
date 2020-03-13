@@ -4,9 +4,9 @@ import worldElements.Character;
 import worldElements.GameWorld;
 
 public abstract class ActionBlock extends Block {
-    public void doAction(Character character){}
+    public void doAction(GameWorld world){}
     public void execute(GameWorld world){
-        doAction(world.getCharacter());
+        doAction(world);
     }
 
     public Block getPrevious() {
