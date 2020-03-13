@@ -16,11 +16,12 @@ public class LoadDataHandler {
                 grid[i][j] = new UIGridWall(new Point(j, i));
             }
         }
-        grid[4][1] = new UICharacter(new Point(1, 4), Directions.RIGHT);
+        grid[4][1] = new UIGridGround(new Point(1,4));
         grid[4][2] = new UIGridGround(new Point(2, 4));
         grid[3][2] = new UIGridGround(new Point(2, 3));
         grid[3][3] = new UIGridGround(new Point(3, 3));
         grid[3][4] = new UIGridGround(new Point(4, 3));
+        uiGameWorld.setUiCharacter(new UICharacter(new Point(1, 4), Directions.RIGHT));
 
         initializeGameWorld();
     }

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 public class MyCanvasWindow extends CanvasWindow {
 
-    private BlockrGame blockrGame;
+    private BlockrGame blockrGame = new BlockrGame();
     //Variables
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
@@ -14,12 +14,12 @@ public class MyCanvasWindow extends CanvasWindow {
     //Views
     private UIPalette uiPalette = new UIPalette(new Point(0, 0), super.width / 4, super.height, 30);
     private UIProgramArea uiProgramArea = new UIProgramArea(new Point(uiPalette.getWidth(), 0), super.width / 2, super.height);
-    private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30);
+    private UIGameWorld uiGameWorld = new UIGameWorld(new Point(uiPalette.getWidth() + uiProgramArea.getWidth(), 0), 30,blockrGame);
     //Handlers
     private LoadDataHandler loadDatahandler = new LoadDataHandler(uiGameWorld);
     private ClickHandler clickHandler = new ClickHandler(uiPalette, uiProgramArea);
-    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea);
-    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld);
+    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea, blockrGame);
+    private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld, blockrGame);
 
 
     /**
