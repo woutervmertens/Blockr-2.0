@@ -51,8 +51,8 @@ public class BlockrGame {
 
     public void reset()
     {
-        //gameWorld.reset();
-        //program.reset();
+        gameWorld.reset();
+        program.reset();
     }
 
 

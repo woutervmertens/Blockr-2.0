@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameWorld {
+    private Character originalCharacter;
 
     public GameWorld(int[] gridDimension, int[] goalPosition) {
         // TODO: build whole square with nested for loop
@@ -15,6 +16,7 @@ public class GameWorld {
         grid = new Square[gridDimension[0]][gridDimension[1]];
         this.goalPosition = goalPosition;
         this.character = new Character();
+        originalCharacter = new Character();
     }
 
     /**
@@ -45,6 +47,12 @@ public class GameWorld {
                 position[1] >= getGrid().length || position[0] >= getGrid()[0].length;
     }
 
+    public void reset()
+    {
+        character.setPosition(originalCharacter.getPosition());
+        character.setDirection(originalCharacter.getDirection());
+    }
+
     /**
      * The goal position of this world that has to be reached by the character controlled by the player.
      */
@@ -69,6 +77,8 @@ public class GameWorld {
 
     public void setCharacter(Character character) {
         this.character = character;
+        originalCharacter.setDirection(character.getDirection());
+        originalCharacter.setPosition(character.getPosition());
     }
 
     private boolean isValidMove(int[] position) {
@@ -82,19 +92,19 @@ public class GameWorld {
     public void move() {
         switch (getCharacter().getDirection()) {
             case UP:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] + 1, getCharacter().getPosition()[1]});
                 break;
 
             case DOWN:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1});
-                break;
-
-            case LEFT:
                 getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] - 1, getCharacter().getPosition()[1]});
                 break;
 
+            case LEFT:
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1});
+                break;
+
             case RIGHT:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] + 1, getCharacter().getPosition()[1]});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1});
                 break;
         }
     }

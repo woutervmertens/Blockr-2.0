@@ -46,6 +46,11 @@ public class Program {
         return world;
     }
 
+    public void reset()
+    {
+        setCopy(blockGroup.getBlocks());
+    }
+
     private BlockGroup blockGroup;
 
     public BlockGroup getBlockGroup() {

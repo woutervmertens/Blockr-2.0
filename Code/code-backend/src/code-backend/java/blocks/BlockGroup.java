@@ -13,9 +13,9 @@ public class BlockGroup {
     /**
      * The blocks who represent the linked list.
      */
-    private List<Block> blocks;
+    private LinkedList<Block> blocks;
 
-    public List<Block> getBlocks() {
+    public LinkedList<Block> getBlocks() {
         return blocks;
     }
 
