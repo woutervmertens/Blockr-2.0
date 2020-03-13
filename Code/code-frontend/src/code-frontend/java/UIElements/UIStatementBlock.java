@@ -103,4 +103,9 @@ public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
     public Point getConditionPlugPosition(){
         return new Point(position.x + conditionWidth + step, position.y + step * 3);
     }
+
+    @Override
+    public boolean isPositionOn(int x, int y) {
+        return (x > position.x && x < position.x + conditionWidth) && (y > position.y && y < position.y + height);
+    }
 }

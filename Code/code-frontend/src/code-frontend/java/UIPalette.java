@@ -35,10 +35,9 @@ public class UIPalette {
             uiBlocks.add(type.getNewUIBlock(0,0));
         }
 
-        //set which buttons are available
+        //set which buttons are available aka can be used in this level (currently all)
         for (UIBlock b : uiBlocks) {
             b.setAvailable(true);
-            // TODO: instead of setting blocks available rather set the whole palette available !
         }
     }
 
@@ -103,10 +102,6 @@ public class UIPalette {
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
-    }
-
-    public int getNumBlocksAvailable() {
-        return 0; /*TODO:retrieve from backend*/
     }
 
     public boolean isWithin(int x, int y) {

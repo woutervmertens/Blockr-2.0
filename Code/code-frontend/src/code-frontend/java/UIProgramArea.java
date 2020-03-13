@@ -1,11 +1,13 @@
-import UIElements.BlockTypes;
+import UIElements.HorizontallyConnectable;
 import UIElements.UIBlock;
+import UIElements.VerticallyConnectable;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class UIProgramArea {
     private DrawBlockHandler drawBlockHandler = new DrawBlockHandler();
+
     public Point getPos() {
         return this.pos;
     }
@@ -44,7 +46,7 @@ public class UIProgramArea {
         int i = 0;
         for (UIBlock block : uiBlocks) {
             // TODO: call the draw function on blocks instead of having duplicate draw code for UIPArea and UIPalette
-            drawBlockHandler.draw(block,g,highlightedBlockNumber == i++);
+            drawBlockHandler.draw(block, g, highlightedBlockNumber == i++);
         }
     }
 
@@ -69,8 +71,8 @@ public class UIProgramArea {
     public UIBlock getUiBlockClicked(int x, int y) {
         assert this.isWithin(x, y);
 
-        for (UIBlock uiBlock: getUiBlocks()) {
-            if (uiBlock.isPositionOn(x,y)) {
+        for (UIBlock uiBlock : getUiBlocks()) {
+            if (uiBlock.isPositionOn(x, y)) {
                 return uiBlock;
             }
         }
@@ -81,19 +83,65 @@ public class UIProgramArea {
         return uiBlocks;
     }
 
+    /**
+     * Adds UIBlock to list of blocks if not already in list
+     * @param block UIBlock to add
+     */
     public void addBlock(UIBlock block) {
-        uiBlocks.add(block);
+        if (!uiBlocks.contains(block)) {
+            uiBlocks.add(block);
+        }
         // TODO test & implement fit in the area
     }
 
+    /**
+     * Removes UIBlock from list of blocks
+     * @param block UIBlock to remove
+     */
     public void removeBlock(UIBlock block) {
         uiBlocks.remove(block);
     }
 
-    public UIBlock getBlockAtPositionWithinRadius(int x, int y, int radius) {
+    public UIBlock getBlockWithPlugForBlockWithinRadius(UIBlock uiBlock, int radius) {
         for (UIBlock b : getUiBlocks()) {
-            // TODO
+            if (b == uiBlock || (uiBlock instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
+                    || (uiBlock instanceof VerticallyConnectable   && !(b instanceof VerticallyConnectable)))
+                continue;
+
+            // TODO: maybe type cast with interfaces
+            if (getDistance(uiBlock.getSocketPosition(), b.getPlugPosition()) <= radius) {
+                return b;
+            }
+
         }
         return null;
+    }
+
+    public UIBlock getBlockWithSocketForBlockWithinRadius(UIBlock uiBlock, int radius) {
+        for (UIBlock b : getUiBlocks()) {
+            if (b == uiBlock || (uiBlock instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
+                             || (uiBlock instanceof VerticallyConnectable   && !(b instanceof VerticallyConnectable)))
+                continue;
+
+            // TODO: maybe type cast with interfaces
+            if (getDistance(uiBlock.getPlugPosition(), b.getSocketPosition()) <= radius) {
+                return b;
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * Get the distance between two given points.
+     * @param b Point1
+     * @param p Point2
+     */
+    private static int getDistance(Point b, Point p) {
+        return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
+    }
+
+    public int getNumBlocks() {
+        return uiBlocks.size();
     }
 }

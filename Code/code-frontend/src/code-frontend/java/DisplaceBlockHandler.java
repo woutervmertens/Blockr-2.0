@@ -1,5 +1,4 @@
 import UIElements.UIBlock;
-import UIElements.UIConditionBlock;
 import UIElements.UIStatementBlock;
 import blocks.ConditionBlock;
 import blocks.StatementBlock;
@@ -10,7 +9,7 @@ public class DisplaceBlockHandler {
     private UIProgramArea uiProgramArea;
     private UIPalette uiPalette;
     private ExecuteProgramHandler executeProgramHandler;
-    private UIBlock closeBlock = null;
+    private final int radius = 20;  // Radius for connections
 
     public DisplaceBlockHandler(UIProgramArea uiProgramArea, UIPalette uiPalette, UIGameWorld uiGameWorld) {
         this.uiProgramArea = uiProgramArea;
@@ -20,34 +19,46 @@ public class DisplaceBlockHandler {
     }
 
     /**
-     *
      * @param draggedBlock The block that was dragged until release (if any)
      */
     public void handleRelease(int x, int y, UIBlock draggedBlock) {
         if (draggedBlock == null) throw new IllegalArgumentException("No block was dragged !");
 
+        UIBlock closeBlock = null;
+        Point connectionPoint = null;
+
         //TODO: create block where needed
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
-            draggedBlock.setPosition(dropPos);
 
 
             //TODO: check if close enough to other blocks plug
-            int radius = 20;
-            closeBlock = null;
-//            Point closeCon = getConWithinRadius(draggedBlock, radius);
+
+            // 1) EVENTUAL PLUG
+            closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
+            connectionPoint = (closeBlock != null) ?
+                    new Point(closeBlock.getPosition().x, closeBlock.getPosition().y + closeBlock.getHeight() + 5)
+                    : null;
+
+            // 2) EVENTUAL SOCKET
+            if (closeBlock == null) {
+                closeBlock = uiProgramArea.getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
+                connectionPoint = (closeBlock != null) ?
+                        new Point(closeBlock.getPosition().x, closeBlock.getPosition().y - closeBlock.getHeight() - 5)
+                        : null;
+            }
+
             if (closeBlock != null) {
                 //TODO: connect this block with the close block
                 //TODO: handle backend
-                System.out.println("Close block: "+ closeBlock.getText());
-//                draggedBlock.setPosition(closeCon);
+                System.out.println("Close block: " + closeBlock.getText());
+                draggedBlock.setPosition(connectionPoint);
             } else {
                 //TODO: create new program in backend
-
+                draggedBlock.setPosition(dropPos);
             }
-            uiProgramArea.addBlock(draggedBlock);  // TODO: add it correctly !
+            uiProgramArea.addBlock(draggedBlock);
             executeProgramHandler.reset();
-
 
 
         } else {
@@ -55,7 +66,10 @@ public class DisplaceBlockHandler {
             //TODO: backend: remove currently selected block
             uiPalette.setHidden(false);
         }
+
+
     }
+
 
 //    /**
 //     * Finds a viable position within the radius to translate to and adds the blocks to the backend
@@ -106,31 +120,24 @@ public class DisplaceBlockHandler {
 
     /**
      * Add the new block to the conditions of the closest Statement block
+     *
      * @param draggedBlock the new block
-     * @param b the statement block
+     * @param b            the statement block
      */
-    private void addBlockToConditions(UIBlock draggedBlock, UIBlock b){
-        ((StatementBlock)b.getBlock()).addCondition((ConditionBlock) draggedBlock.getBlock());
+    private void addBlockToConditions(UIBlock draggedBlock, UIBlock b) {
+        ((StatementBlock) b.getBlock()).addCondition((ConditionBlock) draggedBlock.getBlock());
     }
 
     /**
      * Add the new block to the body of the closest Statement block
+     *
      * @param draggedBlock the new block
-     * @param b the statement block
+     * @param b            the statement block
      */
     private void addBlockToBody(UIBlock draggedBlock, UIBlock b) {
-        ((StatementBlock)b.getBlock()).getBody().addBlockAtEnd(draggedBlock.getBlock());
-        int gS = ((UIStatementBlock)b).getGapSize() + draggedBlock.getHeight();
-        ((UIStatementBlock)b).setGapSize(gS);
-    }
-
-    /**
-     * Get the distance between two given points.
-     * @param b Point1
-     * @param p Point2
-     */
-    private int getDistance(Point b, Point p) {
-        return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
+        ((StatementBlock) b.getBlock()).getBody().addBlockAtEnd(draggedBlock.getBlock());
+        int gS = ((UIStatementBlock) b).getGapSize() + draggedBlock.getHeight();
+        ((UIStatementBlock) b).setGapSize(gS);
     }
 
 
