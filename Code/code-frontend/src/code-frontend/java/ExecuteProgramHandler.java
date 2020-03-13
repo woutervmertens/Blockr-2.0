@@ -29,4 +29,9 @@ public class ExecuteProgramHandler {
         blockrGame.addBlockToBlockGroudp(block.getBlock());
     }
 
+    public void createNewBlockGroup(UIBlock block)
+    {
+        blockrGame.createNewBlockGroup(block.getBlock());
+    }
+
 }
