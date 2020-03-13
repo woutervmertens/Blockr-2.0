@@ -1,5 +1,6 @@
 import UIElements.UIBlock;
 import UIElements.UIStatementBlock;
+import UIElements.BlockTypes;
 import blocks.ConditionBlock;
 import blocks.StatementBlock;
 
