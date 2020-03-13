@@ -73,7 +73,7 @@ public class Program {
 
     public void execute() {
         setCurrentBlock(getCopy().getFirst());
-        setNextBlock(getCopy().get(1));
+        if(getCopy().size()>1)setNextBlock(getCopy().get(1));
         // condition of statementBlock is true
         if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
 
