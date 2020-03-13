@@ -92,25 +92,25 @@ public class GameWorld {
     public void move() {
         switch (getCharacter().getDirection()) {
             case UP:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] + 1, getCharacter().getPosition()[1]});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1]-1});
                 break;
 
             case DOWN:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] - 1, getCharacter().getPosition()[1]});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] +1});
                 break;
 
             case LEFT:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] -1, getCharacter().getPosition()[1]});
                 break;
 
             case RIGHT:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1});
+                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] +1 , getCharacter().getPosition()[1]});
                 break;
         }
     }
 
-    public void turn() {
-        if (getCharacter().getDirection() == Direction.LEFT) {
+    public void turn(Direction dir) {
+        if (dir == Direction.LEFT) {
             switch (character.getDirection()) {
                 case UP:
                     character.setDirection(Direction.LEFT);

@@ -1,3 +1,4 @@
+import blocks.Block;
 import worldElements.Character;
 import worldElements.Direction;
 import worldElements.GameWorld;
@@ -56,4 +57,11 @@ public class BlockrGame {
     }
 
 
+    public void addBlockToBlockGroudp(Block block) {
+        program.getBlockGroup().addBlockAtEnd(block);
+    }
+
+    public void createNewBlockGroup(Block block) {
+        //program.
+    }
 }

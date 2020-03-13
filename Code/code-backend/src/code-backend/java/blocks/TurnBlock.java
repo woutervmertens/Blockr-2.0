@@ -12,7 +12,7 @@ public class TurnBlock extends ActionBlock {
 
     @Override
     public void doAction(GameWorld world) {
-        world.turn();
+        world.turn(direction);
     }
 
 

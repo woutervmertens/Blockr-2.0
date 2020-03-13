@@ -51,7 +51,7 @@ public class Program {
         setCopy(blockGroup.getBlocks());
     }
 
-    private BlockGroup blockGroup;
+    private BlockGroup blockGroup = new BlockGroup();
 
     public BlockGroup getBlockGroup() {
         return blockGroup;
@@ -60,6 +60,7 @@ public class Program {
     public void setBlockGroup(BlockGroup blockGroup) { this.blockGroup = blockGroup; }
 
     public LinkedList<Block> getCopy() {
+        if (copy == null) copy = new LinkedList<Block>(blockGroup.getBlocks());
         return copy;
     }
 
@@ -67,12 +68,12 @@ public class Program {
         this.copy = copy;
     }
 
-    private LinkedList<Block> copy = new LinkedList<Block>(blockGroup.getBlocks());
+    private LinkedList<Block> copy;
 
 
     public void execute() {
         setCurrentBlock(getCopy().getFirst());
-        setNextBlock(getCopy().get(1));
+        if(getCopy().size()>1)setNextBlock(getCopy().get(1));
         // condition of statementBlock is true
         if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
 
