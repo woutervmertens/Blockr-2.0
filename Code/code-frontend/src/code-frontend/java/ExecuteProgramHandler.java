@@ -7,20 +7,24 @@ public class ExecuteProgramHandler {
     private UIProgramArea uiProgramArea;
     private UIGameWorld uiGameWorld;
     private UICharacter uiCharacter;
+    private BlockrGame blockrGame;
+    private BackendConverter converter;
 
-    public ExecuteProgramHandler(UIProgramArea uiProgramArea, UIGameWorld uiGameWorld) {
+    public ExecuteProgramHandler(UIProgramArea uiProgramArea, UIGameWorld uiGameWorld, BlockrGame blockrGame) {
         this.uiProgramArea = uiProgramArea;
         this.uiGameWorld = uiGameWorld;
+        this.blockrGame = blockrGame;
+        converter = new BackendConverter();
     }
 
     public void execute() {
         uiProgramArea.increaseHighlightedBlockNumber();
-        //TODO: backend
+        blockrGame.executeBlock();
     }
 
     public void reset() {
-        uiGameWorld.Reset();
-        uiProgramArea.Reset();
+        blockrGame.reset();
+        uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid()));
     }
 
     public void turnCharacter(Directions direction)
@@ -31,7 +35,7 @@ public class ExecuteProgramHandler {
 
     public void moveCharacter(int x, int y){
         getCharacter();
-        uiGameWorld.switchElements(uiCharacter.getPosInGrid(),new Point(x,y));
+        //uiGameWorld.switchElements(uiCharacter.getPosInGrid(),new Point(x,y));
     }
 
     private void getCharacter()

@@ -1,23 +1,32 @@
-import blocks.ActionBlock;
-import blocks.Block;
-import blocks.BlockGroup;
-import blocks.StatementBlock;
+import worldElements.Character;
+import worldElements.GameWorld;
+import worldElements.Square;
 
 public class BlockrGame {
+    private GameWorld gameWorld;
+    private Program program;
 
-    /**
-     * Execute the given blockGroup by changing the state of the gameWorld and character step by step.
-     *   Only the execution of block groups is *publicly* allowed and not of blocks !
-     */
-    public void executeBlockGroup(BlockGroup blockGroup) {
-        // TODO
+
+
+    public Character executeBlock() {
+        program.execute();
+        return gameWorld.getCharacter();
     }
 
-    /**
-     * @pre block instanceof ActionBlock || block instanceof StatementBlock
-     */
-    private void executeBlock(Block block) {
-        assert block instanceof ActionBlock || block instanceof StatementBlock;
-        // TODO: execute single block
+    public Character getCharacter(){
+        return gameWorld.getCharacter();
     }
+
+    public Square[][] getGrid()
+    {
+        return gameWorld.getGrid();
+    }
+
+    public void reset()
+    {
+        gameWorld.reset();
+        program.reset();
+    }
+
+
 }

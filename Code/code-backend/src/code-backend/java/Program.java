@@ -45,6 +45,5 @@ public class Program {
 
     public void execute() {
         blockGroup.getBlocks().forEach(block -> block.execute(world));
-
     }
 }

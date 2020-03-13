@@ -5,12 +5,18 @@ import java.awt.*;
 
 public class UIGameWorld {
     private Point pos;
-    private UIGridElement[][] grid, initialGrid;
+    private UIGridElement[][] grid;
     private int elementSize;
+    private BlockrGame blockrGame;
+    private UICharacter uiCharacter;
+    private BackendConverter converter;
 
-    public UIGameWorld(Point pos, int elementSize) {
+    public UIGameWorld(Point pos, int elementSize, BlockrGame blockrGame) {
         this.elementSize = elementSize;
         this.pos = pos;
+        this.blockrGame = blockrGame;
+        converter = new BackendConverter();
+        getUiCharacter();
     }
 
     /**
@@ -19,20 +25,18 @@ public class UIGameWorld {
      */
     public void setGrid(UIGridElement[][] grid) {
         this.grid = grid;
-        initialGrid = deepCopy(grid);
+    }
+
+    public void setUiCharacter(UICharacter uiCharacter){
+        this.uiCharacter = uiCharacter;
+    }
+
+    private void getUiCharacter(){
+        setUiCharacter(converter.convertCharacter(blockrGame.getCharacter()));
     }
 
     public UIGridElement[][] getGrid() {
         return grid;
-    }
-
-    public void switchElements(Point from, Point to){
-        UIGridElement el = grid[from.y][from.x];
-        grid[from.y][from.x] = grid[to.x][to.y];
-        grid[to.x][to.y] = el;
-        Point p = grid[to.x][to.y].getPosInGrid();
-        grid[to.x][to.y].setPosInGrid(grid[from.y][from.x].getPosInGrid());
-        grid[from.y][from.x].setPosInGrid(p);
     }
 
     /**
@@ -40,6 +44,7 @@ public class UIGameWorld {
      * @param g awt Graphics
      */
     public void draw(Graphics g) {
+        getUiCharacter();
         if (grid == null) return;
         for (UIGridElement[] elCol : grid) {
             for (UIGridElement el : elCol) {
@@ -47,27 +52,13 @@ public class UIGameWorld {
                 g.drawPolygon(el.getPolygon(elementSize, pos));
             }
         }
-    }
-
-    /**
-     * Reset grid to backup
-     */
-    public void Reset() {
-        this.grid = deepCopy(initialGrid);
+        g.setColor(uiCharacter.getColor());
+        g.drawPolygon(uiCharacter.getPolygon(elementSize,pos));
     }
 
     public UICharacter getCharacter()
     {
-        for (UIGridElement[] elCol : grid) {
-            for (UIGridElement el : elCol) {
-                if(el instanceof UICharacter)
-                    return (UICharacter) el;
-            }
-        }
-        return null;
-    }
-
-    private <T> T[][] deepCopy(T[][] matrix) {
-        return java.util.Arrays.stream(matrix).map(el -> el.clone()).toArray($ -> matrix.clone());
+        getUiCharacter();
+        return uiCharacter;
     }
 }

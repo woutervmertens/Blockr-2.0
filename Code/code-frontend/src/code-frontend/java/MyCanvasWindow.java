@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 public class MyCanvasWindow extends CanvasWindow {
 
+    private BlockrGame blockrGame;
     //Variables
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
