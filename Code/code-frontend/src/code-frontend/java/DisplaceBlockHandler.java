@@ -12,11 +12,11 @@ public class DisplaceBlockHandler {
     private ExecuteProgramHandler executeProgramHandler;
     private final int radius = 20;  // Radius for connections
 
-    public DisplaceBlockHandler(UIProgramArea uiProgramArea, UIPalette uiPalette, UIGameWorld uiGameWorld) {
+    public DisplaceBlockHandler(UIProgramArea uiProgramArea, UIPalette uiPalette, UIGameWorld uiGameWorld, BlockrGame blockrGame) {
         this.uiProgramArea = uiProgramArea;
         this.uiPalette = uiPalette;
 
-        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld);
+        executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld, blockrGame);
     }
 
     /**
