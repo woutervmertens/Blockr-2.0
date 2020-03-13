@@ -7,43 +7,26 @@
     <coordinates>
       <x>0</x>
       <y>0</y>
-      <w>1890</w>
-      <h>1060</h>
+      <w>1700</w>
+      <h>470</h>
     </coordinates>
     <panel_attributes>title=Blocks
-obj=_:UserInterfacerManager_~ui
-obj=:Palette~pal
+obj=_:MyCanvasWindow_~ui
+obj=:DisplaceBlockHandler~pal
 obj=_:Block_~b CREATED_LATER
 obj=:Program~p
 
-found-&gt;&gt;&gt;ui: createBlock(type,pos); on=ui;
-ui.&gt;&gt;&gt;b : create(type,pos); 
-ui-&gt;&gt;&gt;pal: increaseBlocks; on=pal;
-combinedFragment=alt~alt1 pal pal; pal:[numBlocksAvailable =&lt; 0];
-pal-&gt;&gt;&gt;pal + : hideBlocks
---=alt1;
-pal.&gt;ui: numBlocksAvailable; off=pal;
-off=ui
-found-&gt;&gt;&gt;ui:dragBlock(pos); on=ui
-ui-&gt;&gt;&gt;b: changePosition(pos); on=b;
-off=b; off=ui;
+
 found-&gt;&gt;&gt;ui: releaseBlock(pos); on=ui;
 combinedFragment=alt~
 	ui:[pos in ProgramArea]
-	ui-&gt;&gt;&gt;b:getId;on=b;
-	b.&gt;ui: blockId;off=b
-	id1-&gt;&gt;&gt;p: addBlock(blockId);on=p
+	ui.&gt;&gt;&gt;b: &lt;&lt;create&gt;&gt;
+	id1-&gt;&gt;&gt;p: addBlock();on=p
 	off=p
-..
-	ui:[pos outside ProgramArea]
-	ui-&gt;&gt;&gt;b: &lt;&lt;destroy&gt;&gt;;destroy=b
-	ui-&gt;&gt;&gt;pal: decreaseBlocks; on=pal;
-	combinedFragment=alt~alt1 pal pal; pal:[numBlocksAvailable &gt; 0];
-	pal-&gt;&gt;&gt;pal + : revealBlocks
-	--=alt1;
-	pal.&gt;ui: numBlocksAvailable; off=pal;
-	off=ui
 --
+found-&gt;&gt;&gt;ui:dragBlock(pos); on=ui
+ui-&gt;&gt;&gt;b: changePosition(pos); on=b;
+off=b; off=ui;
 
 
 </panel_attributes>
