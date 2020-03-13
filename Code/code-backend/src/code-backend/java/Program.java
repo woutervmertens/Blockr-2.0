@@ -51,7 +51,7 @@ public class Program {
         setCopy(blockGroup.getBlocks());
     }
 
-    private BlockGroup blockGroup;
+    private BlockGroup blockGroup = new BlockGroup();
 
     public BlockGroup getBlockGroup() {
         return blockGroup;
