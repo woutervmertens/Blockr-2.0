@@ -73,8 +73,10 @@ public class Program {
     public void execute() {
         setCurrentBlock(getCopy().getFirst());
         setNextBlock(getCopy().get(1));
+        // condition of statementBlock is true
         if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
 
+                //WhileBlock
             if (getCurrentBlock() instanceof WhileBlock){
                 LinkedList<Block> temp = new LinkedList<>();
                 temp.addAll(((WhileBlock) getCurrentBlock()).getBody().getBlocks());
@@ -91,7 +93,9 @@ public class Program {
                 temp.addAll(getCopy());
                 setCopy(temp);
             }
+            //CurrentBlock is geen statementBlock of condition is false
         } else{
+                //ActionBlock
             if (getCurrentBlock() instanceof ActionBlock){
                 ((ActionBlock) getCurrentBlock()).execute(getWorld());
             }
