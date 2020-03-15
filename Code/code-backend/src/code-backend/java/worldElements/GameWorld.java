@@ -44,7 +44,7 @@ public class GameWorld {
 
     public boolean isPositionInBoundaries(int[] position) {
         return position[0] >= 0 && position[1] >= 0 &&
-                position[1] <= getGrid().length && position[0] <= getGrid()[0].length;
+                position[1] <= getGrid().length-1 && position[0] <= getGrid()[0].length-1;
     }
 
     public void reset()
