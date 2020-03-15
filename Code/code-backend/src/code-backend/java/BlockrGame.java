@@ -28,11 +28,11 @@ public class BlockrGame {
                 grid[i][j] = new Square(false);
             }
         }
-        grid[4][1] = new Square(true);
-        grid[4][2] = new Square(true);
-        grid[3][2] = new Square(true);
+        grid[1][4] = new Square(true);
+        grid[2][4] = new Square(true);
+        grid[2][3] = new Square(true);
         grid[3][3] = new Square(true);
-        grid[3][4] = new Square(true);
+        grid[4][3] = new Square(true);
         return grid;
     }
 

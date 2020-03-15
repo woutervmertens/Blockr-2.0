@@ -43,8 +43,8 @@ public class GameWorld {
     }
 
     public boolean isPositionInBoundaries(int[] position) {
-        return position[0] < 0 || position[1] < 0 ||
-                position[1] >= getGrid().length || position[0] >= getGrid()[0].length;
+        return position[0] >= 0 && position[1] >= 0 &&
+                position[1] <= getGrid().length && position[0] <= getGrid()[0].length;
     }
 
     public void reset()
@@ -92,19 +92,31 @@ public class GameWorld {
     public void move() {
         switch (getCharacter().getDirection()) {
             case UP:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1]-1});
+                int [] newPosUp = {getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1};
+                if (isValidMove(newPosUp)){
+                    getCharacter().setPosition(newPosUp);
+                }
                 break;
 
             case DOWN:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0], getCharacter().getPosition()[1] +1});
+                int [] newPosDown = {getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1};
+                if (isValidMove(newPosDown)){
+                    getCharacter().setPosition(newPosDown);
+                }
                 break;
 
             case LEFT:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] -1, getCharacter().getPosition()[1]});
+                int [] newPosLeft = {getCharacter().getPosition()[0] -1, getCharacter().getPosition()[1]};
+                if (isValidMove(newPosLeft)){
+                    getCharacter().setPosition(newPosLeft);
+                }
                 break;
 
             case RIGHT:
-                getCharacter().setPosition(new int[]{getCharacter().getPosition()[0] +1 , getCharacter().getPosition()[1]});
+                int [] newPosRight = {getCharacter().getPosition()[0] +1, getCharacter().getPosition()[1]};
+                if (isValidMove(newPosRight)){
+                    getCharacter().setPosition(newPosRight);
+                }
                 break;
         }
     }

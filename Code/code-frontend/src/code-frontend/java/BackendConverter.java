@@ -13,10 +13,10 @@ public class BackendConverter {
         for (int i = 0; i < nCol; i++) {
             for (int j = 0; j < nRow; j++) {
                 if(bGrid[i][j].isPassable()){
-                    uiGrid[i][j] = new UIGridGround(new Point(j,i));
+                    uiGrid[i][j] = new UIGridGround(new Point(i,j));
                 }
                 else
-                    uiGrid[i][j] = new UIGridWall(new Point(j,i));
+                    uiGrid[i][j] = new UIGridWall(new Point(i,j));
             }
         }
         return uiGrid;

@@ -3,6 +3,7 @@ import worldElements.GameWorld;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 /**
@@ -48,7 +49,7 @@ public class Program {
 
     public void reset()
     {
-        setCopy(blockGroup.getBlocks());
+        setCopy((LinkedList<Block>) blockGroup.getBlocks().clone());
     }
 
     private BlockGroup blockGroup = new BlockGroup();
@@ -72,8 +73,15 @@ public class Program {
 
 
     public void execute() {
-        setCurrentBlock(getCopy().getFirst());
+
+        try {
+            setCurrentBlock(getCopy().getFirst());
+        }catch (NoSuchElementException e){
+            reset();
+            getWorld().reset();
+        }
         if(getCopy().size()>1)setNextBlock(getCopy().get(1));
+
         // condition of statementBlock is true
         if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
 
@@ -94,7 +102,7 @@ public class Program {
                 temp.addAll(getCopy());
                 setCopy(temp);
             }
-            //CurrentBlock is geen statementBlock of condition is false
+            //CurrentBlock is not a statementBlock or condition is false
         } else{
                 //ActionBlock
             if (getCurrentBlock() instanceof ActionBlock){
