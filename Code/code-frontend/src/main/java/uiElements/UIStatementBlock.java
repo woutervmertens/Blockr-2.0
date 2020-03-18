@@ -1,11 +1,10 @@
-package UIElements;
+package uiElements;
 
 import blocks.Block;
 import blocks.IfBlock;
 import blocks.WhileBlock;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
     private final Block block;

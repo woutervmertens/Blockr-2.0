@@ -1,6 +1,6 @@
-import UIElements.UIBlock;
-import UIElements.UIStatementBlock;
-import UIElements.BlockTypes;
+import uiElements.UIBlock;
+import uiElements.UIStatementBlock;
+import uiElements.BlockTypes;
 import blocks.ConditionBlock;
 import blocks.StatementBlock;
 

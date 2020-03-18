@@ -1,4 +1,4 @@
-import UIElements.*;
+import uiElements.*;
 import worldElements.Character;
 import worldElements.Square;
 

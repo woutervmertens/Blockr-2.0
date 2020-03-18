@@ -1,9 +1,8 @@
-package UIElements;
+package uiElements;
 
 import blocks.Block;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class UIBlock {
     protected UIBlock previous;

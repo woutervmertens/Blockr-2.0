@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * TODO: Try to work completely independent of BlockGroup and then remove it
+ */
 public class BlockGroup {
 
     public BlockGroup(){

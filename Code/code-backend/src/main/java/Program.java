@@ -4,26 +4,28 @@ import worldElements.GameWorld;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Queue;
 
 /**
  * A program written by the player, represented as blocks.Block elements in a (Linked) List
  */
 public class Program {
+    private List<Block> blocks;
+    private GameWorld world;
+    private Block currentBlock;
+    private Block nextBlock;
+    private BlockGroup blockGroup = new BlockGroup();
+    private LinkedList<Block> copy;
 
     public Program(GameWorld world) {
         this.world = world;
-
     }
-    private GameWorld world;
 
-    public Program(GameWorld world, BlockGroup blockGroup) {
+    public Program(GameWorld world, BlockGroup blockGroup, List<Block> blocks) {
+        this.blocks = blocks;
         this.world = world;
         this.blockGroup = blockGroup;
         this.currentBlock = blockGroup.getBlocks().get(0);
     }
-
-    private Block currentBlock;
 
     public Block getNextBlock() {
         return nextBlock;
@@ -32,8 +34,6 @@ public class Program {
     public void setNextBlock(Block nextBlock) {
         this.nextBlock = nextBlock;
     }
-
-    private Block nextBlock;
 
     public Block getCurrentBlock() {
         return currentBlock;
@@ -47,18 +47,17 @@ public class Program {
         return world;
     }
 
-    public void reset()
-    {
+    public void reset() {
         setCopy((LinkedList<Block>) blockGroup.getBlocks().clone());
     }
-
-    private BlockGroup blockGroup = new BlockGroup();
 
     public BlockGroup getBlockGroup() {
         return blockGroup;
     }
 
-    public void setBlockGroup(BlockGroup blockGroup) { this.blockGroup = blockGroup; }
+    public void setBlockGroup(BlockGroup blockGroup) {
+        this.blockGroup = blockGroup;
+    }
 
     public LinkedList<Block> getCopy() {
         if (copy == null) copy = new LinkedList<Block>(blockGroup.getBlocks());
@@ -69,33 +68,29 @@ public class Program {
         this.copy = copy;
     }
 
-    private LinkedList<Block> copy;
-
 
     public void execute() {
 
         try {
             setCurrentBlock(getCopy().getFirst());
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             reset();
             getWorld().reset();
         }
-        if(getCopy().size()>1)setNextBlock(getCopy().get(1));
+        if (getCopy().size() > 1) setNextBlock(getCopy().get(1));
 
         // condition of statementBlock is true
-        if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld())) ){
+        if ((getCurrentBlock() instanceof StatementBlock) && (((StatementBlock) getCurrentBlock()).isConditionValid(getWorld()))) {
 
-                //WhileBlock
-            if (getCurrentBlock() instanceof WhileBlock){
+            //WhileBlock
+            if (getCurrentBlock() instanceof WhileBlock) {
                 LinkedList<Block> temp = new LinkedList<>();
                 temp.addAll(((WhileBlock) getCurrentBlock()).getBody().getBlocks());
                 temp.addAll(getCopy());
                 setCopy(temp);
                 setCurrentBlock(getCopy().getFirst());
                 setNextBlock(getCopy().get(1));
-            }
-
-            else{ //ifBlock
+            } else { //ifBlock
                 getCopy().removeFirst();
                 LinkedList<Block> temp = new LinkedList<>();
                 temp.addAll(((IfBlock) getCurrentBlock()).getBody().getBlocks());
@@ -103,9 +98,9 @@ public class Program {
                 setCopy(temp);
             }
             //CurrentBlock is not a statementBlock or condition is false
-        } else{
-                //ActionBlock
-            if (getCurrentBlock() instanceof ActionBlock){
+        } else {
+            //ActionBlock
+            if (getCurrentBlock() instanceof ActionBlock) {
                 ((ActionBlock) getCurrentBlock()).execute(getWorld());
             }
             getCopy().removeFirst();

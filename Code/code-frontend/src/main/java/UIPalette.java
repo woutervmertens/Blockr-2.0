@@ -1,4 +1,4 @@
-import UIElements.*;
+import uiElements.*;
 
 import java.awt.*;
 import java.util.ArrayList;

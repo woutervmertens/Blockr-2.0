@@ -1,5 +1,5 @@
-import UIElements.UICharacter;
-import UIElements.UIGridElement;
+import uiElements.UICharacter;
+import uiElements.UIGridElement;
 
 import java.awt.*;
 

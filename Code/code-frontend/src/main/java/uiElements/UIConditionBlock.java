@@ -1,9 +1,8 @@
-package UIElements;
+package uiElements;
 
 import blocks.WallInFrontBlock;
 import blocks.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class UIConditionBlock extends UIBlock implements HorizontallyConnectable {
     private final Block block;

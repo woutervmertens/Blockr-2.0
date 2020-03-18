@@ -1,4 +1,4 @@
-package UIElements;
+package uiElements;
 
 public enum Directions {
     UP,

@@ -1,4 +1,4 @@
-import UIElements.UIBlock;
+import uiElements.UIBlock;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,8 +18,8 @@ public class MyCanvasWindow extends CanvasWindow {
     //Handlers
     private LoadDataHandler loadDatahandler = new LoadDataHandler(blockrGame,uiGameWorld);
     private ClickHandler clickHandler = new ClickHandler(uiPalette, uiProgramArea);
-    private KeyHandler keyHandler = new KeyHandler(uiGameWorld, uiProgramArea, blockrGame);
     private DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(uiProgramArea, uiPalette, uiGameWorld, blockrGame);
+    private ExecuteProgramHandler executeProgramHandler = executeProgramHandler = new ExecuteProgramHandler(uiProgramArea, uiGameWorld, blockrGame);
 
 
     /**
@@ -67,7 +67,7 @@ public class MyCanvasWindow extends CanvasWindow {
         super.handleMouseEvent(id, x, y, clickCount);
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
-                keyHandler.reset();
+                executeProgramHandler.reset();
                 draggedBlock = clickHandler.getUIBlock(x, y);
                 break;
             case MouseEvent.MOUSE_CLICKED:
@@ -88,7 +88,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 }
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + id);
+                throw new IllegalStateException("Unexpected mouse event: " + id);
         }
     }
 
@@ -105,11 +105,11 @@ public class MyCanvasWindow extends CanvasWindow {
         if (id == KeyEvent.KEY_PRESSED) {
             switch (keyCode) {
                 case 116: //F5
-                    keyHandler.stepThroughCode();
+                    executeProgramHandler.execute();
                     repaint();
                     break;
                 case 27: //Escape
-                    keyHandler.reset();
+                    executeProgramHandler.reset();
                     repaint();
                     break;
             }

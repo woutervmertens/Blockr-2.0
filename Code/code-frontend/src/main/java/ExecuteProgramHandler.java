@@ -1,5 +1,5 @@
-import UIElements.UIBlock;
-import UIElements.UICharacter;
+import uiElements.UIBlock;
+import uiElements.UICharacter;
 
 public class ExecuteProgramHandler {
     private UIProgramArea uiProgramArea;
@@ -16,13 +16,14 @@ public class ExecuteProgramHandler {
     }
 
     public void execute() {
-        uiProgramArea.increaseHighlightedBlockNumber();
+        uiProgramArea.highlightNextBlock();
         blockrGame.executeBlock();
     }
 
     public void reset() {
         blockrGame.reset();
         uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid()));
+        uiProgramArea.restartProgram();
     }
 
     public void addBlockToProgram(UIBlock block){

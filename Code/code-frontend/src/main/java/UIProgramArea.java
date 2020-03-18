@@ -1,6 +1,6 @@
-import UIElements.HorizontallyConnectable;
-import UIElements.UIBlock;
-import UIElements.VerticallyConnectable;
+import uiElements.HorizontallyConnectable;
+import uiElements.UIBlock;
+import uiElements.VerticallyConnectable;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -45,17 +45,8 @@ public class UIProgramArea {
 
         int i = 0;
         for (UIBlock block : uiBlocks) {
-            // TODO: call the draw function on blocks instead of having duplicate draw code for UIPArea and UIPalette
             drawBlockHandler.draw(block, g, highlightedBlockNumber == i++);
         }
-    }
-
-    public void increaseHighlightedBlockNumber() {
-        highlightedBlockNumber++;
-    }
-
-    public void Reset() {
-        highlightedBlockNumber = -1;
     }
 
     public boolean isWithin(int x, int y) {
@@ -143,5 +134,13 @@ public class UIProgramArea {
 
     public int getNumBlocks() {
         return uiBlocks.size();
+    }
+
+    public void highlightNextBlock() {
+        highlightedBlockNumber++;
+    }
+
+    public void restartProgram() {
+        highlightedBlockNumber = -1;
     }
 }

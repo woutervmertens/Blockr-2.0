@@ -1,4 +1,4 @@
-package UIElements;
+package uiElements;
 
 import blocks.Block;
 import blocks.MoveBlock;
@@ -6,7 +6,6 @@ import blocks.TurnBlock;
 import worldElements.Direction;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class UIActionBlock extends UIBlock implements VerticallyConnectable {
     private final Block block;
