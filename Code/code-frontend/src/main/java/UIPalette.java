@@ -100,7 +100,7 @@ public class UIPalette {
         return hidden;
     }
 
-    public void setHidden(boolean hidden) {
+    public void setHiddenStateAs(boolean hidden) {
         this.hidden = hidden;
     }
 

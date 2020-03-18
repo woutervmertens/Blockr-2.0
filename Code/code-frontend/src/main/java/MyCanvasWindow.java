@@ -33,7 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        uiPalette.setHidden((maxBlocks - uiProgramArea.getNumBlocks()) <= 0);
+        uiPalette.setHiddenStateAs((maxBlocks - uiProgramArea.getNumBlocks()) <= 0);
         uiPalette.draw(g);
         uiProgramArea.draw(g);
         uiGameWorld.draw(g);

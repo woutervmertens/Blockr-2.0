@@ -72,7 +72,7 @@ public class DisplaceBlockHandler {
         } else {
             uiProgramArea.removeBlock(draggedBlock);
             //TODO: backend: remove currently selected block
-            uiPalette.setHidden(false);
+            uiPalette.setHiddenStateAs(false);
         }
     }
 

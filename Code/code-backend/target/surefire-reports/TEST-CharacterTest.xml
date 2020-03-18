@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="CharacterTest" time="0.001" tests="3" errors="3" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="CharacterTest" time="0" tests="3" errors="3" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar /home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire 2020-03-18T12-29-08_458-jvmRun1 surefire7297255063557520826tmp surefire_07202142139786894444tmp"/>
+    <property name="sun.java.command" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter8099908838098508580.jar /home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire 2020-03-18T15-20-49_545-jvmRun1 surefire8503940854613276568tmp surefire_012100498455339798462tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/test-classes:/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/classes:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar:/home/adam/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/adam/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar"/>
+    <property name="surefire.real.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter8099908838098508580.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.6+10-post-Ubuntu-1ubuntu118.04.1"/>
     <property name="user.name" value="adam"/>

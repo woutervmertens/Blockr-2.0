@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ProgramTest" time="0.024" tests="5" errors="4" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ProgramTest" time="0.023" tests="5" errors="4" skipped="0" failures="1">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar /home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire 2020-03-18T12-29-08_458-jvmRun1 surefire7297255063557520826tmp surefire_07202142139786894444tmp"/>
+    <property name="sun.java.command" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter8099908838098508580.jar /home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire 2020-03-18T15-20-49_545-jvmRun1 surefire8503940854613276568tmp surefire_012100498455339798462tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/test-classes:/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/classes:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar:/home/adam/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/adam/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar"/>
+    <property name="surefire.real.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter8099908838098508580.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.6+10-post-Ubuntu-1ubuntu118.04.1"/>
     <property name="user.name" value="adam"/>
@@ -62,7 +62,7 @@
 	at ProgramTest.executeP0(ProgramTest.java:39)
 </error>
   </testcase>
-  <testcase name="executeP1" classname="ProgramTest" time="0">
+  <testcase name="executeP1" classname="ProgramTest" time="0.001">
     <error message="class blocks.MoveBlock cannot be cast to class java.util.List (blocks.MoveBlock is in unnamed module of loader &apos;app&apos;; java.util.List is in module java.base of loader &apos;bootstrap&apos;)" type="java.lang.ClassCastException">java.lang.ClassCastException: class blocks.MoveBlock cannot be cast to class java.util.List (blocks.MoveBlock is in unnamed module of loader 'app'; java.util.List is in module java.base of loader 'bootstrap')
 	at ProgramTest.executeP1(ProgramTest.java:50)
 </error>
@@ -72,7 +72,7 @@
 	at ProgramTest.executeP2(ProgramTest.java:70)
 </error>
   </testcase>
-  <testcase name="executeP3" classname="ProgramTest" time="0.006">
+  <testcase name="executeP3" classname="ProgramTest" time="0">
     <failure message="kerel isn&apos;t at (9,1) ==&gt; expected: &lt;[9, 1]&gt; but was: &lt;[9, 0]&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: kerel isn't at (9,1) ==> expected: <[9, 1]> but was: <[9, 0]>
 	at ProgramTest.executeP3(ProgramTest.java:104)
 ]]></failure>
