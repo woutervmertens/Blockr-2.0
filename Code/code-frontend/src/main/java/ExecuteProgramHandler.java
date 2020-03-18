@@ -26,7 +26,7 @@ public class ExecuteProgramHandler {
     }
 
     public void addBlockToProgram(UIBlock block){
-        blockrGame.addBlockToBlockGroudp(block.getBlock());
+        blockrGame.addBlockToBlockGroup(block.getBlock());
     }
 
     public void createNewBlockGroup(UIBlock block)

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ProgramTest" time="0.024" tests="5" errors="4" skipped="0" failures="1">
+  <properties>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/test-classes:/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/classes:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar:/home/adam/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/adam/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar /home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire 2020-03-18T12-29-08_458-jvmRun1 surefire7297255063557520826tmp surefire_07202142139786894444tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/test-classes:/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/classes:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.3.1/junit-jupiter-api-5.3.1.jar:/home/adam/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/adam/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar:/home/adam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.3.1/junit-jupiter-engine-5.3.1.jar:/home/adam/.m2/repository/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/adam"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2020-01-14"/>
+    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/target/surefire/surefirebooter2514206926896687056.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.6+10-post-Ubuntu-1ubuntu118.04.1"/>
+    <property name="user.name" value="adam"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="4.15.0-88-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/adam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="11.0.6"/>
+    <property name="user.dir" value="/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vm.version" value="11.0.6+10-post-Ubuntu-1ubuntu118.04.1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="executeP0" classname="ProgramTest" time="0.001">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at ProgramTest.executeP0(ProgramTest.java:39)
+</error>
+  </testcase>
+  <testcase name="executeP1" classname="ProgramTest" time="0">
+    <error message="class blocks.MoveBlock cannot be cast to class java.util.List (blocks.MoveBlock is in unnamed module of loader &apos;app&apos;; java.util.List is in module java.base of loader &apos;bootstrap&apos;)" type="java.lang.ClassCastException">java.lang.ClassCastException: class blocks.MoveBlock cannot be cast to class java.util.List (blocks.MoveBlock is in unnamed module of loader 'app'; java.util.List is in module java.base of loader 'bootstrap')
+	at ProgramTest.executeP1(ProgramTest.java:50)
+</error>
+  </testcase>
+  <testcase name="executeP2" classname="ProgramTest" time="0">
+    <error message="class blocks.TurnBlock cannot be cast to class java.util.List (blocks.TurnBlock is in unnamed module of loader &apos;app&apos;; java.util.List is in module java.base of loader &apos;bootstrap&apos;)" type="java.lang.ClassCastException">java.lang.ClassCastException: class blocks.TurnBlock cannot be cast to class java.util.List (blocks.TurnBlock is in unnamed module of loader 'app'; java.util.List is in module java.base of loader 'bootstrap')
+	at ProgramTest.executeP2(ProgramTest.java:70)
+</error>
+  </testcase>
+  <testcase name="executeP3" classname="ProgramTest" time="0.006">
+    <failure message="kerel isn&apos;t at (9,1) ==&gt; expected: &lt;[9, 1]&gt; but was: &lt;[9, 0]&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: kerel isn't at (9,1) ==> expected: <[9, 1]> but was: <[9, 0]>
+	at ProgramTest.executeP3(ProgramTest.java:104)
+]]></failure>
+  </testcase>
+  <testcase name="executeP4" classname="ProgramTest" time="0">
+    <error message="Index 9 out of bounds for length 9" type="java.lang.ArrayIndexOutOfBoundsException">java.lang.ArrayIndexOutOfBoundsException: Index 9 out of bounds for length 9
+	at ProgramTest.executeP4(ProgramTest.java:125)
+</error>
+  </testcase>
+</testsuite>

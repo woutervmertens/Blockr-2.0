@@ -57,7 +57,7 @@ public class BlockrGame {
     }
 
 
-    public void addBlockToBlockGroudp(Block block) {
+    public void addBlockToBlockGroup(Block block) {
         program.getBlockGroup().addBlockAtEnd(block);
     }
 
