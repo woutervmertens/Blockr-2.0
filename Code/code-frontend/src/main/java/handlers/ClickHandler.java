@@ -1,5 +1,9 @@
+package handlers;
+
 import uiElements.BlockTypes;
 import uiElements.UIBlock;
+import windowElements.UIPalette;
+import windowElements.UIProgramArea;
 
 public class ClickHandler {
     private UIPalette uiPalette;

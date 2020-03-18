@@ -1,5 +1,9 @@
-public class LoadDataHandler {
+import handlers.BackendConverter;
 
+/**
+ * TODO: remove the blockrGame dependency and move it to handlers package
+ */
+public class LoadDataHandler {
     public LoadDataHandler(BlockrGame blockrGame, UIGameWorld uiGameWorld) {
         //Get data
         BackendConverter converter = new BackendConverter();
@@ -7,6 +11,5 @@ public class LoadDataHandler {
         uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid()));
         uiGameWorld.setUiCharacter(converter.convertCharacter(blockrGame.getCharacter()));
     }
-
 
 }

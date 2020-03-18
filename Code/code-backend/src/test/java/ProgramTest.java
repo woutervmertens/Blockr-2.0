@@ -51,7 +51,7 @@ class ProgramTest {
         /*
         program with 1 blockgroup that only contains moveForward
          */
-        Program program1 = new Program(world1, group1);
+        Program program1 = new Program(world1, group1, new LinkedList<>());  // TODO: check linkedlist
         ProgramArea pArea1 = new ProgramArea(program1);
 
         pArea1.getCurrentProgram().execute();
@@ -71,7 +71,7 @@ class ProgramTest {
         /*
         program with 1 blockgroup that only contains turnBlock
          */
-        Program program2 = new Program(world1, group2);
+        Program program2 = new Program(world1, group2, new LinkedList<>());  // TODO: check linkedlist
         ProgramArea pArea2 = new ProgramArea(program2);
 
         pArea2.getCurrentProgram().execute();
@@ -93,7 +93,7 @@ class ProgramTest {
         /*
         program with 1 blockgroup that contains turnBlock and moveBlock
          */
-        Program program3 = new Program(world1, group3);
+        Program program3 = new Program(world1, group3, new LinkedList<>());  // TODO: check linkedlist
         ProgramArea pArea3 = new ProgramArea(program3);
 
         pArea3.getCurrentProgram().execute();
@@ -119,7 +119,7 @@ class ProgramTest {
         conditions.add(wBlock1);
         ifBlock1.setConditions(conditions);
 
-        Program program4 = new Program(world1,group4);
+        Program program4 = new Program(world1,group4, new LinkedList<>());  // TODO: check linkedlist
         ProgramArea pArea4 = new ProgramArea(program4);
 
         pArea4.getCurrentProgram().execute();

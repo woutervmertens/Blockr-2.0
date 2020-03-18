@@ -3,9 +3,14 @@ import uiElements.UIStatementBlock;
 import uiElements.BlockTypes;
 import blocks.ConditionBlock;
 import blocks.StatementBlock;
+import windowElements.UIPalette;
+import windowElements.UIProgramArea;
 
 import java.awt.*;
 
+/**
+ * TODO: remove the blockrGame dependency and move it to handlers package
+ */
 public class DisplaceBlockHandler {
     private UIProgramArea uiProgramArea;
     private UIPalette uiPalette;

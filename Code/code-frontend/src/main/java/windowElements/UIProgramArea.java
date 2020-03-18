@@ -1,3 +1,6 @@
+package windowElements;
+
+import handlers.DrawBlockHandler;
 import uiElements.HorizontallyConnectable;
 import uiElements.UIBlock;
 import uiElements.VerticallyConnectable;
@@ -137,7 +140,8 @@ public class UIProgramArea {
     }
 
     public void highlightNextBlock() {
-        highlightedBlockNumber++;
+        if (highlightedBlockNumber >= getNumBlocks()) highlightedBlockNumber = 0;
+        else highlightedBlockNumber++;
     }
 
     public void restartProgram() {

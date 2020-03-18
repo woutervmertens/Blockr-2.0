@@ -1,4 +1,7 @@
+import handlers.ClickHandler;
 import uiElements.UIBlock;
+import windowElements.UIPalette;
+import windowElements.UIProgramArea;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

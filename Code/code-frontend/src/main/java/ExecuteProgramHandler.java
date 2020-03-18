@@ -1,6 +1,11 @@
+import handlers.BackendConverter;
 import uiElements.UIBlock;
 import uiElements.UICharacter;
+import windowElements.UIProgramArea;
 
+/**
+ * TODO: remove the blockrGame dependency and move it to handlers package
+ */
 public class ExecuteProgramHandler {
     private UIProgramArea uiProgramArea;
     private UIGameWorld uiGameWorld;
@@ -18,6 +23,8 @@ public class ExecuteProgramHandler {
     public void execute() {
         uiProgramArea.highlightNextBlock();
         blockrGame.executeBlock();
+        // TODO: fix bug of re-executing directly
+        // TODO: fix bug of not moving forward twice
     }
 
     public void reset() {

@@ -1,3 +1,4 @@
+import handlers.BackendConverter;
 import uiElements.UICharacter;
 import uiElements.UIGridElement;
 
@@ -7,7 +8,7 @@ public class UIGameWorld {
     private Point pos;
     private UIGridElement[][] grid;
     private int elementSize;
-    private BlockrGame blockrGame;
+    private BlockrGame blockrGame;  // TODO remove this direct dependency and then refactor to windowElements package
     private UICharacter uiCharacter;
     private BackendConverter converter;
 

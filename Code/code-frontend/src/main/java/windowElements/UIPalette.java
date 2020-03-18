@@ -1,3 +1,6 @@
+package windowElements;
+
+import handlers.DrawBlockHandler;
 import uiElements.*;
 
 import java.awt.*;
