@@ -1,8 +1,11 @@
-import blocks.*;
-import org.junit.jupiter.api.*;
-import worldElements.Character;
-import worldElements.Direction;
-import worldElements.GameWorld;
+import com.swop.Program;
+import com.swop.ProgramArea;
+import com.swop.blocks.*;
+import com.swop.worldElements.Character;
+import com.swop.worldElements.Direction;
+import com.swop.worldElements.GameWorld;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,19 +19,19 @@ class ProgramTest {
     private int startX = 0;
     private int startY = 9;
     private int[] startPos = {startY, startX};
-    private int[] size = {y,x};
-    private int[] posGoal = {0,9};
+    private int[] size = {y, x};
+    private int[] posGoal = {0, 9};
     private GameWorld world1 = new GameWorld(size, posGoal);
     // Direction kerel to the right
     private Character kerel = new Character(startPos);
 
 
-@BeforeEach
-    void setup(){
-    kerel.setDirection(Direction.RIGHT);
-    kerel.setPosition(startPos);
-    world1.setCharacter(kerel);
-}
+    @BeforeEach
+    void setup() {
+        kerel.setDirection(Direction.RIGHT);
+        kerel.setPosition(startPos);
+        world1.setCharacter(kerel);
+    }
 
 
     @Test
@@ -38,11 +41,12 @@ class ProgramTest {
 
         pArea0.getCurrentProgram().execute();
 
-        assertEquals(startPos,kerel.getPosition(),"kerel has moved while programArea empty");
-        assertEquals(Direction.RIGHT,kerel.getDirection(), "Kerel has changed direction while programArea is empty.");
+        assertEquals(startPos, kerel.getPosition(), "kerel has moved while programArea empty");
+        assertEquals(Direction.RIGHT, kerel.getDirection(), "Kerel has changed direction while programArea is empty.");
 
-    
+
     }
+
     @Test
     void executeP1() {
         MoveBlock mBlock1 = new MoveBlock();
@@ -58,13 +62,14 @@ class ProgramTest {
 
         int[] newPos = {startY, startX + 1};
 
-        assertEquals(newPos,kerel.getPosition(),"kerel isn't at (9,1)");
-        assertEquals(Direction.RIGHT,kerel.getDirection(), "Kerel has changed direction while program doesn't have a turnBlock.");
+        assertEquals(newPos, kerel.getPosition(), "kerel isn't at (9,1)");
+        assertEquals(Direction.RIGHT, kerel.getDirection(), "Kerel has changed direction while program doesn't have a turnBlock.");
 
 
     }
+
     @Test
-    void executeP2(){
+    void executeP2() {
         TurnBlock tblock1 = new TurnBlock(Direction.LEFT);
         BlockGroup group2 = new BlockGroup();
         group2.setBlocks((List<Block>) tblock1);
@@ -78,12 +83,13 @@ class ProgramTest {
 
         Direction newDirection = Direction.UP;
 
-        assertEquals(startPos,kerel.getPosition(),"kerel has moved while program doesn't have a moveBlock");
-        assertEquals(newDirection,kerel.getDirection(), "Kerel hasn't changed direction to UP.");
+        assertEquals(startPos, kerel.getPosition(), "kerel has moved while program doesn't have a moveBlock");
+        assertEquals(newDirection, kerel.getDirection(), "Kerel hasn't changed direction to UP.");
 
     }
+
     @Test
-    void executeP3(){
+    void executeP3() {
         TurnBlock tblock2 = new TurnBlock(Direction.LEFT);
         MoveBlock mBlock2 = new MoveBlock();
         BlockGroup group3 = new BlockGroup();
@@ -101,12 +107,13 @@ class ProgramTest {
         Direction newDirection = Direction.UP;
         int[] newPos = {startY, startX + 1};
 
-        assertEquals(newPos,kerel.getPosition(),"kerel isn't at (9,1)");
-        assertEquals(newDirection,kerel.getDirection(), "Kerel hasn't changed direction to UP.");
+        assertEquals(newPos, kerel.getPosition(), "kerel isn't at (9,1)");
+        assertEquals(newDirection, kerel.getDirection(), "Kerel hasn't changed direction to UP.");
 
     }
+
     @Test
-    void executeP4(){
+    void executeP4() {
         MoveBlock mBlock2 = new MoveBlock();
         BlockGroup group = new BlockGroup();
         group.addBlockAtEnd(mBlock2);
@@ -119,14 +126,14 @@ class ProgramTest {
         conditions.add(wBlock1);
         ifBlock1.setConditions(conditions);
 
-        Program program4 = new Program(world1,group4, new LinkedList<>());  // TODO: check linkedlist
+        Program program4 = new Program(world1, group4, new LinkedList<>());  // TODO: check linkedlist
         ProgramArea pArea4 = new ProgramArea(program4);
 
         pArea4.getCurrentProgram().execute();
 
         int[] newPos = {startY, startX + 1};
 
-        assertEquals(newPos,kerel.getPosition(),"kerel isn't at (9,1)");
-        assertEquals(Direction.RIGHT,kerel.getDirection(), "Kerel has changed direction while program doesn't have a turnBlock.");
+        assertEquals(newPos, kerel.getPosition(), "kerel isn't at (9,1)");
+        assertEquals(Direction.RIGHT, kerel.getDirection(), "Kerel has changed direction while program doesn't have a turnBlock.");
     }
 }
