@@ -11,7 +11,7 @@ public class LoadDataHandler {
         //Get data
         BackendConverter converter = new BackendConverter();
         //load data into gameworld
-        uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid()));
+        uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid(),blockrGame.getGoalPosition()));
         uiGameWorld.setUiCharacter(converter.convertCharacter(blockrGame.getCharacter()));
     }
 

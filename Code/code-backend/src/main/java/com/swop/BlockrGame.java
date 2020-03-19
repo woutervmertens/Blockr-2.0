@@ -35,7 +35,12 @@ public class BlockrGame {
         grid[2][3] = new Square(true);
         grid[3][3] = new Square(true);
         grid[4][3] = new Square(true);
+        gameWorld.setGoalPosition(new int[]{4, 3});
         return grid;
+    }
+
+    public int[] getGoalPosition(){
+        return gameWorld.getGoalPosition();
     }
 
     public Character executeBlock() {
