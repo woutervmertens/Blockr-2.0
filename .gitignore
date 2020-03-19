@@ -4,7 +4,8 @@ Code/.idea/*
 Models/.class diagram.vpp.lck
 *.bak_001d
 */debug.log
-
+Code/code-frontend/target/*
+Code/code-backend/target/*
 ########################################################################################################
 # Created by https://www.gitignore.io/api/java,gradle,intellij
 # Edit at https://www.gitignore.io/?templates=java,gradle,intellij
