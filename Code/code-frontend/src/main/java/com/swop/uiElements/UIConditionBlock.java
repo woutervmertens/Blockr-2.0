@@ -52,13 +52,17 @@ public class UIConditionBlock extends UIBlock implements HorizontallyConnectable
 
     @Override
     public Point getPlugPosition() {
-        return new Point(position.x + width + step, position.y + step * 3);
+        return new Point(position.x + width + step, position.y/* + step * 3*/);
     }
 
     @Override
     public Point getSocketPosition() {
-        return new Point(position.x + step, position.y + step * 3);
+        return new Point(position.x + step, position.y/* + step * 3*/);
     }
 
+    @Override
+    public UIBlock getParentStatement() {
+        return super.parentStatement;
+    }
 
 }

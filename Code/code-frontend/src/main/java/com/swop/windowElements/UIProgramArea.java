@@ -1,9 +1,9 @@
 package com.swop.windowElements;
 
+import com.swop.blocks.Block;
+import com.swop.blocks.StatementBlock;
 import com.swop.handlers.DrawBlockHandler;
-import com.swop.uiElements.HorizontallyConnectable;
-import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.VerticallyConnectable;
+import com.swop.uiElements.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -135,6 +135,39 @@ public class UIProgramArea {
         return null;
     }
 
+    public UIBlock getStatementBlockConditionPlugWithinRadius(UIBlock uiBlock, int radius) {
+        for (UIBlock b : getUiBlocks()) {
+            if (b == uiBlock || !(uiBlock instanceof HorizontallyConnectable))
+                continue;
+
+            // TODO: maybe type cast with interfaces
+            if (getDistance(uiBlock.getSocketPosition(), ((UIStatementBlock)b).getConditionPlugPosition(this)) <= radius) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public UIBlock getStatementBlockBodyPlugWithinRadius(UIBlock uiBlock, int radius) {
+        for (UIBlock b : getUiBlocks()) {
+            if (b == uiBlock || !(uiBlock instanceof VerticallyConnectable && b instanceof VerticallyConnectable) || (b.getType() != BlockTypes.WhileStatement && b.getType() != BlockTypes.IfStatement))
+                continue;
+
+            // TODO: maybe type cast with interfaces
+            if (getDistance(uiBlock.getSocketPosition(), ((UIStatementBlock)b).getBodyPlugPosition(this)) <= radius) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public UIBlock getUiBlock(Block block){
+        for (UIBlock uiBlock : uiBlocks){
+            if(block == uiBlock.getBlock()) return uiBlock;
+        }
+        return null;
+    }
+
     public int getNumBlocks() {
         return uiBlocks.size();
     }
@@ -147,4 +180,6 @@ public class UIProgramArea {
     public void restartProgram() {
         highlightedBlockNumber = -1;
     }
+
+
 }

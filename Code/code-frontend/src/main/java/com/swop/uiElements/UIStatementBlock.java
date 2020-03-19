@@ -2,7 +2,9 @@ package com.swop.uiElements;
 
 import com.swop.blocks.Block;
 import com.swop.blocks.IfBlock;
+import com.swop.blocks.StatementBlock;
 import com.swop.blocks.WhileBlock;
+import com.swop.windowElements.UIProgramArea;
 
 import java.awt.*;
 
@@ -38,9 +40,16 @@ public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
         this.gapSize = gapSize;
     }
 
+    public void increaseGapSize(int increase) {this.gapSize += increase;}
+
     @Override
     public Block getBlock() {
         return this.block;
+    }
+
+    @Override
+    public UIBlock getParentStatement() {
+        return super.parentStatement;
     }
 
     @Override
@@ -87,20 +96,34 @@ public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
 
     @Override
     public Point getPlugPosition() {
-        return new Point(position.x + step * 3, position.y + height + pillarWidth + gapSize + step);
+        return new Point(position.x /*+ step * 3*/, position.y + height + pillarWidth + gapSize + step);
     }
 
     @Override
     public Point getSocketPosition() {
-        return new Point(position.x + step * 3, position.y + step);
+        return new Point(position.x /*+ step * 3*/, position.y + step);
     }
 
-    public Point getBodyPlugPosition() {
-        return new Point(position.x + pillarWidth + step * 3, position.y + height + step);
+    public Point getBodyPlugPosition(UIProgramArea pa) {
+        if(((StatementBlock)block).getBody().getBlocks().isEmpty())
+            return new Point(position.x + pillarWidth, position.y + height + step);
+
+        Block lastBlock = ((StatementBlock)block).getBody().getBlocks().getLast();
+        UIBlock b = pa.getUiBlock(lastBlock);
+        if(b != null) return b.getPlugPosition();
+        else
+            throw new NullPointerException("UIStatementBlock: getBodyPlugPosition: no ui block found to match");
     }
 
-    public Point getConditionPlugPosition() {
-        return new Point(position.x + conditionWidth + step, position.y + step * 3);
+    public Point getConditionPlugPosition(UIProgramArea pa) {
+        if(((StatementBlock)block).getConditions().isEmpty())
+            return new Point(position.x + conditionWidth + step, position.y);
+
+        Block lastBlock = ((StatementBlock)block).getConditions().getLast();
+        UIBlock b = pa.getUiBlock(lastBlock);
+        if(b != null) return b.getPlugPosition();
+        else
+            throw new NullPointerException("UIStatementBlock: getBodyPlugPosition: no ui block found to match");
     }
 
     @Override

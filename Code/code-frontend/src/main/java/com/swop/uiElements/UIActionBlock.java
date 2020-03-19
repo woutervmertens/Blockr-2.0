@@ -57,11 +57,16 @@ public class UIActionBlock extends UIBlock implements VerticallyConnectable {
 
     @Override
     public Point getPlugPosition() {
-        return new Point(position.x + step * 3, position.y + height + step);
+        return new Point(position.x /*+ step * 3*/, position.y + height + step);
     }
 
     @Override
     public Point getSocketPosition() {
-        return new Point(position.x + step * 3, position.y + step);
+        return new Point(position.x /*+ step * 3*/, position.y + step);
+    }
+
+    @Override
+    public UIBlock getParentStatement() {
+        return super.parentStatement;
     }
 }

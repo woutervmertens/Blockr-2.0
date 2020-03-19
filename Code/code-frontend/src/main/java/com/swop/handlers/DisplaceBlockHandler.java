@@ -16,7 +16,7 @@ import java.awt.*;
  * TODO: remove the blockrGame dependency and move it to com.swop.handlers package
  */
 public class DisplaceBlockHandler {
-    private final int radius = 20;  // Radius for connections
+    private final int radius = 10;  // Radius for connections
     private UIProgramArea uiProgramArea;
     private UIPalette uiPalette;
     private ExecuteProgramHandler executeProgramHandler;
@@ -44,38 +44,60 @@ public class DisplaceBlockHandler {
             // 1) EVENTUAL PLUG
             closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
             connectionPoint = (closeBlock != null) ?
-                    new Point(closeBlock.getPosition().x, closeBlock.getPosition().y + closeBlock.getHeight() + 5)
+                    closeBlock.getPlugPosition()
                     : null;
+            if(closeBlock != null) {
+                executeProgramHandler.addBlockToProgram(draggedBlock);
+                draggedBlock.setParentStatement(closeBlock.getParentStatement());
+            }
 
             // 2) EVENTUAL SOCKET
             if (closeBlock == null) {
                 closeBlock = uiProgramArea.getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
                 connectionPoint = (closeBlock != null) ?
-                        new Point(closeBlock.getPosition().x, closeBlock.getPosition().y - closeBlock.getHeight() - 5)
+                        new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10)
                         : null;
+                if(closeBlock != null) executeProgramHandler.addBlockToProgram(draggedBlock);
             }
 
-            // 3) EVENTUAL CONDITION
+            // 3) EVENTUAL CONDITION TO STATEMENT
             if (closeBlock == null && (draggedBlock.getType() == BlockTypes.NotCondition ||
                     draggedBlock.getType() == BlockTypes.WallInFrontCondition)) {
-                try {
-                    // TODO: (UIStatementBlock)
-                } catch (ClassCastException e) {
-                }
+
+                closeBlock = uiProgramArea.getStatementBlockConditionPlugWithinRadius(draggedBlock,radius);
+                connectionPoint = (closeBlock != null) ?
+                        ((UIStatementBlock)closeBlock).getConditionPlugPosition(uiProgramArea)
+                        : null;
+                if(closeBlock != null) addBlockToConditions(draggedBlock,closeBlock);
+
             }
 
+            // 4) EVENTUAL BODY TO STATEMENT
+            if (closeBlock == null && (draggedBlock.getType() != BlockTypes.NotCondition ||
+                    draggedBlock.getType() != BlockTypes.WallInFrontCondition)) {
+
+                closeBlock = uiProgramArea.getStatementBlockBodyPlugWithinRadius(draggedBlock,radius);
+                connectionPoint = (closeBlock != null) ?
+                        ((UIStatementBlock)closeBlock).getBodyPlugPosition(uiProgramArea)
+                        : null;
+                if(closeBlock != null) addBlockToBody(draggedBlock,closeBlock);
+            }
+
+
             if (closeBlock != null) {
-                //TODO: connect this block with the close block
-                //TODO: handle backend
                 System.out.println("Close block: " + closeBlock.getText());
                 draggedBlock.setPosition(connectionPoint);
+                if(draggedBlock.getParentStatement() != null){
+                    ((UIStatementBlock)draggedBlock.getParentStatement()).increaseGapSize(draggedBlock.getHeight() + 5);
+                }
             } else {
                 //TODO: create new program in backend
                 draggedBlock.setPosition(dropPos);
+                //Backend add block to current blockgroup
+                executeProgramHandler.addBlockToProgram(draggedBlock);
             }
             uiProgramArea.addBlock(draggedBlock);
-            //Backend add block to current blockgroup
-            executeProgramHandler.addBlockToProgram(draggedBlock);
+
             executeProgramHandler.reset();
 
 
@@ -152,7 +174,8 @@ public class DisplaceBlockHandler {
      */
     private void addBlockToBody(UIBlock draggedBlock, UIBlock b) {
         ((StatementBlock) b.getBlock()).getBody().addBlockAtEnd(draggedBlock.getBlock());
-        int gS = ((UIStatementBlock) b).getGapSize() + draggedBlock.getHeight();
-        ((UIStatementBlock) b).setGapSize(gS);
+        draggedBlock.setParentStatement(b);
+        /*int gS = ((UIStatementBlock) b).getGapSize() + draggedBlock.getHeight();
+        ((UIStatementBlock) b).setGapSize(gS);*/
     }
 }

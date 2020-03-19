@@ -15,6 +15,7 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     protected BlockTypes type;
+    protected UIBlock parentStatement;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type) {
         this.width = width;
@@ -24,12 +25,19 @@ public abstract class UIBlock {
         this.type = type;
         isAvailable = false;
         step = height / 6;
+        parentStatement = null;
     }
 
     /**
      * @return A reference to the attached block in Backend
      */
     public abstract Block getBlock();
+
+    public abstract UIBlock getParentStatement();
+
+    public void setParentStatement(UIBlock parentStatement) {
+        this.parentStatement = parentStatement;
+    }
 
     public UIBlock getPrevious() {
         return previous;
