@@ -42,6 +42,8 @@ public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
 
     public void increaseGapSize(int increase) {this.gapSize += increase;}
 
+    public  void decreaseGapSize(int increase) {this.gapSize -= increase;};
+
     @Override
     public Block getBlock() {
         return this.block;

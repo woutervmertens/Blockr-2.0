@@ -36,8 +36,9 @@ public class ExecuteProgramHandler {
         uiProgramArea.restartProgram();
     }
 
-    public void addBlockToProgram(UIBlock block) {
+    public void addBlockToProgram(UIBlock block, UIBlock previousBlock) {
         blockrGame.addBlockToBlockGroup(block.getBlock());
+        block.setPrevious(previousBlock);
     }
 
     public void createNewBlockGroup(UIBlock block) {

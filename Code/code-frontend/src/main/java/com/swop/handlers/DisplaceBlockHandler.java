@@ -103,6 +103,10 @@ public class DisplaceBlockHandler {
 
         } else {
             uiProgramArea.removeBlock(draggedBlock);
+            if(draggedBlock.getParentStatement() != null) {
+                ((UIStatementBlock)draggedBlock.getParentStatement()).decreaseGapSize(draggedBlock.getHeight() + 5);
+                ((StatementBlock)draggedBlock.getParentStatement().getBlock()).getBody().getBlocks().remove(draggedBlock);
+            }
             //TODO: backend: remove currently selected block
             uiPalette.setHiddenStateAs(false);
         }
