@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: ProgramTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 4, Skipped: 0, Time elapsed: 0.023 s <<< FAILURE! - in ProgramTest
+executeP0  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at ProgramTest.executeP0(ProgramTest.java:39)
+
+executeP1  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.ClassCastException: class blocks.MoveBlock cannot be cast to class java.util.List (blocks.MoveBlock is in unnamed module of loader 'app'; java.util.List is in module java.base of loader 'bootstrap')
+	at ProgramTest.executeP1(ProgramTest.java:50)
+
+executeP2  Time elapsed: 0 s  <<< ERROR!
+java.lang.ClassCastException: class blocks.TurnBlock cannot be cast to class java.util.List (blocks.TurnBlock is in unnamed module of loader 'app'; java.util.List is in module java.base of loader 'bootstrap')
+	at ProgramTest.executeP2(ProgramTest.java:70)
+
+executeP3  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: kerel isn't at (9,1) ==> expected: <[9, 1]> but was: <[9, 0]>
+	at ProgramTest.executeP3(ProgramTest.java:104)
+
+executeP4  Time elapsed: 0 s  <<< ERROR!
+java.lang.ArrayIndexOutOfBoundsException: Index 9 out of bounds for length 9
+	at ProgramTest.executeP4(ProgramTest.java:125)
+
