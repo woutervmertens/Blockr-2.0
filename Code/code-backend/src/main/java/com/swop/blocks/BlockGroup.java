@@ -49,4 +49,11 @@ public class BlockGroup {
     public void addBlockAtEnd(Block block) {
         blocks.add(block);
     }
+
+    /**
+     *
+     */
+    public void addBlockAfterBlock(Block block, Block previousBlock) {
+        // TODO
+    }
 }

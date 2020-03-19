@@ -181,5 +181,16 @@ public class UIProgramArea {
         highlightedBlockNumber = -1;
     }
 
-
+    /**
+     *
+     * @param draggedBlock
+     * @param closeBlock
+     * @pre Both blocks are close enough to each other for connection !
+     */
+    public Point getConnectionPoint(UIBlock draggedBlock, UIBlock closeBlock) {
+        // TODO: check whether condition etc.
+        if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
+        // else return closeBlock.
+        return null;
+    }
 }

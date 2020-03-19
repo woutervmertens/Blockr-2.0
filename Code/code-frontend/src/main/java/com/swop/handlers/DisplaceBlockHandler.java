@@ -30,6 +30,7 @@ public class DisplaceBlockHandler {
 
     /**
      * @param draggedBlock The block that was dragged until release (if any)
+     * TODO: handle previous and next !!!!!!!!
      */
     public void handleRelease(int x, int y, UIBlock draggedBlock) {
         if (draggedBlock == null) throw new IllegalArgumentException("No block was dragged !");
@@ -41,13 +42,38 @@ public class DisplaceBlockHandler {
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
 
+
+            if ((draggedBlock.getType() != BlockTypes.NotCondition ||
+                 draggedBlock.getType() != BlockTypes.WallInFrontCondition)) {
+                // 1) plug
+                closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
+                if (closeBlock == null) {
+                    // 2) socket
+                    closeBlock = uiProgramArea.getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
+                    if (closeBlock == null) {
+                        // 3) statement body
+                        closeBlock = uiProgramArea.getStatementBlockBodyPlugWithinRadius(draggedBlock,radius);
+                    }
+                }
+            } else {
+                closeBlock = uiProgramArea.getStatementBlockConditionPlugWithinRadius(draggedBlock,radius);
+            }
+
+            if (closeBlock != null) {
+                connectionPoint = uiProgramArea.getConnectionPoint(draggedBlock, closeBlock);
+                // TODO: add block to program correctly
+            }
+
+
+            // TODO: remove all the rest
+
             // 1) EVENTUAL PLUG
             closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
             connectionPoint = (closeBlock != null) ?
                     closeBlock.getPlugPosition()
                     : null;
             if(closeBlock != null) {
-                executeProgramHandler.addBlockToProgram(draggedBlock);
+                executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock);
                 draggedBlock.setParentStatement(closeBlock.getParentStatement());
             }
 
@@ -57,7 +83,7 @@ public class DisplaceBlockHandler {
                 connectionPoint = (closeBlock != null) ?
                         new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10)
                         : null;
-                if(closeBlock != null) executeProgramHandler.addBlockToProgram(draggedBlock);
+                if(closeBlock != null) executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock.getPrevious());
             }
 
             // 3) EVENTUAL CONDITION TO STATEMENT
@@ -94,7 +120,7 @@ public class DisplaceBlockHandler {
                 //TODO: create new program in backend
                 draggedBlock.setPosition(dropPos);
                 //Backend add block to current blockgroup
-                executeProgramHandler.addBlockToProgram(draggedBlock);
+                executeProgramHandler.addBlockToProgramArea(draggedBlock, null);
             }
             uiProgramArea.addBlock(draggedBlock);
 

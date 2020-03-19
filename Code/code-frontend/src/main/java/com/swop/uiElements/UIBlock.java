@@ -86,6 +86,22 @@ public abstract class UIBlock {
         return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
+    /**
+     * Check whether this block is under the given block
+     * @param block
+     */
+    public boolean isUnder(UIBlock block) {
+        return this.getPosition().y > block.getPosition().y;
+    }
+
+    /**
+     * Check whether this block is above the given block
+     * @param block
+     */
+    public boolean isAbove(UIBlock block) {
+        return this.getPosition().y < block.getPosition().y;
+    }
+
     public Point getTextPosition() {
         return new Point(position.x + 10, position.y + 20);
     }

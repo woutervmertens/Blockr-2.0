@@ -36,9 +36,17 @@ public class ExecuteProgramHandler {
         uiProgramArea.restartProgram();
     }
 
-    public void addBlockToProgram(UIBlock block, UIBlock previousBlock) {
+    /**
+     * Add the given (dragged) block to the program area.
+     *
+     * @param block The dragged block
+     * @param previousBlock The (eventual) previous block to which the given dragged block should be linked.
+     *                      Can be null !
+     */
+    public void addBlockToProgramArea(UIBlock block, UIBlock previousBlock) {
         blockrGame.addBlockToBlockGroup(block.getBlock());
         block.setPrevious(previousBlock);
+        // TODO: linked list
     }
 
     public void createNewBlockGroup(UIBlock block) {
