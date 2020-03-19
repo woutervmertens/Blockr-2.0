@@ -188,9 +188,7 @@ public class UIProgramArea {
      * @pre Both blocks are close enough to each other for connection !
      */
     public Point getConnectionPoint(UIBlock draggedBlock, UIBlock closeBlock) {
-        // TODO: check whether condition etc.
         if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
-        // else return closeBlock.
-        return null;
+        else return new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10);
     }
 }

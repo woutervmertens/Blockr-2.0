@@ -38,79 +38,49 @@ public class DisplaceBlockHandler {
         UIBlock closeBlock = null;
         Point connectionPoint = null;
 
-        //TODO: create block where needed
         if (uiProgramArea.isWithin(x, y)) {
             Point dropPos = new Point(x, y);
 
+            int type = 0;
 
             if ((draggedBlock.getType() != BlockTypes.NotCondition ||
                  draggedBlock.getType() != BlockTypes.WallInFrontCondition)) {
                 // 1) plug
                 closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
+                type = 1;
                 if (closeBlock == null) {
                     // 2) socket
                     closeBlock = uiProgramArea.getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
+                    type = 2;
                     if (closeBlock == null) {
                         // 3) statement body
                         closeBlock = uiProgramArea.getStatementBlockBodyPlugWithinRadius(draggedBlock,radius);
+                        type = 3;
                     }
                 }
             } else {
+                // 4) statement condition
                 closeBlock = uiProgramArea.getStatementBlockConditionPlugWithinRadius(draggedBlock,radius);
+                type = 4;
             }
 
             if (closeBlock != null) {
-                connectionPoint = uiProgramArea.getConnectionPoint(draggedBlock, closeBlock);
-                // TODO: add block to program correctly
-            }
-
-
-            // TODO: remove all the rest
-
-            // 1) EVENTUAL PLUG
-            closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
-            connectionPoint = (closeBlock != null) ?
-                    closeBlock.getPlugPosition()
-                    : null;
-            if(closeBlock != null) {
-                executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock);
-                draggedBlock.setParentStatement(closeBlock.getParentStatement());
-            }
-
-            // 2) EVENTUAL SOCKET
-            if (closeBlock == null) {
-                closeBlock = uiProgramArea.getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
-                connectionPoint = (closeBlock != null) ?
-                        new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10)
-                        : null;
-                if(closeBlock != null) executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock.getPrevious());
-            }
-
-            // 3) EVENTUAL CONDITION TO STATEMENT
-            if (closeBlock == null && (draggedBlock.getType() == BlockTypes.NotCondition ||
-                    draggedBlock.getType() == BlockTypes.WallInFrontCondition)) {
-
-                closeBlock = uiProgramArea.getStatementBlockConditionPlugWithinRadius(draggedBlock,radius);
-                connectionPoint = (closeBlock != null) ?
-                        ((UIStatementBlock)closeBlock).getConditionPlugPosition(uiProgramArea)
-                        : null;
-                if(closeBlock != null) addBlockToConditions(draggedBlock,closeBlock);
-
-            }
-
-            // 4) EVENTUAL BODY TO STATEMENT
-            if (closeBlock == null && (draggedBlock.getType() != BlockTypes.NotCondition ||
-                    draggedBlock.getType() != BlockTypes.WallInFrontCondition)) {
-
-                closeBlock = uiProgramArea.getStatementBlockBodyPlugWithinRadius(draggedBlock,radius);
-                connectionPoint = (closeBlock != null) ?
-                        ((UIStatementBlock)closeBlock).getBodyPlugPosition(uiProgramArea)
-                        : null;
-                if(closeBlock != null) addBlockToBody(draggedBlock,closeBlock);
-            }
-
-
-            if (closeBlock != null) {
+                switch (type) {
+                    case 1: //Plug
+                        draggedBlock.setParentStatement(closeBlock.getParentStatement());
+                    case 2: //Socket
+                        connectionPoint = uiProgramArea.getConnectionPoint(draggedBlock, closeBlock);
+                        executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock);
+                        break;
+                    case 3: //Statement body
+                        connectionPoint = ((UIStatementBlock)closeBlock).getBodyPlugPosition(uiProgramArea);
+                        addBlockToBody(draggedBlock,closeBlock);
+                        break;
+                    case 4: //Statement condition
+                        connectionPoint = ((UIStatementBlock)closeBlock).getConditionPlugPosition(uiProgramArea);
+                        addBlockToConditions(draggedBlock,closeBlock);
+                        break;
+                }
                 System.out.println("Close block: " + closeBlock.getText());
                 draggedBlock.setPosition(connectionPoint);
                 if(draggedBlock.getParentStatement() != null){
@@ -131,60 +101,12 @@ public class DisplaceBlockHandler {
             uiProgramArea.removeBlock(draggedBlock);
             if(draggedBlock.getParentStatement() != null) {
                 ((UIStatementBlock)draggedBlock.getParentStatement()).decreaseGapSize(draggedBlock.getHeight() + 5);
-                ((StatementBlock)draggedBlock.getParentStatement().getBlock()).getBody().getBlocks().remove(draggedBlock);
+                ((StatementBlock)draggedBlock.getParentStatement().getBlock()).getBody().getBlocks().remove(draggedBlock.getBlock());
             }
             //TODO: backend: remove currently selected block
             uiPalette.setHiddenStateAs(false);
         }
     }
-
-
-//    /**
-//     * Finds a viable position within the radius to translate to and adds the com.swop.blocks to the backend
-//     * @param draggedBlock The new block
-//     * @param radius The radius
-//     * @return A viable position or null
-//     */
-//    private Point getConWithinRadius(UIBlock draggedBlock, int radius) {
-//        for (UIBlock b : uiProgramArea.getUiBlocks()) {
-//            if(draggedBlock.getPosition() == b.getPosition()) continue; //this block
-//            if(draggedBlock instanceof UIConditionBlock) //Condition to statement
-//            {
-//                if(b instanceof UIStatementBlock){
-//                    Point con = ((UIStatementBlock) b).getConditionPlugPosition();
-//                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
-//                        addBlockToConditions(draggedBlock,b);
-//                        closeBlock = b;
-//                        return con;
-//                    }
-//                }
-//                else if(b instanceof  UIConditionBlock){ //Condition to condition
-//                    for (Point con : b.getConnectionPoints()) {
-//                        if (getDistance(draggedBlock.getPosition(), con) < radius) {
-//                            closeBlock = b;
-//                            return con;
-//                        }
-//                    }
-//                }
-//                else continue;
-//            }
-//            else { //Statement/Action to Statement/Action
-//                int i = 0;
-//                for (Point con : b.getConnectionPoints()) {
-//                    if (getDistance(draggedBlock.getPosition(), con) < radius) {
-//                        if(i > 0) {
-//                            addBlockToBody(draggedBlock,b);
-//                        }
-//                        closeBlock = b;
-//                        return con;
-//                    }
-//                    i++;
-//                }
-//            }
-//        }
-//        closeBlock = null;
-//        return null;
-//    }
 
     /**
      * Add the new block to the conditions of the closest Statement block
@@ -205,7 +127,5 @@ public class DisplaceBlockHandler {
     private void addBlockToBody(UIBlock draggedBlock, UIBlock b) {
         ((StatementBlock) b.getBlock()).getBody().addBlockAtEnd(draggedBlock.getBlock());
         draggedBlock.setParentStatement(b);
-        /*int gS = ((UIStatementBlock) b).getGapSize() + draggedBlock.getHeight();
-        ((UIStatementBlock) b).setGapSize(gS);*/
     }
 }
