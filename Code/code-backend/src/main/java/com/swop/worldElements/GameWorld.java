@@ -17,7 +17,7 @@ public class GameWorld {
     private Character character;
 
     public GameWorld(int[] gridDimension, int[] goalPosition) {
-        // TODO: build whole square with nested for loop
+        // TODO: build whole square with nested for loop (ZIE BlockrGame)
         // TODO: include wall positions in constructor params
         grid = new Square[gridDimension[0]][gridDimension[1]];
         this.goalPosition = goalPosition;

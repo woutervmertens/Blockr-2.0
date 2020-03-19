@@ -103,7 +103,6 @@ public class DisplaceBlockHandler {
                 ((UIStatementBlock)draggedBlock.getParentStatement()).decreaseGapSize(draggedBlock.getHeight() + 5);
                 ((StatementBlock)draggedBlock.getParentStatement().getBlock()).getBody().getBlocks().remove(draggedBlock.getBlock());
             }
-            //TODO: backend: remove currently selected block
             uiPalette.setHiddenStateAs(false);
         }
     }
