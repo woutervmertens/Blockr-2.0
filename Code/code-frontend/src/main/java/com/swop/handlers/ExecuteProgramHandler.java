@@ -32,7 +32,7 @@ public class ExecuteProgramHandler {
 
     public void reset() {
         blockrGame.reset();
-        uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid()));
+        uiGameWorld.setGrid(converter.convertGrid(blockrGame.getGrid(),blockrGame.getGoalPosition()));
         uiProgramArea.restartProgram();
     }
 
