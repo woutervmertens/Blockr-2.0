@@ -26,30 +26,30 @@ public abstract class StatementBlock extends Block {
 
     public boolean isConditionValid(GameWorld world) {
         if (conditions.get(0) instanceof WallInFrontBlock) {
-            return noWallInFront(world);
+            return wallInFront(world);
 
         } else if (conditions.get(0) instanceof NotBlock && conditions.getLast() instanceof WallInFrontBlock) {
             if (conditions.size() % 2 == 0) {
-                return !noWallInFront(world);
+                return !wallInFront(world);
             } else {
-                return noWallInFront(world);
+                return wallInFront(world);
             }
         } else {
             throw new IllegalStateException("Illegal Condition of StatementBlock !");
         }
     }
 
-    private boolean noWallInFront(GameWorld world) {
-        int cPosY = world.getCharacter().getPosition()[0];
-        int cPosX = world.getCharacter().getPosition()[1];
+    private boolean wallInFront(GameWorld world) {
+        int cPosX = world.getCharacter().getPosition()[0];
+        int cPosY = world.getCharacter().getPosition()[1];
         Direction cDir = world.getCharacter().getDirection();
-        if (cDir == Direction.LEFT && !world.getGrid()[cPosY][cPosX - 1].isPassable()) {
-            return false;
-        } else if (cDir == Direction.RIGHT && !world.getGrid()[cPosY][cPosX + 1].isPassable()) {
-            return false;
-        } else if (cDir == Direction.UP && !world.getGrid()[cPosY - 1][cPosX].isPassable()) {
-            return false;
-        } else return cDir != Direction.DOWN || world.getGrid()[cPosY + 1][cPosX].isPassable();
+        if (cDir == Direction.LEFT && !world.getGrid()[cPosX - 1][cPosY].isPassable()) {
+            return true;
+        } else if (cDir == Direction.RIGHT && !world.getGrid()[cPosX + 1][cPosY].isPassable()) {
+            return true;
+        } else if (cDir == Direction.UP && !world.getGrid()[cPosX][cPosY - 1].isPassable()) {
+            return true;
+        } else return cDir != Direction.DOWN || world.getGrid()[cPosX][cPosY + 1].isPassable();
     }
 
     public BlockGroup getBody() {
