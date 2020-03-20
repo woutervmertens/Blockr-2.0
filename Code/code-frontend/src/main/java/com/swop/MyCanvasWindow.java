@@ -53,7 +53,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("# com.swop.blocks available: " + (maxBlocks - uiProgramArea.getNumBlocks()), width - 140, height - 10);
+        g.drawString("# blocks available: " + (maxBlocks - uiProgramArea.getNumBlocks()), width - 140, height - 10);
     }
 
     /**
