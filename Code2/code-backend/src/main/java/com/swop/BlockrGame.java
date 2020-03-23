@@ -19,7 +19,7 @@ public class BlockrGame {
         programArea.dropBlockAt(draggedBlock, x, y);
     }
 
-    public void dropBlockInPA() {
+    public void dropBlockInPA(Block block) {
         // TODO
     }
 

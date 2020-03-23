@@ -13,4 +13,5 @@ public abstract class Block {
     }
 
     private Point position;
+
 }
