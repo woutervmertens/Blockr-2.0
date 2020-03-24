@@ -15,14 +15,13 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     private int maxBlocks = 10;
-    private Point characterPos;
     // Handlers
-    BlockrGame blockrGame = new BlockrGame(maxBlocks);
+    BlockrGame blockrGame = new BlockrGame(maxBlocks,new int[]{5, 5}, new int[]{3, 4});
     DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
     ExecuteProgramHandler executeProgramHandler = new ExecuteProgramHandler(blockrGame);
 
     /**
-     * Initializes a com.com.swop.CanvasWindow object.
+     * Initializes a CanvasWindow object.
      *
      * @param title Window title
      */
@@ -34,7 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
     @Override
     protected void paint(Graphics g) {
         isPaletteHidden = blockrGame.isPaletteHidden();
-        Windows.drawWindows(g, isPaletteHidden);
+        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), executeProgramHandler.getGameWorld(),executeProgramHandler.getCharacter());
 
         // TODO: check the rest
         if (draggedBlock != null) {
@@ -133,12 +132,10 @@ public class MyCanvasWindow extends CanvasWindow {
 
     private void executeNext() {
         executeProgramHandler.executeNext();
-        characterPos = executeProgramHandler.getCharacterPos();
     }
 
     private void resetProgramExecution() {
         executeProgramHandler.reset();
-        characterPos = executeProgramHandler.getCharacterPos();
     }
 
     /**

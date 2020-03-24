@@ -4,6 +4,8 @@ import com.swop.BlockrGame;
 import com.swop.blocks.Block;
 import com.swop.uiElements.UIBlock;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ public class DisplaceBlockHandler {
      */
     public void handleReleaseInPA(int x, int y, UIBlock draggedBlock) {
         Block backendBlock = draggedBlock.getCorrespondingBlock();
+        putInBlockUIBlockMap(backendBlock,draggedBlock);
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
     }
@@ -53,5 +56,14 @@ public class DisplaceBlockHandler {
         //remove from the map in DisplaceBlockHandler
         blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
         // TODO: always handle the blockUIBlockMap !
+    }
+
+    public Collection<UIBlock> getAllUIBlocksInPA() {
+        ArrayList<Block> backBlocks = blockrGame.getAllBlocksInPA();
+        ArrayList<UIBlock> returnUIBlocks = new ArrayList<>();
+        for (Block block : backBlocks){
+            returnUIBlocks.add(getCorrespondingUiBlockFor(block));
+        }
+        return returnUIBlocks;
     }
 }

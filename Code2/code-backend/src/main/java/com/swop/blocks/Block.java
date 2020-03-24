@@ -14,4 +14,13 @@ public abstract class Block {
 
     private Point position;
 
+    private boolean isHighlight;
+
+    public boolean isHighlight() {
+        return isHighlight;
+    }
+
+    public void setHighlight(boolean highlight) {
+        isHighlight = highlight;
+    }
 }

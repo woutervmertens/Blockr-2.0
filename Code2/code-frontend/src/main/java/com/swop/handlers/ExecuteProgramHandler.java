@@ -1,10 +1,11 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.blocks.Block;
-import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UICharacter;
+import com.swop.uiElements.UISquare;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ExecuteProgramHandler {
     private BlockrGame blockrGame;
@@ -19,33 +20,20 @@ public class ExecuteProgramHandler {
 
     public void executeNext() {
         blockrGame.executeNext();
-        // TODO: find a way to get the UIBlock given a backend block without giving backend info about frontend
-        //  highlightBlock(blockrGame.getCurrentBlock());
     }
 
     public void reset() {
-        if (currentlyHighlighted != null) currentlyHighlighted.setHighlightStateOn(false);
-        currentlyHighlighted = null;
         blockrGame.resetProgramExecution();
     }
 
-    public Point getCharacterPos() {
-        return blockrGame.getCharacterPos();
+    public UICharacter getCharacter() {
+
+        return null;
     }
 
-    /**
-     * Unhighlight currently highlighted block and highlight the given one.
-     */
-    private void highlightBlock(UIBlock block) {
-        if (block == null) throw new IllegalArgumentException();
+    public ArrayList<UISquare> getGameWorld(){
+        blockrGame.getGameWorldGrid();
 
-        if (currentlyHighlighted != null) currentlyHighlighted.setHighlightStateOn(false);
-        currentlyHighlighted = block;
-        block.setHighlightStateOn(true);
+        return null;
     }
-
-    /**
-     * Index of the currently highlighted block
-     */
-    private UIBlock currentlyHighlighted = null;
 }

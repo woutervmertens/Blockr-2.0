@@ -11,7 +11,6 @@ public abstract class UIBlock {
     protected int step;  // steps in the plugs and sockets
     protected Point position;
     protected Color color, highlightColor;
-    protected boolean isHighlighted = false;
     protected BlockTypes type;
 
     public UIBlock(int width, int height, Point position, String text) {
@@ -49,7 +48,7 @@ public abstract class UIBlock {
     }
 
     public Color getColor() {
-        if (isHighlighted) return highlightColor;
+        if (getCorrespondingBlock().isHighlight()) return highlightColor;
         return color;
     }
 
@@ -62,16 +61,7 @@ public abstract class UIBlock {
      */
     public abstract Polygon getPolygon();
 
-    public boolean isHighlighted() {
-        return this.isHighlighted;
-    }
-
-    public void setHighlightStateOn(boolean state) {
-        this.isHighlighted = state;
-    }
-
     // TODO: getSocket/PlugPosition here or in Backend only ??
-
 
     public int getWidth() {
         return width;

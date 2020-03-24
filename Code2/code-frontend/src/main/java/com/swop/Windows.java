@@ -2,8 +2,12 @@ package com.swop;
 
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UICharacter;
+import com.swop.uiElements.UISquare;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public enum Windows {
     PALETTE(new Point(0, 0), 600 / 4, 600),
@@ -45,10 +49,10 @@ public enum Windows {
     /**
      * Draw the palette, program area and game world of this window.
      */
-    public static void drawWindows(Graphics g, boolean isPaletteHidden) {
+    public static void drawWindows(Graphics g, boolean isPaletteHidden, Collection<UIBlock> uiBlocks, Collection<UISquare> uiGameWorld, UICharacter character) {
         drawPalette(g, isPaletteHidden);
-        drawProgramArea(g);
-        drawGameWorld(g);
+        drawProgramArea(g,uiBlocks);
+        drawGameWorld(g,uiGameWorld,character);
     }
 
     private static void drawBlock(UIBlock block, Graphics g) {
@@ -83,7 +87,7 @@ public enum Windows {
         }
     }
 
-    private static void drawProgramArea(Graphics g) {
+    private static void drawProgramArea(Graphics g,Collection<UIBlock> uiBlocks) {
         Point pos = PROGRAM_AREA.getPosition();
         int width = PROGRAM_AREA.getWidth();
         int height = PROGRAM_AREA.getHeight();
@@ -91,11 +95,9 @@ public enum Windows {
         g.setColor(Color.PINK);
         g.fillRect(pos.x, pos.y, width, height);
 
-//        TODO: draw all blocks in PA (find a way)
-//        int i = 0;
-//        for (UIBlock block : uiBlocks) {
-//            drawBlock(block, g, highlightedBlockNumber == i++);
-//        }
+        for (UIBlock block : uiBlocks){
+            drawBlock(block,g);
+        }
     }
 
     /**
@@ -103,18 +105,11 @@ public enum Windows {
      *
      * @param g awt Graphics
      */
-    private static void drawGameWorld(Graphics g) {
-//        TODO
-//        getUiCharacter();
-//        if (grid == null) return;
-//        for (UIGridElement[] elCol : grid) {
-//            for (UIGridElement el : elCol) {
-//                g.setColor(el.getColor());
-//                g.drawPolygon(el.getPolygon(elementSize, pos));
-//            }
-//        }
-//        g.setColor(uiCharacter.getColor());
-//        g.drawPolygon(uiCharacter.getPolygon(elementSize, pos));
+    private static void drawGameWorld(Graphics g, Collection<UISquare> uiGameWorld, UICharacter character) {
+        for (UISquare uiSquare : uiGameWorld){
+            uiSquare.draw(g,30);
+        }
+        character.drawCharacter(g,30);
     }
 
     /**
