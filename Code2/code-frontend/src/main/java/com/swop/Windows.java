@@ -107,8 +107,10 @@ public enum Windows {
      */
     private static void drawGameWorld(Graphics g, Collection<UISquare> uiGameWorld, UICharacter character) {
         for (UISquare uiSquare : uiGameWorld){
+            uiSquare.setOffPos(GAME_WORLD.getPosition());
             uiSquare.draw(g,30);
         }
+        character.setOffPos(GAME_WORLD.getPosition());
         character.drawCharacter(g,30);
     }
 

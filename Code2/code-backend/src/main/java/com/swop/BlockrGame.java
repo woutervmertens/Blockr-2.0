@@ -1,6 +1,7 @@
 package com.swop;
 
 import com.swop.blocks.Block;
+import com.swop.worldElements.Character;
 import com.swop.worldElements.GameWorld;
 import com.swop.worldElements.Square;
 
@@ -30,9 +31,8 @@ public class BlockrGame {
         // TODO
     }
 
-    public Point getCharacterPos() {
-        // TODO
-        return null;
+    public Character getCharacter() {
+        return gameWorld.getCharacter();
     }
 
     public void executeNext() {

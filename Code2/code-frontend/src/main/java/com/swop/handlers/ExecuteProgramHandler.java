@@ -3,6 +3,8 @@ package com.swop.handlers;
 import com.swop.BlockrGame;
 import com.swop.uiElements.UICharacter;
 import com.swop.uiElements.UISquare;
+import com.swop.worldElements.Character;
+import com.swop.worldElements.Square;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,13 +29,23 @@ public class ExecuteProgramHandler {
     }
 
     public UICharacter getCharacter() {
-
-        return null;
+        Character robot = blockrGame.getCharacter();
+        return new UICharacter(calculatePositionFromGrid(robot.getPosition(),30),robot.getDirection());
     }
 
     public ArrayList<UISquare> getGameWorld(){
-        blockrGame.getGameWorldGrid();
+        Square[][] grid = blockrGame.getGameWorldGrid();
+        ArrayList<UISquare> uiGrid = new ArrayList<>();
+        int elementSize = 30;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                uiGrid.add(new UISquare(new Point(calculatePositionFromGrid(new int[]{i,j},elementSize)),grid[i][j]));
+            }
+        }
+        return uiGrid;
+    }
 
-        return null;
+    private Point calculatePositionFromGrid(int[] gridPos, int elementSize){
+        return new Point(gridPos[0] * elementSize,gridPos[1] * elementSize);
     }
 }

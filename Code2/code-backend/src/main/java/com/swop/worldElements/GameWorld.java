@@ -16,7 +16,7 @@ public class GameWorld {
         grid[2][4] = Square.AIR;
         grid[2][3] = Square.AIR;
         grid[3][3] = Square.AIR;
-        grid[goalPosition[0]][goalPosition[1]] = Square.FLAG;
+        grid[goalPosition[1]][goalPosition[0]] = Square.FLAG;
         this.grid = grid;
         character = new Character(new int[]{1,4});
     }

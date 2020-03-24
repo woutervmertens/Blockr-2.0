@@ -47,7 +47,7 @@ public class MyCanvasWindow extends CanvasWindow {
     }
 
     /**
-     * Calls the respective com.com.swop.handlers for each supported mouse input.
+     * Calls the respective handlers for each supported mouse input.
      *
      * @param id         The MouseEvent id.
      * @param x          The x position of the mouse action.
@@ -107,7 +107,7 @@ public class MyCanvasWindow extends CanvasWindow {
     }
 
     /**
-     * Calls the respective com.com.swop.handlers for each supported key input.
+     * Calls the respective handlers for each supported key input.
      *
      * @param id      The KeyEvent id (Pressed or typed).
      * @param keyCode The numerical value of the key.
