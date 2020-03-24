@@ -17,7 +17,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private int maxBlocks = 10;
     private Point characterPos;
     // Handlers
-    BlockrGame blockrGame = new BlockrGame();
+    BlockrGame blockrGame = new BlockrGame(maxBlocks);
     DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
     ExecuteProgramHandler executeProgramHandler = new ExecuteProgramHandler(blockrGame);
 
@@ -33,7 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        // TODO: setPaletteHiddenStateAs((maxBlocks - uiProgramArea.getNumBlocks()) <= 0);
+        isPaletteHidden = blockrGame.isPaletteHidden();
         Windows.drawWindows(g, isPaletteHidden);
 
         // TODO: check the rest
