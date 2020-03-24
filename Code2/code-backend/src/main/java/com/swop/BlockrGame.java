@@ -6,8 +6,10 @@ import java.awt.*;
 
 public class BlockrGame {
     private final ProgramArea programArea;
+    private final int maxBlocks;
 
-    public BlockrGame() {
+    public BlockrGame(int maxBlocks) {
+        this.maxBlocks = maxBlocks;
         this.programArea = new ProgramArea();
     }
 
@@ -48,5 +50,7 @@ public class BlockrGame {
     public Block getBlockInPaAt(int x, int y) {
         return programArea.getBlockAt(x,y);
     }
+
+    public boolean isPaletteHidden(){return (maxBlocks - getNumbBlocksInPA()) <= 0;}
 
 }
