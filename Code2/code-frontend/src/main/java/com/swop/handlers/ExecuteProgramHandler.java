@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class ExecuteProgramHandler {
     private BlockrGame blockrGame;
+    private ArrayList<UISquare> uiGrid = null;
 
     public ExecuteProgramHandler(BlockrGame blockrGame) {
         this.blockrGame = blockrGame;
@@ -34,12 +35,14 @@ public class ExecuteProgramHandler {
     }
 
     public ArrayList<UISquare> getGameWorld(){
-        Square[][] grid = blockrGame.getGameWorldGrid();
-        ArrayList<UISquare> uiGrid = new ArrayList<>();
-        int elementSize = 30;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                uiGrid.add(new UISquare(new Point(calculatePositionFromGrid(new int[]{i,j},elementSize)),grid[i][j]));
+        if(uiGrid == null) {
+            Square[][] grid = blockrGame.getGameWorldGrid();
+            uiGrid = new ArrayList<>();
+            int elementSize = 30;
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    uiGrid.add(new UISquare(new Point(calculatePositionFromGrid(new int[]{i, j}, elementSize)), grid[i][j]));
+                }
             }
         }
         return uiGrid;
