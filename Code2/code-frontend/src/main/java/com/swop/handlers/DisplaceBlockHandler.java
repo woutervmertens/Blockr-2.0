@@ -48,9 +48,10 @@ public class DisplaceBlockHandler {
     }
 
     public void handleReleaseOutsidePA(int x, int y, UIBlock draggedBlock) {
-        // TODO: remove the block from program area and edit the connections and gapsizes
-        // TODO: remove from the map in DisplaceBlockHandler
-        // TODO: uiPalette.setHiddenStateAs(false);
+        //remove the block from program area TODO: and edit the connections and gapsizes
+        blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
+        //remove from the map in DisplaceBlockHandler
+        blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
         // TODO: always handle the blockUIBlockMap !
     }
 }

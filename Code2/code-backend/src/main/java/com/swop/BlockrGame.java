@@ -44,7 +44,7 @@ public class BlockrGame {
     }
 
     public int getNumbBlocksInPA() {
-        return programArea.getAllBlocks().length;
+        return programArea.getAllBlocks().size();
     }
 
     public Block getBlockInPaAt(int x, int y) {
@@ -53,4 +53,7 @@ public class BlockrGame {
 
     public boolean isPaletteHidden(){return (maxBlocks - getNumbBlocksInPA()) <= 0;}
 
+    public void removeBlockFromPA(Block draggedBlock) {
+        programArea.removeBlock(draggedBlock);
+    }
 }

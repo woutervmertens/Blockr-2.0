@@ -2,6 +2,7 @@ package com.swop;
 
 import com.swop.blocks.Block;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class ProgramArea {
     /**
      * Array recording all blocks currently present in program area
      */
-    private Block[] allBlocks = new Block[] {};
+    private ArrayList<Block> allBlocks = new ArrayList<>() {};
 
-    public Block[] getAllBlocks() {
+    public ArrayList<Block> getAllBlocks() {
         return allBlocks;
     }
 
@@ -38,5 +39,10 @@ public class ProgramArea {
             // TODO: if (block.isPositionOn()
         }
         return null;
+    }
+
+    public void removeBlock(Block draggedBlock) {
+        allBlocks.remove(draggedBlock);
+        program.remove(draggedBlock);
     }
 }
