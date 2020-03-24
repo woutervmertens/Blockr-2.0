@@ -12,8 +12,8 @@ public enum BlockTypes {
     TurnRight("Turn Right", 110),
     IfStatement("If", 110),
     WhileStatement("While", 110),
-    NotCondition("Not", 35),
-    WallInFrontCondition("WIF", 35);
+    NotCondition("Not", 40),
+    WallInFrontCondition("WIF", 40);
 
     private final String text;
     private final int width;
@@ -53,7 +53,7 @@ public enum BlockTypes {
             case IfStatement:
             case WhileStatement:
                 return new UIStatementBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this, 10);
+                        this.getText(), this, 0);
             case NotCondition:
             case WallInFrontCondition:
                 return new UIConditionBlock(this.getWidth(), this.getHeight(), new Point(x, y),

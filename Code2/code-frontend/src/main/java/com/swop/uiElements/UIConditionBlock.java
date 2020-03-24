@@ -37,17 +37,21 @@ public class UIConditionBlock extends UIBlock {
         int step = height / 6;
         pol.addPoint(position.x, position.y);
         pol.addPoint(position.x + width, position.y);
-        //plug
-        pol.addPoint(position.x + width, position.y + step * 2);
-        pol.addPoint(position.x + width + step, position.y + step * 3);
-        pol.addPoint(position.x + width, position.y + step * 4);
+        if (type != BlockTypes.WallInFrontCondition) {
+            //socket
+            pol.addPoint(position.x + width, position.y + step * 2);
+            pol.addPoint(position.x + width - step, position.y + step * 3);
+            pol.addPoint(position.x + width, position.y + step * 4);
+        }
 
         pol.addPoint(position.x + width, position.y + height);
         pol.addPoint(position.x, position.y + height);
-        //socket
+
+        //plug
         pol.addPoint(position.x, position.y + step * 2);
-        pol.addPoint(position.x + step, position.y + step * 3);
+        pol.addPoint(position.x - step, position.y + step * 3);
         pol.addPoint(position.x, position.y + step * 4);
+
         return pol;
     }
 }

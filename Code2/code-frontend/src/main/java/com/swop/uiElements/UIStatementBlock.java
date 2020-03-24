@@ -63,9 +63,9 @@ public class UIStatementBlock extends UIBlock {
         pol.addPoint(position.x + step * 4, position.y);
 
         pol.addPoint(position.x + conditionWidth, position.y);
-        //plug condition
+        //socket condition
         pol.addPoint(position.x + conditionWidth, position.y + step * 2);
-        pol.addPoint(position.x + conditionWidth + step, position.y + step * 3);
+        pol.addPoint(position.x + conditionWidth - step, position.y + step * 3);
         pol.addPoint(position.x + conditionWidth, position.y + step * 4);
 
         pol.addPoint(position.x + conditionWidth, position.y + height);
@@ -78,6 +78,13 @@ public class UIStatementBlock extends UIBlock {
         //gap
         pol.addPoint(position.x + pillarWidth, position.y + height);
         pol.addPoint(position.x + pillarWidth, position.y + height + gapSize);
+
+        //socket body
+        pol.addPoint(position.x + pillarWidth + step * 4, position.y + height + gapSize);
+        pol.addPoint(position.x + pillarWidth + step * 3, position.y + height + step + gapSize);
+        pol.addPoint(position.x + pillarWidth + step * 2, position.y + height + gapSize);
+
+        //gap bottom
         pol.addPoint(position.x + width, position.y + gapSize + height);
         pol.addPoint(position.x + width, position.y + height + pillarWidth + gapSize);
 

@@ -69,7 +69,7 @@ public enum Windows {
 
         if (isHidden) return;
 
-        int x = 10;
+        int x = 15;
         int y = 10;
         BlockTypes[] types = BlockTypes.values();
         int step = height / types.length;
