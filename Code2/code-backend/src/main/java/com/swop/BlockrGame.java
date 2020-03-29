@@ -37,6 +37,7 @@ public class BlockrGame {
 
     public void executeNext() {
         // TODO
+        programArea.executeNext();
     }
 
     public Block getCurrentBlock() {
@@ -62,6 +63,7 @@ public class BlockrGame {
 
     public void removeBlockFromPA(Block draggedBlock) {
         programArea.removeBlock(draggedBlock);
+        // TODO: adjust program
     }
 
     public Square[][] getGameWorldGrid() {

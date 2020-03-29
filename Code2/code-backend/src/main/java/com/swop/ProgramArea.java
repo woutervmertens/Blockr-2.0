@@ -44,6 +44,11 @@ public class ProgramArea {
     public void removeBlock(Block draggedBlock) {
         allBlocks.remove(draggedBlock);
         program.remove(draggedBlock);
+        // TODO: remove all the rest under the dragged block as well from the program
+    }
+
+    public void executeNext() {
+        // TODO
     }
 
     public void reset() {

@@ -41,11 +41,12 @@ public class DisplaceBlockHandler {
     private BlockrGame blockrGame;
 
     /**
+     * TODO: remove x and y & change pre
      * @pre The given position is inside the PA
      */
     public void handleReleaseInPA(int x, int y, UIBlock draggedBlock) {
         Block backendBlock = draggedBlock.getCorrespondingBlock();
-        putInBlockUIBlockMap(backendBlock,draggedBlock);
+        if (!getBlockUIBlockMap().containsKey(backendBlock)) putInBlockUIBlockMap(backendBlock,draggedBlock);
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
     }

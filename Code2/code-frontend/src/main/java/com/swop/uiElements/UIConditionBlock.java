@@ -1,8 +1,6 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.Block;
-import com.swop.blocks.NotBlock;
-import com.swop.blocks.WallInFrontBlock;
 
 import java.awt.*;
 
@@ -13,11 +11,14 @@ public class UIConditionBlock extends UIBlock {
         super(width, height, position, text);
         this.type = type;
         switch (type) {
+            // TODO: Decide whether to make corresponding WIF and Not blocks
             case WallInFrontCondition:
-                this.correspondingBlock = new WallInFrontBlock();
+                // this.correspondingBlock = new WallInFrontBlock();
+                this.correspondingBlock = null;
                 break;
             case NotCondition:
-                this.correspondingBlock = new NotBlock();
+                // this.correspondingBlock = new NotBlock();
+                this.correspondingBlock = null;
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");
