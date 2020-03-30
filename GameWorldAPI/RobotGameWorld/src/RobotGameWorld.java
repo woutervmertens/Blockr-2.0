@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RobotGameWorld implements GameWorld {
     private Square[][] grid;
@@ -6,11 +8,38 @@ public class RobotGameWorld implements GameWorld {
     private Point drawPosition;
     private Robot robot;
 
-    public RobotGameWorld(Square[][] grid, int elementSize, Point drawPosition, Robot robot) {
-        this.grid = grid;
-        this.size = elementSize;
+    public RobotGameWorld() {
+        this.grid = new Square[][]{};;
+        this.size = 30;
+        this.drawPosition = new Point(0,0);
+        this.robot = new Robot();
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setDrawPosition(Point drawPosition) {
         this.drawPosition = drawPosition;
-        this.robot = robot;
+    }
+
+    public void setRobot(Direction direction, int[] position)
+    {
+        if(this.robot == null) return;
+        this.robot.setPosition(position);
+        this.robot.setDirection(direction);
+    }
+
+    public void setGrid(ArrayList<int[]> wallPositions, int[] goalPosition){
+        if(grid == null) return;
+        for (int i = 0; i < grid.length; i++) {
+            Arrays.fill(grid[i],Square.AIR);
+        }
+        for(int[] wallpos : wallPositions)
+        {
+            grid[wallpos[0]][wallpos[1]] = Square.WALL;
+        }
+        grid[goalPosition[0]][goalPosition[1]] = Square.GOAL;
     }
 
     @Override

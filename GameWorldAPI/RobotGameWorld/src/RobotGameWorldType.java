@@ -16,9 +16,7 @@ public class RobotGameWorldType implements GameWorldType{
 
     @Override
     public GameWorld createNewInstance() {
-        Square[][] grid = new Square[][]{};
-        Point drawPosition = new Point(0,0);
-        return new RobotGameWorld(grid,30,drawPosition,new Robot());
+        return new RobotGameWorld();
     }
 
 }
