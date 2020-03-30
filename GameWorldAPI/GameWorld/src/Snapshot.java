@@ -1,2 +1,2 @@
-public enum Snapshot {
+public interface Snapshot {
 }
