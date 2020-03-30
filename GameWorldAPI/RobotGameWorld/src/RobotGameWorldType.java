@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -15,6 +16,9 @@ public class RobotGameWorldType implements GameWorldType{
 
     @Override
     public GameWorld createNewInstance() {
-        return new RobotGameWorld();
+        Square[][] grid = new Square[][]{};
+        Point drawPosition = new Point(0,0);
+        return new RobotGameWorld(grid,30,drawPosition,new Robot());
     }
+
 }
