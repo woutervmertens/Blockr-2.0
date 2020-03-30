@@ -1,6 +1,8 @@
 package com.swop.blocks;
 
 
+import com.swop.worldElements.GameWorld;
+
 import java.awt.*;
 
 public abstract class Block {
@@ -14,6 +16,6 @@ public abstract class Block {
 
     private Point position;
 
-    public abstract void execute();
+    public abstract void execute(GameWorld world);
 
 }

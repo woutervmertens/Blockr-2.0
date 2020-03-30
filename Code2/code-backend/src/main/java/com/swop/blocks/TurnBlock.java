@@ -11,7 +11,10 @@ public class TurnBlock extends ActionBlock {
     }
 
     @Override
-    public void execute() {
-        // TODO: try world.turn or catch and ignore exception
+    public void execute(GameWorld world) {
+        // TODO: try world.turn or catch and ignore exception. ANSWER: why would there be an exception?
+        try {
+            world.turn(direction);
+        }catch (Exception e){}
     }
 }
