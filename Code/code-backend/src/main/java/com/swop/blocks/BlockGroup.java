@@ -51,9 +51,10 @@ public class BlockGroup {
     }
 
     /**
-     *
+     * Adds the newBlock behind the block.
      */
-    public void addBlockAfterBlock(Block block, Block previousBlock) {
-        // TODO
+    public void addBlockBehindBlock(Block block, Block newBlock) {
+        int newBlockNr = blocks.indexOf(block) + 1;
+        blocks.add(newBlockNr, newBlock);
     }
 }
