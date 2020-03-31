@@ -46,8 +46,15 @@ public class RobotGameWorld implements GameWorld {
         this.robot.setDirection(direction);
     }
 
-    public void setGrid(ArrayList<int[]> wallPositions, int[] goalPosition){
-        if(grid == null) return;
+    /**
+     * Sets up a world grid
+     * @param gridSize The horizontal and vertical length of the grid
+     * @param wallPositions List of int[]{y,x} positions of the walls in the grid
+     * @param goalPosition The int[]{y,x} position of the goal
+     */
+    public void setGrid(int gridSize, ArrayList<int[]> wallPositions, int[] goalPosition){
+        if(grid == null || grid[0].length != gridSize)
+            grid = new Square[gridSize][gridSize];
         for (int i = 0; i < grid.length; i++) {
             Arrays.fill(grid[i],Square.AIR);
         }
