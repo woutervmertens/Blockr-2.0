@@ -1,10 +1,12 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MyCanvasWindow extends CanvasWindow {
     GameWorldType gameWorldType;
     GameWorld gameWorld;
+    ArrayList<Button> buttons;
+    ClickHandler clickHandler;
     /**
      * Initializes a CanvasWindow object.
      *
@@ -14,11 +16,24 @@ public class MyCanvasWindow extends CanvasWindow {
         super(title);
         this.gameWorldType = gameWorldType;
         this.gameWorld = gameWorldType.createNewInstance();
+        this.clickHandler = new ClickHandler(gameWorld);
+
+        buttons = new ArrayList<>();
+        buttons.add(Button.TURN_LEFT);
+        buttons.get(0).setLocation(0,super.height-30);
+
+        buttons.add(Button.MOVE_FORWARD);
+        buttons.get(1).setLocation(super.width/3,super.height-30);
+        buttons.add(Button.TURN_RIGHT);
+        buttons.get(2).setLocation(2*super.width/3,super.height-30);
     }
 
     @Override
     protected void paint(Graphics g) {
         gameWorld.paint(g);
+        for (Button button : buttons){
+            button.draw(g);
+        }
     }
 
     /**
@@ -36,6 +51,9 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_PRESSED:
                 break;
             case MouseEvent.MOUSE_CLICKED:
+                for (Button button : buttons){
+                    if(button.isClicked(x,y)) clickHandler.HandleClick(button.getAction());
+                }
                 break;
             case MouseEvent.MOUSE_DRAGGED:
                 break;
@@ -56,10 +74,5 @@ public class MyCanvasWindow extends CanvasWindow {
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
         super.handleKeyEvent(id, keyCode, keyChar);
-        if (id == KeyEvent.KEY_PRESSED) {
-            switch (keyCode) {
-
-            }
-        }
     }
 }
