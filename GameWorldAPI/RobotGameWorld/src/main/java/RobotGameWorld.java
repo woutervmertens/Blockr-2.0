@@ -9,7 +9,7 @@ public class RobotGameWorld implements GameWorld {
     private Robot robot;
 
     public RobotGameWorld() {
-        this.grid = new Square[][]{};;
+        this.grid = new Square[5][5];
         this.size = 30;
         this.drawPosition = new Point(0,0);
         this.robot = new Robot();
@@ -17,6 +17,22 @@ public class RobotGameWorld implements GameWorld {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public Square[][] getGrid() {
+        return grid;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Point getDrawPosition() {
+        return drawPosition;
+    }
+
+    public Robot getRobot() {
+        return robot;
     }
 
     public void setDrawPosition(Point drawPosition) {
