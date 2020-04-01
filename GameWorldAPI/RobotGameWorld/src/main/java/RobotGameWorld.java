@@ -132,6 +132,13 @@ public class RobotGameWorld implements GameWorld {
 
     @Override
     public void paint(Graphics g) {
+        g.setColor(Color.BLACK);
+        int gridSize = grid.length * size;
+        g.drawPolygon(
+                new Polygon(
+                        new int[]{drawPosition.x,drawPosition.x + gridSize,drawPosition.x + gridSize,drawPosition.x},
+                        new int[]{drawPosition.y,drawPosition.y,drawPosition.y + gridSize,drawPosition.y + gridSize},
+                        4));
         drawGrid(g);
         drawCharacter(g,getOffPos(robot.getPosition()[1],robot.getPosition()[0]));
     }

@@ -22,7 +22,7 @@ public enum Button {
         g.setColor(color);
         g.fillPolygon(polygon);
         g.setColor(Color.BLACK);
-        g.drawString(title,polygon.getBounds().x + size.x/2,polygon.getBounds().y + size.y/2);
+        g.drawString(title,polygon.getBounds().x + size.x/3,polygon.getBounds().y + size.y/2 + 5);
     }
 
     public void setSize(int x, int y){
