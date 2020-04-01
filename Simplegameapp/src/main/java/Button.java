@@ -7,7 +7,7 @@ public enum Button {
 
     private String title;
     private Color color;
-    private Point size;
+    private Point size = new Point();
     private Polygon polygon;
     private Action action;
 
@@ -22,7 +22,7 @@ public enum Button {
         g.setColor(color);
         g.fillPolygon(polygon);
         g.setColor(Color.BLACK);
-        g.drawString(title,size.x/2,size.y/2);
+        g.drawString(title,polygon.getBounds().x + size.x/2,polygon.getBounds().y + size.y/2);
     }
 
     public void setSize(int x, int y){

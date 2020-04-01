@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MyCanvasWindow extends CanvasWindow {
     GameWorldType gameWorldType;
@@ -18,13 +19,9 @@ public class MyCanvasWindow extends CanvasWindow {
         this.gameWorld = gameWorldType.createNewInstance();
         this.clickHandler = new ClickHandler(gameWorld);
 
-        buttons = new ArrayList<>();
-        buttons.add(Button.TURN_LEFT);
+        buttons = new ArrayList<Button>(Arrays.asList(Button.values()));
         buttons.get(0).setLocation(0,super.height-30);
-
-        buttons.add(Button.MOVE_FORWARD);
         buttons.get(1).setLocation(super.width/3,super.height-30);
-        buttons.add(Button.TURN_RIGHT);
         buttons.get(2).setLocation(2*super.width/3,super.height-30);
     }
 
@@ -54,6 +51,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 for (Button button : buttons){
                     if(button.isClicked(x,y)) clickHandler.HandleClick(button.getAction());
                 }
+                repaint();
                 break;
             case MouseEvent.MOUSE_DRAGGED:
                 break;

@@ -1,12 +1,13 @@
 public class RobotSnapshot implements Snapshot {
-    private Robot robot;
+    private Robot robot = new Robot();
 
     public Robot getRobot() {
         return robot;
     }
 
     public void setRobot(Robot robot) {
-        this.robot = robot;
+        this.robot.setPosition(robot.getPosition());
+        this.robot.setDirection(robot.getDirection());
     }
 
     private Square[][] grid;
@@ -16,6 +17,6 @@ public class RobotSnapshot implements Snapshot {
     }
 
     public void setGrid(Square[][] grid) {
-        this.grid = grid;
+        this.grid = grid.clone();
     }
 }
