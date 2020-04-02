@@ -1,16 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: CharacterTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in CharacterTest
-playerOnEdgeOfField  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at CharacterTest.setUp(CharacterTest.java:33)
-
-canMoveForward  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at CharacterTest.setUp(CharacterTest.java:33)
-
-WallInFrontOfPlayer  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at CharacterTest.setUp(CharacterTest.java:33)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s - in CharacterTest

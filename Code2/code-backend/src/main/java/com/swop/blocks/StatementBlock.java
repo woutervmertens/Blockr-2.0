@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class StatementBlock extends Block {
+    // TODO: 30/03/2020 moet conditions een linked list zijn?
+    protected Condition[] conditions;
+    protected List<ActionBlock> bodyBlocks;
 
     public StatementBlock(Condition[] conditions, List<ActionBlock> bodyBlocks) {
         if (conditions.length == 0) throw new IllegalArgumentException("Cannot make statementBlock without conditions");
@@ -14,24 +17,43 @@ public abstract class StatementBlock extends Block {
         this.bodyBlocks = bodyBlocks;
     }
 
-    protected Condition[] conditions;
-    protected List<ActionBlock> bodyBlocks;
 
-    public boolean isConditionValid() {
-        // TODO check on the game world whether the list of conditions returns true or not
-        return false;
+    public boolean isConditionValid(GameWorld world) throws IllegalStateException {
+        int length = conditions.length;
+        if (length == 0 || (conditions[length - 1] != Condition.WIF)) {
+            throw new IllegalStateException("coditions is empty or there is no WIF block");
+        }
+        // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
+        if (length % 2 == 0){
+            return ! wallInFront(world);
+        }else{
+            return wallInFront(world);
+        }
     }
 
     @Override
-    public void execute() {
-        // TODO: check condition and execute body once !
+    public void execute(GameWorld world) {
+        if (isConditionValid(world)) executeBodyOnce();
     }
 
     private void executeBodyOnce() {
         // TODO:
     }
-}
 
-enum Condition {
-    WIF, NOT;
+    private boolean wallInFront(GameWorld world) {
+        int cPosX = world.getCharacter().getPosition()[0];
+        int cPosY = world.getCharacter().getPosition()[1];
+        Direction cDir = world.getCharacter().getDirection();
+        if (cDir == Direction.LEFT && !world.getGrid()[cPosX - 1][cPosY].isPassable()) {
+            return true;
+        } else if (cDir == Direction.RIGHT && !world.getGrid()[cPosX + 1][cPosY].isPassable()) {
+            return true;
+        } else if (cDir == Direction.UP && !world.getGrid()[cPosX][cPosY - 1].isPassable()) {
+            return true;
+        } else return cDir != Direction.DOWN || world.getGrid()[cPosX][cPosY + 1].isPassable();
+    }
+
+    enum Condition {
+        WIF, NOT;
+    }
 }

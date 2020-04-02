@@ -1,18 +1,18 @@
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/BlockGroup.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/WallInFrontBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/Program.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/ProgramArea.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/worldElements/Direction.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/WhileBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/NotBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/worldElements/Character.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/MoveBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/StatementBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/worldElements/Square.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/worldElements/GameWorld.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/Block.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/IfBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/ActionBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/BlockrGame.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/TurnBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code/code-backend/src/main/java/blocks/ConditionBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/WhileBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/StatementBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/ActionBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/BlockGroup.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/Block.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/worldElements/GameWorld.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/worldElements/Character.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/worldElements/Direction.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/TurnBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/ConditionBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/NotBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/MoveBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/WallInFrontBlock.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/Program.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/worldElements/Square.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/BlockrGame.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/ProgramArea.java
+/media/kristof/Shared/Documents/Universiteit/2019-2020/Tweede semester/Software ontwerp/project/Blockr-groep9/Code/code-backend/src/main/java/com/swop/blocks/IfBlock.java

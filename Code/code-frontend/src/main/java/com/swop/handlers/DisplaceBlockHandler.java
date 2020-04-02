@@ -43,7 +43,7 @@ public class DisplaceBlockHandler {
 
             int type = 0;
 
-            if ((draggedBlock.getType() != BlockTypes.NotCondition ||
+            if ((draggedBlock.getType() != BlockTypes.NotCondition &&
                  draggedBlock.getType() != BlockTypes.WallInFrontCondition)) {
                 // 1) plug
                 closeBlock = uiProgramArea.getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);

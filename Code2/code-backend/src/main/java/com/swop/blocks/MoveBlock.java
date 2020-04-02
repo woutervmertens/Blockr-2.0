@@ -4,7 +4,7 @@ import com.swop.worldElements.GameWorld;
 
 public class MoveBlock extends ActionBlock {
     @Override
-    public void execute() {
-        // TODO
+    public void execute(GameWorld world) {
+        world.moveForward();
     }
 }

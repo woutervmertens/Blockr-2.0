@@ -28,7 +28,8 @@ public class BlockrGame {
     }
 
     public void dropBlockInPA(Block block) {
-        // TODO
+        // TODO is dit de bedoeling dan?
+        programArea.dropBlockAt(block, block.getPosition().x, block.getPosition().y);
     }
 
     public Character getCharacter() {
@@ -63,7 +64,7 @@ public class BlockrGame {
 
     public void removeBlockFromPA(Block draggedBlock) {
         programArea.removeBlock(draggedBlock);
-        // TODO: adjust program
+        // TODO: adjust program -> wordt al gedaan in programArea.removeBlock
     }
 
     public Square[][] getGameWorldGrid() {

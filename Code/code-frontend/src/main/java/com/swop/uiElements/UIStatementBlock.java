@@ -121,6 +121,8 @@ public class UIStatementBlock extends UIBlock implements VerticallyConnectable {
         if(((StatementBlock)block).getConditions().isEmpty())
             return new Point(position.x + conditionWidth + step, position.y);
 
+        // TODO: 24/03/2020 als men meeste rechtse conditionblock verschuift blijft die zn plug teruggegeven worden
+        // conditionblocks moeten weten aan welke statementblock ze vastzitten
         Block lastBlock = ((StatementBlock)block).getConditions().getLast();
         UIBlock b = pa.getUiBlock(lastBlock);
         if(b != null) return b.getPlugPosition();
