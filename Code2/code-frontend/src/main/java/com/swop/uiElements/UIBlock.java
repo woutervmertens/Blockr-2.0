@@ -30,7 +30,8 @@ public abstract class UIBlock {
 
     public void setPosition(Point position) {
         this.position = position;
-        getCorrespondingBlock().setPosition(position);
+        // TODO: shall we start corresponding blocks from creation ??
+        try {getCorrespondingBlock().setPosition(position);} catch (NullPointerException ignored) {}
     }
 
     /**

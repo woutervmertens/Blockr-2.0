@@ -38,8 +38,8 @@ public abstract class StatementBlock extends Block {
     }
 
     @Override
-    public void execute(GameWorld world) {
-        if (isConditionValid(world)) executeNextBodyBlock();
+    public void execute() {
+        if (isConditionValid(getGameWorld())) executeNextBodyBlock();
     }
 
     protected void executeNextBodyBlock() {

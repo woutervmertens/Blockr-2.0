@@ -75,7 +75,7 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_RELEASED:
                 if (isBlockDragged()) {
                     if (Windows.PROGRAM_AREA.isWithin(x, y)) { // TODO remove uiPA and make isWithinPA method
-                        displaceBlockHandler.handleReleaseInPA(x, y, draggedBlock);
+                        displaceBlockHandler.handleReleaseInPA(draggedBlock);
                     } else {
                         displaceBlockHandler.handleReleaseOutsidePA(x, y, draggedBlock);
                     }

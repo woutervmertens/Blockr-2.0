@@ -10,4 +10,10 @@ public class IfBlock extends StatementBlock {
     public IfBlock(Point position, GameWorld gameWorld, Condition[] conditions, List<ActionBlock> bodyBlocks) {
         super(position, gameWorld, conditions, bodyBlocks);
     }
+
+    @Override
+    public void execute() {
+        super.execute();
+        // TODO
+    }
 }

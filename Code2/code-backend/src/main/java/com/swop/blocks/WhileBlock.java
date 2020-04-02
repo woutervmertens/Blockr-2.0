@@ -12,6 +12,12 @@ public class WhileBlock extends StatementBlock {
     }
 
     @Override
+    public void execute() {
+        super.execute();
+        // TODO
+    }
+
+    @Override
     public void executeNextBodyBlock() {
         // TODO
     }
