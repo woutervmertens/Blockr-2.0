@@ -12,6 +12,7 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     protected BlockTypes type;
+    protected boolean isHighlight;
 
     public UIBlock(int width, int height, Point position, String text) {
         this.width = width;
@@ -48,7 +49,7 @@ public abstract class UIBlock {
     }
 
     public Color getColor() {
-        if (getCorrespondingBlock().isHighlight()) return highlightColor;
+        if (isHighlight()) return highlightColor;
         return color;
     }
 
@@ -77,5 +78,13 @@ public abstract class UIBlock {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public boolean isHighlight() {
+        return this.isHighlight;
+    }
+
+    public void setHighlightStateOn(boolean isHighlight) {
+        this.isHighlight = isHighlight;
     }
 }

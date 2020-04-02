@@ -4,10 +4,7 @@ import com.swop.BlockrGame;
 import com.swop.blocks.Block;
 import com.swop.uiElements.UIBlock;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DisplaceBlockHandler {
     /**
@@ -41,10 +38,9 @@ public class DisplaceBlockHandler {
     private BlockrGame blockrGame;
 
     /**
-     * TODO: remove x and y & change pre
-     * @pre The given position is inside the PA
+     * @pre draggedBlock.getPosition() is inside the PA
      */
-    public void handleReleaseInPA(int x, int y, UIBlock draggedBlock) {
+    public void handleReleaseInPA(UIBlock draggedBlock) {
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (!getBlockUIBlockMap().containsKey(backendBlock)) putInBlockUIBlockMap(backendBlock,draggedBlock);
         blockrGame.dropBlockInPA(backendBlock);
@@ -60,8 +56,8 @@ public class DisplaceBlockHandler {
     }
 
     public Collection<UIBlock> getAllUIBlocksInPA() {
-        ArrayList<Block> backBlocks = blockrGame.getAllBlocksInPA();
-        ArrayList<UIBlock> returnUIBlocks = new ArrayList<>();
+        List<Block> backBlocks = blockrGame.getAllBlocksInPA();
+        List<UIBlock> returnUIBlocks = new ArrayList<>();
         for (Block block : backBlocks){
             returnUIBlocks.add(getCorrespondingUiBlockFor(block));
         }

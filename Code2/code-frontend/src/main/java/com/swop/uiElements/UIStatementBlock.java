@@ -7,7 +7,7 @@ import com.swop.blocks.WhileBlock;
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock {
-    private final Block correspondingBlock;
+    private final Block correspondingBlock = null;
     private int gapSize;
     private int pillarWidth = 10;
     private int conditionWidth;
@@ -16,11 +16,12 @@ public class UIStatementBlock extends UIBlock {
         super(width, height, position, text);
         this.type = type;
         switch (type) {
+            // TODO:
             case IfStatement:
-                this.correspondingBlock = new IfBlock();
+                //this.correspondingBlock = new IfBlock();
                 break;
             case WhileStatement:
-                this.correspondingBlock = new WhileBlock();
+                //this.correspondingBlock = new WhileBlock();
                 break;
             default:
                 throw new IllegalArgumentException("Not a Statement Block !");
@@ -41,7 +42,7 @@ public class UIStatementBlock extends UIBlock {
 
     public void increaseGapSize(int increase) {this.gapSize += increase;}
 
-    public  void decreaseGapSize(int increase) {this.gapSize -= increase;};
+    public  void decreaseGapSize(int increase) {this.gapSize -= increase;}
 
     @Override
     public Block getCorrespondingBlock() {

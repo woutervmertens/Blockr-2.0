@@ -41,14 +41,14 @@ public class ExecuteProgramHandler {
             int elementSize = 30;
             for (int i = 0; i < grid.length; i++) {
                 for (int j = 0; j < grid[0].length; j++) {
-                    uiGrid.add(new UISquare(new Point(calculatePositionFromGrid(new int[]{i, j}, elementSize)), grid[i][j]));
+                    uiGrid.add(new UISquare(new Point(calculatePositionFromGrid(new Point(i, j), elementSize)), grid[i][j]));
                 }
             }
         }
         return uiGrid;
     }
 
-    private Point calculatePositionFromGrid(int[] gridPos, int elementSize){
-        return new Point(gridPos[0] * elementSize,gridPos[1] * elementSize);
+    private Point calculatePositionFromGrid(Point gridPos, int elementSize){
+        return new Point(gridPos.x * elementSize,gridPos.y * elementSize);
     }
 }

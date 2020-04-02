@@ -6,7 +6,7 @@ import com.swop.worldElements.GameWorld;
 import com.swop.worldElements.Square;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class BlockrGame {
     private final ProgramArea programArea;
@@ -41,6 +41,11 @@ public class BlockrGame {
         programArea.executeNext();
     }
 
+    public Block getCurrentBlockInExecution() {
+        // TODO
+        return null;
+    }
+
     public Block getCurrentBlock() {
         return programArea.getCurrentBlock();
     }
@@ -54,7 +59,7 @@ public class BlockrGame {
         return programArea.getAllBlocks().size();
     }
 
-    public ArrayList<Block> getAllBlocksInPA(){return programArea.getAllBlocks();}
+    public List<Block> getAllBlocksInPA(){return programArea.getAllBlocks();}
 
     public Block getBlockInPaAt(int x, int y) {
         return programArea.getBlockAt(x,y);

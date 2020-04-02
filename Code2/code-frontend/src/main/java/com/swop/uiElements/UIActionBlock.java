@@ -8,20 +8,21 @@ import com.swop.worldElements.Direction;
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
-    private final Block correspondingBlock;
+    private final Block correspondingBlock = null;
 
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
         super(width, height, position, text);
         this.type = type;
+        // TODO:
         switch (type) {
             case MoveForward:
-                this.correspondingBlock = new MoveBlock();
+                //this.correspondingBlock = new MoveBlock();
                 break;
             case TurnLeft:
-                this.correspondingBlock = new TurnBlock(position, ga);
+                //this.correspondingBlock = new TurnBlock(position, ga);
                 break;
             case TurnRight:
-                this.correspondingBlock = new TurnBlock(Direction.RIGHT);
+                //this.correspondingBlock = new TurnBlock(Direction.RIGHT);
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action Block !");
