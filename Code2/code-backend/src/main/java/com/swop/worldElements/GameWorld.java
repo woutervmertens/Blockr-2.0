@@ -1,5 +1,6 @@
 package com.swop.worldElements;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class GameWorld {
@@ -18,7 +19,7 @@ public class GameWorld {
         grid[3][3] = Square.AIR;
         grid[goalPosition[1]][goalPosition[0]] = Square.FLAG;
         this.grid = grid;
-        character = new Character(new int[]{1,4});
+        character = new Character(new Point(1, 4));
     }
 
     public Character getCharacter() {
@@ -34,80 +35,60 @@ public class GameWorld {
         getCharacter().setDirection((new Character()).getDirection());
     }
 
-    public void moveForward() {
+    public Point getPositionInFrontOfCharacter() {
+        Point newPos;
         switch (getCharacter().getDirection()) {
             case UP:
-                int[] newPosUp = {getCharacter().getPosition()[0], getCharacter().getPosition()[1] - 1};
-                if (isValidPosition(newPosUp)) {
-                    getCharacter().setPosition(newPosUp);
-                } else throw new IllegalStateException("Cannot move forward because of wall");
+                newPos = new Point(getCharacter().getPosition().x, getCharacter().getPosition().y - 1);
                 break;
-
             case DOWN:
-                int[] newPosDown = {getCharacter().getPosition()[0], getCharacter().getPosition()[1] + 1};
-                if (isValidPosition(newPosDown)) {
-                    getCharacter().setPosition(newPosDown);
-                } else throw new IllegalStateException("Cannot move forward because of wall");
+                newPos = new Point(getCharacter().getPosition().x, getCharacter().getPosition().y + 1);
                 break;
-
             case LEFT:
-                int[] newPosLeft = {getCharacter().getPosition()[0] - 1, getCharacter().getPosition()[1]};
-                if (isValidPosition(newPosLeft)) {
-                    getCharacter().setPosition(newPosLeft);
-                } else throw new IllegalStateException("Cannot move forward because of wall");
+                newPos = new Point(getCharacter().getPosition().x - 1, getCharacter().getPosition().y);
                 break;
-
             case RIGHT:
-                int[] newPosRight = {getCharacter().getPosition()[0] + 1, getCharacter().getPosition()[1]};
-                if (isValidPosition(newPosRight)) {
-                    getCharacter().setPosition(newPosRight);
-                } else throw new IllegalStateException("Cannot move forward because of wall");
+                newPos = new Point(getCharacter().getPosition().x + 1, getCharacter().getPosition().y);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + getCharacter().getDirection());
         }
+        return newPos;
     }
 
-    public void turn(Direction dir) {
-        if (dir == Direction.LEFT) {
-            switch (character.getDirection()) {
-                case UP:
-                    character.setDirection(Direction.LEFT);
-                    break;
-                case RIGHT:
-                    character.setDirection(Direction.UP);
-                    break;
-                case DOWN:
-                    character.setDirection(Direction.RIGHT);
-                    break;
-                case LEFT:
-                    character.setDirection(Direction.DOWN);
-                    break;
-            }
-        } else {
-            switch (character.getDirection()) {
-                case UP:
-                    character.setDirection(Direction.RIGHT);
-                    break;
-                case RIGHT:
-                    character.setDirection(Direction.DOWN);
-                    break;
-                case DOWN:
-                    character.setDirection(Direction.LEFT);
-                    break;
-                case LEFT:
-                    character.setDirection(Direction.UP);
-                    break;
-            }
-        }
+    public boolean isPassableInFrontOfCharacter() {
+        return isPassable(getPositionInFrontOfCharacter());
     }
 
-    private boolean isPositionInBoundaries(int[] position) {
-        return position[0] >= 0 && position[1] >= 0 &&
-                position[1] <= getGrid().length-1 && position[0] <= getGrid()[0].length-1;
+    private boolean isPassable(Point pos) {
+        return getGrid()[pos.x][pos.y].isPassable();
     }
 
-    private boolean isValidPosition(int[] position) {
+    public void moveForward() {
+        Point newPos = getPositionInFrontOfCharacter();
+        if (isValidPosition(newPos)) {
+            getCharacter().setPosition(newPos);
+        } else throw new IllegalStateException("Cannot move forward because of wall");
+
+    }
+
+    public void turn(boolean clockwise) {
+        // Just setting the next direction in the enumeration
+        if (clockwise) getCharacter().setDirection(Direction.values()[(getCharacter().getDirection().ordinal() + 1) % Direction.values().length]);
+        else getCharacter().setDirection(Direction.values()[(getCharacter().getDirection().ordinal() - 1) % Direction.values().length]);
+    }
+
+    private boolean isPositionInBoundaries(Point position) {
+        return position.x >= 0 && position.y >= 0 &&
+                position.y <= getGrid().length - 1 && position.x <= getGrid()[0].length - 1;
+    }
+
+    /**
+     * Check whether the given position is a valid position for the character of this world.
+     */
+    private boolean isValidPosition(Point position) {
         try {
-            return isPositionInBoundaries(position) && getGrid()[position[0]][position[1]].isPassable();
+            return isPositionInBoundaries(position) && getGrid()[position.x][position.y].isPassable();
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }

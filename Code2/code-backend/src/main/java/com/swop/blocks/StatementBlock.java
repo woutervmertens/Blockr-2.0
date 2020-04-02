@@ -3,15 +3,18 @@ package com.swop.blocks;
 import com.swop.worldElements.Direction;
 import com.swop.worldElements.GameWorld;
 
-import java.util.LinkedList;
+import java.awt.*;
 import java.util.List;
 
+// TODO BIG !! Should the program in program area contain body-blocks as well
+// TODO BIG !! ... or should the statementblock execute and let know when it finished ??
 public abstract class StatementBlock extends Block {
-    // TODO: 30/03/2020 moet conditions een linked list zijn?
-    protected Condition[] conditions;
+    protected Condition[] conditions;  // TODO: possible to construct from outside ? If not make enum separate
     protected List<ActionBlock> bodyBlocks;
+    protected Block currentBodyBlock = null;
 
-    public StatementBlock(Condition[] conditions, List<ActionBlock> bodyBlocks) {
+    public StatementBlock(Point position, GameWorld gameWorld, Condition[] conditions, List<ActionBlock> bodyBlocks) {
+        super(position, gameWorld);
         if (conditions.length == 0) throw new IllegalArgumentException("Cannot make statementBlock without conditions");
         this.conditions = conditions;
         this.bodyBlocks = bodyBlocks;
@@ -19,38 +22,28 @@ public abstract class StatementBlock extends Block {
 
 
     public boolean isConditionValid(GameWorld world) throws IllegalStateException {
-        int length = conditions.length;
-        if (length == 0 || (conditions[length - 1] != Condition.WIF)) {
-            throw new IllegalStateException("coditions is empty or there is no WIF block");
+        if (conditions.length == 0) throw new IllegalStateException("No condition for the statement");
+
+        // WIF should only be at the last (and has to)
+        for (int i = 0; i < conditions.length; i++) {
+            if (conditions[i] == Condition.WIF && i < conditions.length - 1) {
+                throw new IllegalStateException("Invalid condition for statement block");
+            }
         }
+
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (length % 2 == 0){
-            return ! wallInFront(world);
-        }else{
-            return wallInFront(world);
-        }
+        if (conditions.length % 2 == 0) return getGameWorld().isPassableInFrontOfCharacter();
+        else return ! getGameWorld().isPassableInFrontOfCharacter();
+
     }
 
     @Override
     public void execute(GameWorld world) {
-        if (isConditionValid(world)) executeBodyOnce();
+        if (isConditionValid(world)) executeNextBodyBlock();
     }
 
-    private void executeBodyOnce() {
-        // TODO:
-    }
-
-    private boolean wallInFront(GameWorld world) {
-        int cPosX = world.getCharacter().getPosition()[0];
-        int cPosY = world.getCharacter().getPosition()[1];
-        Direction cDir = world.getCharacter().getDirection();
-        if (cDir == Direction.LEFT && !world.getGrid()[cPosX - 1][cPosY].isPassable()) {
-            return true;
-        } else if (cDir == Direction.RIGHT && !world.getGrid()[cPosX + 1][cPosY].isPassable()) {
-            return true;
-        } else if (cDir == Direction.UP && !world.getGrid()[cPosX][cPosY - 1].isPassable()) {
-            return true;
-        } else return cDir != Direction.DOWN || world.getGrid()[cPosX][cPosY + 1].isPassable();
+    protected void executeNextBodyBlock() {
+        // TODO: (after solving TODO BIG at class header !)
     }
 
     enum Condition {

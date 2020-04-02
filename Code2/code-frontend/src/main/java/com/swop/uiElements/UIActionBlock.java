@@ -18,7 +18,7 @@ public class UIActionBlock extends UIBlock {
                 this.correspondingBlock = new MoveBlock();
                 break;
             case TurnLeft:
-                this.correspondingBlock = new TurnBlock(Direction.LEFT);
+                this.correspondingBlock = new TurnBlock(position, ga);
                 break;
             case TurnRight:
                 this.correspondingBlock = new TurnBlock(Direction.RIGHT);

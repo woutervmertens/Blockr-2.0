@@ -1,20 +1,23 @@
 package com.swop.blocks;
 
-import com.swop.worldElements.Direction;
 import com.swop.worldElements.GameWorld;
 
-public class TurnBlock extends ActionBlock {
-    private final Direction direction;
+import java.awt.*;
 
-    public TurnBlock(Direction direction) {
-        this.direction = direction;
+public class TurnBlock extends ActionBlock {
+    private final boolean isClockwise;
+
+    public TurnBlock(Point position, GameWorld gameWorld, boolean isClockwise) {
+        super(position, gameWorld);
+        this.isClockwise = isClockwise;
     }
 
     @Override
-    public void execute(GameWorld world) {
-        // TODO: try world.turn or catch and ignore exception. ANSWER: why would there be an exception?
-        try {
-            world.turn(direction);
-        }catch (Exception e){}
+    public void execute() {
+        getGameWorld().turn(isClockwise());
+    }
+
+    public boolean isClockwise() {
+        return this.isClockwise;
     }
 }

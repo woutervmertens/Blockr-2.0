@@ -1,18 +1,18 @@
 package com.swop.blocks;
 
+import java.awt.*;
 import java.util.List;
 import com.swop.worldElements.GameWorld;
 
 
 public class WhileBlock extends StatementBlock {
 
-    public WhileBlock(Condition[] conditions, List<ActionBlock> bodyBlocks) {
-        super(conditions, bodyBlocks);
+    public WhileBlock(Point position, GameWorld gameWorld, Condition[] conditions, List<ActionBlock> bodyBlocks) {
+        super(position, gameWorld, conditions, bodyBlocks);
     }
 
     @Override
-    public void execute(GameWorld world) {
-        // TODO if (isValidCondition()) execute() // --> method from superclass
-        // TODO: execute body using superclass method until condition is not satisfied anymore.
+    public void executeNextBodyBlock() {
+        // TODO
     }
 }

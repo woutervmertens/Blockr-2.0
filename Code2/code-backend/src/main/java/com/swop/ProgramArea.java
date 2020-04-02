@@ -10,19 +10,20 @@ import java.util.Optional;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
- *   It has no notion of position or width or height.
+ * It has no notion of position or width or height.
  */
 public class ProgramArea {
-    private LinkedList<Block> program = new LinkedList<>();
+    private List<Block> program = new LinkedList<>();
 
     /**
      * Array recording all blocks currently present in program area
      */
-    private ArrayList<Block> allBlocks = new ArrayList<>() {};
+    private List<Block> allBlocks = new ArrayList<>() {
+    };
 
     private Block currentBlock;
 
-    public ArrayList<Block> getAllBlocks() {
+    public List<Block> getAllBlocks() {
         return allBlocks;
     }
 
@@ -30,35 +31,31 @@ public class ProgramArea {
      * @pre the given position is inside the ui program area.
      */
     public void dropBlockAt(Block draggedBlock, int x, int y) {
-        draggedBlock.setPosition(new Point(x,y));
+        draggedBlock.setPosition(new Point(x, y));
     }
 
     public Block getCurrentBlock() {
-        try {
-            return program.getFirst();
-        }catch (NullPointerException e){
-            return null;
-        }
+        return currentBlock;
     }
+
     private void setCurrentBlock(Block first) {
         this.currentBlock = first;
     }
 
     public Block getBlockAt(int x, int y) {
-        Optional<Block> found =  getAllBlocks().stream().findAny().filter(block1 -> block1.getPosition().equals(new Point(x, y)));
+        Optional<Block> found = getAllBlocks().stream().findAny().filter(block1 -> block1.getPosition().equals(new Point(x, y)));
         return found.orElse(null);
 
     }
 
     /**
      * Removes the draggedBlock from allBlocks and the program and all blocks that are connected beneath it are also removed from the program
-     * @param draggedBlock
      */
     public void removeBlock(Block draggedBlock) {
-        Block last = program.getLast();
-        while (!( last == draggedBlock)){
+        Block last = ((LinkedList<Block>) program).getLast();
+        while (!(last == draggedBlock)) {
             program.remove(last);
-            last = program.getLast();
+            last = ((LinkedList<Block>) program).getLast();
         }
 
         allBlocks.remove(draggedBlock);
@@ -71,6 +68,6 @@ public class ProgramArea {
     }
 
     public void reset() {
-        setCurrentBlock(program.getFirst());
+        setCurrentBlock(((LinkedList<Block>) program).getFirst());
     }
 }

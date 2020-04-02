@@ -1,30 +1,32 @@
 package com.swop.worldElements;
 
+import java.awt.*;
+
 public class Character {
 
     /**
      * Current position of this character on the grid of its world.
      */
-    private int[] position = {0, 0};
+    private Point position = new Point(0, 0);
     /**
      * Current direction of this character in its world.
      */
     private Direction direction;
 
     public Character() {
-        new Character(new int[]{0, 0});
+        new Character(new Point(0, 0));
     }
 
-    public Character(int[] position) {
+    public Character(Point position) {
         this.position = position;
         this.direction = Direction.RIGHT;
     }
 
-    public int[] getPosition() {
+    public Point getPosition() {
         return position;
     }
 
-    public void setPosition(int[] position) {
+    public void setPosition(Point position) {
         this.position = position;
     }
 
