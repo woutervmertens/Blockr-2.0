@@ -3,10 +3,8 @@ package com.swop;
 import com.swop.blocks.Block;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
@@ -28,10 +26,13 @@ public class ProgramArea {
     }
 
     /**
-     * @pre the given position is inside the ui program area.
+     * @pre the position of the block is inside the ui program area.
      */
-    public void dropBlockAt(Block draggedBlock, int x, int y) {
-        draggedBlock.setPosition(new Point(x, y));
+    public void dropBlock(Block draggedBlock) {
+        Point pos = draggedBlock.getPosition();
+        draggedBlock.setPosition(pos);
+        allBlocks.add(draggedBlock);
+        // TODO: add eventually to program and handle eventual connections
     }
 
     public Block getCurrentBlock() {
@@ -52,15 +53,12 @@ public class ProgramArea {
      * Removes the draggedBlock from allBlocks and the program and all blocks that are connected beneath it are also removed from the program
      */
     public void removeBlock(Block draggedBlock) {
-        Block last = ((LinkedList<Block>) program).getLast();
-        while (!(last == draggedBlock)) {
-            program.remove(last);
-            last = ((LinkedList<Block>) program).getLast();
+        if (program.contains(draggedBlock)) {
+            program.subList(program.indexOf(draggedBlock), program.size()).clear();
         }
-
         allBlocks.remove(draggedBlock);
-        program.remove(draggedBlock);
-
+        // TODO: should the gapsizes be handled ?
+        draggedBlock.terminate();
     }
 
     public void executeNext() {
@@ -68,6 +66,9 @@ public class ProgramArea {
     }
 
     public void reset() {
-        setCurrentBlock(((LinkedList<Block>) program).getFirst());
+        try {
+            setCurrentBlock(((LinkedList<Block>) program).getFirst());
+        } catch (NoSuchElementException ignore) {
+        }
     }
 }

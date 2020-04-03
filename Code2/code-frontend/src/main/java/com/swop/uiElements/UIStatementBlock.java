@@ -3,11 +3,12 @@ package com.swop.uiElements;
 import com.swop.blocks.Block;
 import com.swop.blocks.IfBlock;
 import com.swop.blocks.WhileBlock;
+import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock {
-    private final Block correspondingBlock = null;
+    private Block correspondingBlock = null;
     private int gapSize;
     private int pillarWidth = 10;
     private int conditionWidth;
@@ -15,17 +16,6 @@ public class UIStatementBlock extends UIBlock {
     public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
         super(width, height, position, text);
         this.type = type;
-        switch (type) {
-            // TODO:
-            case IfStatement:
-                //this.correspondingBlock = new IfBlock();
-                break;
-            case WhileStatement:
-                //this.correspondingBlock = new WhileBlock();
-                break;
-            default:
-                throw new IllegalArgumentException("Not a Statement Block !");
-        }
         this.gapSize = gapSize;
         color = Color.CYAN;
         highlightColor = Color.getHSBColor(180, 100, 30);
@@ -47,6 +37,20 @@ public class UIStatementBlock extends UIBlock {
     @Override
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
+    }
+
+    @Override
+    public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
+        switch (type) {
+            case IfStatement:
+                this.correspondingBlock = new IfBlock(getPosition(), gameWorld);
+                break;
+            case WhileStatement:
+                this.correspondingBlock = new WhileBlock(getPosition(), gameWorld);
+                break;
+            default:
+                throw new IllegalArgumentException("Not a Statement Block !");
+        }
     }
 
     @Override

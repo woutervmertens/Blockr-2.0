@@ -1,6 +1,7 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.Block;
+import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 
@@ -13,6 +14,10 @@ public abstract class UIBlock {
     protected Color color, highlightColor;
     protected BlockTypes type;
     protected boolean isHighlight;
+    /**
+     * CorrespondingBlock is only made when a block is released in PA
+     */
+    protected Block correspondingBlock;
 
     public UIBlock(int width, int height, Point position, String text) {
         this.width = width;
@@ -22,7 +27,15 @@ public abstract class UIBlock {
         step = height / 6;
     }
 
-    public abstract Block getCorrespondingBlock();
+    public Block getCorrespondingBlock() {
+        return this.correspondingBlock;
+    }
+
+    public abstract void makeNewCorrespondingBlockIn(GameWorld gameWorld);
+
+    public void setCorrespondingBlock(Block correspondingBlock) {
+        this.correspondingBlock = correspondingBlock;
+    }
 
     public Point getPosition() {
         return position;
@@ -30,8 +43,7 @@ public abstract class UIBlock {
 
     public void setPosition(Point position) {
         this.position = position;
-        // TODO: shall we start corresponding blocks from creation ??
-        try {getCorrespondingBlock().setPosition(position);} catch (NullPointerException ignored) {}
+        if (getCorrespondingBlock() != null) getCorrespondingBlock().setPosition(position);
     }
 
     /**
@@ -87,5 +99,13 @@ public abstract class UIBlock {
 
     public void setHighlightStateOn(boolean isHighlight) {
         this.isHighlight = isHighlight;
+    }
+
+    public void terminate() {
+        if (correspondingBlock != null) {
+            this.getCorrespondingBlock().terminate();
+            this.setCorrespondingBlock(null);
+        }
+        this.setPosition(null);
     }
 }

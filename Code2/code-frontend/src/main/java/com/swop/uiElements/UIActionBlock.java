@@ -3,30 +3,16 @@ package com.swop.uiElements;
 import com.swop.blocks.Block;
 import com.swop.blocks.MoveBlock;
 import com.swop.blocks.TurnBlock;
-import com.swop.worldElements.Direction;
+import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
-    private final Block correspondingBlock = null;
+    private Block correspondingBlock = null;
 
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
         super(width, height, position, text);
         this.type = type;
-        // TODO:
-        switch (type) {
-            case MoveForward:
-                //this.correspondingBlock = new MoveBlock();
-                break;
-            case TurnLeft:
-                //this.correspondingBlock = new TurnBlock(position, ga);
-                break;
-            case TurnRight:
-                //this.correspondingBlock = new TurnBlock(Direction.RIGHT);
-                break;
-            default:
-                throw new IllegalArgumentException("Not an Action Block !");
-        }
         color = Color.red;
         highlightColor = Color.getHSBColor(0, 80, 100); //light red
     }
@@ -34,6 +20,23 @@ public class UIActionBlock extends UIBlock {
     @Override
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
+    }
+
+    @Override
+    public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
+        switch (type) {
+            case MoveForward:
+                this.correspondingBlock = new MoveBlock(getPosition(), gameWorld);
+                break;
+            case TurnLeft:
+                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, false);
+                break;
+            case TurnRight:
+                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, true);
+                break;
+            default:
+                throw new IllegalArgumentException("Not an Action Block !");
+        }
     }
 
     @Override

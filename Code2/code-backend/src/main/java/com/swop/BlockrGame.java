@@ -23,13 +23,13 @@ public class BlockrGame {
         return block.getPosition();
     }
 
-    public void dropBlockInPAAt(Block draggedBlock, int x, int y) {
-        programArea.dropBlockAt(draggedBlock, x, y);
+    public void dropBlockInPA(Block block) {
+        if (block == null) throw new IllegalArgumentException();
+        programArea.dropBlock(block);
     }
 
-    public void dropBlockInPA(Block block) {
-        // TODO is dit de bedoeling dan?
-        programArea.dropBlockAt(block, block.getPosition().x, block.getPosition().y);
+    public void removeBlockFromPA(Block draggedBlock) {
+        programArea.removeBlock(draggedBlock);
     }
 
     public Character getCharacter() {
@@ -39,11 +39,6 @@ public class BlockrGame {
     public void executeNext() {
         // TODO
         programArea.executeNext();
-    }
-
-    public Block getCurrentBlockInExecution() {
-        // TODO
-        return null;
     }
 
     public Block getCurrentBlock() {
@@ -67,12 +62,12 @@ public class BlockrGame {
 
     public boolean isPaletteHidden(){return (maxBlocks - getNumbBlocksInPA()) <= 0;}
 
-    public void removeBlockFromPA(Block draggedBlock) {
-        programArea.removeBlock(draggedBlock);
-        // TODO: adjust program -> wordt al gedaan in programArea.removeBlock
-    }
-
     public Square[][] getGameWorldGrid() {
         return gameWorld.getGrid();
     }
+
+    public GameWorld getGameWorld() {
+        return gameWorld;
+    }
+
 }

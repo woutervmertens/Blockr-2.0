@@ -96,6 +96,7 @@ public enum Windows {
         g.fillRect(pos.x, pos.y, width, height);
 
         for (UIBlock block : uiBlocks){
+            System.out.println("Drawing block");
             drawBlock(block,g);
         }
     }

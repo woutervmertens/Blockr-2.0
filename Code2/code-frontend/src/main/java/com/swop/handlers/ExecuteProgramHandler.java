@@ -12,9 +12,12 @@ import java.util.ArrayList;
 public class ExecuteProgramHandler {
     private BlockrGame blockrGame;
     private ArrayList<UISquare> uiGrid = null;
+    private final UICharacter uiCharacter;
 
     public ExecuteProgramHandler(BlockrGame blockrGame) {
         this.blockrGame = blockrGame;
+        Character robot = blockrGame.getCharacter();
+        this.uiCharacter = new UICharacter(calculatePositionFromGrid(robot.getPosition(),30),robot.getDirection());
     }
 
     public int getNumBlocksInPA() {
@@ -29,9 +32,8 @@ public class ExecuteProgramHandler {
         blockrGame.resetProgramExecution();
     }
 
-    public UICharacter getCharacter() {
-        Character robot = blockrGame.getCharacter();
-        return new UICharacter(calculatePositionFromGrid(robot.getPosition(),30),robot.getDirection());
+    public UICharacter getUiCharacter() {
+        return this.uiCharacter;
     }
 
     public ArrayList<UISquare> getGameWorld(){

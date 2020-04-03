@@ -1,9 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.blocks.ActionBlock;
-import com.swop.blocks.Block;
-import com.swop.blocks.MoveBlock;
-
 import java.awt.*;
 
 public enum BlockTypes {
@@ -43,7 +39,6 @@ public enum BlockTypes {
      * @return the new UIBlock
      */
     public UIBlock getNewUIBlock(int x, int y) {
-        Point p = new Point(x, y);
         switch (this) {
             case MoveForward:
             case TurnLeft:

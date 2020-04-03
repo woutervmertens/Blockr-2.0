@@ -1,6 +1,5 @@
 package com.swop.blocks;
 
-import com.swop.worldElements.Direction;
 import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
@@ -8,16 +7,13 @@ import java.util.List;
 
 // TODO BIG !! Should the program in program area contain body-blocks as well
 // TODO BIG !! ... or should the statementblock execute and let know when it finished ??
-public abstract class StatementBlock extends Block {
-    protected Condition[] conditions;  // TODO: possible to construct from outside ? If not make enum separate
+public abstract class StatementBlock extends Block implements Executable{
+    protected ConditionBlock[] conditions;
     protected List<ActionBlock> bodyBlocks;
     protected Block currentBodyBlock = null;
 
-    public StatementBlock(Point position, GameWorld gameWorld, Condition[] conditions, List<ActionBlock> bodyBlocks) {
+    public StatementBlock(Point position, GameWorld gameWorld) {
         super(position, gameWorld);
-        if (conditions.length == 0) throw new IllegalArgumentException("Cannot make statementBlock without conditions");
-        this.conditions = conditions;
-        this.bodyBlocks = bodyBlocks;
     }
 
 
@@ -26,7 +22,7 @@ public abstract class StatementBlock extends Block {
 
         // WIF should only be at the last (and has to)
         for (int i = 0; i < conditions.length; i++) {
-            if (conditions[i] == Condition.WIF && i < conditions.length - 1) {
+            if (conditions[i].isWallInFrontBlock() && i < conditions.length - 1) {
                 throw new IllegalStateException("Invalid condition for statement block");
             }
         }
@@ -46,7 +42,5 @@ public abstract class StatementBlock extends Block {
         // TODO: (after solving TODO BIG at class header !)
     }
 
-    enum Condition {
-        WIF, NOT;
-    }
+    // TODO: methods for handling adding and removing body or condition blocks based on plugs etc.
 }

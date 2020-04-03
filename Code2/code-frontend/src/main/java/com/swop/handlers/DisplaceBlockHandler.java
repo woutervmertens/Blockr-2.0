@@ -10,7 +10,7 @@ public class DisplaceBlockHandler {
     /**
      * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
      */
-    private Map<Block,UIBlock> blockUIBlockMap = new HashMap<>();
+    private Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
 
     private Map<Block, UIBlock> getBlockUIBlockMap() {
         return blockUIBlockMap;
@@ -41,24 +41,30 @@ public class DisplaceBlockHandler {
      * @pre draggedBlock.getPosition() is inside the PA
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
+        if (draggedBlock.getCorrespondingBlock() == null) draggedBlock.makeNewCorrespondingBlockIn(blockrGame.getGameWorld());
+
         Block backendBlock = draggedBlock.getCorrespondingBlock();
-        if (!getBlockUIBlockMap().containsKey(backendBlock)) putInBlockUIBlockMap(backendBlock,draggedBlock);
+        if (!getBlockUIBlockMap().containsKey(backendBlock)) {
+            putInBlockUIBlockMap(backendBlock, draggedBlock);
+        }
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
     }
 
-    public void handleReleaseOutsidePA(int x, int y, UIBlock draggedBlock) {
-        //remove the block from program area TODO: and edit the connections and gapsizes
-        blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
-        //remove from the map in DisplaceBlockHandler
-        blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
-        // TODO: always handle the blockUIBlockMap !
+    public void handleReleaseOutsidePA(UIBlock draggedBlock) {
+        if (draggedBlock.getCorrespondingBlock() != null) {
+            //remove from the map in DisplaceBlockHandler
+            blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
+            //remove the block from program area
+            blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
+        }
+        draggedBlock.terminate();
     }
 
-    public Collection<UIBlock> getAllUIBlocksInPA() {
+    public List<UIBlock> getAllUIBlocksInPA() {
         List<Block> backBlocks = blockrGame.getAllBlocksInPA();
         List<UIBlock> returnUIBlocks = new ArrayList<>();
-        for (Block block : backBlocks){
+        for (Block block : backBlocks) {
             returnUIBlocks.add(getCorrespondingUiBlockFor(block));
         }
         return returnUIBlocks;

@@ -1,28 +1,17 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.Block;
+import com.swop.blocks.ConditionBlock;
+import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 
 public class UIConditionBlock extends UIBlock {
-    private final Block correspondingBlock;
+    private Block correspondingBlock;
 
     public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
         super(width, height, position, text);
         this.type = type;
-        switch (type) {
-            // TODO: Decide whether to make corresponding WIF and Not blocks
-            case WallInFrontCondition:
-                // this.correspondingBlock = new WallInFrontBlock();
-                this.correspondingBlock = null;
-                break;
-            case NotCondition:
-                // this.correspondingBlock = new NotBlock();
-                this.correspondingBlock = null;
-                break;
-            default:
-                throw new IllegalArgumentException("Not a Condition Block !");
-        }
         color = Color.orange;
         highlightColor = Color.getHSBColor(45, 65, 100); //light orange
     }
@@ -30,6 +19,20 @@ public class UIConditionBlock extends UIBlock {
     @Override
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
+    }
+
+    @Override
+    public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
+        switch (type) {
+            case WallInFrontCondition:
+                this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, true);
+                break;
+            case NotCondition:
+                 this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, false);
+                break;
+            default:
+                throw new IllegalArgumentException("Not a Condition Block !");
+        }
     }
 
     @Override

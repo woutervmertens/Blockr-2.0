@@ -13,8 +13,6 @@ public abstract class Block {
         this.gameWorld = gameWorld;
     }
 
-    public abstract void execute();
-
     public Point getPosition() {
         return position;
     }
@@ -30,4 +28,10 @@ public abstract class Block {
     }
 
     private final GameWorld gameWorld;
+
+    public void terminate() {
+        this.position = null;
+    }
+
+    // TODO: block positions etc.
 }

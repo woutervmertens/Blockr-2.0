@@ -27,15 +27,13 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     protected MyCanvasWindow(String title) {
         super(title);
-
     }
 
     @Override
     protected void paint(Graphics g) {
         isPaletteHidden = blockrGame.isPaletteHidden();
-        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), executeProgramHandler.getGameWorld(),executeProgramHandler.getCharacter());
+        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), executeProgramHandler.getGameWorld(),executeProgramHandler.getUiCharacter());
 
-        // TODO: check the rest
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor());
             g.fillPolygon(draggedBlock.getPolygon());
@@ -68,16 +66,16 @@ public class MyCanvasWindow extends CanvasWindow {
                 if (isBlockDragged()) {
                     pos.x = x;
                     pos.y = y;
-                    draggedBlock.setPosition(pos);
+                    draggedBlock.setPosition((Point) pos.clone());
                     repaint();
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
                 if (isBlockDragged()) {
-                    if (Windows.PROGRAM_AREA.isWithin(x, y)) { // TODO remove uiPA and make isWithinPA method
+                    if (Windows.PROGRAM_AREA.isWithin(x, y)) {
                         displaceBlockHandler.handleReleaseInPA(draggedBlock);
                     } else {
-                        displaceBlockHandler.handleReleaseOutsidePA(x, y, draggedBlock);
+                        displaceBlockHandler.handleReleaseOutsidePA(draggedBlock);
                     }
                     draggedBlock = null;
                     repaint();
