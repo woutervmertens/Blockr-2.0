@@ -8,8 +8,8 @@ public class ConditionBlock extends Block{
     /**
      * @param isWallInFrontBlock Variable registering whether the to make block is a WIF. If not then it is a NOT.
      */
-    public ConditionBlock(Point position, GameWorld gameWorld, boolean isWallInFrontBlock) {
-        super(position, gameWorld);
+    public ConditionBlock(Point position, GameWorld gameWorld, boolean isWallInFrontBlock, int width, int height) {
+        super(position, gameWorld, width, height);
         this.isWallInFrontBlock = isWallInFrontBlock;
     }
 

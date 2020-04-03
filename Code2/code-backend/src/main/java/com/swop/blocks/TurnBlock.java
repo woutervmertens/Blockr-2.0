@@ -7,8 +7,8 @@ import java.awt.*;
 public class TurnBlock extends ActionBlock {
     private final boolean isClockwise;
 
-    public TurnBlock(Point position, GameWorld gameWorld, boolean isClockwise) {
-        super(position, gameWorld);
+    public TurnBlock(Point position, GameWorld gameWorld, boolean isClockwise, int width, int height) {
+        super(position, gameWorld, width, height);
         this.isClockwise = isClockwise;
     }
 

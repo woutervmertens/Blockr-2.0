@@ -12,8 +12,8 @@ public abstract class StatementBlock extends Block implements Executable{
     protected List<ActionBlock> bodyBlocks;
     protected Block currentBodyBlock = null;
 
-    public StatementBlock(Point position, GameWorld gameWorld) {
-        super(position, gameWorld);
+    public StatementBlock(Point position, GameWorld gameWorld, int width, int height) {
+        super(position, gameWorld, width, height);
     }
 
 

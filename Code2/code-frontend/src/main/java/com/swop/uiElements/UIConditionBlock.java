@@ -25,10 +25,10 @@ public class UIConditionBlock extends UIBlock {
     public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
         switch (type) {
             case WallInFrontCondition:
-                this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, true);
+                this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, true, getWidth(), getHeight());
                 break;
             case NotCondition:
-                 this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, false);
+                 this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, false, getWidth(), getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");

@@ -6,8 +6,8 @@ import com.swop.worldElements.GameWorld;
 
 public class WhileBlock extends StatementBlock {
 
-    public WhileBlock(Point position, GameWorld gameWorld) {
-        super(position, gameWorld);
+    public WhileBlock(Point position, GameWorld gameWorld, int width, int height) {
+        super(position, gameWorld, width, height);
     }
 
     @Override

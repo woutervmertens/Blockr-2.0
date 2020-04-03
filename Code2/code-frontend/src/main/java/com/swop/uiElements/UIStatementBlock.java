@@ -43,10 +43,10 @@ public class UIStatementBlock extends UIBlock {
     public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
         switch (type) {
             case IfStatement:
-                this.correspondingBlock = new IfBlock(getPosition(), gameWorld);
+                this.correspondingBlock = new IfBlock(getPosition(), gameWorld, getWidth(), getHeight());
                 break;
             case WhileStatement:
-                this.correspondingBlock = new WhileBlock(getPosition(), gameWorld);
+                this.correspondingBlock = new WhileBlock(getPosition(), gameWorld, getWidth(), getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not a Statement Block !");

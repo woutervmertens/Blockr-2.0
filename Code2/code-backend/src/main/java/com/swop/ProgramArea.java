@@ -44,9 +44,8 @@ public class ProgramArea {
     }
 
     public Block getBlockAt(int x, int y) {
-        Optional<Block> found = getAllBlocks().stream().findAny().filter(block1 -> block1.getPosition().equals(new Point(x, y)));
+        Optional<Block> found = getAllBlocks().stream().findAny().filter(block1 -> block1.isPositionOn(x, y));
         return found.orElse(null);
-
     }
 
     /**

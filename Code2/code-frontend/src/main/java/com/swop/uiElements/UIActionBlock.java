@@ -26,13 +26,13 @@ public class UIActionBlock extends UIBlock {
     public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
         switch (type) {
             case MoveForward:
-                this.correspondingBlock = new MoveBlock(getPosition(), gameWorld);
+                this.correspondingBlock = new MoveBlock(getPosition(), gameWorld, getWidth(), getHeight());
                 break;
             case TurnLeft:
-                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, false);
+                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, false, getWidth(), getHeight());
                 break;
             case TurnRight:
-                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, true);
+                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, true, getWidth(), getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action Block !");

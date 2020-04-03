@@ -6,11 +6,31 @@ import com.swop.worldElements.GameWorld;
 import java.awt.*;
 
 public abstract class Block {
-    protected Block(Point position, GameWorld gameWorld) {
+    private final int width;
+    private final int height;
+
+    protected Block(Point position, GameWorld gameWorld, int width, int height) {
         if (gameWorld == null) throw new IllegalArgumentException();
 
         this.setPosition(position);
         this.gameWorld = gameWorld;
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Check whether the given position is on this block.
+     */
+    public boolean isPositionOn(int x, int y) {
+        return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
     public Point getPosition() {
