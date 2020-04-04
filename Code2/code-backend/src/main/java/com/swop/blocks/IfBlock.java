@@ -1,8 +1,5 @@
 package com.swop.blocks;
 
-
-import com.swop.worldElements.GameWorld;
-
 import java.awt.*;
 
 public class IfBlock extends StatementBlock {

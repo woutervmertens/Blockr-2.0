@@ -1,7 +1,6 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.Block;
-import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 

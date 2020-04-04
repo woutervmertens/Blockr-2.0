@@ -1,7 +1,6 @@
 package com.swop.blocks;
 
 import java.awt.*;
-import com.swop.worldElements.GameWorld;
 
 
 public class WhileBlock extends StatementBlock {
