@@ -1,5 +1,4 @@
-
-import com.swop.GameWorldType;
+package com.swop;
 
 import java.lang.reflect.InvocationTargetException;
 

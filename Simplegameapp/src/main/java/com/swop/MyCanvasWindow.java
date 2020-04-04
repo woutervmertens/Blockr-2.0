@@ -1,5 +1,4 @@
-import com.swop.GameWorld;
-import com.swop.GameWorldType;
+package com.swop;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -12,7 +11,7 @@ public class MyCanvasWindow extends CanvasWindow {
     ArrayList<Button> buttons;
     ClickHandler clickHandler;
     /**
-     * Initializes a CanvasWindow object.
+     * Initializes a com.swop.CanvasWindow object.
      *
      * @param title Window title
      */

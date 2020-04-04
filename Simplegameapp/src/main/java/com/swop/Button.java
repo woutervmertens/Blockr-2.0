@@ -1,4 +1,4 @@
-import com.swop.Action;
+package com.swop;
 
 import java.awt.*;
 

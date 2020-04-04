@@ -1,7 +1,4 @@
-import com.swop.Action;
-import com.swop.GameWorld;
-import com.swop.Snapshot;
-import com.swop.SuccessState;
+package com.swop;
 
 public class ClickHandler {
     private GameWorld world;
@@ -11,7 +8,7 @@ public class ClickHandler {
     }
     public void HandleClick(Action action){
         snap = world.createSnapshot();
-        SuccessState state = world.doAction(action) ;
+        SuccessState state = world.doAction(action);
         if(state == SuccessState.FAILURE)
         {
             world.restoreSnapshot(snap);

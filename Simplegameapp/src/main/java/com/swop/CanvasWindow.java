@@ -1,3 +1,5 @@
+package com.swop;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,14 +11,14 @@ import java.util.ArrayList;
 /**
  * A window for custom drawing.
  * <p>
- * To use this class, create a subclass, say com.com.swop.MyCanvasWindow, that overrides
+ * To use this class, create a subclass, say com.com.swop.com.swop.MyCanvasWindow, that overrides
  * methods {@link #paint(Graphics)}, {@link #handleMouseEvent(int, int, int, int)}, and {@link #handleKeyEvent(int, int, char)}, and then launch
  * it from your com.com.swop.main method as follows:
  *
  * <pre>
  * public static void com.com.swop.main(String[] args) {
  *     java.awt.EventQueue.invokeLater(() -> {
- *         new com.com.swop.MyCanvasWindow("My Canvas Window").show();
+ *         new com.com.swop.com.swop.MyCanvasWindow("My Canvas Window").show();
  *     });
  * }
  * </pre>
@@ -247,7 +249,7 @@ public class CanvasWindow {
     private CanvasWindowRecording recording;
 
     /**
-     * Initializes a com.com.swop.CanvasWindow object.
+     * Initializes a com.com.swop.com.swop.CanvasWindow object.
      *
      * @param title Window title
      */
