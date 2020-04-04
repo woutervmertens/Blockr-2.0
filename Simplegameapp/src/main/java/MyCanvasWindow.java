@@ -1,3 +1,6 @@
+import com.swop.GameWorld;
+import com.swop.GameWorldType;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

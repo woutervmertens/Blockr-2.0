@@ -1,3 +1,8 @@
+import com.swop.Action;
+import com.swop.GameWorld;
+import com.swop.Snapshot;
+import com.swop.SuccessState;
+
 public class ClickHandler {
     private GameWorld world;
     private Snapshot snap;

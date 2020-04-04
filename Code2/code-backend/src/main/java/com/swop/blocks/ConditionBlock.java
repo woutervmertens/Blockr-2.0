@@ -1,5 +1,7 @@
 package com.swop.blocks;
 
+import com.swop.GameWorld;
+
 import java.awt.*;
 
 public class ConditionBlock extends Block implements HorizontallyConnectable{

@@ -1,3 +1,5 @@
+package com.swop;
+
 import java.awt.*;
 
 public interface GameWorld {

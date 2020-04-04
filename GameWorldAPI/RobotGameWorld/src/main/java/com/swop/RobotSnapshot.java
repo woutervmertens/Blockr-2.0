@@ -1,3 +1,5 @@
+package com.swop;
+
 public class RobotSnapshot implements Snapshot {
     private Robot robot = new Robot();
 

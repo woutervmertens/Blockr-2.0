@@ -1,4 +1,6 @@
 
+import com.swop.GameWorldType;
+
 import java.lang.reflect.InvocationTargetException;
 
 public class Main {

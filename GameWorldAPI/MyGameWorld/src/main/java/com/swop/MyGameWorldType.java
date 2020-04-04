@@ -1,3 +1,5 @@
+package com.swop;
+
 import java.util.Collection;
 
 public class MyGameWorldType implements GameWorldType{

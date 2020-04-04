@@ -1,4 +1,4 @@
-import java.awt.*;
+package com.swop;
 
 public class Robot {
     private int[] position;

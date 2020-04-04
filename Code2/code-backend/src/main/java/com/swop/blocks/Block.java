@@ -1,5 +1,7 @@
 package com.swop.blocks;
 
+import com.swop.GameWorld;
+
 import java.awt.*;
 
 public abstract class Block {

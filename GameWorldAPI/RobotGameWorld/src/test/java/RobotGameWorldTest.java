@@ -1,3 +1,5 @@
+import com.swop.*;
+import com.swop.Robot;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.awt.*;
@@ -31,8 +33,8 @@ class RobotGameWorldTest {
     @org.junit.jupiter.api.Test
     void setRobot() {
         gameWorld.setRobot(Direction.LEFT,new int[]{2,1});
-        assertEquals(gameWorld.getRobot().getDirection(),Direction.LEFT,"Robot direction failed");
-        assertTrue(compareIntArr(gameWorld.getRobot().getPosition(),new int[]{2,1}),"Robot position failed");
+        assertEquals(gameWorld.getRobot().getDirection(),Direction.LEFT,"com.swop.Robot direction failed");
+        assertTrue(compareIntArr(gameWorld.getRobot().getPosition(),new int[]{2,1}),"com.swop.Robot position failed");
     }
 
     @org.junit.jupiter.api.Test
@@ -110,8 +112,8 @@ class RobotGameWorldTest {
         snap = (RobotSnapshot) gameWorld.createSnapshot();
 
         assertTrue(compareGrid(snap.getGrid(),grid));
-        assertEquals(snap.getRobot().getDirection(),Direction.LEFT,"Snapshot Robot direction failed");
-        assertTrue(compareIntArr(snap.getRobot().getPosition(),new int[]{2,1}),"Snapshot Robot position failed");
+        assertEquals(snap.getRobot().getDirection(),Direction.LEFT,"Snapshot com.swop.Robot direction failed");
+        assertTrue(compareIntArr(snap.getRobot().getPosition(),new int[]{2,1}),"Snapshot com.swop.Robot position failed");
     }
 
     @org.junit.jupiter.api.Test
@@ -122,7 +124,7 @@ class RobotGameWorldTest {
         }
         grid[3][4] = Square.WALL;
         grid[2][0] = Square.GOAL;
-        Robot robot = new Robot();
+        Robot robot = new com.swop.Robot();
         robot.setDirection(Direction.LEFT);
         robot.setPosition(new int[]{2,1});
         RobotSnapshot snap = new RobotSnapshot();

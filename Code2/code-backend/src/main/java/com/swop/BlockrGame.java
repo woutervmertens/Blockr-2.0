@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BlockrGame {
     private final ProgramArea programArea;
-    private final GameWorld gameWorld;
+    private GameWorld gameWorld;
     private final GameWorldType gameWorldType;
     private final int maxBlocks;
 

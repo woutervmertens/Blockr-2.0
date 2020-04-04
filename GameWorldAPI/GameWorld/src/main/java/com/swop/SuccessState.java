@@ -1,3 +1,5 @@
+package com.swop;
+
 public enum SuccessState {
     SUCCESS,
     FAILURE,
