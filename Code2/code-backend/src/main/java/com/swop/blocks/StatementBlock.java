@@ -50,7 +50,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     @Override
     public Point getPlugPosition() {
-        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + pillarWidth + gapSize + step);
+        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ + gapSize + step);
     }
 
     @Override

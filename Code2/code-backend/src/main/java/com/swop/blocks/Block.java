@@ -35,6 +35,13 @@ public abstract class Block {
         return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
+    /**
+     * Check whether this block is under the given block
+     */
+    public boolean isUnder(Block block) {
+        return this.getPosition().y > block.getPosition().y;
+    }
+
     public Point getPosition() {
         return position;
     }
