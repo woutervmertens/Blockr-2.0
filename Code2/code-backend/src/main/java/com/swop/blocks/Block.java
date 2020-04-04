@@ -8,6 +8,7 @@ import java.awt.*;
 public abstract class Block {
     private final int width;
     private final int height;
+    protected final int step;
 
     protected Block(Point position, GameWorld gameWorld, int width, int height) {
         if (gameWorld == null) throw new IllegalArgumentException();
@@ -16,6 +17,7 @@ public abstract class Block {
         this.gameWorld = gameWorld;
         this.width = width;
         this.height = height;
+        step = height / 6;
     }
 
     public int getWidth() {
@@ -53,5 +55,9 @@ public abstract class Block {
         this.position = null;
     }
 
-    // TODO: block positions etc.
+    public abstract Point getSocketPosition();
+
+    public abstract Point getPlugPosition();
+
+    // TODO: should we add getParentStatement() ? Is is needed ?
 }

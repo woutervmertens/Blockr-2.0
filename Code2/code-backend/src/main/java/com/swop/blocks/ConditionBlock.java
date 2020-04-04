@@ -4,7 +4,7 @@ import com.swop.worldElements.GameWorld;
 
 import java.awt.*;
 
-public class ConditionBlock extends Block{
+public class ConditionBlock extends Block implements HorizontallyConnectable{
     /**
      * @param isWallInFrontBlock Variable registering whether the to make block is a WIF. If not then it is a NOT.
      */
@@ -17,5 +17,15 @@ public class ConditionBlock extends Block{
 
     public boolean isWallInFrontBlock() {
         return isWallInFrontBlock;
+    }
+
+    @Override
+    public Point getPlugPosition() {
+        return new Point(getPosition().x + getWidth() + step, getPosition().y/* + step * 3*/);
+    }
+
+    @Override
+    public Point getSocketPosition() {
+        return new Point(getPosition().x + step, getPosition().y/* + step * 3*/);
     }
 }

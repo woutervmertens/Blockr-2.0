@@ -31,7 +31,7 @@ public class ProgramArea {
     public void dropBlock(Block draggedBlock) {
         Point pos = draggedBlock.getPosition();
         draggedBlock.setPosition(pos);
-        allBlocks.add(draggedBlock);
+        if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
         // TODO: add eventually to program and handle eventual connections
     }
 
@@ -44,7 +44,8 @@ public class ProgramArea {
     }
 
     public Block getBlockAt(int x, int y) {
-        Optional<Block> found = getAllBlocks().stream().findAny().filter(block1 -> block1.isPositionOn(x, y));
+        Optional<Block> found = getAllBlocks().stream().filter(block1 -> block1.isPositionOn(x, y)).findAny();
+        System.out.println(found);
         return found.orElse(null);
     }
 
