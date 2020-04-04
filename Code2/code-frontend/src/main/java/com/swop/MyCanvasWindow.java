@@ -16,23 +16,26 @@ public class MyCanvasWindow extends CanvasWindow {
     private Point pos = new Point(0, 0);
     private int maxBlocks = 10;
     // Handlers
-    BlockrGame blockrGame = new BlockrGame(maxBlocks,new int[]{5, 5}, new int[]{3, 4});
-    DisplaceBlockHandler displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
-    ExecuteProgramHandler executeProgramHandler = new ExecuteProgramHandler(blockrGame);
+    BlockrGame blockrGame;
+    DisplaceBlockHandler displaceBlockHandler;
+    ExecuteProgramHandler executeProgramHandler;
 
     /**
      * Initializes a CanvasWindow object.
      *
      * @param title Window title
      */
-    protected MyCanvasWindow(String title) {
+    protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
+        blockrGame = new BlockrGame(maxBlocks,gameWorldType);
+        displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
+        executeProgramHandler = new ExecuteProgramHandler(blockrGame);
     }
 
     @Override
     protected void paint(Graphics g) {
         isPaletteHidden = blockrGame.isPaletteHidden();
-        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), executeProgramHandler.getGameWorld(),executeProgramHandler.getUiCharacter());
+        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(),blockrGame.getGameWorld());
 
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor());

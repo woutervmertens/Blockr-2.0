@@ -2,11 +2,8 @@ package com.swop;
 
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.UICharacter;
-import com.swop.uiElements.UISquare;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public enum Windows {
@@ -49,10 +46,10 @@ public enum Windows {
     /**
      * Draw the palette, program area and game world of this window.
      */
-    public static void drawWindows(Graphics g, boolean isPaletteHidden, Collection<UIBlock> uiBlocks, Collection<UISquare> uiGameWorld, UICharacter character) {
+    public static void drawWindows(Graphics g, boolean isPaletteHidden, Collection<UIBlock> uiBlocks, GameWorld gameWorld) {
         drawPalette(g, isPaletteHidden);
         drawProgramArea(g,uiBlocks);
-        drawGameWorld(g,uiGameWorld,character);
+        drawGameWorld(g,gameWorld);
     }
 
     private static void drawBlock(UIBlock block, Graphics g) {
@@ -105,13 +102,8 @@ public enum Windows {
      *
      * @param g awt Graphics
      */
-    private static void drawGameWorld(Graphics g, Collection<UISquare> uiGameWorld, UICharacter character) {
-        for (UISquare uiSquare : uiGameWorld){
-            uiSquare.setOffPos(GAME_WORLD.getPosition());
-            uiSquare.draw(g,30);
-        }
-        character.setOffPos(GAME_WORLD.getPosition());
-        character.drawCharacter(g,30);
+    private static void drawGameWorld(Graphics g, GameWorld gameWorld) {
+        gameWorld.paint(g);
     }
 
     /**

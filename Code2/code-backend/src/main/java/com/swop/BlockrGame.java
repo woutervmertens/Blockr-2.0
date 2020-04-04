@@ -1,9 +1,6 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.worldElements.Character;
-import com.swop.worldElements.GameWorld;
-import com.swop.worldElements.Square;
 
 import java.awt.*;
 import java.util.List;
@@ -11,12 +8,14 @@ import java.util.List;
 public class BlockrGame {
     private final ProgramArea programArea;
     private final GameWorld gameWorld;
+    private final GameWorldType gameWorldType;
     private final int maxBlocks;
 
-    public BlockrGame(int maxBlocks,int[] gridDimension, int[] goalPosition) {
+    public BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
         this.programArea = new ProgramArea();
-        this.gameWorld = new GameWorld(gridDimension,goalPosition);
+        this.gameWorldType = gameWorldType;
+        this.gameWorld = gameWorldType.createNewInstance();
     }
 
     public Point getBlockPosition(Block block) {
@@ -32,9 +31,6 @@ public class BlockrGame {
         programArea.removeBlock(draggedBlock);
     }
 
-    public Character getCharacter() {
-        return gameWorld.getCharacter();
-    }
 
     public void executeNext() {
         // TODO
@@ -47,7 +43,7 @@ public class BlockrGame {
 
     public void resetProgramExecution() {
         programArea.reset();
-        gameWorld.reset();
+        gameWorld = gameWorldType.createNewInstance();
     }
 
     public int getNumbBlocksInPA() {
@@ -61,10 +57,6 @@ public class BlockrGame {
     }
 
     public boolean isPaletteHidden(){return (maxBlocks - getNumbBlocksInPA()) <= 0;}
-
-    public Square[][] getGameWorldGrid() {
-        return gameWorld.getGrid();
-    }
 
     public GameWorld getGameWorld() {
         return gameWorld;
