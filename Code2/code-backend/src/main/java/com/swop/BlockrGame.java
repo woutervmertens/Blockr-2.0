@@ -33,8 +33,8 @@ public class BlockrGame {
 
 
     public void executeNext() {
-        // TODO
         programArea.executeNext();
+        // TODO
     }
 
     public Block getCurrentBlock() {

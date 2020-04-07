@@ -121,7 +121,7 @@ public class MyCanvasWindow extends CanvasWindow {
             switch (keyCode) {
                 case 116: //F5
                     executeNext();
-                    repaint();
+                    repaint();  // TODO: highlight UI ?
                     break;
                 case 27: //Escape
                     resetProgramExecution();
