@@ -133,7 +133,8 @@ public class RobotGameWorld implements GameWorld {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, Point position) {
+        if(position != null) drawPosition = position;
         g.setColor(Color.BLACK);
         int gridSize = grid.length * size;
         g.drawPolygon(

@@ -103,7 +103,8 @@ public enum Windows {
      * @param g awt Graphics
      */
     private static void drawGameWorld(Graphics g, GameWorld gameWorld) {
-        gameWorld.paint(g);
+        Point pos = GAME_WORLD.getPosition();
+        gameWorld.paint(g,pos);
     }
 
     /**

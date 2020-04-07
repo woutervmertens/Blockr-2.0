@@ -1,5 +1,6 @@
 package com.swop.uiElements;
 
+import com.swop.GameWorld;
 import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
 

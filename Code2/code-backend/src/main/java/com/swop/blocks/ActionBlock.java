@@ -1,12 +1,15 @@
 package com.swop.blocks;
 
+import com.swop.Action;
 import com.swop.GameWorld;
 
 import java.awt.*;
 
-public abstract class ActionBlock extends Block implements Executable, VerticallyConnectable {
-    public ActionBlock(Point position, GameWorld gameWorld, int width, int height) {
+public class ActionBlock extends Block implements Executable, VerticallyConnectable {
+    private Action action;
+    public ActionBlock(Point position, GameWorld gameWorld, int width, int height, Action action) {
         super(position, gameWorld, width, height);
+        this.action = action;
     }
 
     @Override
@@ -17,5 +20,10 @@ public abstract class ActionBlock extends Block implements Executable, Verticall
     @Override
     public Point getSocketPosition() {
         return new Point(getPosition().x /*+ step * 3*/, getPosition().y + step);
+    }
+
+    @Override
+    public void execute() {
+        getGameWorld().doAction(action);
     }
 }

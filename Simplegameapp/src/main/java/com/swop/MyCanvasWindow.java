@@ -29,7 +29,7 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-        gameWorld.paint(g);
+        gameWorld.paint(g, null);
         for (Button button : buttons){
             button.draw(g);
         }

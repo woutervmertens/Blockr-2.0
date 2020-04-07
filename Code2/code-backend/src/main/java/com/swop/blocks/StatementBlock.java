@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.Predicate;
 
 import java.awt.*;
 import java.util.List;
@@ -32,8 +33,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         }
 
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (conditions.length % 2 == 0) return getGameWorld().isPassableInFrontOfCharacter();
-        else return !getGameWorld().isPassableInFrontOfCharacter();
+        if (conditions.length % 2 == 0) return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        else return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
 
     }
 

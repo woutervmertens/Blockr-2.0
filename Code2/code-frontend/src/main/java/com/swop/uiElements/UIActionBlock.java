@@ -1,8 +1,9 @@
 package com.swop.uiElements;
 
+import com.swop.Action;
+import com.swop.GameWorld;
+import com.swop.blocks.ActionBlock;
 import com.swop.blocks.Block;
-import com.swop.blocks.MoveBlock;
-import com.swop.blocks.TurnBlock;
 
 import java.awt.*;
 
@@ -25,13 +26,13 @@ public class UIActionBlock extends UIBlock {
     public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
         switch (type) {
             case MoveForward:
-                this.correspondingBlock = new MoveBlock(getPosition(), gameWorld, getWidth(), getHeight());
+                this.correspondingBlock = new ActionBlock(getPosition(), gameWorld, getWidth(), getHeight(), Action.MOVE_FORWARD);
                 break;
             case TurnLeft:
-                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, false, getWidth(), getHeight());
+                this.correspondingBlock = new ActionBlock(getPosition(), gameWorld, getWidth(), getHeight(), Action.TURN_LEFT);
                 break;
             case TurnRight:
-                this.correspondingBlock = new TurnBlock(getPosition(), gameWorld, true, getWidth(), getHeight());
+                this.correspondingBlock = new ActionBlock(getPosition(), gameWorld, getWidth(), getHeight(), Action.TURN_RIGHT);
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action Block !");

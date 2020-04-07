@@ -11,5 +11,5 @@ public interface GameWorld {
 
     public void restoreSnapshot(Snapshot snapshot);
 
-    public void paint(Graphics g);
+    public void paint(Graphics g, Point position);
 }

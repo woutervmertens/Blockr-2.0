@@ -25,7 +25,7 @@ public class MyGameWorld implements GameWorld {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, Point position) {
 
     }
 }
