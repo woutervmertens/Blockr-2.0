@@ -2,7 +2,9 @@ package com.swop.handlers;
 
 import com.swop.BlockrGame;
 import com.swop.blocks.Block;
+import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIStatementBlock;
 
 import java.util.*;
 
@@ -49,6 +51,17 @@ public class DisplaceBlockHandler {
         }
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
+
+        adjustAllStatementBlockGaps();
+    }
+
+    private void adjustAllStatementBlockGaps() {
+        for (Block block: blockrGame.getAllBlocksInPA()) {
+            if (block instanceof StatementBlock) {
+                UIStatementBlock uiStatement = (UIStatementBlock)getCorrespondingUiBlockFor(block);
+                uiStatement.setGapSize(((StatementBlock) block).getGapSize());
+            }
+        }
     }
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {

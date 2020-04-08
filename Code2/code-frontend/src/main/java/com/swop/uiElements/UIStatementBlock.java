@@ -26,14 +26,17 @@ public class UIStatementBlock extends UIBlock {
         return gapSize;
     }
 
-    private void setGapSize(int gapSize) {
+    public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
     }
 
-    public void increaseGapSize(int increase) {this.gapSize += increase;}
+    /* TODO remove
 
-    public  void decreaseGapSize(int increase) {this.gapSize -= increase;}
+     public void increaseGapSize(int increase) {this.gapSize += increase;}
 
+     public  void decreaseGapSize(int increase) {this.gapSize -= increase;}
+
+    */
     @Override
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;

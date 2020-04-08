@@ -49,13 +49,13 @@ public class ProgramArea {
                 type = 2;
                 if (closeBlock == null) {
                     // 3) statement body
-                    // TODO: closeBlock = getStatementBlockBodyPlugWithinRadius(draggedBlock, radius);
+                    closeBlock = getStatementBlockBodyPlugWithinRadius(draggedBlock, radius);
                     type = 3;
                 }
             }
         } else {
             // 4) statement condition
-            // TODO: closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
+            closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             type = 4;
         }
 
@@ -64,17 +64,18 @@ public class ProgramArea {
                 case 1: //Plug
                     // TODO: draggedBlock.setParentStatement(closeBlock.getParentStatement());
                     // TODO: is it needed to record the parent statement ?
+                    // TODO: should I break now ?
                 case 2: //Socket
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     // TODO: executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock);
                     break;
                 case 3: //Statement body
-                    // TODO: connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition(uiProgramArea);
-                    // TODO: addBlockToBody(draggedBlock, closeBlock);
+                    connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
+                    ((StatementBlock) closeBlock).addBodyBlock((ActionBlock) draggedBlock);
                     break;
                 case 4: //Statement condition
-                    // TODO: connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition(uiProgramArea);
-                    // TODO: addBlockToConditions(draggedBlock, closeBlock);
+                    connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
+                    ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
                     break;
             }
             System.out.println("Close block: " + closeBlock);
@@ -126,7 +127,8 @@ public class ProgramArea {
      */
     public Point getConnectionPoint(Block draggedBlock, Block closeBlock) {
         if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
-        else return new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10);
+        else
+            return new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10);
     }
 
     private Block getBlockWithPlugForBlockWithinRadius(Block block, int radius) {
@@ -159,7 +161,31 @@ public class ProgramArea {
         return null;
     }
 
-    // TODO: getBlock with conditionPlug and bodyPlug
+    // TODO: connect to last body block fix
+    private Block getStatementBlockBodyPlugWithinRadius(Block block, int radius) {
+        for (Block b : getAllBlocks()) {
+            if (b == block || !(b instanceof StatementBlock) || !((StatementBlock) b).getBodyBlocks().isEmpty())
+                continue;
+
+            if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getBodyPlugPosition()) <= radius) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    // TODO: connect to last condition of the conditions of statement (add getConditionPlugWithinRadius() )
+    private Block getStatementBlockConditionPlugWithinRadius(Block block, int radius) {
+        for (Block b : getAllBlocks()) {
+            if (b == block || !(b instanceof StatementBlock) || !((StatementBlock) b).getConditions().isEmpty())
+                continue;
+
+            if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getConditionPlugPosition()) <= radius) {
+                return b;
+            }
+        }
+        return null;
+    }
 
     /**
      * Removes the draggedBlock from allBlocks and the program and all blocks that are connected beneath it are also removed from the program

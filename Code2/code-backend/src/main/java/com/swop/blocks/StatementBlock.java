@@ -4,13 +4,14 @@ import com.swop.GameWorld;
 import com.swop.Predicate;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO BIG !! Should the program in program area contain body-blocks as well
 // TODO BIG !! ... or should the statementblock execute and let know when it finished ??
 public abstract class StatementBlock extends Block implements Executable, VerticallyConnectable {
-    protected ConditionBlock[] conditions;
-    protected List<ActionBlock> bodyBlocks;
+    protected List<ConditionBlock> conditions = new ArrayList<>();
+    protected List<ActionBlock> bodyBlocks = new ArrayList<>();
     protected Block currentBodyBlock = null;
     private final int pillarWidth = 10;
     private int gapSize;
@@ -21,19 +22,18 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         conditionWidth = width / 2;
     }
 
-
     public boolean isConditionValid(GameWorld world) throws IllegalStateException {
-        if (conditions.length == 0) throw new IllegalStateException("No condition for the statement");
+        if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
 
         // WIF should only be at the last (and has to)
-        for (int i = 0; i < conditions.length; i++) {
-            if (conditions[i].isWallInFrontBlock() && i < conditions.length - 1) {
+        for (int i = 0; i < conditions.size(); i++) {
+            if (conditions.get(i).isWallInFrontBlock() && i < conditions.size() - 1) {
                 throw new IllegalStateException("Invalid condition for statement block");
             }
         }
 
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (conditions.length % 2 == 0) return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        if (conditions.size() % 2 == 0) return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
         else return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
 
     }
@@ -47,11 +47,32 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         // TODO: (after solving TODO BIG at class header !)
     }
 
-    // TODO: methods for handling adding and removing body or condition blocks based on plugs etc.
+    public List<ActionBlock> getBodyBlocks() {
+        return bodyBlocks;
+    }
+
+    public List<ConditionBlock> getConditions() {
+        return conditions;
+    }
+
+    /**
+     * Add the given block to the end of the body of this statement block.
+     */
+    public void addBodyBlock(ActionBlock block) {
+        bodyBlocks.add(block);
+        if (bodyBlocks.size() == 1) increaseGapSize(step);
+        increaseGapSize(block.getHeight());
+    }
+
+    public void addConditionBlock(ConditionBlock block) {
+        conditions.add(block);
+    }
+
+    // TODO: methods for handling removing body or condition blocks (removing one removes all the followings)
 
     @Override
     public Point getPlugPosition() {
-        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ + gapSize + step);
+        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ +gapSize + step);
     }
 
     @Override
@@ -59,7 +80,13 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         return new Point(getPosition().x /*+ step * 3*/, getPosition().y + step);
     }
 
-    // TODO: get body- and condition-plug position
+    public Point getBodyPlugPosition() {
+        return new Point(getPosition().x + pillarWidth, getPosition().y + getHeight() - step);
+    }
+
+    public Point getConditionPlugPosition() {
+        return new Point(getPosition().x + conditionWidth + step, getPosition().y);
+    }
 
     public int getGapSize() {
         return gapSize;
