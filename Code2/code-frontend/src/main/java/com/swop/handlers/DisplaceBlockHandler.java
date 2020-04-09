@@ -1,9 +1,12 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
+import com.swop.blocks.ActionBlock;
 import com.swop.blocks.Block;
 import com.swop.blocks.StatementBlock;
+import com.swop.uiElements.UIActionBlock;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIConditionBlock;
 import com.swop.uiElements.UIStatementBlock;
 
 import java.util.*;
@@ -53,6 +56,7 @@ public class DisplaceBlockHandler {
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
 
         adjustAllStatementBlockGaps();
+        adjustAllBlockPositions();
     }
 
     private void adjustAllStatementBlockGaps() {
@@ -61,6 +65,13 @@ public class DisplaceBlockHandler {
                 UIStatementBlock uiStatement = (UIStatementBlock)getCorrespondingUiBlockFor(block);
                 uiStatement.setGapSize(((StatementBlock) block).getGapSize());
             }
+        }
+    }
+
+    private void adjustAllBlockPositions() {
+        for (Block block: blockrGame.getAllBlocksInPA()) {
+            UIBlock uiBlock = getCorrespondingUiBlockFor(block);
+            uiBlock.setPosition(block.getPosition());
         }
     }
 
@@ -81,5 +92,21 @@ public class DisplaceBlockHandler {
             returnUIBlocks.add(getCorrespondingUiBlockFor(block));
         }
         return returnUIBlocks;
+    }
+
+    public void handleProgramAreaForClickOn(UIBlock draggedBlock) {
+        if (draggedBlock == null) throw new IllegalArgumentException();
+
+        if (draggedBlock instanceof UIActionBlock) {
+            StatementBlock parentStatement = draggedBlock.getCorrespondingBlock().getParentStatement();
+            if (parentStatement != null) {
+                parentStatement.removeBodyBlock((ActionBlock) draggedBlock.getCorrespondingBlock());
+            }
+        } else if (draggedBlock instanceof UIConditionBlock) {
+            // TODO:
+        } else if (draggedBlock instanceof UIStatementBlock) {
+            ((StatementBlock)draggedBlock.getCorrespondingBlock()).getBodyBlocks().clear();
+        }
+        blockrGame.removeProgramBlock(draggedBlock.getCorrespondingBlock());
     }
 }

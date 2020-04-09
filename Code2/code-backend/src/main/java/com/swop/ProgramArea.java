@@ -23,6 +23,10 @@ public class ProgramArea {
         return allBlocks;
     }
 
+    public List<Block> getProgram() {
+        return program;
+    }
+
     /**
      * @pre the position of the block is inside the ui program area.
      */
@@ -30,6 +34,10 @@ public class ProgramArea {
         Point pos = draggedBlock.getPosition();
         draggedBlock.setPosition(pos);
         if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
+        if (allBlocks.size() == 1) {
+            program.add(draggedBlock);
+            return;
+        }
 
         // TODO: add eventually to program and handle eventual connections
 
@@ -62,16 +70,33 @@ public class ProgramArea {
         if (closeBlock != null) {
             switch (type) {
                 case 1: //Plug
-                    // TODO: draggedBlock.setParentStatement(closeBlock.getParentStatement());
-                    // TODO: is it needed to record the parent statement ?
-                    // TODO: should I break now ?
-                case 2: //Socket
+                    if (program.contains(closeBlock)) {
+                        program.add(program.indexOf(closeBlock) + 1, draggedBlock);
+                    } else {
+                        StatementBlock parentStatement = closeBlock.getParentStatement();
+                        draggedBlock.setParentStatement(parentStatement);
+                        parentStatement.getBodyBlocks().add(parentStatement.getBodyBlocks()
+                                .indexOf(closeBlock) + 1, (ActionBlock) draggedBlock);
+                        // TODO: push all next ones
+                    }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
-                    // TODO: executeProgramHandler.addBlockToProgramArea(draggedBlock, closeBlock);
+                    break;
+                case 2: //Socket
+                    if (program.contains(closeBlock)) {
+                        program.add(program.indexOf(closeBlock), draggedBlock);
+                    } else {
+                        StatementBlock parentStatement = closeBlock.getParentStatement();
+                        draggedBlock.setParentStatement(parentStatement);
+                        parentStatement.getBodyBlocks().add(parentStatement.getBodyBlocks()
+                                .indexOf(closeBlock), (ActionBlock) draggedBlock);
+                        // TODO: push all next ones
+                    }
+                    connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
                 case 3: //Statement body
                     connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
                     ((StatementBlock) closeBlock).addBodyBlock((ActionBlock) draggedBlock);
+                    draggedBlock.setParentStatement((StatementBlock) closeBlock);
                     break;
                 case 4: //Statement condition
                     connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
@@ -188,14 +213,27 @@ public class ProgramArea {
     }
 
     /**
-     * Removes the draggedBlock from allBlocks and the program and all blocks that are connected beneath it are also removed from the program
+     * Remove the given block from the program of this program area.
+     *
+     * @pre getProgram().contains(block)
      */
-    public void removeBlock(Block draggedBlock) {
-        if (program.contains(draggedBlock)) {
-            program.subList(program.indexOf(draggedBlock), program.size()).clear();
+    public void removeProgramBlock(Block block) {
+        assert getProgram().contains(block);
+
+        int index = getProgram().indexOf(block);
+        getProgram().remove(block);
+        for (int i = index; i < getProgram().size(); i++) {
+            Block currentBlock = getProgram().get(i);
+            currentBlock.setPosition(new Point(currentBlock.getPosition().x,
+                    currentBlock.getPosition().y - block.getHeight()));
         }
+    }
+
+    /**
+     * Remove the draggedBlock from allBlocks of the program area
+     */
+    public void removeBlockFromPA(Block draggedBlock) {
         allBlocks.remove(draggedBlock);
-        // TODO: should the gapsizes be handled ?
         draggedBlock.terminate();
     }
 

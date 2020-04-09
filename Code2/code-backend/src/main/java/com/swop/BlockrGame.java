@@ -18,6 +18,10 @@ public class BlockrGame {
         this.gameWorld = gameWorldType.createNewInstance();
     }
 
+    public List<Block> getProgram() {
+        return programArea.getProgram();
+    }
+
     public Point getBlockPosition(Block block) {
         return block.getPosition();
     }
@@ -28,9 +32,12 @@ public class BlockrGame {
     }
 
     public void removeBlockFromPA(Block draggedBlock) {
-        programArea.removeBlock(draggedBlock);
+        programArea.removeBlockFromPA(draggedBlock);
     }
 
+    public void removeProgramBlock(Block draggedBlock) {
+        programArea.removeProgramBlock(draggedBlock);
+    }
 
     public void executeNext() {
         programArea.executeNext();

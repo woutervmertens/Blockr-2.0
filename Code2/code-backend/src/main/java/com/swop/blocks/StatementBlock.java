@@ -64,6 +64,23 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         increaseGapSize(block.getHeight());
     }
 
+    /**
+     * @pre bodyBlocks.contains(block)
+     */
+    public void removeBodyBlock(ActionBlock block) {
+        assert bodyBlocks.contains(block);
+
+        int index = bodyBlocks.indexOf(block);
+        bodyBlocks.remove(block);
+        for (int i = index; i < bodyBlocks.size(); i++) {
+            ActionBlock currentBlock = bodyBlocks.get(i);
+            currentBlock.setPosition(new Point(currentBlock.getPosition().x,
+                    currentBlock.getPosition().y - block.getHeight()));
+        }
+        decreaseGapSize(block.getHeight());
+        if (bodyBlocks.isEmpty()) setGapSize(0);
+    }
+
     public void addConditionBlock(ConditionBlock block) {
         conditions.add(block);
     }

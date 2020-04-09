@@ -8,6 +8,7 @@ public abstract class Block {
     private final int width;
     private final int height;
     protected final int step;
+    private StatementBlock parentStatement;
 
     protected Block(Point position, GameWorld gameWorld, int width, int height) {
         if (gameWorld == null) throw new IllegalArgumentException();
@@ -25,6 +26,14 @@ public abstract class Block {
 
     public int getHeight() {
         return height;
+    }
+
+    public StatementBlock getParentStatement() {
+        return parentStatement;
+    }
+
+    public void setParentStatement(StatementBlock parentStatement) {
+        this.parentStatement = parentStatement;
     }
 
     /**

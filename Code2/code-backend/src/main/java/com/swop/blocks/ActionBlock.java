@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
     private Action action;
+
     public ActionBlock(Point position, GameWorld gameWorld, int width, int height, Action action) {
         super(position, gameWorld, width, height);
         this.action = action;

@@ -62,6 +62,9 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_PRESSED:
                 executeProgramHandler.reset();
                 draggedBlock = getUIBlock(x, y);
+                if (Windows.PROGRAM_AREA.isWithin(x,y) && draggedBlock != null) {
+                    displaceBlockHandler.handleProgramAreaForClickOn(draggedBlock);
+                }
                 break;
             case MouseEvent.MOUSE_CLICKED:
                 break;
