@@ -56,12 +56,40 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     }
 
     /**
-     * Add the given block to the end of the body of this statement block.
+     * Add the given block after the given existing block.
+     * If such block isn't part of the body, then add the given block to the end of the body of this statement block.
      */
-    public void addBodyBlock(ActionBlock block) {
-        bodyBlocks.add(block);
-        if (bodyBlocks.size() == 1) increaseGapSize(step);
-        increaseGapSize(block.getHeight());
+    public void addBodyBlockAfter(ActionBlock block, ActionBlock existingBlock) {
+        if (existingBlock == null || !bodyBlocks.contains(existingBlock)) {
+            bodyBlocks.add(block);
+            increaseGapSize(step);
+        } else {
+            bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
+            for (int i = bodyBlocks.indexOf(existingBlock) + 1; i < bodyBlocks.size(); i++) {
+                ActionBlock currentBlock = bodyBlocks.get(i);
+                currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
+            }
+        }
+
+        block.setParentStatement(this);
+        increaseGapSize(block.getHeight() + step);
+    }
+
+    /**
+     * Add the given block before the given existing block.
+     */
+    public void addBodyBlockBefore(ActionBlock block, ActionBlock existingBlock) {
+        if (existingBlock == null) throw new IllegalArgumentException();
+        if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
+
+        bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
+        for (int i = bodyBlocks.indexOf(existingBlock); i < bodyBlocks.size(); i++) {
+            ActionBlock currentBlock = bodyBlocks.get(i);
+            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
+        }
+
+        block.setParentStatement(this);
+        increaseGapSize(block.getHeight() + step);
     }
 
     /**

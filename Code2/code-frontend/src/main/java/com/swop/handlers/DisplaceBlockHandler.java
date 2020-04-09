@@ -101,7 +101,8 @@ public class DisplaceBlockHandler {
             StatementBlock parentStatement = draggedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
                 parentStatement.removeBodyBlock((ActionBlock) draggedBlock.getCorrespondingBlock());
-            }
+                // TODO: push up all next blocks for parentStatement.
+            } // TODO: this should be a while for pushing up all the blocks for nested statements ...
         } else if (draggedBlock instanceof UIConditionBlock) {
             // TODO:
         } else if (draggedBlock instanceof UIStatementBlock) {

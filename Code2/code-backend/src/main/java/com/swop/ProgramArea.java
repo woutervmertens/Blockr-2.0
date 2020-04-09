@@ -72,11 +72,8 @@ public class ProgramArea {
                 case 1: //Plug
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
-                    } else {
-                        StatementBlock parentStatement = closeBlock.getParentStatement();
-                        draggedBlock.setParentStatement(parentStatement);
-                        parentStatement.getBodyBlocks().add(parentStatement.getBodyBlocks()
-                                .indexOf(closeBlock) + 1, (ActionBlock) draggedBlock);
+                    } else if (closeBlock.getParentStatement() != null) {
+                        closeBlock.getParentStatement().addBodyBlockAfter((ActionBlock) draggedBlock, (ActionBlock) closeBlock);
                         // TODO: push all next ones
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
@@ -84,19 +81,14 @@ public class ProgramArea {
                 case 2: //Socket
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock), draggedBlock);
-                    } else {
-                        StatementBlock parentStatement = closeBlock.getParentStatement();
-                        draggedBlock.setParentStatement(parentStatement);
-                        parentStatement.getBodyBlocks().add(parentStatement.getBodyBlocks()
-                                .indexOf(closeBlock), (ActionBlock) draggedBlock);
-                        // TODO: push all next ones
+                    } else if (closeBlock.getParentStatement() != null) {
+                        closeBlock.getParentStatement().addBodyBlockBefore((ActionBlock) draggedBlock, (ActionBlock) closeBlock);
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
                 case 3: //Statement body
                     connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
-                    ((StatementBlock) closeBlock).addBodyBlock((ActionBlock) draggedBlock);
-                    draggedBlock.setParentStatement((StatementBlock) closeBlock);
+                    ((StatementBlock) closeBlock).addBodyBlockAfter((ActionBlock) draggedBlock, null);
                     break;
                 case 4: //Statement condition
                     connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
