@@ -107,9 +107,13 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, -block.getHeight() - step);
 
         block.setParentStatement(null);
-        StatementBlock currentParent = block.getParentStatement();
+
+        StatementBlock currentParent = this;
+        int heightSize;
+        if (block instanceof StatementBlock) heightSize = block.getHeight() + ((StatementBlock) block).getGapSize();
+        else heightSize = block.getHeight() + step;
         while (currentParent != null) {
-            currentParent.decreaseGapSize(block.getHeight() + step);
+            currentParent.decreaseGapSize(heightSize);
             currentParent = currentParent.getParentStatement();
         }
     }

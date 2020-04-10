@@ -81,10 +81,17 @@ public class DisplaceBlockHandler {
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() != null) {
+            if (draggedBlock.getCorrespondingBlock() instanceof StatementBlock) {
+                for (Block bodyBlock: ((StatementBlock)draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
+                    blockUIBlockMap.remove(bodyBlock);
+                    blockrGame.removeBlockFromPA(bodyBlock);
+                }
+            }
             //remove from the map in DisplaceBlockHandler
             blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
             //remove the block from program area
             blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
+
         }
         draggedBlock.terminate();
     }

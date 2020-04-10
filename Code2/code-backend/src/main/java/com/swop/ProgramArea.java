@@ -108,7 +108,17 @@ public class ProgramArea implements PushBlocks {
                     break;
             }
             System.out.println("Close block: " + closeBlock);
-            draggedBlock.setPosition(connectionPoint);
+            if (draggedBlock instanceof StatementBlock) {
+                // Connect this statementblock and adjust all its body blocks positions
+                int dx = connectionPoint.x - draggedBlock.getPosition().x;
+                int dy = connectionPoint.y - draggedBlock.getPosition().y;
+                draggedBlock.setPosition(connectionPoint);
+                for (Block bodyBlock : ((StatementBlock) draggedBlock).getBodyBlocks()) {
+                    bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
+                }
+            } else {
+                draggedBlock.setPosition(connectionPoint);
+            }
             // TODO:
 //            if (draggedBlock.getParentStatement() != null) {
 //                ((UIStatementBlock) draggedBlock.getParentStatement()).increaseGapSize(draggedBlock.getHeight() + 5);
@@ -193,7 +203,7 @@ public class ProgramArea implements PushBlocks {
     // TODO: connect to last body block fix
     private Block getStatementBlockBodyPlugWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
-            if (b == block || !(b instanceof StatementBlock) || !((StatementBlock) b).getBodyBlocks().isEmpty())
+            if (b == block || !(b instanceof StatementBlock) /*|| !((StatementBlock) b).getBodyBlocks().isEmpty()*/)
                 continue;
 
             if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getBodyPlugPosition()) <= radius) {
