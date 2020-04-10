@@ -75,24 +75,30 @@ public class ProgramArea implements PushBlocks {
                 case 1: //Plug
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
+                        // TODO: push all next ones or merge this in one of PushBlocks' methods
                     } else if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
-                        // TODO: push all next ones
+                        PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
+                                draggedBlock.getHeight() + draggedBlock.getStep());
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
                 case 2: //Socket
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock), draggedBlock);
+                        // TODO: push all next ones or merge this in one of PushBlocks' methods
                     } else if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
-                        // TODO: push all next ones
+                        PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
+                                draggedBlock.getHeight() + draggedBlock.getStep());
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
                 case 3: //Statement body
                     connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
                     ((StatementBlock) closeBlock).addBodyBlockAfter(draggedBlock, null);
+                    PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
+                            draggedBlock.getHeight() + draggedBlock.getStep());
                     break;
                 case 4: //Statement condition
                     connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
