@@ -1,9 +1,11 @@
 package com.swop;
 
+import com.swop.blocks.StatementBlock;
 import com.swop.handlers.DisplaceBlockHandler;
 import com.swop.handlers.ExecuteProgramHandler;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIStatementBlock;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -72,7 +74,13 @@ public class MyCanvasWindow extends CanvasWindow {
                 if (isBlockDragged()) {
                     pos.x = x;
                     pos.y = y;
+                    int dx = x - draggedBlock.getPosition().x;
+                    int dy = y - draggedBlock.getPosition().y;
                     draggedBlock.setPosition((Point) pos.clone());
+                    if (draggedBlock instanceof UIStatementBlock && draggedBlock.getCorrespondingBlock() != null) {
+                        displaceBlockHandler.displaceAllBodyBlocksOfWith((UIStatementBlock)draggedBlock, dx, dy);
+                    }
+
                     repaint();
                 }
                 break;

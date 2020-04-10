@@ -75,7 +75,8 @@ public class ProgramArea implements PushBlocks {
                 case 1: //Plug
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
-                        // TODO: push all next ones or merge this in one of PushBlocks' methods
+                        PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
+                                draggedBlock.getHeight() + draggedBlock.getStep());
                     } else if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
@@ -86,7 +87,8 @@ public class ProgramArea implements PushBlocks {
                 case 2: //Socket
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock), draggedBlock);
-                        // TODO: push all next ones or merge this in one of PushBlocks' methods
+                        PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
+                                draggedBlock.getHeight() + draggedBlock.getStep());
                     } else if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),

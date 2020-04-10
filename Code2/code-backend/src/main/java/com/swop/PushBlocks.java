@@ -31,7 +31,7 @@ public interface PushBlocks {
         Block currentParent = bodyBlocks.get(0).getParentStatement();
         while (currentParent.getParentStatement() != null) {
             PushBlocks.pushBlocksInListFromIndexWithDistance(currentParent.getParentStatement().getBodyBlocks(),
-                    currentParent.getParentStatement().getBodyBlocks().indexOf(currentParent)+1, distance);
+                    currentParent.getParentStatement().getBodyBlocks().indexOf(currentParent) + 1, distance);
             currentParent = currentParent.getParentStatement();
         }
     }

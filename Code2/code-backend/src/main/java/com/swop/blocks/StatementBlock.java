@@ -61,7 +61,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
      * 1) Add the given block after the given existing block
      * 2) And push all others inside the body
      * 3) And make all the parents' gap sizes bigger.
-     *
+     * <p>
      * If existing block is null add the given block at the start of the body
      */
     public void addBodyBlockAfter(Block block, Block existingBlock) {
@@ -112,6 +112,26 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
             currentParent.decreaseGapSize(block.getHeight() + step);
             currentParent = currentParent.getParentStatement();
         }
+    }
+
+    public void removeAllBodyBlocks() {
+        assert !getBodyBlocks().isEmpty();
+
+        int n = bodyBlocks.size();
+        if (getParentStatement() != null) {
+            PushBlocks.pushBlocksInListFromIndexWithDistance(getParentStatement().getBodyBlocks(),
+                    getParentStatement().getBodyBlocks().indexOf(this), n * (-getBodyBlocks().get(0).getHeight() - step));
+        }
+        for (Block bodyBlock : getBodyBlocks()) {
+            bodyBlock.setParentStatement(null);
+        }
+
+        StatementBlock currentParent = this;
+        while (currentParent != null) {
+            currentParent.decreaseGapSize(n * (getBodyBlocks().get(0).getHeight() + step));
+            currentParent = currentParent.getParentStatement();
+        }
+        bodyBlocks.clear();
     }
 
     public void addConditionBlock(ConditionBlock block) {

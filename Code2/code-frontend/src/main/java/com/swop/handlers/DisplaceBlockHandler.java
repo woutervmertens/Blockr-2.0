@@ -1,12 +1,14 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
+import com.swop.PushBlocks;
 import com.swop.blocks.Block;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIConditionBlock;
 import com.swop.uiElements.UIStatementBlock;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,13 +105,15 @@ public class DisplaceBlockHandler {
             StatementBlock parentStatement = draggedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
                 parentStatement.removeBodyBlock(draggedBlock.getCorrespondingBlock());
+                PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
+                        -draggedBlock.getHeight() - draggedBlock.getStep());
+                // TODO: should I call the second method of PushBlocks as well ?
+            }
 
-                // TODO: push up all next blocks for parentStatement.
-            } // TODO: this should be a while for pushing up all the blocks for nested statements ...
+            if (draggedBlock instanceof UIStatementBlock && !((StatementBlock) (draggedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
+                // TODO: don't remove all body blocks but just handle program and gaps changes
+                //((StatementBlock) draggedBlock.getCorrespondingBlock()).removeAllBodyBlocks();
 
-            if (draggedBlock instanceof UIStatementBlock) {
-                // TODO: make own clear method: removeAllBodyBlocks()
-                ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks().clear();
             }
         } else {
             // TODO:
@@ -119,5 +123,12 @@ public class DisplaceBlockHandler {
 
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();
+    }
+
+    public void displaceAllBodyBlocksOfWith(UIStatementBlock draggedBlock, int dx, int dy) {
+        for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
+            bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
+        }
+        adjustAllBlockPositions();
     }
 }
