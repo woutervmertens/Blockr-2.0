@@ -2,6 +2,7 @@ package com.swop.blocks;
 
 import com.swop.GameWorld;
 import com.swop.Predicate;
+import com.swop.PushBlocks;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private final int pillarWidth = 10;
     private int gapSize;
     private int conditionWidth;
+
 
     public StatementBlock(Point position, GameWorld gameWorld, int width, int height) {
         super(position, gameWorld, width, height);
@@ -61,10 +63,9 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
      */
     public void addBodyBlockAfter(Block block, Block existingBlock) {
         bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
-        for (int i = bodyBlocks.indexOf(existingBlock) + 1; i < bodyBlocks.size(); i++) {
-            Block currentBlock = bodyBlocks.get(i);
-            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
-        }
+
+        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock) + 2,
+                block.getHeight() + step);
 
         block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
@@ -81,11 +82,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         if (existingBlock == null) throw new IllegalArgumentException();
         if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
 
-        bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
-        for (int i = bodyBlocks.indexOf(existingBlock); i < bodyBlocks.size(); i++) {
-            Block currentBlock = bodyBlocks.get(i);
-            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
-        }
+        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock),
+                block.getHeight() + step);
 
         block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
@@ -103,11 +101,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         int index = bodyBlocks.indexOf(block);
         bodyBlocks.remove(block);
-        for (int i = index; i < bodyBlocks.size(); i++) {
-            Block currentBlock = bodyBlocks.get(i);
-            currentBlock.setPosition(new Point(currentBlock.getPosition().x,
-                    currentBlock.getPosition().y - block.getHeight()));
-        }
+        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, -block.getHeight() - step);
+
         decreaseGapSize(block.getHeight() + step);
         //if (bodyBlocks.isEmpty()) setGapSize(0);
     }

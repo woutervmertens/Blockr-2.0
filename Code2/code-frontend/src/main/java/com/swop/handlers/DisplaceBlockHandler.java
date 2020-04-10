@@ -108,12 +108,13 @@ public class DisplaceBlockHandler {
             } // TODO: this should be a while for pushing up all the blocks for nested statements ...
 
             if (draggedBlock instanceof UIStatementBlock) {
-                // TODO: remove them instead of just clear (or make own clear method: removeAllBodyBlocks())
+                // TODO: make own clear method: removeAllBodyBlocks()
                 ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks().clear();
             }
         } else {
             // TODO:
         }
+        // TODO: check if the program contains that block ? Is it needed ?
         blockrGame.removeProgramBlock(draggedBlock.getCorrespondingBlock());
 
         adjustAllBlockPositions();

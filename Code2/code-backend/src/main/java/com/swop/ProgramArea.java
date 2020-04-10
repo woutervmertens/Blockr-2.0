@@ -10,8 +10,12 @@ import java.util.*;
  * A program area that handles drops of blocks in it for constructing program(s).
  * It has no notion of position or width or height.
  */
-public class ProgramArea {
+public class ProgramArea implements PushBlocks {
     private final int radius = 15;  // Radius for connections
+    /**
+     * List recording all the blocks that belong to the current program of this program area WITHOUT nested blocks.
+     * Nested blocks (inside StatementBlocks) should be accessed using ''
+     */
     private List<Block> program = new LinkedList<>();
     /**
      * Array recording all blocks currently present in program area
@@ -39,14 +43,11 @@ public class ProgramArea {
             return;
         }
 
-        // TODO: add eventually to program and handle eventual connections
+        // TODO: add eventually correctly to program !!!
 
-        Point dropPos = draggedBlock.getPosition();
+        // 1) Find close block and type
         Block closeBlock = null;
-        Point connectionPoint = null;
-
         int type;
-
         if (!(draggedBlock instanceof ConditionBlock)) {
             // 1) plug
             closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
@@ -67,6 +68,8 @@ public class ProgramArea {
             type = 4;
         }
 
+        // 2) Find connection point and add to program/body
+        Point connectionPoint = null;
         if (closeBlock != null) {
             switch (type) {
                 case 1: //Plug
@@ -83,6 +86,7 @@ public class ProgramArea {
                         program.add(program.indexOf(closeBlock), draggedBlock);
                     } else if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
+                        // TODO: push all next ones
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
@@ -205,7 +209,22 @@ public class ProgramArea {
     }
 
     /**
+     * Add given block to the program of this program area and
+     * insert it in the program list after the given existing block (if not null).
+     */
+    public void addProgramBlockAfter(Block block, Block existingBlock) {
+        program.add(program.indexOf(existingBlock) + 1, block);
+        for (int i = program.indexOf(existingBlock) + 1; i < program.size(); i++) {
+            Block currentBlock = program.get(i);
+            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight() + block.getStep()));
+        }
+        // TODO: finish
+
+    }
+
+    /**
      * Remove the given block from the program of this program area.
+     * This does not mean that the given block is removed or outside the PA.
      *
      * @pre getProgram().contains(block)
      */
@@ -214,10 +233,12 @@ public class ProgramArea {
 
         int index = getProgram().indexOf(block);
         getProgram().remove(block);
-        for (int i = index; i < getProgram().size(); i++) {
-            Block currentBlock = getProgram().get(i);
-            currentBlock.setPosition(new Point(currentBlock.getPosition().x,
-                    currentBlock.getPosition().y - block.getHeight()));
+        if (index != 0) {
+            for (int i = index; i < getProgram().size(); i++) {
+                Block currentBlock = getProgram().get(i);
+                currentBlock.setPosition(new Point(currentBlock.getPosition().x,
+                        currentBlock.getPosition().y - block.getHeight()));
+            }
         }
     }
 

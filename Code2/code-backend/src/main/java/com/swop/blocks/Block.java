@@ -20,6 +20,10 @@ public abstract class Block {
         step = height / 6;
     }
 
+    public int getStep() {
+        return step;
+    }
+
     public int getWidth() {
         return width;
     }

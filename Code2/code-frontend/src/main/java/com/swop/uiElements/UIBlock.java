@@ -27,6 +27,10 @@ public abstract class UIBlock {
         step = height / 6;
     }
 
+    public int getStep() {
+        return step;
+    }
+
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
     }
