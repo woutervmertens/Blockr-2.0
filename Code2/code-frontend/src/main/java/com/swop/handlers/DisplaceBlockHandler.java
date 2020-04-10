@@ -105,28 +105,27 @@ public class DisplaceBlockHandler {
         return returnUIBlocks;
     }
 
-    public void handleProgramAreaForClickOn(UIBlock draggedBlock) {
-        if (draggedBlock == null) throw new IllegalArgumentException();
+    public void handleProgramAreaForClickOn(UIBlock clickedBlock) {
+        if (clickedBlock == null) throw new IllegalArgumentException();
 
-        if (!(draggedBlock instanceof UIConditionBlock)) {
-            StatementBlock parentStatement = draggedBlock.getCorrespondingBlock().getParentStatement();
+        if (!(clickedBlock instanceof UIConditionBlock)) {
+            StatementBlock parentStatement = clickedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
-                parentStatement.removeBodyBlock(draggedBlock.getCorrespondingBlock());
-                PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
-                        -draggedBlock.getHeight() - draggedBlock.getStep());
-                // TODO: should I call the second method of PushBlocks as well ?
+                PushBlocks.pushBodyBlocksOfSuperiorParents(clickedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
+                        -clickedBlock.getHeight() - clickedBlock.getStep());
+                parentStatement.removeBodyBlock(clickedBlock.getCorrespondingBlock());
             }
 
-            if (draggedBlock instanceof UIStatementBlock && !((StatementBlock) (draggedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
+            if (clickedBlock instanceof UIStatementBlock && !((StatementBlock) (clickedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
                 // TODO: don't remove all body blocks but just handle program and gaps changes
-                //((StatementBlock) draggedBlock.getCorrespondingBlock()).removeAllBodyBlocks();
+                //((StatementBlock) clickedBlock.getCorrespondingBlock()).removeAllBodyBlocks();
 
             }
         } else {
             // TODO:
         }
         // TODO: check if the program contains that block ? Is it needed ?
-        blockrGame.removeProgramBlock(draggedBlock.getCorrespondingBlock());
+        blockrGame.removeProgramBlock(clickedBlock.getCorrespondingBlock());
 
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();

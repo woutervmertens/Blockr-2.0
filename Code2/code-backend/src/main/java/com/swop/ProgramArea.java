@@ -77,7 +77,7 @@ public class ProgramArea implements PushBlocks {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
                         PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
                                 draggedBlock.getHeight() + draggedBlock.getStep());
-                    } else if (closeBlock.getParentStatement() != null) {
+                    } if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
                                 draggedBlock.getHeight() + draggedBlock.getStep());
@@ -89,7 +89,7 @@ public class ProgramArea implements PushBlocks {
                         program.add(program.indexOf(closeBlock), draggedBlock);
                         PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
                                 draggedBlock.getHeight() + draggedBlock.getStep());
-                    } else if (closeBlock.getParentStatement() != null) {
+                    } if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
                                 draggedBlock.getHeight() + draggedBlock.getStep());
@@ -249,15 +249,20 @@ public class ProgramArea implements PushBlocks {
     public void removeProgramBlock(Block block) {
         assert getProgram().contains(block);
 
-        int index = getProgram().indexOf(block);
+        // TODO: Correct method
+//        PushBlocks.pushBlocksInListFromIndexWithDistance(getProgram(), getProgram().indexOf(block) + 1,
+//                -block.getHeight() - block.getStep());
+//        PushBlocks.pushBodyBlocksOfSuperiorParents(getProgram(), -block.getHeight() - block.getStep());
+
         getProgram().remove(block);
-        if (index != 0) {
-            for (int i = index; i < getProgram().size(); i++) {
-                Block currentBlock = getProgram().get(i);
-                currentBlock.setPosition(new Point(currentBlock.getPosition().x,
-                        currentBlock.getPosition().y - block.getHeight()));
-            }
-        }
+
+//        if (index > 0) {
+//            for (int i = index; i < getProgram().size(); i++) {
+//                Block currentBlock = getProgram().get(i);
+//                currentBlock.setPosition(new Point(currentBlock.getPosition().x,
+//                        currentBlock.getPosition().y - block.getHeight()));
+//            }
+//        }
     }
 
     /**
