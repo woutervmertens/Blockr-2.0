@@ -1,15 +1,16 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.blocks.ActionBlock;
 import com.swop.blocks.Block;
 import com.swop.blocks.StatementBlock;
-import com.swop.uiElements.UIActionBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIConditionBlock;
 import com.swop.uiElements.UIStatementBlock;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DisplaceBlockHandler {
     /**
@@ -46,7 +47,8 @@ public class DisplaceBlockHandler {
      * @pre draggedBlock.getPosition() is inside the PA
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
-        if (draggedBlock.getCorrespondingBlock() == null) draggedBlock.makeNewCorrespondingBlockIn(blockrGame.getGameWorld());
+        if (draggedBlock.getCorrespondingBlock() == null)
+            draggedBlock.makeNewCorrespondingBlockIn(blockrGame.getGameWorld());
 
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (!getBlockUIBlockMap().containsKey(backendBlock)) {
@@ -60,16 +62,16 @@ public class DisplaceBlockHandler {
     }
 
     private void adjustAllStatementBlockGaps() {
-        for (Block block: blockrGame.getAllBlocksInPA()) {
+        for (Block block : blockrGame.getAllBlocksInPA()) {
             if (block instanceof StatementBlock) {
-                UIStatementBlock uiStatement = (UIStatementBlock)getCorrespondingUiBlockFor(block);
+                UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
                 uiStatement.setGapSize(((StatementBlock) block).getGapSize());
             }
         }
     }
 
     private void adjustAllBlockPositions() {
-        for (Block block: blockrGame.getAllBlocksInPA()) {
+        for (Block block : blockrGame.getAllBlocksInPA()) {
             UIBlock uiBlock = getCorrespondingUiBlockFor(block);
             uiBlock.setPosition(block.getPosition());
         }
@@ -97,17 +99,24 @@ public class DisplaceBlockHandler {
     public void handleProgramAreaForClickOn(UIBlock draggedBlock) {
         if (draggedBlock == null) throw new IllegalArgumentException();
 
-        if (draggedBlock instanceof UIActionBlock) {
+        if (!(draggedBlock instanceof UIConditionBlock)) {
             StatementBlock parentStatement = draggedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
-                parentStatement.removeBodyBlock((ActionBlock) draggedBlock.getCorrespondingBlock());
+                parentStatement.removeBodyBlock(draggedBlock.getCorrespondingBlock());
+
                 // TODO: push up all next blocks for parentStatement.
             } // TODO: this should be a while for pushing up all the blocks for nested statements ...
-        } else if (draggedBlock instanceof UIConditionBlock) {
+
+            if (draggedBlock instanceof UIStatementBlock) {
+                // TODO: remove them instead of just clear (or make own clear method: removeAllBodyBlocks())
+                ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks().clear();
+            }
+        } else {
             // TODO:
-        } else if (draggedBlock instanceof UIStatementBlock) {
-            ((StatementBlock)draggedBlock.getCorrespondingBlock()).getBodyBlocks().clear();
         }
         blockrGame.removeProgramBlock(draggedBlock.getCorrespondingBlock());
+
+        adjustAllBlockPositions();
+        adjustAllStatementBlockGaps();
     }
 }

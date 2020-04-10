@@ -11,7 +11,7 @@ import java.util.List;
 // TODO BIG !! ... or should the statementblock execute and let know when it finished ??
 public abstract class StatementBlock extends Block implements Executable, VerticallyConnectable {
     protected List<ConditionBlock> conditions = new ArrayList<>();
-    protected List<ActionBlock> bodyBlocks = new ArrayList<>();
+    protected List<Block> bodyBlocks = new ArrayList<>();
     protected Block currentBodyBlock = null;
     private final int pillarWidth = 10;
     private int gapSize;
@@ -47,7 +47,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         // TODO: (after solving TODO BIG at class header !)
     }
 
-    public List<ActionBlock> getBodyBlocks() {
+    public List<Block> getBodyBlocks() {
         return bodyBlocks;
     }
 
@@ -57,56 +57,59 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     /**
      * Add the given block after the given existing block.
-     * If such block isn't part of the body, then add the given block to the end of the body of this statement block.
+     * If existing block is null add the given block at the start of the body
      */
-    public void addBodyBlockAfter(ActionBlock block, ActionBlock existingBlock) {
-        if (existingBlock == null || !bodyBlocks.contains(existingBlock)) {
-            bodyBlocks.add(block);
-            increaseGapSize(step);
-        } else {
-            bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
-            for (int i = bodyBlocks.indexOf(existingBlock) + 1; i < bodyBlocks.size(); i++) {
-                ActionBlock currentBlock = bodyBlocks.get(i);
-                currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
-            }
+    public void addBodyBlockAfter(Block block, Block existingBlock) {
+        bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
+        for (int i = bodyBlocks.indexOf(existingBlock) + 1; i < bodyBlocks.size(); i++) {
+            Block currentBlock = bodyBlocks.get(i);
+            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
         }
 
         block.setParentStatement(this);
-        increaseGapSize(block.getHeight() + step);
+        StatementBlock currentParent = block.getParentStatement();
+        while (currentParent != null) {
+            currentParent.increaseGapSize(block.getHeight() + step);
+            currentParent = currentParent.getParentStatement();
+        }
     }
 
     /**
      * Add the given block before the given existing block.
      */
-    public void addBodyBlockBefore(ActionBlock block, ActionBlock existingBlock) {
+    public void addBodyBlockBefore(Block block, Block existingBlock) {
         if (existingBlock == null) throw new IllegalArgumentException();
         if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
 
         bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
         for (int i = bodyBlocks.indexOf(existingBlock); i < bodyBlocks.size(); i++) {
-            ActionBlock currentBlock = bodyBlocks.get(i);
+            Block currentBlock = bodyBlocks.get(i);
             currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight()));
         }
 
         block.setParentStatement(this);
-        increaseGapSize(block.getHeight() + step);
+        StatementBlock currentParent = block.getParentStatement();
+        while (currentParent != null) {
+            currentParent.increaseGapSize(block.getHeight() + step);
+            currentParent = currentParent.getParentStatement();
+        }
     }
 
     /**
      * @pre bodyBlocks.contains(block)
      */
-    public void removeBodyBlock(ActionBlock block) {
+    public void removeBodyBlock(Block block) {
         assert bodyBlocks.contains(block);
 
         int index = bodyBlocks.indexOf(block);
         bodyBlocks.remove(block);
         for (int i = index; i < bodyBlocks.size(); i++) {
-            ActionBlock currentBlock = bodyBlocks.get(i);
+            Block currentBlock = bodyBlocks.get(i);
             currentBlock.setPosition(new Point(currentBlock.getPosition().x,
                     currentBlock.getPosition().y - block.getHeight()));
         }
-        decreaseGapSize(block.getHeight());
-        if (bodyBlocks.isEmpty()) setGapSize(0);
+        decreaseGapSize(block.getHeight() + step);
+        //if (bodyBlocks.isEmpty()) setGapSize(0);
     }
 
     public void addConditionBlock(ConditionBlock block) {

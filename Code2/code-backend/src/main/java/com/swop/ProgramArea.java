@@ -73,7 +73,7 @@ public class ProgramArea {
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
                     } else if (closeBlock.getParentStatement() != null) {
-                        closeBlock.getParentStatement().addBodyBlockAfter((ActionBlock) draggedBlock, (ActionBlock) closeBlock);
+                        closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
                         // TODO: push all next ones
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
@@ -82,13 +82,13 @@ public class ProgramArea {
                     if (program.contains(closeBlock)) {
                         program.add(program.indexOf(closeBlock), draggedBlock);
                     } else if (closeBlock.getParentStatement() != null) {
-                        closeBlock.getParentStatement().addBodyBlockBefore((ActionBlock) draggedBlock, (ActionBlock) closeBlock);
+                        closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
                     }
                     connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
                     break;
                 case 3: //Statement body
                     connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
-                    ((StatementBlock) closeBlock).addBodyBlockAfter((ActionBlock) draggedBlock, null);
+                    ((StatementBlock) closeBlock).addBodyBlockAfter(draggedBlock, null);
                     break;
                 case 4: //Statement condition
                     connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
