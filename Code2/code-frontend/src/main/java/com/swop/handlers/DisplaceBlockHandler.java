@@ -134,6 +134,11 @@ public class DisplaceBlockHandler {
     public void displaceAllBodyBlocksOfWith(UIStatementBlock draggedBlock, int dx, int dy) {
         for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
             bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
+            if (bodyBlock instanceof StatementBlock) {
+                for (Block bodyBlock2: ((StatementBlock) bodyBlock).getBodyBlocks()) {
+                    bodyBlock2.setPosition(new Point(bodyBlock2.getPosition().x + dx, bodyBlock2.getPosition().y + dy));
+                }
+            }
         }
         adjustAllBlockPositions();
     }

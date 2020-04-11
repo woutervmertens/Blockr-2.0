@@ -85,6 +85,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         if (existingBlock == null) throw new IllegalArgumentException();
         if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
 
+        bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
+
         PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock),
                 block.getHeight() + step);
 
