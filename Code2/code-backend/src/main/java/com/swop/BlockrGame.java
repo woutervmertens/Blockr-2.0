@@ -20,6 +20,10 @@ public class BlockrGame {
         this.gameWorld = gameWorldType.createNewInstance();
     }
 
+    public synchronized  static BlockrGame createInstance(int maxBlocks,GameWorldType gameWorldType){
+        if(instance.get() == null) instance.set(new BlockrGame(maxBlocks,gameWorldType));
+        return instance.get();
+    }
     public synchronized static BlockrGame getInstance(){
         if(instance.get() == null) throw new IllegalStateException("BlockrGame instance used before created.");
         return instance.get();
