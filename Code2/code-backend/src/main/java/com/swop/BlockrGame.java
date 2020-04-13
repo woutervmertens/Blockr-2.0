@@ -4,18 +4,25 @@ import com.swop.blocks.Block;
 
 import java.awt.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BlockrGame {
     private final ProgramArea programArea;
     private GameWorld gameWorld;
     private final GameWorldType gameWorldType;
     private final int maxBlocks;
+    private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
 
     public BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
         this.programArea = ProgramArea.getInstance();
         this.gameWorldType = gameWorldType;
         this.gameWorld = gameWorldType.createNewInstance();
+    }
+
+    public synchronized static BlockrGame getInstance(){
+        if(instance.get() == null) throw new IllegalStateException("BlockrGame instance used before created.");
+        return instance.get();
     }
 
     public List<Block> getProgram() {
