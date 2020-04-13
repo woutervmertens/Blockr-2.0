@@ -29,7 +29,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         // WIF should only be at the last (and has to)
         for (int i = 0; i < conditions.size(); i++) {
-            if (conditions.get(i).isWallInFrontBlock() && i < conditions.size() - 1) {
+            if (conditions.get(i).isPredicate() && i < conditions.size() - 1) {
                 throw new IllegalStateException("Invalid condition for statement block");
             }
         }

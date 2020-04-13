@@ -6,17 +6,17 @@ import java.awt.*;
 
 public class ConditionBlock extends Block implements HorizontallyConnectable{
     /**
-     * @param isWallInFrontBlock Variable registering whether the to make block is a WIF. If not then it is a NOT.
+     * @param isPredicate Variable registering whether the to make block is a WIF. If not then it is a NOT.
      */
-    public ConditionBlock(Point position, GameWorld gameWorld, boolean isWallInFrontBlock, int width, int height) {
+    public ConditionBlock(Point position, GameWorld gameWorld, boolean isPredicate, int width, int height) {
         super(position, gameWorld, width, height);
-        this.isWallInFrontBlock = isWallInFrontBlock;
+        this.isPredicate = isPredicate;
     }
 
-    private final boolean isWallInFrontBlock;
+    private final boolean isPredicate;
 
-    public boolean isWallInFrontBlock() {
-        return isWallInFrontBlock;
+    public boolean isPredicate() {
+        return isPredicate;
     }
 
     @Override

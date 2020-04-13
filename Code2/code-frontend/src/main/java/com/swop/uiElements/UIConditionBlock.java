@@ -24,7 +24,7 @@ public class UIConditionBlock extends UIBlock {
     @Override
     public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
         switch (type) {
-            case WallInFrontCondition:
+            case Predicate:
                 this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, true, getWidth(), getHeight());
                 break;
             case NotCondition:
@@ -41,7 +41,7 @@ public class UIConditionBlock extends UIBlock {
         int step = height / 6;
         pol.addPoint(position.x, position.y);
         pol.addPoint(position.x + width, position.y);
-        if (type != BlockTypes.WallInFrontCondition) {
+        if (type != BlockTypes.Predicate) {
             //socket
             pol.addPoint(position.x + width, position.y + step * 2);
             pol.addPoint(position.x + width - step, position.y + step * 3);

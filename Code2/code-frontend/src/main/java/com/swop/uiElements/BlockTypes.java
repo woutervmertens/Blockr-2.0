@@ -9,7 +9,7 @@ public enum BlockTypes {
     IfStatement("If", 110),
     WhileStatement("While", 110),
     NotCondition("Not", 40),
-    WallInFrontCondition("WIF", 40);
+    Predicate("WIF", 40);
 
     private final String text;
     private final int width;
@@ -50,7 +50,7 @@ public enum BlockTypes {
                 return new UIStatementBlock(this.getWidth(), this.getHeight(), new Point(x, y),
                         this.getText(), this, 0);
             case NotCondition:
-            case WallInFrontCondition:
+            case Predicate:
                 return new UIConditionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
                         this.getText(), this);
             default:
