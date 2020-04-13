@@ -12,6 +12,7 @@ public class ExecuteCommand extends GameWorldCommand{
 
     @Override
     public void execute() {
+        //TODO: highlight?
         snapshot = gameWorld.createSnapshot();
         actionBlock.execute();
     }
