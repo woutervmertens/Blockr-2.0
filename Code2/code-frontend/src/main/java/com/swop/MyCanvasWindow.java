@@ -29,7 +29,7 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
-        blockrGame = new BlockrGame(maxBlocks,gameWorldType);
+        blockrGame = BlockrGame.createInstance(maxBlocks,gameWorldType);
         displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
         executeProgramHandler = new ExecuteProgramHandler(blockrGame);
     }

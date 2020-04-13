@@ -13,7 +13,7 @@ public class BlockrGame {
     private final int maxBlocks;
     private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
 
-    public BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
+    private BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
         this.programArea = ProgramArea.getInstance();
         this.gameWorldType = gameWorldType;
