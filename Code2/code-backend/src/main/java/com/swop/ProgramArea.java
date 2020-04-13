@@ -5,12 +5,15 @@ import com.swop.blocks.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
  * It has no notion of position or width or height.
  */
 public class ProgramArea implements PushBlocks {
+    private final static AtomicReference<ProgramArea> instance = new AtomicReference<>();
+
     private final int radius = 15;  // Radius for connections
     /**
      * List recording all the blocks that belong to the current program of this program area WITHOUT nested blocks.
@@ -29,6 +32,11 @@ public class ProgramArea implements PushBlocks {
 
     public List<Block> getProgram() {
         return program;
+    }
+
+    public synchronized static ProgramArea getInstance(){
+        if(instance.get() == null) instance.set(new ProgramArea());
+        return instance.get();
     }
 
     /**

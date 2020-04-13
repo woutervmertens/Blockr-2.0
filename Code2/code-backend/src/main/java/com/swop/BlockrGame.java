@@ -13,7 +13,7 @@ public class BlockrGame {
 
     public BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
-        this.programArea = new ProgramArea();
+        this.programArea = ProgramArea.getInstance();
         this.gameWorldType = gameWorldType;
         this.gameWorld = gameWorldType.createNewInstance();
     }
