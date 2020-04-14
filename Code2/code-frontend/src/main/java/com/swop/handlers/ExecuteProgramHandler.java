@@ -18,6 +18,13 @@ public class ExecuteProgramHandler {
         // TODO getCharPos()
     }
 
+    public void undo(){
+        blockrGame.undoCommand();
+    }
+    public void redo(){
+        blockrGame.redoCommand();
+    }
+
     public void reset() {
         blockrGame.resetProgramExecution();
     }

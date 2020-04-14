@@ -1,9 +1,13 @@
 package com.swop;
 
 import com.swop.blocks.Block;
+import com.swop.command.AddBlockCommand;
+import com.swop.command.DeleteBlockCommand;
+import com.swop.command.ICommand;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BlockrGame {
@@ -12,6 +16,8 @@ public class BlockrGame {
     private final GameWorldType gameWorldType;
     private final int maxBlocks;
     private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
+    private Stack<ICommand> undoStack = new Stack<>();
+    private Stack<ICommand> redoStack = new Stack<>();
 
     private BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
@@ -39,11 +45,11 @@ public class BlockrGame {
 
     public void dropBlockInPA(Block block) {
         if (block == null) throw new IllegalArgumentException();
-        programArea.dropBlock(block);
+        executeCommand(new AddBlockCommand(block));
     }
 
     public void removeBlockFromPA(Block draggedBlock) {
-        programArea.removeBlockFromPA(draggedBlock);
+        executeCommand(new DeleteBlockCommand(draggedBlock));
     }
 
     public void removeProgramBlock(Block draggedBlock) {
@@ -78,6 +84,25 @@ public class BlockrGame {
 
     public GameWorld getGameWorld() {
         return gameWorld;
+    }
+
+    public void redoCommand(){
+        if(!redoStack.isEmpty()){
+            executeCommand(redoStack.pop());
+        }
+    }
+
+    public void undoCommand(){
+        if(!undoStack.isEmpty()){
+            ICommand command = undoStack.pop();
+            command.undo();
+            redoStack.add(command);
+        }
+    }
+
+    public void executeCommand(ICommand command){
+        command.execute();
+        undoStack.add(command);
     }
 
 }

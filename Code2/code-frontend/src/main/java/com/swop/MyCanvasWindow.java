@@ -1,6 +1,5 @@
 package com.swop;
 
-import com.swop.blocks.StatementBlock;
 import com.swop.handlers.DisplaceBlockHandler;
 import com.swop.handlers.ExecuteProgramHandler;
 import com.swop.uiElements.BlockTypes;
@@ -21,6 +20,9 @@ public class MyCanvasWindow extends CanvasWindow {
     BlockrGame blockrGame;
     DisplaceBlockHandler displaceBlockHandler;
     ExecuteProgramHandler executeProgramHandler;
+    //KeyHolds
+    boolean isHoldingCtrl = false;
+    boolean isHoldingShift = false;
 
     /**
      * Initializes a CanvasWindow object.
@@ -112,7 +114,7 @@ public class MyCanvasWindow extends CanvasWindow {
             BlockTypes type = Windows.getTypeOfClick(x, y);
             return type.getNewUIBlock(x, y);
         } else if (Windows.PROGRAM_AREA.isWithin(x, y)) {
-            // TODO: check
+            // TODO: check, check wat?
             return displaceBlockHandler.getCorrespondingUiBlockFor(blockrGame.getBlockInPaAt(x, y));
         }
         return null;
@@ -128,17 +130,31 @@ public class MyCanvasWindow extends CanvasWindow {
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
         super.handleKeyEvent(id, keyCode, keyChar);
+        boolean bRepaint = false;
         if (id == KeyEvent.KEY_PRESSED) {
             switch (keyCode) {
                 case 116: //F5
                     executeNext();
-                    repaint();  // TODO: highlight UI ?
+                    bRepaint = true;
                     break;
                 case 27: //Escape
                     resetProgramExecution();
-                    repaint();
+                    bRepaint = true;
                     break;
+                case 90:
+                    if(isHoldingCtrl){
+                        if(isHoldingShift) blockrGame.redoCommand();
+                        else blockrGame.undoCommand();
+                        bRepaint = true;
+                    }
             }
+            if(keyCode == 17) //ControlLeft/ControlRight
+                isHoldingCtrl = true;
+            else isHoldingCtrl = false;
+            if(keyCode == 16) //ShiftLeft/ShiftRight
+                isHoldingShift = true;
+            else isHoldingShift = false;
+            if(bRepaint)repaint();
         }
     }
 
