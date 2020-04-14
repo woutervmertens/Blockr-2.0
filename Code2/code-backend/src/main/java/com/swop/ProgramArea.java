@@ -48,10 +48,9 @@ public class ProgramArea implements PushBlocks {
         if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
         if (allBlocks.size() == 1) {
             program.add(draggedBlock);
+            reset();
             return;
         }
-
-        // TODO: add eventually correctly to program !!!
 
         // 1) Find close block and type
         Block closeBlock = null;
@@ -127,26 +126,17 @@ public class ProgramArea implements PushBlocks {
             } else {
                 draggedBlock.setPosition(connectionPoint);
             }
-            // TODO:
-//            if (draggedBlock.getParentStatement() != null) {
-//                ((UIStatementBlock) draggedBlock.getParentStatement()).increaseGapSize(draggedBlock.getHeight() + 5);
-//            }
-        } else {
-            // TODO: should this else block still exist ??
-
-//            //TODO: create new program in backend
-//            draggedBlock.setPosition(dropPos);
-//            //Backend add block to current blockgroup
-//            executeProgramHandler.addBlockToProgramArea(draggedBlock, null);
         }
-//        uiProgramArea.addBlock(draggedBlock);
-
-        // TODO: Reset the execution of the program bcs a new block was added
-
+        reset();
     }
 
     public Block getCurrentBlock() {
         return currentBlock;
+    }
+    public void setNextCurrentBlock(){
+        int i = program.indexOf(currentBlock);
+        Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
+        setCurrentBlock(b);
     }
 
     private void setCurrentBlock(Block first) {

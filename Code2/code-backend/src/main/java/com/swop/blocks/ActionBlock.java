@@ -1,15 +1,14 @@
 package com.swop.blocks;
 
 import com.swop.Action;
-import com.swop.GameWorld;
 
 import java.awt.*;
 
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
     private Action action;
 
-    public ActionBlock(Point position, GameWorld gameWorld, int width, int height, Action action) {
-        super(position, gameWorld, width, height);
+    public ActionBlock(Point position, int width, int height, Action action) {
+        super(position, width, height);
         this.action = action;
         executeType = ExecuteType.WorldChanging;
     }

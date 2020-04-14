@@ -50,7 +50,7 @@ public class DisplaceBlockHandler {
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() == null)
-            draggedBlock.makeNewCorrespondingBlockIn(blockrGame.getGameWorld());
+            draggedBlock.makeNewCorrespondingBlockIn();
 
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (!getBlockUIBlockMap().containsKey(backendBlock)) {

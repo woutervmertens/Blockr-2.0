@@ -58,11 +58,10 @@ public class BlockrGame {
     }
 
     public void executeNext() {
-        executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
-    }
-
-    public Block getCurrentBlock() {
-        return programArea.getCurrentBlock();
+        if(programArea.getCurrentBlock() != null){
+            executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
+            programArea.setNextCurrentBlock();
+        }
     }
 
     public void resetProgramExecution() {

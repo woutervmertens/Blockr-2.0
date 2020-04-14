@@ -15,7 +15,6 @@ public class ExecuteProgramHandler {
 
     public void executeNext() {
         blockrGame.executeNext();
-        // TODO getCharPos()
     }
 
     public void undo(){

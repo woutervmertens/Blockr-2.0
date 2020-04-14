@@ -35,7 +35,7 @@ public abstract class UIBlock {
         return this.correspondingBlock;
     }
 
-    public abstract void makeNewCorrespondingBlockIn(GameWorld gameWorld);
+    public abstract void makeNewCorrespondingBlockIn();
 
     public void setCorrespondingBlock(Block correspondingBlock) {
         this.correspondingBlock = correspondingBlock;

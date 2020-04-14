@@ -143,8 +143,8 @@ public class MyCanvasWindow extends CanvasWindow {
                     break;
                 case 90:
                     if(isHoldingCtrl){
-                        if(isHoldingShift) blockrGame.redoCommand();
-                        else blockrGame.undoCommand();
+                        if(isHoldingShift) redo();
+                        else undo();
                         bRepaint = true;
                     }
             }
@@ -160,6 +160,14 @@ public class MyCanvasWindow extends CanvasWindow {
 
     private void executeNext() {
         executeProgramHandler.executeNext();
+    }
+
+    private void undo(){
+        executeProgramHandler.undo();
+    }
+
+    private void redo(){
+        executeProgramHandler.redo();
     }
 
     private void resetProgramExecution() {

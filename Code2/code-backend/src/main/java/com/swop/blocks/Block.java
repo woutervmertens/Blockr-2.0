@@ -1,24 +1,31 @@
 package com.swop.blocks;
 
+import com.swop.BlockrGame;
 import com.swop.GameWorld;
 
 import java.awt.*;
 
-public abstract class Block {
+public abstract class Block implements Cloneable {
     private final int width;
     private final int height;
     protected final int step;
     protected ExecuteType executeType;
     private StatementBlock parentStatement;
 
-    protected Block(Point position, GameWorld gameWorld, int width, int height) {
-        if (gameWorld == null) throw new IllegalArgumentException();
-
+    protected Block(Point position, int width, int height) {
         this.setPosition(position);
-        this.gameWorld = gameWorld;
         this.width = width;
         this.height = height;
         step = height / 6;
+    }
+
+    public Block clone(){
+        try {
+            return (Block)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public int getStep() {
@@ -70,10 +77,8 @@ public abstract class Block {
     private Point position;
 
     public GameWorld getGameWorld() {
-        return gameWorld;
+        return BlockrGame.getInstance().getGameWorld();
     }
-
-    private final GameWorld gameWorld;
 
     public void terminate() {
         this.position = null;

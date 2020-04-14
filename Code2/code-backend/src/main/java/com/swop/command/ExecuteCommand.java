@@ -9,14 +9,16 @@ public class ExecuteCommand extends GameWorldCommand{
     private Snapshot snapshot;
     private Block block;
     public ExecuteCommand(Block block){
-        this.block = block;
+        this.block = block.clone();
     }
 
     @Override
     public void execute() {
         //TODO: highlight?
         snapshot = gameWorld.createSnapshot();
-        if(block.getExecuteType() != ExecuteType.NonExecutable) ((Executable) block).execute();
+        if(block.getExecuteType() != ExecuteType.NonExecutable) {
+            ((Executable) block).execute();
+        }
     }
 
     @Override

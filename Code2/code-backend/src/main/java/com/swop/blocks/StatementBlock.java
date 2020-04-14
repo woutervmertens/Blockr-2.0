@@ -1,6 +1,5 @@
 package com.swop.blocks;
 
-import com.swop.GameWorld;
 import com.swop.Predicate;
 import com.swop.PushBlocks;
 
@@ -19,8 +18,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private int conditionWidth;
 
 
-    public StatementBlock(Point position, GameWorld gameWorld, int width, int height) {
-        super(position, gameWorld, width, height);
+    public StatementBlock(Point position, int width, int height) {
+        super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
     }

@@ -22,13 +22,13 @@ public class UIConditionBlock extends UIBlock {
     }
 
     @Override
-    public void makeNewCorrespondingBlockIn(GameWorld gameWorld) {
+    public void makeNewCorrespondingBlockIn() {
         switch (type) {
             case Predicate:
-                this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, true, getWidth(), getHeight());
+                this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight());
                 break;
             case NotCondition:
-                 this.correspondingBlock = new ConditionBlock(getPosition(), gameWorld, false, getWidth(), getHeight());
+                 this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");
