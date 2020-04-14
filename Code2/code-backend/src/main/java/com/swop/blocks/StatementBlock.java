@@ -22,9 +22,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public StatementBlock(Point position, GameWorld gameWorld, int width, int height) {
         super(position, gameWorld, width, height);
         conditionWidth = width / 2;
+        executeType = ExecuteType.NonWorldChanging;
     }
 
-    public boolean isConditionValid(GameWorld world) throws IllegalStateException {
+    public boolean isConditionValid() throws IllegalStateException {
         if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
 
         // WIF should only be at the last (and has to)
@@ -42,7 +43,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     @Override
     public void execute() {
-        if (isConditionValid(getGameWorld())) executeNextBodyBlock();
+        if (isConditionValid()) executeNextBodyBlock();
     }
 
     protected void executeNextBodyBlock() {

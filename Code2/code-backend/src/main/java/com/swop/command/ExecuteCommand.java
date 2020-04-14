@@ -1,20 +1,22 @@
 package com.swop.command;
 
 import com.swop.Snapshot;
-import com.swop.blocks.ActionBlock;
+import com.swop.blocks.Block;
+import com.swop.blocks.Executable;
+import com.swop.blocks.ExecuteType;
 
 public class ExecuteCommand extends GameWorldCommand{
     private Snapshot snapshot;
-    private ActionBlock actionBlock;
-    public ExecuteCommand(ActionBlock actionBlock){
-        this.actionBlock = actionBlock;
+    private Block block;
+    public ExecuteCommand(Block block){
+        this.block = block;
     }
 
     @Override
     public void execute() {
         //TODO: highlight?
         snapshot = gameWorld.createSnapshot();
-        actionBlock.execute();
+        if(block.getExecuteType() != ExecuteType.NonExecutable) ((Executable) block).execute();
     }
 
     @Override

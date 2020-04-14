@@ -8,6 +8,7 @@ public abstract class Block {
     private final int width;
     private final int height;
     protected final int step;
+    protected ExecuteType executeType;
     private StatementBlock parentStatement;
 
     protected Block(Point position, GameWorld gameWorld, int width, int height) {
@@ -30,6 +31,10 @@ public abstract class Block {
 
     public int getHeight() {
         return height;
+    }
+
+    public ExecuteType getExecuteType() {
+        return executeType;
     }
 
     public StatementBlock getParentStatement() {
