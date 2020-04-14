@@ -11,6 +11,7 @@ public class ActionBlock extends Block implements Executable, VerticallyConnecta
     public ActionBlock(Point position, GameWorld gameWorld, int width, int height, Action action) {
         super(position, gameWorld, width, height);
         this.action = action;
+        executeType = ExecuteType.WorldChanging;
     }
 
     @Override

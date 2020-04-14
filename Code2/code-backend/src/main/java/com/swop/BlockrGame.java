@@ -3,6 +3,7 @@ package com.swop;
 import com.swop.blocks.Block;
 import com.swop.command.AddBlockCommand;
 import com.swop.command.DeleteBlockCommand;
+import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
 
 import java.awt.*;
@@ -57,8 +58,7 @@ public class BlockrGame {
     }
 
     public void executeNext() {
-        programArea.executeNext();
-        // TODO
+        executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
     }
 
     public Block getCurrentBlock() {

@@ -281,10 +281,6 @@ public class ProgramArea implements PushBlocks {
         draggedBlock.terminate();
     }
 
-    public void executeNext() {
-        //TODO: add ExecuteCommand
-    }
-
     public void reset() {
         try {
             setCurrentBlock(((LinkedList<Block>) program).getFirst());

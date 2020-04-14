@@ -11,6 +11,7 @@ public class ConditionBlock extends Block implements HorizontallyConnectable{
     public ConditionBlock(Point position, GameWorld gameWorld, boolean isPredicate, int width, int height) {
         super(position, gameWorld, width, height);
         this.isPredicate = isPredicate;
+        executeType = ExecuteType.NonExecutable;
     }
 
     private final boolean isPredicate;
