@@ -21,7 +21,7 @@ public class ProgramArea implements PushBlocks {
      */
     private List<Block> program = new LinkedList<>();
     /**
-     * Array recording all blocks currently present in program area
+     * List recording all blocks currently present in program area
      */
     private List<Block> allBlocks = new ArrayList<>();
     private Block currentBlock;
@@ -130,19 +130,35 @@ public class ProgramArea implements PushBlocks {
         reset();
     }
 
+    /**
+     * @return Returns current block from the program area
+     */
     public Block getCurrentBlock() {
         return currentBlock;
     }
+
+    /**
+     * Sets the next block as the current block
+     */
     public void setNextCurrentBlock(){
         int i = program.indexOf(currentBlock);
         Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
         setCurrentBlock(b);
     }
 
+    /**
+     * Sets the givven block as the current block
+     * @param first given block
+     */
     private void setCurrentBlock(Block first) {
         this.currentBlock = first;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
+     */
     public Block getBlockAt(int x, int y) {
         Optional<Block> found = getAllBlocks().stream().filter(block1 -> block1.isPositionOn(x, y)).findAny();
         System.out.println(found);
@@ -150,17 +166,20 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Get the distance between two given points.
      *
      * @param b Point1
      * @param p Point2
+     * @return Returns the distance between the two given points.
      */
     private static int getDistance(Point b, Point p) {
         return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
     }
 
     /**
-     * @pre Both blocks are close enough to each other for connection !
+     * @pre Both blocks are close enough to each other for connection
+     * @param draggedBlock block that is dragged
+     * @param closeBlock closest block to the dragged block
+     * @return Returns the connection point if precondition is valid
      */
     public Point getConnectionPoint(Block draggedBlock, Block closeBlock) {
         if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
@@ -168,6 +187,11 @@ public class ProgramArea implements PushBlocks {
             return new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10);
     }
 
+    /**
+     * @param block given block
+     * @param radius given radius
+     * @return Returns the block with plug that is within the given radius of the given block
+     */
     private Block getBlockWithPlugForBlockWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
             if (b == block || (block instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
@@ -183,6 +207,11 @@ public class ProgramArea implements PushBlocks {
         return null;
     }
 
+    /**
+     * @param uiBlock given block
+     * @param radius given radius
+     * @return Returns the block with socket within the given radius of the given block
+     */
     private Block getBlockWithSocketForBlockWithinRadius(Block uiBlock, int radius) {
         for (Block b : getAllBlocks()) {
             if (b == uiBlock || (uiBlock instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
@@ -199,6 +228,12 @@ public class ProgramArea implements PushBlocks {
     }
 
     // TODO: connect to last body block fix
+
+    /**
+     * @param block given block
+     * @param radius given radius
+     * @return Returns the statement block body plug within the given radius of the given block
+     */
     private Block getStatementBlockBodyPlugWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
             if (b == block || !(b instanceof StatementBlock) /*|| !((StatementBlock) b).getBodyBlocks().isEmpty()*/)
@@ -212,6 +247,12 @@ public class ProgramArea implements PushBlocks {
     }
 
     // TODO: connect to last condition of the conditions of statement (add getConditionPlugWithinRadius() )
+
+    /**
+     * @param block given block
+     * @param radius given radius
+     * @return Returns the statement block condition plug within the given radius of the given block
+     */
     private Block getStatementBlockConditionPlugWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
             if (b == block || !(b instanceof StatementBlock) || !((StatementBlock) b).getConditions().isEmpty())
@@ -227,6 +268,8 @@ public class ProgramArea implements PushBlocks {
     /**
      * Add given block to the program of this program area and
      * insert it in the program list after the given existing block (if not null).
+     * @param block given block
+     * @param existingBlock given existing block, can be null
      */
     public void addProgramBlockAfter(Block block, Block existingBlock) {
         program.add(program.indexOf(existingBlock) + 1, block);
@@ -238,11 +281,12 @@ public class ProgramArea implements PushBlocks {
 
     }
 
+
     /**
+     * @pre getProgram().contains(block)
+     * @param block given block
      * Remove the given block from the program of this program area.
      * This does not mean that the given block is removed or outside the PA.
-     *
-     * @pre getProgram().contains(block)
      */
     public void removeProgramBlock(Block block) {
         assert getProgram().contains(block);
@@ -265,12 +309,16 @@ public class ProgramArea implements PushBlocks {
 
     /**
      * Remove the draggedBlock from allBlocks of the program area
+     * @param draggedBlock block that's dragged
      */
     public void removeBlockFromPA(Block draggedBlock) {
         allBlocks.remove(draggedBlock);
         draggedBlock.terminate();
     }
 
+    /**
+     * Resets the program area, first block will be current block
+     */
     public void reset() {
         try {
             setCurrentBlock(((LinkedList<Block>) program).getFirst());

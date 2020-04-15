@@ -168,7 +168,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         return gapSize;
     }
 
-    private void setGapSize(int gapSize) {
+    public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
     }
 
@@ -177,9 +177,9 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         this.setGapSize(getGapSize() + increase);
     }
 
-    public void decreaseGapSize(int increase) {
-        assert increase > 0;
-        this.setGapSize(getGapSize() - increase);
+    public void decreaseGapSize(int decrease) {
+        assert decrease > 0;
+        this.setGapSize(getGapSize() - decrease);
     }
 
     @Override
