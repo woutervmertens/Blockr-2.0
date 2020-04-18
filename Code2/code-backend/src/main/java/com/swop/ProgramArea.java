@@ -84,7 +84,8 @@ public class ProgramArea implements PushBlocks {
                         program.add(program.indexOf(closeBlock) + 1, draggedBlock);
                         PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
                                 draggedBlock.getHeight() + draggedBlock.getStep());
-                    } if (closeBlock.getParentStatement() != null) {
+                    }
+                    if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
                                 draggedBlock.getHeight() + draggedBlock.getStep());
@@ -96,7 +97,8 @@ public class ProgramArea implements PushBlocks {
                         program.add(program.indexOf(closeBlock), draggedBlock);
                         PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
                                 draggedBlock.getHeight() + draggedBlock.getStep());
-                    } if (closeBlock.getParentStatement() != null) {
+                    }
+                    if (closeBlock.getParentStatement() != null) {
                         closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
                         PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
                                 draggedBlock.getHeight() + draggedBlock.getStep());

@@ -3,6 +3,7 @@ package com.swop.handlers;
 import com.swop.BlockrGame;
 import com.swop.PushBlocks;
 import com.swop.blocks.Block;
+import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIConditionBlock;
@@ -82,7 +83,7 @@ public class DisplaceBlockHandler {
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() != null) {
             if (draggedBlock.getCorrespondingBlock() instanceof StatementBlock) {
-                for (Block bodyBlock: ((StatementBlock)draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
+                for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
                     blockUIBlockMap.remove(bodyBlock);
                     blockrGame.removeBlockFromPA(bodyBlock);
                 }
@@ -131,11 +132,16 @@ public class DisplaceBlockHandler {
         adjustAllStatementBlockGaps();
     }
 
-    public void displaceAllBodyBlocksOfWith(UIStatementBlock draggedBlock, int dx, int dy) {
-        for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
-            bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
-            if (bodyBlock instanceof StatementBlock) {
-                for (Block bodyBlock2: ((StatementBlock) bodyBlock).getBodyBlocks()) {
+    public void displaceAllBodyBlocksAndConditionsOfBlockWithDistance(UIStatementBlock draggedBlock, int dx, int dy) {
+        // Body blocks
+        List<Block> bodyAndConditionBlocks = ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks();
+        // Adding conditions
+        bodyAndConditionBlocks.addAll(((StatementBlock) draggedBlock.getCorrespondingBlock()).getConditions());
+
+        for (Block block :bodyAndConditionBlocks) {
+            block.setPosition(new Point(block.getPosition().x + dx, block.getPosition().y + dy));
+            if (block instanceof StatementBlock) {
+                for (Block bodyBlock2 : ((StatementBlock) block).getBodyBlocks()) {
                     bodyBlock2.setPosition(new Point(bodyBlock2.getPosition().x + dx, bodyBlock2.getPosition().y + dy));
                 }
             }
