@@ -67,13 +67,15 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public void addBodyBlockAfter(Block block, Block existingBlock) {
         bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
 
+        int distance = block.getHeight() + step;
+        if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
         PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock) + 2,
-                block.getHeight() + step);
+                distance);
 
         block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
         while (currentParent != null) {
-            currentParent.increaseGapSize(block.getHeight() + step);
+            currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
     }
@@ -87,13 +89,15 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
 
+        int distance = block.getHeight() + step;
+        if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
         PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock),
-                block.getHeight() + step);
+                distance);
 
         block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
         while (currentParent != null) {
-            currentParent.increaseGapSize(block.getHeight() + step);
+            currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
     }
@@ -106,20 +110,20 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         int index = bodyBlocks.indexOf(block);
         bodyBlocks.remove(block);
-        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, -block.getHeight() - step);
+        int distance = -block.getHeight() - step;
+        if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
+        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, distance);
 
         block.setParentStatement(null);
 
         StatementBlock currentParent = this;
-        int heightSize;
-        if (block instanceof StatementBlock) heightSize = block.getHeight() + ((StatementBlock) block).getGapSize();
-        else heightSize = block.getHeight() + step;
         while (currentParent != null) {
-            currentParent.decreaseGapSize(heightSize);
+            currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
     }
 
+    // TODO: remove
     public void removeAllBodyBlocks() {
         assert !getBodyBlocks().isEmpty();
 
@@ -134,7 +138,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         StatementBlock currentParent = this;
         while (currentParent != null) {
-            currentParent.decreaseGapSize(n * (getBodyBlocks().get(0).getHeight() + step));
+            currentParent.increaseGapSize(-n * (getBodyBlocks().get(0).getHeight() + step));
             currentParent = currentParent.getParentStatement();
         }
         bodyBlocks.clear();
@@ -177,11 +181,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         this.setGapSize(getGapSize() + increase);
     }
 
-    public void decreaseGapSize(int decrease) {
-        assert decrease > 0;
-        this.setGapSize(getGapSize() - decrease);
-    }
-
+    /**
+     * Is the given position on this statement block.
+     * This method is overridden bcs statementblocks should only be clicked on their upper part (conditionWidth).
+     */
     @Override
     public boolean isPositionOn(int x, int y) {
         return (x > getPosition().x && x < getPosition().x + conditionWidth) && (y > getPosition().y && y < getPosition().y + getHeight());

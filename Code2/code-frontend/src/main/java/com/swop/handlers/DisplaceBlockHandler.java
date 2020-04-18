@@ -112,16 +112,14 @@ public class DisplaceBlockHandler {
         if (!(clickedBlock instanceof UIConditionBlock)) {
             StatementBlock parentStatement = clickedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
-                PushBlocks.pushBodyBlocksOfSuperiorParents(clickedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
-                        -clickedBlock.getHeight() - clickedBlock.getStep());
                 parentStatement.removeBodyBlock(clickedBlock.getCorrespondingBlock());
+                PushBlocks.pushBodyBlocksOfSuperiorParents(clickedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
+                        -clickedBlock.getHeight() - clickedBlock.getStep() - ((StatementBlock)clickedBlock.getCorrespondingBlock()).getGapSize());
             }
-
-            if (clickedBlock instanceof UIStatementBlock && !((StatementBlock) (clickedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
-                // TODO: don't remove all body blocks but just handle program and gaps changes
-                //((StatementBlock) clickedBlock.getCorrespondingBlock()).removeAllBodyBlocks();
-
-            }
+            // TODO: still needed ?
+//            if (clickedBlock instanceof UIStatementBlock && !((StatementBlock) (clickedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
+//
+//            }
         } else {
             // TODO:
         }
