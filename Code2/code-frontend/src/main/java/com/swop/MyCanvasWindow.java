@@ -74,13 +74,14 @@ public class MyCanvasWindow extends CanvasWindow {
                 break;
             case MouseEvent.MOUSE_DRAGGED:
                 if (isBlockDragged()) {
-                    int dx = pos.x - draggedBlock.getPosition().x;
-                    int dy = pos.y - draggedBlock.getPosition().y;
+                    pos.x = x;
+                    pos.y = y;
+                    int dx = x - draggedBlock.getPosition().x;
+                    int dy = y - draggedBlock.getPosition().y;
                     draggedBlock.setPosition((Point) pos.clone());
                     if (draggedBlock instanceof UIStatementBlock && draggedBlock.getCorrespondingBlock() != null) {
                         displaceBlockHandler.displaceAllBodyBlocksAndConditionsOfBlockWithDistance((UIStatementBlock)draggedBlock, dx, dy);
                     }
-
                     repaint();
                 }
                 break;
