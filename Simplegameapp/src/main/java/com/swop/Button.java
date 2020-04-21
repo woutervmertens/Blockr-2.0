@@ -51,4 +51,7 @@ public enum Button {
         return action;
     }
 
+    //testing
+    protected Point getSize(){return size;}
+    protected Polygon getPolygon() {return polygon;}
 }

@@ -49,7 +49,7 @@ class RobotGameWorldTest {
         assertTrue(compareGrid(gameWorld.getGrid(),grid));
     }
 
-    boolean compareGrid(Square[][] grid1, Square[][] grid2){
+    private boolean compareGrid(Square[][] grid1, Square[][] grid2){
         if(grid1.length != grid2.length || grid1[0].length != grid2[0].length) return false;
         for (int i = 0; i < grid1.length; i++) {
             for (int j = 0; j < grid1[0].length; j++) {
@@ -59,7 +59,7 @@ class RobotGameWorldTest {
         return true;
     }
 
-    boolean compareIntArr(int[] i1, int[] i2){
+    private boolean compareIntArr(int[] i1, int[] i2){
         if(i1.length != i2.length) return false;
         for (int i = 0; i < i1.length; i++) {
             if(i1[i] != i2[i]) return false;
