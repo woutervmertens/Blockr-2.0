@@ -35,7 +35,7 @@ public abstract class UIBlock {
         return this.correspondingBlock;
     }
 
-    public abstract void makeNewCorrespondingBlockIn();
+    public abstract void makeNewCorrespondingBlock();
 
     public void setCorrespondingBlock(Block correspondingBlock) {
         this.correspondingBlock = correspondingBlock;
@@ -47,7 +47,9 @@ public abstract class UIBlock {
 
     public void setPosition(Point position) {
         this.position = position;
-        if (getCorrespondingBlock() != null) getCorrespondingBlock().setPosition(position);
+        if (getCorrespondingBlock() != null) {
+            getCorrespondingBlock().setPosition(position);
+        }
     }
 
     /**

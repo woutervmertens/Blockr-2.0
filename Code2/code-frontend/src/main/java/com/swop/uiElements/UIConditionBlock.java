@@ -22,7 +22,7 @@ public class UIConditionBlock extends UIBlock {
     }
 
     @Override
-    public void makeNewCorrespondingBlockIn() {
+    public void makeNewCorrespondingBlock() {
         switch (type) {
             case Predicate:
                 this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight());

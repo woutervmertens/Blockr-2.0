@@ -34,8 +34,8 @@ public class ProgramArea implements PushBlocks {
         return program;
     }
 
-    public synchronized static ProgramArea getInstance(){
-        if(instance.get() == null) instance.set(new ProgramArea());
+    public synchronized static ProgramArea getInstance() {
+        if (instance.get() == null) instance.set(new ProgramArea());
         return instance.get();
     }
 
@@ -43,93 +43,55 @@ public class ProgramArea implements PushBlocks {
      * @pre the position of the block is inside the ui program area.
      */
     public void dropBlock(Block draggedBlock) {
-        Point pos = draggedBlock.getPosition();
-        draggedBlock.setPosition(pos);
+        resetProgramExecution();
         if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
         if (allBlocks.size() == 1) {
             program.add(draggedBlock);
-            reset();
             return;
         }
 
-        // 1) Find close block and type
-        Block closeBlock = null;
-        int type;
+        // 1) Find close block and connection point
+        Block closeBlock;
         if (!(draggedBlock instanceof ConditionBlock)) {
             // 1) plug
             closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
-            type = 1;
-            if (closeBlock == null) {
+            if (closeBlock != null) {
+                if (program.contains(closeBlock)) {
+                    addProgramBlockAfter(draggedBlock, closeBlock);
+                } else if (closeBlock.getParentStatement() != null) {
+                    closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
+                }
+                draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+            } else {
                 // 2) socket
                 closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
-                type = 2;
-                if (closeBlock == null) {
+                if (closeBlock != null) {
+                    if (program.contains(closeBlock)) {
+                        addProgramBlockBefore(draggedBlock, closeBlock);
+                    } else if (closeBlock.getParentStatement() != null) {
+                        closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
+                    }
+                    draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+                } else {
                     // 3) statement body
                     closeBlock = getStatementBlockBodyPlugWithinRadius(draggedBlock, radius);
-                    type = 3;
+                    if (closeBlock != null) {
+                        draggedBlock.setPosition(((StatementBlock) closeBlock).getBodyPlugPosition());
+                        ((StatementBlock) closeBlock).insertBodyBlockAtIndex(draggedBlock, 0);
+                    }
                 }
             }
         } else {
             // 4) statement condition
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
-            type = 4;
+            if (closeBlock != null) {
+                draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
+                ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
+            }
+            // TODO: connect condition to other conditions
         }
 
-        // 2) Find connection point and add to program/body
-        Point connectionPoint = null;
-        if (closeBlock != null) {
-            switch (type) {
-                case 1: //Plug
-                    if (program.contains(closeBlock)) {
-                        program.add(program.indexOf(closeBlock) + 1, draggedBlock);
-                        PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
-                                draggedBlock.getHeight() + draggedBlock.getStep());
-                    }
-                    if (closeBlock.getParentStatement() != null) {
-                        closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
-                        PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
-                                draggedBlock.getHeight() + draggedBlock.getStep());
-                    }
-                    connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
-                    break;
-                case 2: //Socket
-                    if (program.contains(closeBlock)) {
-                        program.add(program.indexOf(closeBlock), draggedBlock);
-                        PushBlocks.pushBlocksInListFromIndexWithDistance(program, program.indexOf(draggedBlock) + 1,
-                                draggedBlock.getHeight() + draggedBlock.getStep());
-                    }
-                    if (closeBlock.getParentStatement() != null) {
-                        closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
-                        PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
-                                draggedBlock.getHeight() + draggedBlock.getStep());
-                    }
-                    connectionPoint = getConnectionPoint(draggedBlock, closeBlock);
-                    break;
-                case 3: //Statement body
-                    connectionPoint = ((StatementBlock) closeBlock).getBodyPlugPosition();
-                    ((StatementBlock) closeBlock).addBodyBlockAfter(draggedBlock, null);
-                    PushBlocks.pushBodyBlocksOfSuperiorParents(draggedBlock.getParentStatement().getBodyBlocks(),
-                            draggedBlock.getHeight() + draggedBlock.getStep());
-                    break;
-                case 4: //Statement condition
-                    connectionPoint = ((StatementBlock) closeBlock).getConditionPlugPosition();
-                    ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
-                    break;
-            }
-            System.out.println("Close block: " + closeBlock);
-            if (draggedBlock instanceof StatementBlock) {
-                // Connect this statementblock and adjust all its body blocks positions
-                int dx = connectionPoint.x - draggedBlock.getPosition().x;
-                int dy = connectionPoint.y - draggedBlock.getPosition().y;
-                draggedBlock.setPosition(connectionPoint);
-                for (Block bodyBlock : ((StatementBlock) draggedBlock).getBodyBlocks()) {
-                    bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
-                }
-            } else {
-                draggedBlock.setPosition(connectionPoint);
-            }
-        }
-        reset();
+        // TODO: 2) Add to program/body
     }
 
     /**
@@ -142,7 +104,7 @@ public class ProgramArea implements PushBlocks {
     /**
      * Sets the next block as the current block
      */
-    public void setNextCurrentBlock(){
+    public void setNextCurrentBlock() {
         int i = program.indexOf(currentBlock);
         Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
         setCurrentBlock(b);
@@ -150,6 +112,7 @@ public class ProgramArea implements PushBlocks {
 
     /**
      * Sets the givven block as the current block
+     *
      * @param first given block
      */
     private void setCurrentBlock(Block first) {
@@ -168,7 +131,6 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     *
      * @param b Point1
      * @param p Point2
      * @return Returns the distance between the two given points.
@@ -178,10 +140,10 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @pre Both blocks are close enough to each other for connection
      * @param draggedBlock block that is dragged
-     * @param closeBlock closest block to the dragged block
+     * @param closeBlock   closest block to the dragged block
      * @return Returns the connection point if precondition is valid
+     * @pre Both blocks are close enough to each other for connection
      */
     public Point getConnectionPoint(Block draggedBlock, Block closeBlock) {
         if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
@@ -190,7 +152,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @param block given block
+     * @param block  given block
      * @param radius given radius
      * @return Returns the block with plug that is within the given radius of the given block
      */
@@ -211,7 +173,7 @@ public class ProgramArea implements PushBlocks {
 
     /**
      * @param uiBlock given block
-     * @param radius given radius
+     * @param radius  given radius
      * @return Returns the block with socket within the given radius of the given block
      */
     private Block getBlockWithSocketForBlockWithinRadius(Block uiBlock, int radius) {
@@ -232,7 +194,7 @@ public class ProgramArea implements PushBlocks {
     // TODO: connect to last body block fix
 
     /**
-     * @param block given block
+     * @param block  given block
      * @param radius given radius
      * @return Returns the statement block body plug within the given radius of the given block
      */
@@ -251,7 +213,7 @@ public class ProgramArea implements PushBlocks {
     // TODO: connect to last condition of the conditions of statement (add getConditionPlugWithinRadius() )
 
     /**
-     * @param block given block
+     * @param block  given block
      * @param radius given radius
      * @return Returns the statement block condition plug within the given radius of the given block
      */
@@ -270,28 +232,48 @@ public class ProgramArea implements PushBlocks {
     /**
      * Add given block to the program of this program area and
      * insert it in the program list after the given existing block (if not null).
-     * @param block given block
-     * @param existingBlock given existing block, can be null
+     *
+     * @param block         given block
+     * @param existingBlock given existing block in program
      */
-    public void addProgramBlockAfter(Block block, Block existingBlock) {
-        program.add(program.indexOf(existingBlock) + 1, block);
-        for (int i = program.indexOf(existingBlock) + 1; i < program.size(); i++) {
-            Block currentBlock = program.get(i);
-            currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + block.getHeight() + block.getStep()));
-        }
-        // TODO: finish
-
+    private void addProgramBlockAfter(Block block, Block existingBlock) {
+        assert program.contains(existingBlock);
+        insertProgramBlockAtIndex(block, program.indexOf(existingBlock) + 1);
     }
 
+    /**
+     * Add given block to the program of this program area and
+     * insert it in the program list before the given existing block (if not null).
+     *
+     * @param block         given block
+     * @param existingBlock given existing block in program
+     */
+    private void addProgramBlockBefore(Block block, Block existingBlock) {
+        assert program.contains(existingBlock);
+        insertProgramBlockAtIndex(block, program.indexOf(existingBlock));
+    }
+
+    private void insertProgramBlockAtIndex(Block block, int index) {
+        program.add(index, block);
+        int distance = block.getHeight() + block.getStep();
+        if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
+        PushBlocks.pushBlocksInListFromIndexWithDistance(program, index + 1, distance);
+    }
 
     /**
-     * @pre getProgram().contains(block)
      * @param block given block
-     * Remove the given block from the program of this program area.
-     * This does not mean that the given block is removed or outside the PA.
+     *              Remove the given block from the program of this program area.
+     *              This does not mean that the given block is removed or outside the PA.
+     * @pre getProgram().contains(block)
      */
     public void removeProgramBlock(Block block) {
         assert getProgram().contains(block);
+        int index = program.indexOf(block);
+        program.remove(block);
+
+        int distance = -block.getHeight() - block.getStep();
+        if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
+        PushBlocks.pushBlocksInListFromIndexWithDistance(program, index, distance);
 
         // TODO: Correct method
 //        PushBlocks.pushBlocksInListFromIndexWithDistance(getProgram(), getProgram().indexOf(block) + 1,
@@ -299,6 +281,8 @@ public class ProgramArea implements PushBlocks {
 //        PushBlocks.pushBodyBlocksOfSuperiorParents(getProgram(), -block.getHeight() - block.getStep());
 
         getProgram().remove(block);
+
+        // TODO: remove from allBlocks as well !
 
 //        if (index > 0) {
 //            for (int i = index; i < getProgram().size(); i++) {
@@ -311,17 +295,19 @@ public class ProgramArea implements PushBlocks {
 
     /**
      * Remove the draggedBlock from allBlocks of the program area
+     *
      * @param draggedBlock block that's dragged
      */
     public void removeBlockFromPA(Block draggedBlock) {
         allBlocks.remove(draggedBlock);
+        // TODO: remove correctly (for statement block gaps etc.)
         draggedBlock.terminate();
     }
 
     /**
      * Resets the program area, first block will be current block
      */
-    public void reset() {
+    public void resetProgramExecution() {
         try {
             setCurrentBlock(((LinkedList<Block>) program).getFirst());
         } catch (NoSuchElementException ignore) {

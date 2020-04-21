@@ -115,7 +115,7 @@ public class BlockrGame {
      * Resets the game world and the program area
      */
     public void resetProgramExecution() {
-        programArea.reset();
+        programArea.resetProgramExecution();
         gameWorld = gameWorldType.createNewInstance();
     }
 

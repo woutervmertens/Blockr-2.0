@@ -24,6 +24,23 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         executeType = ExecuteType.NonWorldChanging;
     }
 
+    @Override
+    public void setPosition(Point position) {
+        try {
+            int dx = position.x - getPosition().x;
+            int dy = position.y - getPosition().y;
+            super.setPosition(position);
+            for (Block bodyBlock : getBodyBlocks()) {
+                bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
+            }
+            for (Block conditionBlock : getConditions()) {
+                conditionBlock.setPosition(new Point(conditionBlock.getPosition().x + dx, conditionBlock.getPosition().y + dy));
+            }
+        } catch (NullPointerException e) {
+            super.setPosition(position);
+        }
+    }
+
     public boolean isConditionValid() throws IllegalStateException {
         if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
 
@@ -65,19 +82,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
      * If existing block is null add the given block at the start of the body
      */
     public void addBodyBlockAfter(Block block, Block existingBlock) {
-        bodyBlocks.add(bodyBlocks.indexOf(existingBlock) + 1, block);
+        if (existingBlock == null) throw new IllegalArgumentException();
+        if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
+        insertBodyBlockAtIndex(block, bodyBlocks.indexOf(existingBlock) + 1);
 
-        int distance = block.getHeight() + step;
-        if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock) + 2,
-                distance);
-
-        block.setParentStatement(this);
-        StatementBlock currentParent = block.getParentStatement();
-        while (currentParent != null) {
-            currentParent.increaseGapSize(distance);
-            currentParent = currentParent.getParentStatement();
-        }
     }
 
     /**
@@ -86,20 +94,28 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public void addBodyBlockBefore(Block block, Block existingBlock) {
         if (existingBlock == null) throw new IllegalArgumentException();
         if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
+        insertBodyBlockAtIndex(block, bodyBlocks.indexOf(existingBlock));
+    }
 
-        bodyBlocks.add(bodyBlocks.indexOf(existingBlock), block);
+    public void insertBodyBlockAtIndex(Block block, int index) {
+        // 1) Add to the body blocks of this statement
+        bodyBlocks.add(index, block);
 
+        // 2) Push all next body blocks down
         int distance = block.getHeight() + step;
         if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, bodyBlocks.indexOf(existingBlock),
-                distance);
+        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index+1, distance);
 
+        // 3) Increase the gap of this statement and all eventual superior parent statements
         block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
         while (currentParent != null) {
             currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
+
+        // 4) Push body blocks of superior parent statements
+        PushBlocks.pushBodyBlocksOfSuperiorParents(getBodyBlocks(), distance);
     }
 
     /**
@@ -121,27 +137,6 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
             currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
-    }
-
-    // TODO: remove
-    public void removeAllBodyBlocks() {
-        assert !getBodyBlocks().isEmpty();
-
-        int n = bodyBlocks.size();
-        if (getParentStatement() != null) {
-            PushBlocks.pushBlocksInListFromIndexWithDistance(getParentStatement().getBodyBlocks(),
-                    getParentStatement().getBodyBlocks().indexOf(this), n * (-getBodyBlocks().get(0).getHeight() - step));
-        }
-        for (Block bodyBlock : getBodyBlocks()) {
-            bodyBlock.setParentStatement(null);
-        }
-
-        StatementBlock currentParent = this;
-        while (currentParent != null) {
-            currentParent.increaseGapSize(-n * (getBodyBlocks().get(0).getHeight() + step));
-            currentParent = currentParent.getParentStatement();
-        }
-        bodyBlocks.clear();
     }
 
     public void addConditionBlock(ConditionBlock block) {

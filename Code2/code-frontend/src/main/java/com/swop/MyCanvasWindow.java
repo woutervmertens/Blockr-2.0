@@ -76,12 +76,13 @@ public class MyCanvasWindow extends CanvasWindow {
                 if (isBlockDragged()) {
                     pos.x = x;
                     pos.y = y;
-                    int dx = x - draggedBlock.getPosition().x;
-                    int dy = y - draggedBlock.getPosition().y;
+//                    int dx = x - draggedBlock.getPosition().x;
+//                    int dy = y - draggedBlock.getPosition().y;
                     draggedBlock.setPosition((Point) pos.clone());
-                    if (draggedBlock instanceof UIStatementBlock && draggedBlock.getCorrespondingBlock() != null) {
-                        displaceBlockHandler.displaceAllBodyBlocksAndConditionsOfBlockWithDistance((UIStatementBlock)draggedBlock, dx, dy);
-                    }
+//                    if (draggedBlock instanceof UIStatementBlock && draggedBlock.getCorrespondingBlock() != null) {
+//                        // TODO: instead of displacing the body blocks here, do it in setPosition() of body blocks
+//                        displaceBlockHandler.displaceAllBodyBlocksAndConditionsOfBlockWithDistance((UIStatementBlock)draggedBlock, dx, dy);
+//                    }
                     repaint();
                 }
                 break;
@@ -99,7 +100,10 @@ public class MyCanvasWindow extends CanvasWindow {
             default:
                 throw new IllegalStateException("Unexpected mouse event: " + id);
         }
+        displaceBlockHandler.adjustAllBlockPositions();
+        displaceBlockHandler.adjustAllStatementBlockGaps();
     }
+
 
     /**
      * Returns the UIBlock at the given click coordinates

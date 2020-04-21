@@ -23,7 +23,7 @@ public class UIActionBlock extends UIBlock {
     }
 
     @Override
-    public void makeNewCorrespondingBlockIn() {
+    public void makeNewCorrespondingBlock() {
         switch (type) {
             case MoveForward:
                 this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), Action.MOVE_FORWARD);

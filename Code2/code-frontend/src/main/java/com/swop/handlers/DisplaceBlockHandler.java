@@ -3,7 +3,6 @@ package com.swop.handlers;
 import com.swop.BlockrGame;
 import com.swop.PushBlocks;
 import com.swop.blocks.Block;
-import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIConditionBlock;
@@ -51,7 +50,7 @@ public class DisplaceBlockHandler {
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() == null)
-            draggedBlock.makeNewCorrespondingBlockIn();
+            draggedBlock.makeNewCorrespondingBlock();
 
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (!getBlockUIBlockMap().containsKey(backendBlock)) {
@@ -59,12 +58,9 @@ public class DisplaceBlockHandler {
         }
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
-
-        adjustAllStatementBlockGaps();
-        adjustAllBlockPositions();
     }
 
-    private void adjustAllStatementBlockGaps() {
+    public void adjustAllStatementBlockGaps() {
         for (Block block : blockrGame.getAllBlocksInPA()) {
             if (block instanceof StatementBlock) {
                 UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
@@ -73,7 +69,7 @@ public class DisplaceBlockHandler {
         }
     }
 
-    private void adjustAllBlockPositions() {
+    public void adjustAllBlockPositions() {
         for (Block block : blockrGame.getAllBlocksInPA()) {
             UIBlock uiBlock = getCorrespondingUiBlockFor(block);
             uiBlock.setPosition(block.getPosition());
@@ -107,13 +103,15 @@ public class DisplaceBlockHandler {
     }
 
     public void handleProgramAreaForClickOn(UIBlock clickedBlock) {
+        // TODO: make a separate method for removing a given block (so that you can use as command)
+
         if (clickedBlock == null) throw new IllegalArgumentException();
 
         if (!(clickedBlock instanceof UIConditionBlock)) {
             StatementBlock parentStatement = clickedBlock.getCorrespondingBlock().getParentStatement();
             if (parentStatement != null) {
                 parentStatement.removeBodyBlock(clickedBlock.getCorrespondingBlock());
-                PushBlocks.pushBodyBlocksOfSuperiorParents(clickedBlock.getCorrespondingBlock().getParentStatement().getBodyBlocks(),
+                PushBlocks.pushBodyBlocksOfSuperiorParents(parentStatement.getBodyBlocks(),
                         -clickedBlock.getHeight() - clickedBlock.getStep() - ((StatementBlock)clickedBlock.getCorrespondingBlock()).getGapSize());
             }
             // TODO: still needed ?
@@ -123,8 +121,9 @@ public class DisplaceBlockHandler {
         } else {
             // TODO:
         }
-        // TODO: check if the program contains that block ? Is it needed ?
-        blockrGame.removeProgramBlock(clickedBlock.getCorrespondingBlock());
+        if (blockrGame.getProgram().contains(clickedBlock.getCorrespondingBlock())) {
+            blockrGame.removeProgramBlock(clickedBlock.getCorrespondingBlock());
+        }
 
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();
