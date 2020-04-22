@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.List;
 
 // TODO: remove dependency of StatementBlock with PushBlocks and handle only in ProgramArea
+// TODO: merge the two functions in one clear function
 public interface PushBlocks {
     /**
      * Push down or up (based on the sign of the given distance) all blocks of the given list starting from the given index.
@@ -17,21 +18,16 @@ public interface PushBlocks {
         for (int i = index; i < blockList.size(); i++) {
             Block currentBlock = blockList.get(i);
             currentBlock.setPosition(new Point(currentBlock.getPosition().x, currentBlock.getPosition().y + distance));
-//            if (currentBlock instanceof StatementBlock) {
-//                for (Block currentBodyBlock : ((StatementBlock) currentBlock).getBodyBlocks()) {
-//                    currentBodyBlock.setPosition(new Point(currentBodyBlock.getPosition().x, currentBodyBlock.getPosition().y + distance));
-//                }
-//            }
         }
     }
 
     /**
-     * todo
+     * Push the blocks in this list and all eventual body blocks of superior parents
      * @param bodyBlocks list of blocks of the body
      * @param distance todo
      */
     static void pushBodyBlocksOfSuperiorParents(List<Block> bodyBlocks, int distance) {
-        assert !bodyBlocks.isEmpty();
+        if (bodyBlocks.isEmpty()) return;
         assert bodyBlocks.get(0).getParentStatement() != null;
 
         Block currentParent = bodyBlocks.get(0).getParentStatement();

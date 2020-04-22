@@ -151,12 +151,10 @@ public class MyCanvasWindow extends CanvasWindow {
                         bRepaint = true;
                     }
             }
-            if(keyCode == 17) //ControlLeft/ControlRight
-                isHoldingCtrl = true;
-            else isHoldingCtrl = false;
-            if(keyCode == 16) //ShiftLeft/ShiftRight
-                isHoldingShift = true;
-            else isHoldingShift = false;
+            //ControlLeft/ControlRight
+            isHoldingCtrl = keyCode == 17;
+            //ShiftLeft/ShiftRight
+            isHoldingShift = keyCode == 16;
             if(bRepaint)repaint();
         }
     }

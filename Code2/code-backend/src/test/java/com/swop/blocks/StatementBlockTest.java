@@ -84,18 +84,8 @@ class StatementBlockTest {
     }
 
     @Test
-    void addAndRemoveAllBodyBlocks() {
-        whileBlock.addBodyBlockAfter(actionBlock, null);
-        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"Added block isn't first");
-        whileBlock.removeAllBodyBlocks();
-        assertTrue(whileBlock.getBodyBlocks().isEmpty(), "The body block isn't removed");
-
-        whileBlock.addBodyBlockAfter(actionBlock,null);
-        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"Added block isn't first");
-        whileBlock.addBodyBlockAfter(actionBlock1,actionBlock);
-        assertEquals(whileBlock.getBodyBlocks().get(1), actionBlock1,"Added block isn't second");
-        whileBlock.removeAllBodyBlocks();
-        assertTrue(whileBlock.getBodyBlocks().isEmpty(), "The body blocks aren't removed");
+    void addBodyBlocks() {
+        // TODO: test addBodyBlockAfter en addBodyBlockAtIndex
     }
 
     @Test
@@ -134,11 +124,9 @@ class StatementBlockTest {
 
         whileBlock.increaseGapSize(10);
         assertEquals(12, whileBlock.getGapSize(),"gapsize isn't 12");
-        assertThrows(AssertionError.class, () -> whileBlock.increaseGapSize(-1));
 
-        whileBlock.decreaseGapSize(8);
+        whileBlock.increaseGapSize(-8);
         assertEquals(4, whileBlock.getGapSize(),"gapsize isn't 4");
-        assertThrows(AssertionError.class, () -> whileBlock.decreaseGapSize(-1));
 
     }
 

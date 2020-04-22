@@ -294,14 +294,26 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Remove the draggedBlock from allBlocks of the program area
+     * Remove the clickedBlock from this program area
      *
-     * @param draggedBlock block that's dragged
+     * @param clickedBlock block that's dragged
      */
-    public void removeBlockFromPA(Block draggedBlock) {
-        allBlocks.remove(draggedBlock);
-        // TODO: remove correctly (for statement block gaps etc.)
-        draggedBlock.terminate();
+    public void removeBlockFromPA(Block clickedBlock) {
+        if (!(clickedBlock instanceof ConditionBlock)) {
+            StatementBlock parentStatement = clickedBlock.getParentStatement();
+            if (parentStatement != null) {
+                parentStatement.removeBodyBlock(clickedBlock);
+            }
+        } else {
+            // TODO: remove ConditionBlock
+        }
+
+        allBlocks.remove(clickedBlock);
+        if (getProgram().contains(clickedBlock)) {
+            removeProgramBlock(clickedBlock);
+            // TODO: check if this body is correct
+        }
+        // TODO: remove correctly (for statement block gaps etc.) --> inverse of drop
     }
 
     /**

@@ -80,10 +80,6 @@ public abstract class Block implements Cloneable {
         return BlockrGame.getInstance().getGameWorld();
     }
 
-    public void terminate() {
-        this.position = null;
-    }
-
     public abstract Point getSocketPosition();
 
     public abstract Point getPlugPosition();
