@@ -106,12 +106,4 @@ public abstract class UIBlock {
     public void setHighlightStateOn(boolean isHighlight) {
         this.isHighlight = isHighlight;
     }
-
-    public void terminate() {
-        if (correspondingBlock != null) {
-            this.getCorrespondingBlock().terminate();
-            this.setCorrespondingBlock(null);
-        }
-        this.setPosition(null);
-    }
 }

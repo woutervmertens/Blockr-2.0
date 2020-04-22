@@ -79,6 +79,7 @@ public class DisplaceBlockHandler {
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() != null) {
             if (draggedBlock.getCorrespondingBlock() instanceof StatementBlock) {
+
                 for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
                     blockUIBlockMap.remove(bodyBlock);
                     blockrGame.removeBlockFromPA(bodyBlock);
@@ -90,7 +91,6 @@ public class DisplaceBlockHandler {
             blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
 
         }
-        draggedBlock.terminate();
     }
 
     public List<UIBlock> getAllUIBlocksInPA() {
@@ -103,30 +103,13 @@ public class DisplaceBlockHandler {
     }
 
     public void handleProgramAreaForClickOn(UIBlock clickedBlock) {
-        // TODO: make a separate method for removing a given block (so that you can use as command)
-
         if (clickedBlock == null) throw new IllegalArgumentException();
 
-        if (!(clickedBlock instanceof UIConditionBlock)) {
-            StatementBlock parentStatement = clickedBlock.getCorrespondingBlock().getParentStatement();
-            if (parentStatement != null) {
-                parentStatement.removeBodyBlock(clickedBlock.getCorrespondingBlock());
-                PushBlocks.pushBodyBlocksOfSuperiorParents(parentStatement.getBodyBlocks(),
-                        -clickedBlock.getHeight() - clickedBlock.getStep() - ((StatementBlock)clickedBlock.getCorrespondingBlock()).getGapSize());
-            }
-            // TODO: still needed ?
-//            if (clickedBlock instanceof UIStatementBlock && !((StatementBlock) (clickedBlock.getCorrespondingBlock())).getBodyBlocks().isEmpty()) {
-//
-//            }
-        } else {
-            // TODO:
-        }
-        if (blockrGame.getProgram().contains(clickedBlock.getCorrespondingBlock())) {
-            blockrGame.removeProgramBlock(clickedBlock.getCorrespondingBlock());
-        }
+        blockrGame.removeBlockFromPA(clickedBlock.getCorrespondingBlock());
 
-        adjustAllBlockPositions();
-        adjustAllStatementBlockGaps();
+        // TODO: remove
+        //adjustAllBlockPositions();
+        //adjustAllStatementBlockGaps();
     }
 
     public void displaceAllBodyBlocksAndConditionsOfBlockWithDistance(UIStatementBlock draggedBlock, int dx, int dy) {

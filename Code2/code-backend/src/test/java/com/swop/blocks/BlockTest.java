@@ -90,10 +90,4 @@ class BlockTest {
         assertEquals(expectedPosition.x, block.getPosition().x, "expected and actual x-value are different");
         assertEquals(expectedPosition.y, block.getPosition().y, "expected and actual y-value are different");
     }
-
-    @Test
-    void terminate() {
-        block.terminate();
-        assertNull(block.getPosition(), "position of block isn't null");
-    }
 }

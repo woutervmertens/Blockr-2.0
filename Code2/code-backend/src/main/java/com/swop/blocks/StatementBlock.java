@@ -129,6 +129,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         int distance = -block.getHeight() - step;
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
         PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, distance);
+        PushBlocks.pushBodyBlocksOfSuperiorParents(bodyBlocks, distance);
 
         block.setParentStatement(null);
 
@@ -172,7 +173,6 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     }
 
     public void increaseGapSize(int increase) {
-        assert increase > 0;
         this.setGapSize(getGapSize() + increase);
     }
 
