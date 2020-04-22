@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../worlds/gameworldapi.jar!/" />
       <root url="jar://$PROJECT_DIR$/../worlds/robotgame.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../worlds/mygame.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

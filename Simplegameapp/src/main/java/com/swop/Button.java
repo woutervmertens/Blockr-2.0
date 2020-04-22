@@ -2,18 +2,14 @@ package com.swop;
 
 import java.awt.*;
 
-public enum Button {
-    TURN_LEFT("Turn left", Color.GRAY, Action.TURN_LEFT),
-    MOVE_FORWARD("Move forward", Color.LIGHT_GRAY, Action.MOVE_FORWARD),
-    TURN_RIGHT("Turn right", Color.GRAY, Action.TURN_RIGHT);
-
+public class Button {
     private String title;
     private Color color;
     private Point size = new Point();
     private Polygon polygon;
     private Action action;
 
-    Button(String title, Color color, Action action){
+    public Button(String title, Color color, Action action){
         this.title = title;
         this.color = color;
         this.action = action;

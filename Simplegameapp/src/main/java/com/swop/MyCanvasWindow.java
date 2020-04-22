@@ -3,7 +3,6 @@ package com.swop;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MyCanvasWindow extends CanvasWindow {
     GameWorldType gameWorldType;
@@ -21,10 +20,17 @@ public class MyCanvasWindow extends CanvasWindow {
         this.gameWorld = gameWorldType.createNewInstance();
         this.clickHandler = new ClickHandler(gameWorld);
 
-        buttons = new ArrayList<Button>(Arrays.asList(Button.values()));
-        buttons.get(0).setLocation(0,super.height-30);
-        buttons.get(1).setLocation(super.width/3,super.height-30);
-        buttons.get(2).setLocation(2*super.width/3,super.height-30);
+        buttons = new ArrayList<Button>();
+        ArrayList<Color> colors = new ArrayList<>();
+        colors.add(Color.GRAY);
+        colors.add(Color.lightGray);
+        int i = 0;
+        int numActions = gameWorldType.getSupportedActions().size();
+        for (Object a : gameWorldType.getSupportedActions()){
+            buttons.add(new Button(((Action)a).toString(),colors.get(i % 2),(Action)a));
+            buttons.get(i).setLocation(i * super.width/numActions,super.height-30);
+            i++;
+        }
     }
 
     @Override
