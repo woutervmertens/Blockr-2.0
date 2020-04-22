@@ -44,7 +44,7 @@ public class UIStatementBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        switch (type) {
+        switch (type.getType()) {
             case IfStatement:
                 this.correspondingBlock = new IfBlock(getPosition(), getWidth(), getHeight());
                 break;

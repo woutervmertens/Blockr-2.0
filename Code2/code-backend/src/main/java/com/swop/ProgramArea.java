@@ -43,10 +43,11 @@ public class ProgramArea implements PushBlocks {
      * @pre the position of the block is inside the ui program area.
      */
     public void dropBlock(Block draggedBlock) {
-        resetProgramExecution();
         if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
+        resetProgramExecution();
         if (allBlocks.size() == 1) {
             program.add(draggedBlock);
+            resetProgramExecution();
             return;
         }
 
