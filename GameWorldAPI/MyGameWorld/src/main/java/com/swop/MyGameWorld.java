@@ -136,6 +136,7 @@ public class MyGameWorld implements GameWorld {
     public Snapshot createSnapshot() {
         MySnapshot snap = new MySnapshot();
         snap.setGrid(grid);
+        snap.setEmptySquare(emptySquare);
         return snap;
     }
 
@@ -143,6 +144,7 @@ public class MyGameWorld implements GameWorld {
     public void restoreSnapshot(Snapshot snapshot) {
         MySnapshot snap = (MySnapshot) snapshot;
         grid = snap.getGrid();
+        emptySquare = snap.getEmptySquare();
     }
 
     @Override
