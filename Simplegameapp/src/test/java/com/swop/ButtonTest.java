@@ -11,7 +11,7 @@ class ButtonTest {
 
     @BeforeEach
     void setUp(){
-        button = Button.TURN_LEFT;
+        button = new Button("Turn Left",Color.BLUE,Action.TURN_LEFT);
     }
 
     @org.junit.jupiter.api.Test

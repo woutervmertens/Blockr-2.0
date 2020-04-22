@@ -24,15 +24,9 @@ public class UIActionBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        switch (type) {
-            case MoveForward:
-                this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), Action.MOVE_FORWARD);
-                break;
-            case TurnLeft:
-                this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), Action.TURN_LEFT);
-                break;
-            case TurnRight:
-                this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), Action.TURN_RIGHT);
+        switch (type.getType()) {
+            case ActionType:
+                this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction());
                 break;
             default:
                 throw new IllegalArgumentException("Not an Action Block !");

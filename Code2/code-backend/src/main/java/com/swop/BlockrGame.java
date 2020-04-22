@@ -154,6 +154,11 @@ public class BlockrGame {
     }
 
     /**
+     * @return Returns the game world type
+     */
+    public GameWorldType getGameWorldType() {return gameWorldType;}
+
+    /**
      * redoes the previous undone operation if an operation is undone otherwise nothing happens
      */
     public void redoCommand(){

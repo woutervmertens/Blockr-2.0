@@ -143,7 +143,7 @@ public class MyCanvasWindow extends CanvasWindow {
                     resetProgramExecution();
                     bRepaint = true;
                     break;
-                case 90:
+                case 90: //Z
                     if(isHoldingCtrl){
                         if(isHoldingShift) redo();
                         else undo();

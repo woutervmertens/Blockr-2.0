@@ -1,22 +1,22 @@
 package com.swop.uiElements;
 
+import com.swop.Action;
+import com.swop.Predicate;
+
 import java.awt.*;
 
-public enum BlockTypes {
-    MoveForward("Move Forward", 110),
-    TurnLeft("Turn Left", 110),
-    TurnRight("Turn Right", 110),
-    IfStatement("If", 110),
-    WhileStatement("While", 110),
-    NotCondition("Not", 40),
-    Predicate("WIF", 40);
 
+public class BlockTypes {
     private final String text;
     private final int width;
+    private Action action;
+    private Predicate predicate;
+    private final BlockType type;
 
-    BlockTypes(String text, int width) {
+    public BlockTypes(String text, int width, BlockType type) {
         this.text = text;
         this.width = width;
+        this.type = type;
     }
 
     public String getText() {
@@ -31,6 +31,14 @@ public enum BlockTypes {
         return this.width;
     }
 
+    public BlockType getType(){return type;}
+
+    public void setAction(Action action) {this.action = action;}
+    public Action getAction() {return this.action;}
+
+    public void setPredicate(Predicate predicate) {this.predicate = predicate;}
+    public Predicate getPredicate() {return predicate;}
+
     /**
      * Return new UIBlock of this type at position (x,y)
      *
@@ -39,10 +47,8 @@ public enum BlockTypes {
      * @return the new UIBlock
      */
     public UIBlock getNewUIBlock(int x, int y) {
-        switch (this) {
-            case MoveForward:
-            case TurnLeft:
-            case TurnRight:
+        switch (this.type) {
+            case ActionType:
                 return new UIActionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
                         this.getText(), this);
             case IfStatement:
