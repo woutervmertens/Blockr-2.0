@@ -52,8 +52,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         }
 
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (conditions.size() % 2 == 0) return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
-        else return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        if (conditions.size() % 2 == 0) return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        else return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
 
     }
 
