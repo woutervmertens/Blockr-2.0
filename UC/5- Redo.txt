@@ -1,0 +1,32 @@
+## Use Case 5: Redo
+### Scope: Blockr programming game
+### Level: User goal
+### Primary actor: User of the game
+### Stakeholders and Interests:
+- Player: Wants to back to the previous step after the Undo executed with the Program Area and Game World.
+### Preconditions:
+- Program is not running.
+- The Program Area contains maximum one group of connected blocks, where all condition sockets are connected to condition blocks.
+- The goal has not been reached.
+### Success Guarantee (or Postconditions):
+- The last Added block back to the palette of blocks Come back to The program block.
+- The program block add the Retrieved block. 
+### Main Success Scenario:
+1. User presses Shift+Ctrl+Z, the system excute and back to the last current block before the Undo executed .
+2. System executes the code in the last current program block before the Undo executed and the system updates the Game World to the previous state.
+3. System stops the execution. 
+  
+### Extensions (or Alternative Flows):
+*a After execution stops, the user  clicks the Redo button.
+    1. System reverts the Game World to the previous state before Undo executed.
+     
+*b During execution, the user presses Shift+Ctrl+Z .
+    1. System stops execution.
+    2. System reverts the Game World to the previous state before Undo executed .
+     
+1a. User presses Redo button when there are no blocks to be executed anymore and the goal is not reached.
+    1. System ends the execution and gives feedback to the user.
+    2. User can reset.
+2a. System analyses the previous state before Undo executed and finds it to lead to a failstate.
+    1. System ends execution and gives feedback to the user.
+    2. User can reset.
