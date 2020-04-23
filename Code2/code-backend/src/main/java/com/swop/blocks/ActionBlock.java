@@ -1,6 +1,8 @@
 package com.swop.blocks;
 
 import com.swop.Action;
+import com.swop.Snapshot;
+import com.swop.SuccessState;
 
 import java.awt.*;
 
@@ -25,6 +27,11 @@ public class ActionBlock extends Block implements Executable, VerticallyConnecta
 
     @Override
     public void execute() {
-        getGameWorld().doAction(action);
+        Snapshot snap = getGameWorld().createSnapshot();
+        SuccessState state = getGameWorld().doAction(action);
+        if(state == SuccessState.FAILURE)
+        {
+           getGameWorld().restoreSnapshot(snap);
+        }
     }
 }
