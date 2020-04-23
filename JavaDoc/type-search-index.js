@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"com.swop","l":"Action"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.swop","l":"GameWorld"},{"p":"com.swop","l":"GameWorldType"},{"p":"com.swop","l":"Main"},{"p":"com.swop","l":"Predicate"},{"p":"com.swop","l":"Snapshot"},{"p":"com.swop","l":"SuccessState"}]
