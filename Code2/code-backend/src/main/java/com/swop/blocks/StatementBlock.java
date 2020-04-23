@@ -28,6 +28,14 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     public void setCurrent(Block current) { this.current = current; }
 
+    public void setBodyBlocks(List<Block> bodyBlocks) {
+        this.bodyBlocks = bodyBlocks;
+    }
+
+    public void setConditions(List<ConditionBlock> conditions) {
+        this.conditions = conditions;
+    }
+
     protected void setNextCurrent() {
         if (getCurrent() == null && ! getBodyBlocks().isEmpty()){
             setCurrent(getBodyBlocks().get(0));
