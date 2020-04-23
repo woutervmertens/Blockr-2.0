@@ -12,6 +12,8 @@ public abstract class Block implements Cloneable {
     protected ExecuteType executeType;
     private StatementBlock parentStatement;
 
+    private boolean done = true;
+
     protected Block(Point position, int width, int height) {
         this.setPosition(position);
         this.width = width;
@@ -38,6 +40,14 @@ public abstract class Block implements Cloneable {
 
     public int getHeight() {
         return height;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public ExecuteType getExecuteType() {

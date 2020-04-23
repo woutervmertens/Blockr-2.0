@@ -9,7 +9,7 @@ public class ExecuteCommand extends GameWorldCommand{
     private Snapshot snapshot;
     private Block block;
     public ExecuteCommand(Block block){
-        this.block = block.clone();
+        this.block = block;
     }
 
     @Override

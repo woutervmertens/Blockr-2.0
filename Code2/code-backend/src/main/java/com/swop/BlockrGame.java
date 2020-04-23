@@ -107,7 +107,8 @@ public class BlockrGame {
     public void executeNext() {
         if(programArea.getCurrentBlock() != null){
             executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
-            programArea.setNextCurrentBlock();
+            // TODO: 23/04/2020 setnext moet gebeuren in de blocken zelf of elke block een done boolean -> if currentBlock.isDone {PA.setnextcurrent}
+           if (programArea.getCurrentBlock().isDone()) {programArea.setNextCurrentBlock();}
         }
     }
 

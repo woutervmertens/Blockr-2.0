@@ -13,12 +13,36 @@ public class WhileBlock extends StatementBlock {
 
     @Override
     public void execute() {
-        super.execute();
-        // TODO
+        if (isBusy() || isConditionValid()){
+            if (!isBusy()){
+                setBusy(true);
+                setNextCurrent();
+                executeBlock();
+            }else{
+                executeBlock();
+            }
+        }else{
+            setDone(true);
+            setBusy(false);
+        }
     }
 
-    @Override
-    public void executeNextBodyBlock() {
-        // TODO
+    private void executeBlock() {
+        if (getCurrent() == null){
+            setDone(true);
+            setBusy(false);
+        }else{
+            Executable exBlock = (Executable)getCurrent();
+            exBlock.execute();
+            setNextCurrent();
+            if (getCurrent()== null){
+                if (isConditionValid()){
+                    setCurrent(bodyBlocks.get(0));
+                }else{
+                setDone(true);
+                setBusy(false);
+                }
+            }
+        }
     }
 }

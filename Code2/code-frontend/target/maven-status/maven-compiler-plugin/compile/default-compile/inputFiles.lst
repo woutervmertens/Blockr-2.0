@@ -1,13 +1,12 @@
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UIStatementBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/CanvasWindow.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UIActionBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/Main.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UICharacter.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/handlers/ExecuteProgramHandler.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UIConditionBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UISquare.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/MyCanvasWindow.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/Windows.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/BlockTypes.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/uiElements/UIBlock.java
-/home/adam/Documents/INFORMATICA/fase4/Blockr-groep9/Code2/code-frontend/src/main/java/com/swop/handlers/DisplaceBlockHandler.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\handlers\DisplaceBlockHandler.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\BlockTypes.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\CanvasWindow.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\UIConditionBlock.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\UIStatementBlock.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\Main.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\MyCanvasWindow.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\handlers\ExecuteProgramHandler.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\BlockType.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\UIBlock.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\uiElements\UIActionBlock.java
+S:\Documents\Universiteit\2019-2020\Tweede semester\Software ontwerp\project\Blockr-groep9\Code2\code-frontend\src\main\java\com\swop\Windows.java

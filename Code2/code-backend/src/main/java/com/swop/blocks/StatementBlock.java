@@ -17,6 +17,28 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private int gapSize;
     private int conditionWidth;
 
+    private boolean Busy;
+    protected Block current = null;
+
+    public boolean isBusy() { return Busy; }
+
+    public void setBusy(boolean busy) { Busy = busy; }
+
+    public Block getCurrent() { return current; }
+
+    public void setCurrent(Block current) { this.current = current; }
+
+    protected void setNextCurrent() {
+        if (getCurrent() == null && ! getBodyBlocks().isEmpty()){
+            setCurrent(getBodyBlocks().get(0));
+        }else{
+            try {
+                setCurrent(getBodyBlocks().get(getBodyBlocks().indexOf(current ) + 1));
+            } catch (Exception e){
+                setCurrent(null);
+            }
+        }
+    }
 
     public StatementBlock(Point position, int width, int height) {
         super(position, width, height);
@@ -69,6 +91,18 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public List<Block> getBodyBlocks() {
         return bodyBlocks;
     }
+
+    @Override
+    public boolean isDone() {
+        return done;
+    }
+
+    @Override
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    private boolean done = false;
 
     public List<ConditionBlock> getConditions() {
         return conditions;
