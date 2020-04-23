@@ -1,0 +1,3 @@
+java -classpath gameworldapi.jar;impl.jar;client.jar
+com.swop.Main
+com.swop.ImplGameWorldType
