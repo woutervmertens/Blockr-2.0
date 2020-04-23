@@ -321,6 +321,7 @@ public class ProgramArea implements PushBlocks {
                 while (parentStatement.getParentStatement() != null) {
                     parentStatement = parentStatement.getParentStatement();
                 }
+                // 2.2) Push
                 if (getProgram().contains(parentStatement)) {
                     int distance = -clickedBlock.getHeight() - clickedBlock.getStep();
                     if (clickedBlock instanceof StatementBlock)
@@ -330,7 +331,7 @@ public class ProgramArea implements PushBlocks {
             }
 
         } else {
-            // TODO: remove ConditionBlock
+            // TODO: clickedBlock.getParentStatement().removeCondition(clickedBlock)
         }
 
         allBlocks.remove(clickedBlock);

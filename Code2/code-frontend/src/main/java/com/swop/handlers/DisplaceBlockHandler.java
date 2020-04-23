@@ -77,26 +77,19 @@ public class DisplaceBlockHandler {
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (backendBlock != null) {
-            if (backendBlock instanceof StatementBlock) {
-
-                for (Block bodyBlock : new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks())) {
-                    // blockUIBlockMap.remove(bodyBlock);
-                    blockrGame.removeBlockFromPA(bodyBlock, true);
-                }
-            }
 
             //blockUIBlockMap.remove(backendBlock);
-            //remove the block from program area
-            blockrGame.removeBlockFromPA(backendBlock, true);
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof StatementBlock) {
-                for (Block bodyBlock : ((StatementBlock) backendBlock).getBodyBlocks()) {
+                for (Block bodyBlock : new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks())) {
                     blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
-                for (Block bodyBlock : ((StatementBlock) backendBlock).getConditions()) {
-                    blockrGame.removeBlockFromPA(bodyBlock, true);
+                for (Block condition : new ArrayList<>(((StatementBlock) backendBlock).getConditions())) {
+                    blockrGame.removeBlockFromPA(condition, true);
                 }
             }
+            //remove the block from program area
+            blockrGame.removeBlockFromPA(backendBlock, true);
         }
     }
 
@@ -113,6 +106,14 @@ public class DisplaceBlockHandler {
         if (clickedBlock == null) throw new IllegalArgumentException();
         Block backendBlock = clickedBlock.getCorrespondingBlock();
         backendBlock.setPreviousDropPosition(backendBlock.getPosition());
+        if (backendBlock instanceof StatementBlock) {
+            for (Block bodyBlock: ((StatementBlock) backendBlock).getBodyBlocks()) {
+                bodyBlock.setPreviousDropPosition(bodyBlock.getPosition());
+            }
+            for (Block condition: ((StatementBlock) backendBlock).getConditions()) {
+                condition.setPreviousDropPosition(condition.getPosition());
+            }
+        }
         blockrGame.removeBlockFromPA(backendBlock, false);
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();
