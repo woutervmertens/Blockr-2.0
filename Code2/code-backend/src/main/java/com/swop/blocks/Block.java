@@ -80,11 +80,22 @@ public abstract class Block implements Cloneable {
         return position;
     }
 
+    public Point getPreviousDropPosition() {
+        return previousDropPosition;
+    }
+
     public void setPosition(Point position) {
+        if (position == null) throw new IllegalArgumentException();
         this.position = position;
     }
 
+    public void setPreviousDropPosition(Point previousDropPosition) {
+        this.previousDropPosition = previousDropPosition;
+    }
+
     private Point position;
+
+    private Point previousDropPosition;
 
     public GameWorld getGameWorld() {
         return BlockrGame.getInstance().getGameWorld();

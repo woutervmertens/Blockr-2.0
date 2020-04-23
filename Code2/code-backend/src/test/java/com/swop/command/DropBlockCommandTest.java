@@ -2,14 +2,13 @@ package com.swop.command;
 
 import com.swop.Action;
 import com.swop.blocks.ActionBlock;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AddBlockCommandTest {
+class DropBlockCommandTest {
 
     private Point position = new Point(1,1);
     private int height =2;
@@ -17,16 +16,16 @@ class AddBlockCommandTest {
     private Action action = Action.MOVE_FORWARD;
     private ActionBlock block = new ActionBlock(position, width, height, action);
 
-    private AddBlockCommand addBlockCommand = new AddBlockCommand(block);
+    private DropBlockCommand dropBlockCommand = new DropBlockCommand(block);
 
 
 
     @Test
     void executeAndUndo() {
-        addBlockCommand.execute();
-        assertEquals(block, addBlockCommand.programArea.getAllBlocks().get(addBlockCommand.programArea.getAllBlocks().size() -1));
-        addBlockCommand.undo();
-        assertFalse(addBlockCommand.programArea.getAllBlocks().contains(block));
+        dropBlockCommand.execute();
+        assertEquals(block, dropBlockCommand.programArea.getAllBlocks().get(dropBlockCommand.programArea.getAllBlocks().size() -1));
+        dropBlockCommand.undo();
+        assertFalse(dropBlockCommand.programArea.getAllBlocks().contains(block));
     }
 
 }

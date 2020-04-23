@@ -147,15 +147,23 @@ public class MyCanvasWindow extends CanvasWindow {
                     if(isHoldingCtrl){
                         if(isHoldingShift) redo();
                         else undo();
+                        isHoldingShift = false;
+                        isHoldingCtrl = false;
                         bRepaint = true;
                     }
             }
-            //ControlLeft/ControlRight
-            isHoldingCtrl = keyCode == 17;
-            //ShiftLeft/ShiftRight
-            isHoldingShift = keyCode == 16;
+
+            if (keyCode == 17) isHoldingCtrl = true;
+            if (keyCode == 16) isHoldingShift = true;
+
+            System.out.println("Ctrl " + isHoldingCtrl);
+            System.out.println("Shift " + isHoldingShift);
+
             if(bRepaint)repaint();
         }
+
+        displaceBlockHandler.adjustAllBlockPositions();
+        displaceBlockHandler.adjustAllStatementBlockGaps();
     }
 
     private void executeNext() {

@@ -1,7 +1,7 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.command.AddBlockCommand;
+import com.swop.command.DropBlockCommand;
 import com.swop.command.DeleteBlockCommand;
 import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
@@ -82,23 +82,20 @@ public class BlockrGame {
      */
     public void dropBlockInPA(Block block) {
         if (block == null) throw new IllegalArgumentException();
-        executeCommand(new AddBlockCommand(block));
+        executeCommand(new DropBlockCommand(block));
     }
 
     /**
      * Removes block from Program Area
      * @param draggedBlock given block
+     * @param isRelease Boolean recording whether this is a release (outside PA) or not (a click)
      */
-    public void removeBlockFromPA(Block draggedBlock) {
-        executeCommand(new DeleteBlockCommand(draggedBlock));
-    }
-
-    /**
-     * Removes program block from Program area
-     * @param draggedBlock
-     */
-    public void removeProgramBlock(Block draggedBlock) {
-        programArea.removeProgramBlock(draggedBlock);
+    public void removeBlockFromPA(Block draggedBlock, boolean isRelease) {
+        if (isRelease) {
+            executeCommand(new DeleteBlockCommand(draggedBlock));
+        } else {
+            programArea.removeBlockFromPA(draggedBlock);
+        }
     }
 
     /**
@@ -163,6 +160,7 @@ public class BlockrGame {
      */
     public void redoCommand(){
         if(!redoStack.isEmpty()){
+            System.out.println("REDOSTACK: " + redoStack.size());
             executeCommand(redoStack.pop());
         }
     }
@@ -172,6 +170,7 @@ public class BlockrGame {
      */
     public void undoCommand(){
         if(!undoStack.isEmpty()){
+            System.out.println("UNDOSTACK: " + undoStack.size());
             ICommand command = undoStack.pop();
             command.undo();
             redoStack.add(command);
