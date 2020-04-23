@@ -2,6 +2,7 @@ package com.swop.command;
 
 import com.swop.Action;
 import com.swop.blocks.ActionBlock;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -22,11 +23,10 @@ class AddBlockCommandTest {
 
     @Test
     void executeAndUndo() {
-        assertTrue(addBlockCommand.programArea.getAllBlocks().isEmpty());
         addBlockCommand.execute();
-        assertEquals(block, addBlockCommand.programArea.getAllBlocks().get(0));
+        assertEquals(block, addBlockCommand.programArea.getAllBlocks().get(addBlockCommand.programArea.getAllBlocks().size() -1));
         addBlockCommand.undo();
-        assertTrue(addBlockCommand.programArea.getAllBlocks().isEmpty());
+        assertFalse(addBlockCommand.programArea.getAllBlocks().contains(block));
     }
 
 }

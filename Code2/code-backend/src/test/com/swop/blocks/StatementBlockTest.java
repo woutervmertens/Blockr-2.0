@@ -1,6 +1,11 @@
 package com.swop.blocks;
 
 import com.swop.Action;
+import com.swop.BlockrGame;
+import com.swop.GameWorld;
+import com.swop.GameWorldType;
+import com.swop.command.ExecuteCommand;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -8,6 +13,20 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatementBlockTest {
+
+
+    private String[] args= {"com.swop.RobotGameWorldType"};
+    GameWorldType gameWorldType;
+    {
+        try {
+            Class<?> clasz = Class.forName(args[0]);
+            gameWorldType = (GameWorldType) clasz.getConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace(); }
+    }
+    private int maxBlocks = 10;
+    BlockrGame blockrGame = BlockrGame.createInstance(maxBlocks, gameWorldType);
+    private GameWorld gameWorld = blockrGame.getGameWorld();
 
     private Point wPosition = new Point(1,1);
     private int wWidth = 4;
@@ -36,11 +55,18 @@ class StatementBlockTest {
 
     private ActionBlock actionBlock1 = new ActionBlock(aPosition1,aWidth1,aHeight1,action1);
 
+    private Point aPosition2 = new Point(2,6);
+    private int aWidth2 = 3;
+    private int aHeight2 = 2;
+    private Action action2 = Action.TURN_RIGHT;
 
- //   private int maxblocks = 10;
-//    private BlockrGame blockrGame = new BlockrGame(maxblocks, gameWorldType);
+    private ActionBlock actionBlock2 = new ActionBlock(aPosition2,aWidth2,aHeight2,action2);
+
+
+    private ExecuteCommand executeCommand = new ExecuteCommand(actionBlock1);
 
     private int conditionWidth = wWidth / 2;
+
 
     @Test
     void isConditionValidException() {
@@ -48,45 +74,52 @@ class StatementBlockTest {
 
     }
 
-    @Test
-    void addConditionBlock() {
-        whileBlock.addConditionBlock(conditionBlock);
-        assertEquals(conditionBlock, whileBlock.getConditions().get(0),"addConditionBlock failed");
-    }
 
     @Test
     void isConditionValid() {
-        // TODO: 15/04/2020 create gameworld scenario
+        gameWorld = gameWorldType.createNewInstance();
+
+        whileBlock.addConditionBlock(conditionBlock);
+        assertEquals(conditionBlock, whileBlock.getConditions().get(0),"addConditionBlock failed");
+        assertFalse(whileBlock.isConditionValid(), "wallInFront returns true but there is no wall in front");
+
+        //robot turns to the left so there is a wall in front
+        blockrGame.executeCommand(executeCommand);
+            assertTrue(whileBlock.isConditionValid(),"wallInFront returns false but there is a wall in front");
 
     }
 
     @Test
     void execute() {
-        // TODO: 15/04/2020 test execute
+        // TODO: 15/04/2020 execute is nog niet af
     }
 
     @Test
     void executeNextBodyBlock() {
-        // TODO: 15/04/2020 test executeNextBodyBlock
+        // TODO: 15/04/2020  executeNextBodyBlock is nog niet af
     }
 
 
     @Test
-    void addAndRemoveBodyBlock() {
-        whileBlock.addBodyBlockAfter(actionBlock, null);
-        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"Added block isn't first");
+    void addBeforeAfterInsertAndRemoveBodyBlock() {
+        whileBlock.insertBodyBlockAtIndex(actionBlock, 0);
+        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"actionBlock isn't first");
         whileBlock.addBodyBlockBefore(actionBlock1, actionBlock);
-        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock1,"Added block isn't first");
-        assertEquals(whileBlock.getBodyBlocks().get(1), actionBlock,"Added block isn't second");
+        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock1,"actionBlock1 isn't first");
+        assertEquals(whileBlock.getBodyBlocks().get(1), actionBlock,"actionBlock isn't second");
         whileBlock.removeBodyBlock(actionBlock1);
-        assertFalse(whileBlock.getBodyBlocks().contains(actionBlock1), "Body block isn't removed");
-        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock, "Remaining block isn't first");
+        assertFalse(whileBlock.getBodyBlocks().contains(actionBlock1), "actionBlock1 isn't removed");
+        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock, "actionBlock isn't first");
+        whileBlock.addBodyBlockAfter(actionBlock1, actionBlock);
+        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"actionBlock isn't first");
+        assertEquals(whileBlock.getBodyBlocks().get(1), actionBlock1,"actionBlock1 isn't second");
+
+        whileBlock.insertBodyBlockAtIndex(actionBlock2, 1);
+        assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock,"actionBlock isn't first");
+        assertEquals(whileBlock.getBodyBlocks().get(1), actionBlock2,"actionBlock2 isn't second");
+        assertEquals(whileBlock.getBodyBlocks().get(2), actionBlock1,"actionBlock1 isn't third");
     }
 
-    @Test
-    void addBodyBlocks() {
-        // TODO: test addBodyBlockAfter en addBodyBlockAtIndex
-    }
 
     @Test
     void getPlugPosition() {

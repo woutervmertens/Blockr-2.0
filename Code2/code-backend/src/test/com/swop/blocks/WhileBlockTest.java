@@ -8,11 +8,11 @@ class WhileBlockTest {
 
     @Test
     void execute() {
-        // TODO: 15/04/2020 test execute
+        // TODO: 15/04/2020  execute nog niet af
     }
 
     @Test
     void executeNextBodyBlock() {
-        // TODO: 15/04/2020 test executeNextBodyBlock();
+        // TODO: 15/04/2020  executeNextBodyBlock nog niet af
     }
 }

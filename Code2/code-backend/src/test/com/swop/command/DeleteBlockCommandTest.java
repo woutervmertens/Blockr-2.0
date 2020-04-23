@@ -23,11 +23,11 @@ class DeleteBlockCommandTest {
     @Test
     void executeAndUndo() {
         deleteBlockCommand.programArea.dropBlock(block);
-        assertEquals(block, deleteBlockCommand.programArea.getAllBlocks().get(0));
+        assertEquals(block, deleteBlockCommand.programArea.getAllBlocks().get(deleteBlockCommand.programArea.getAllBlocks().size() -1));
         deleteBlockCommand.execute();
-        assertTrue(deleteBlockCommand.programArea.getAllBlocks().isEmpty());
+        assertFalse(deleteBlockCommand.programArea.getAllBlocks().contains(block));
         deleteBlockCommand.undo();
-        assertEquals(block, deleteBlockCommand.programArea.getAllBlocks().get(0));
+        assertEquals(block, deleteBlockCommand.programArea.getAllBlocks().get(deleteBlockCommand.programArea.getAllBlocks().size() -1));
     }
 
 }
