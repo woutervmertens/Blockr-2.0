@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ProgramArea implements PushBlocks {
     private final static AtomicReference<ProgramArea> instance = new AtomicReference<>();
 
-    private final int radius = 15;  // Radius for connections
+    private final int radius = 10;  // Radius for connections
     /**
      * List recording all the blocks that belong to the current program of this program area WITHOUT nested blocks.
      * Nested blocks (inside StatementBlocks) should be accessed using ''
@@ -39,9 +39,12 @@ public class ProgramArea implements PushBlocks {
         return instance.get();
     }
 
-    /**
-     * @pre the position of the block is inside the ui program area.
-     */
+    // TODO: remove method ?
+    public void dropBlockIn(Block draggedBlock, Point position) {
+        draggedBlock.setPosition(position);
+        dropBlock(draggedBlock);
+    }
+
     public void dropBlock(Block draggedBlock) {
         if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
         resetProgramExecution();
@@ -154,6 +157,10 @@ public class ProgramArea implements PushBlocks {
     private static int getDistance(Point b, Point p) {
         return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
     }
+
+//    private static boolean isAbove(Block block1, Block block2) {
+//        return block1.getPosition().y < block2.getPosition().y;
+//    }
 
     /**
      * @param draggedBlock block that is dragged
@@ -282,7 +289,7 @@ public class ProgramArea implements PushBlocks {
      *              This does not mean that the given block is removed or outside the PA.
      * @pre getProgram().contains(block)
      */
-    public void removeProgramBlock(Block block) {
+    private void removeProgramBlock(Block block) {
         assert getProgram().contains(block);
         int index = program.indexOf(block);
         program.remove(block);
@@ -292,21 +299,10 @@ public class ProgramArea implements PushBlocks {
         PushBlocks.pushFrom(program, index, distance);
 
         // TODO: Correct method
-//        PushBlocks.pushBlocksInListFromIndexWithDistance(getProgram(), getProgram().indexOf(block) + 1,
-//                -block.getHeight() - block.getStep());
-//        PushBlocks.pushBodyBlocksOfSuperiorParents(getProgram(), -block.getHeight() - block.getStep());
 
         getProgram().remove(block);
 
-        // TODO: remove from allBlocks as well !
-
-//        if (index > 0) {
-//            for (int i = index; i < getProgram().size(); i++) {
-//                Block currentBlock = getProgram().get(i);
-//                currentBlock.setPosition(new Point(currentBlock.getPosition().x,
-//                        currentBlock.getPosition().y - block.getHeight()));
-//            }
-//        }
+        // TODO: remove from allBlocks as well ? Or is it already done ?
     }
 
     /**
@@ -318,7 +314,19 @@ public class ProgramArea implements PushBlocks {
         if (!(clickedBlock instanceof ConditionBlock)) {
             StatementBlock parentStatement = clickedBlock.getParentStatement();
             if (parentStatement != null) {
+                // 1) Remove the body and push all superior body-blocks up
                 parentStatement.removeBodyBlock(clickedBlock);
+                // 2) Push program up
+                // 2.1) Find most superior program block
+                while (parentStatement.getParentStatement() != null) {
+                    parentStatement = parentStatement.getParentStatement();
+                }
+                if (getProgram().contains(parentStatement)) {
+                    int distance = -clickedBlock.getHeight() - clickedBlock.getStep();
+                    if (clickedBlock instanceof StatementBlock)
+                        distance -= ((StatementBlock) clickedBlock).getGapSize();
+                    PushBlocks.pushFrom(program, program.indexOf(parentStatement) + 1, distance);
+                }
             }
 
         } else {

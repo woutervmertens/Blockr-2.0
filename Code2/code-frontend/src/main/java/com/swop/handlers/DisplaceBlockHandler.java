@@ -41,7 +41,7 @@ public class DisplaceBlockHandler {
     /**
      * Connection with backend
      */
-    private BlockrGame blockrGame;
+    private final BlockrGame blockrGame;
 
     /**
      * @pre draggedBlock.getPosition() is inside the PA
@@ -80,21 +80,21 @@ public class DisplaceBlockHandler {
             if (backendBlock instanceof StatementBlock) {
 
                 for (Block bodyBlock : new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks())) {
-                    blockUIBlockMap.remove(bodyBlock);
-                    blockrGame.removeBlockFromPA(bodyBlock);
+                    // blockUIBlockMap.remove(bodyBlock);
+                    blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
             }
-            //remove from the map in DisplaceBlockHandler
-            blockUIBlockMap.remove(backendBlock);
+
+            //blockUIBlockMap.remove(backendBlock);
             //remove the block from program area
-            blockrGame.removeBlockFromPA(backendBlock);
+            blockrGame.removeBlockFromPA(backendBlock, true);
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof StatementBlock) {
                 for (Block bodyBlock : ((StatementBlock) backendBlock).getBodyBlocks()) {
-                    blockrGame.removeBlockFromPA(bodyBlock);
+                    blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
                 for (Block bodyBlock : ((StatementBlock) backendBlock).getConditions()) {
-                    blockrGame.removeBlockFromPA(bodyBlock);
+                    blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
             }
         }
@@ -111,14 +111,14 @@ public class DisplaceBlockHandler {
 
     public void handleProgramAreaForClickOn(UIBlock clickedBlock) {
         if (clickedBlock == null) throw new IllegalArgumentException();
-
-        blockrGame.removeBlockFromPA(clickedBlock.getCorrespondingBlock());
-
-        // TODO: remove
-        //adjustAllBlockPositions();
-        //adjustAllStatementBlockGaps();
+        Block backendBlock = clickedBlock.getCorrespondingBlock();
+        backendBlock.setPreviousDropPosition(backendBlock.getPosition());
+        blockrGame.removeBlockFromPA(backendBlock, false);
+        adjustAllBlockPositions();
+        adjustAllStatementBlockGaps();
     }
 
+    // TODO: delete
     public void displaceAllBodyBlocksAndConditionsOfBlockWithDistance(UIStatementBlock draggedBlock, int dx, int dy) {
         // Body blocks
         List<Block> bodyAndConditionBlocks = ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks();

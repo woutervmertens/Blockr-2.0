@@ -1,11 +1,9 @@
 package com.swop;
 
 import com.swop.blocks.ActionBlock;
-import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.WhileBlock;
-import com.swop.command.AddBlockCommand;
-import org.junit.jupiter.api.BeforeAll;
+import com.swop.command.DropBlockCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +36,7 @@ class BlockrGameTest {
     private ConditionBlock conditionBlock = new ConditionBlock(new Point(3,2),true, 1,2);
 
 
-    private AddBlockCommand addBlockCommand = new AddBlockCommand(actionBlock);
+    private DropBlockCommand dropBlockCommand = new DropBlockCommand(actionBlock);
 
     @BeforeEach
     void setup(){
@@ -95,7 +93,7 @@ class BlockrGameTest {
         blockrGame.executeNext();
         assertEquals(ProgramArea.getInstance().getCurrentBlock(), actionBlock, "ActionBlock isn't the current block");
 
-        blockrGame.removeBlockFromPA(whileBlock);
+        blockrGame.removeBlockFromPA(whileBlock, true);
         assertEquals(1, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");
         assertEquals(1, blockrGame.getNumbBlocksInPA(), "Number of blocks isn't 1");
     }
