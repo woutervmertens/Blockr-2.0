@@ -92,7 +92,22 @@ public class ProgramArea implements PushBlocks {
             // TODO: connect condition to other conditions
         }
 
-        // TODO: 2) Add to program/body
+        // 2) Push program blocks if dragged block was added to a statement body
+        if (draggedBlock.getParentStatement() != null) {
+            Block currentBlock = draggedBlock;
+            while (currentBlock.getParentStatement() != null) {
+                currentBlock = currentBlock.getParentStatement();
+            }
+
+            if (getProgram().contains(currentBlock)) {
+                // Now currentBlock is a block from the program
+                int distance = draggedBlock.getHeight() + draggedBlock.getStep();
+                if (draggedBlock instanceof StatementBlock) distance += ((StatementBlock) draggedBlock).getGapSize();
+                PushBlocks.pushFrom(getProgram(), getProgram().indexOf(currentBlock) + 1, distance);
+            }
+        }
+
+        System.out.println("Program has " + getProgram().size() + " blocks !");
     }
 
     /**
@@ -258,7 +273,7 @@ public class ProgramArea implements PushBlocks {
         program.add(index, block);
         int distance = block.getHeight() + block.getStep();
         if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(program, index + 1, distance);
+        PushBlocks.pushFrom(program, index + 1, distance);
     }
 
     /**
@@ -274,7 +289,7 @@ public class ProgramArea implements PushBlocks {
 
         int distance = -block.getHeight() - block.getStep();
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(program, index, distance);
+        PushBlocks.pushFrom(program, index, distance);
 
         // TODO: Correct method
 //        PushBlocks.pushBlocksInListFromIndexWithDistance(getProgram(), getProgram().indexOf(block) + 1,
@@ -305,6 +320,7 @@ public class ProgramArea implements PushBlocks {
             if (parentStatement != null) {
                 parentStatement.removeBodyBlock(clickedBlock);
             }
+
         } else {
             // TODO: remove ConditionBlock
         }

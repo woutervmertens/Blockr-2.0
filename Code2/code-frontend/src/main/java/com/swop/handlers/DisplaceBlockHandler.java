@@ -1,11 +1,9 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.PushBlocks;
 import com.swop.blocks.Block;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.UIConditionBlock;
 import com.swop.uiElements.UIStatementBlock;
 
 import java.awt.*;
@@ -77,19 +75,28 @@ public class DisplaceBlockHandler {
     }
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
-        if (draggedBlock.getCorrespondingBlock() != null) {
-            if (draggedBlock.getCorrespondingBlock() instanceof StatementBlock) {
+        Block backendBlock = draggedBlock.getCorrespondingBlock();
+        if (backendBlock != null) {
+            if (backendBlock instanceof StatementBlock) {
 
-                for (Block bodyBlock : ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks()) {
+                for (Block bodyBlock : new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks())) {
                     blockUIBlockMap.remove(bodyBlock);
                     blockrGame.removeBlockFromPA(bodyBlock);
                 }
             }
             //remove from the map in DisplaceBlockHandler
-            blockUIBlockMap.remove(draggedBlock.getCorrespondingBlock());
+            blockUIBlockMap.remove(backendBlock);
             //remove the block from program area
-            blockrGame.removeBlockFromPA(draggedBlock.getCorrespondingBlock());
-
+            blockrGame.removeBlockFromPA(backendBlock);
+            // Remove all bodies and conditions as well from program area
+            if (backendBlock instanceof StatementBlock) {
+                for (Block bodyBlock : ((StatementBlock) backendBlock).getBodyBlocks()) {
+                    blockrGame.removeBlockFromPA(bodyBlock);
+                }
+                for (Block bodyBlock : ((StatementBlock) backendBlock).getConditions()) {
+                    blockrGame.removeBlockFromPA(bodyBlock);
+                }
+            }
         }
     }
 
@@ -118,7 +125,7 @@ public class DisplaceBlockHandler {
         // Adding conditions
         bodyAndConditionBlocks.addAll(((StatementBlock) draggedBlock.getCorrespondingBlock()).getConditions());
 
-        for (Block block :bodyAndConditionBlocks) {
+        for (Block block : bodyAndConditionBlocks) {
             block.setPosition(new Point(block.getPosition().x + dx, block.getPosition().y + dy));
             if (block instanceof StatementBlock) {
                 for (Block bodyBlock2 : ((StatementBlock) block).getBodyBlocks()) {

@@ -4,7 +4,6 @@ import com.swop.handlers.DisplaceBlockHandler;
 import com.swop.handlers.ExecuteProgramHandler;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.UIStatementBlock;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

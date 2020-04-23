@@ -1,7 +1,6 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.blocks.StatementBlock;
 
 import java.awt.*;
 import java.util.List;
@@ -12,7 +11,7 @@ public interface PushBlocks {
     /**
      * Push down or up (based on the sign of the given distance) all blocks of the given list starting from the given index.
      */
-    static void pushBlocksInListFromIndexWithDistance(List<Block> blockList, int index, int distance) {
+    private static void pushBlocksInListFromIndexWithDistance(List<Block> blockList, int index, int distance) {
         if (index < 0) return;
         // Push all the body blocks starting from the index
         for (int i = index; i < blockList.size(); i++) {
@@ -22,19 +21,24 @@ public interface PushBlocks {
     }
 
     /**
-     * Push the blocks in this list and all eventual body blocks of superior parents
-     * @param bodyBlocks list of blocks of the body
-     * @param distance todo
+     * Push (up or down) the blocks in this list and all eventual body blocks of superior parents.
+     * TODO: whenever calling this method you should make sure also the program is pushed.
+     * @param blockList List of blocks that should be pushed
+     * @param index Index from which the blocks should be pushed
+     * @param distance Distance by which the blocks should be pushed (up: positive, down: negative)
      */
-    static void pushBodyBlocksOfSuperiorParents(List<Block> bodyBlocks, int distance) {
-        if (bodyBlocks.isEmpty()) return;
-        assert bodyBlocks.get(0).getParentStatement() != null;
-
-        Block currentParent = bodyBlocks.get(0).getParentStatement();
-        while (currentParent.getParentStatement() != null) {
-            PushBlocks.pushBlocksInListFromIndexWithDistance(currentParent.getParentStatement().getBodyBlocks(),
-                    currentParent.getParentStatement().getBodyBlocks().indexOf(currentParent) + 1, distance);
-            currentParent = currentParent.getParentStatement();
+    static void pushFrom(List<Block> blockList, int index, int distance) {
+        if (blockList.isEmpty()) return;
+        // 1) Push blocks in same list
+        pushBlocksInListFromIndexWithDistance(blockList, index, distance);
+        // 2) Push blocks of eventual superior parents
+        Block currentParent = blockList.get(0).getParentStatement();
+        if (currentParent != null) {
+            while (currentParent.getParentStatement() != null) {
+                PushBlocks.pushBlocksInListFromIndexWithDistance(currentParent.getParentStatement().getBodyBlocks(),
+                        currentParent.getParentStatement().getBodyBlocks().indexOf(currentParent) + 1, distance);
+                currentParent = currentParent.getParentStatement();
+            }
         }
     }
 }

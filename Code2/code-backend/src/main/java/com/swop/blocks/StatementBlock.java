@@ -100,22 +100,19 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public void insertBodyBlockAtIndex(Block block, int index) {
         // 1) Add to the body blocks of this statement
         bodyBlocks.add(index, block);
+        block.setParentStatement(this);
 
         // 2) Push all next body blocks down
         int distance = block.getHeight() + step;
         if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index+1, distance);
+        PushBlocks.pushFrom(bodyBlocks, index+1, distance);
 
         // 3) Increase the gap of this statement and all eventual superior parent statements
-        block.setParentStatement(this);
         StatementBlock currentParent = block.getParentStatement();
         while (currentParent != null) {
             currentParent.increaseGapSize(distance);
             currentParent = currentParent.getParentStatement();
         }
-
-        // 4) Push body blocks of superior parent statements
-        PushBlocks.pushBodyBlocksOfSuperiorParents(getBodyBlocks(), distance);
     }
 
     /**
@@ -128,8 +125,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         bodyBlocks.remove(block);
         int distance = -block.getHeight() - step;
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
-        PushBlocks.pushBlocksInListFromIndexWithDistance(bodyBlocks, index, distance);
-        PushBlocks.pushBodyBlocksOfSuperiorParents(bodyBlocks, distance);
+        PushBlocks.pushFrom(bodyBlocks, index, distance);
 
         block.setParentStatement(null);
 
