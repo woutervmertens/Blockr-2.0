@@ -180,9 +180,19 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     public void addConditionBlock(ConditionBlock block) {
         conditions.add(block);
+        block.setParentStatement(this);
     }
 
-    // TODO: methods for handling removing body or condition blocks (removing one removes all the followings)
+    public void removeConditionBlock(ConditionBlock block){
+        ConditionBlock conditionBlock = conditions.get(conditions.size() - 1);
+        while (conditionBlock != block){
+            conditionBlock.setParentStatement(null);
+            conditions.remove(conditionBlock);
+            conditionBlock = conditions.get(conditions.size() - 1);
+        }
+        conditionBlock.setParentStatement(null);
+        conditions.remove(conditionBlock);
+    }
 
     @Override
     public Point getPlugPosition() {

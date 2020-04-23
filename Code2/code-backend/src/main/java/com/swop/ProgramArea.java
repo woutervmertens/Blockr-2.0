@@ -87,12 +87,21 @@ public class ProgramArea implements PushBlocks {
             }
         } else {
             // 4) statement condition
+            try {
+                ((ConditionBlock)draggedBlock).getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
+            }catch (Exception ignored){}
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
                 draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
                 ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
+            } else{
+                closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
+                if (closeBlock != null) {
+                    draggedBlock.setPosition(((ConditionBlock) closeBlock).getPlugPosition());
+                    StatementBlock parent = closeBlock.getParentStatement();
+                     parent.addConditionBlock((ConditionBlock) draggedBlock);
+                }
             }
-            // TODO: connect condition to other conditions
         }
 
         // 2) Push program blocks if dragged block was added to a statement body
@@ -130,7 +139,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Sets the givven block as the current block
+     * Sets the given block as the current block
      *
      * @param first given block
      */
@@ -246,6 +255,23 @@ public class ProgramArea implements PushBlocks {
                 continue;
 
             if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getConditionPlugPosition()) <= radius) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param block given block
+     * @param radius given radius
+     * @return Returns the condition block condition plug within the given radius of the given block
+     */
+    private Block getConditionBlockConditionPlugWithinRadius(Block block, int radius) {
+        for (Block b : getAllBlocks()) {
+            if (b == block || !(b instanceof ConditionBlock))
+                continue;
+
+            if (getDistance(block.getSocketPosition(), ((ConditionBlock) b).getPlugPosition()) <= radius) {
                 return b;
             }
         }
