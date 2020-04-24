@@ -30,8 +30,5 @@ class ActionBlockTest {
         assertEquals(expectedPosition.y, actionBlock.getSocketPosition().y, "Expected y-position and actual y-position of socket are different");
     }
 
-    @Test
-    void execute() {
-        // TODO: 15/04/2020 execute test 
-    }
+
 }

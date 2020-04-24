@@ -31,17 +31,4 @@ class ProgramAreaTest {
         assertTrue(programArea.getAllBlocks().contains(actionBlock));
     }
 
-
-
-    @Test
-    void getConnectionPoint() {
-    }
-
-    @Test
-    void removeBlockFromPA() {
-    }
-
-    @Test
-    void resetProgramExecution() {
-    }
 }
