@@ -180,14 +180,16 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     }
 
     public void removeConditionBlock(ConditionBlock block) {
-        ConditionBlock conditionBlock = conditions.get(conditions.size() - 1);
-        while (conditionBlock != block) {
-            conditionBlock.setParentStatement(null);
-            conditions.remove(conditionBlock);
-            conditionBlock = conditions.get(conditions.size() - 1);
+        assert getConditions().contains(block);
+
+        ConditionBlock currentCondition;
+        int n = getConditions().size();
+        int j = getConditions().indexOf(block);
+        for (int i = n - 1; i >= j; i--) {
+            currentCondition = getConditions().get(i);
+            currentCondition.setParentStatement(null);
+            conditions.remove(currentCondition);
         }
-        conditionBlock.setParentStatement(null);
-        conditions.remove(conditionBlock);
     }
 
     @Override
