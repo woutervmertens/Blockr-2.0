@@ -66,9 +66,6 @@ class BlockrGameTest {
         assertEquals(blockrGame.getBlockPosition(whileBlock).y, wPosition.y, "The y-value of the expected and actual position of the block are different");
     }
 
-    @Test
-    void removeProgramBlock() {
-    }
 
     /**
      * checks if the functions dropBlockInPA(), getNumbBlocksInPA(), isPaletteHidden(), executeNext() and removeBlockFromPA() is implemented well

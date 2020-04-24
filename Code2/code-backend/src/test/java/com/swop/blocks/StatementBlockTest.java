@@ -77,17 +77,6 @@ class StatementBlockTest {
     }
 
     @Test
-    void execute() {
-        // TODO: 15/04/2020 execute is nog niet af
-    }
-
-    @Test
-    void executeNextBodyBlock() {
-        // TODO: 15/04/2020  executeNextBodyBlock is nog niet af
-    }
-
-
-    @Test
     void addBeforeAfterInsertAndRemoveBodyBlock() {
         whileBlock.insertBodyBlockAtIndex(actionBlock, 0);
         assertEquals(whileBlock.getBodyBlocks().get(0), actionBlock, "actionBlock isn't first");
