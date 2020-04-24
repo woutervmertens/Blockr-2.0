@@ -1,6 +1,7 @@
 package com.swop;
 
 import com.swop.blocks.Block;
+import com.swop.blocks.StatementBlock;
 import com.swop.command.DeleteBlockCommand;
 import com.swop.command.DropBlockCommand;
 import com.swop.command.ExecuteCommand;
@@ -115,6 +116,15 @@ public class BlockrGame {
     }
 
     public Block getCurrentActiveBlock() {
+        if (programArea.getCurrentBlock() instanceof StatementBlock) {
+            StatementBlock statementBlock = (StatementBlock) programArea.getCurrentBlock();
+
+            if (((StatementBlock) programArea.getCurrentBlock()).getCurrent() != null){
+                return statementBlock.getCurrent();
+            } else if (statementBlock.isConditionValid()){
+                return statementBlock.getBodyBlocks().get(0);
+            }
+        }
         return programArea.getCurrentBlock();
     }
 

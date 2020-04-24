@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class ProgramAreaTest {
 
     private ProgramArea programArea = ProgramArea.getInstance();
