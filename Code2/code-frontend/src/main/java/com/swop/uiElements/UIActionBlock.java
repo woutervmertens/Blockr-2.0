@@ -1,7 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.Action;
-import com.swop.GameWorld;
 import com.swop.blocks.ActionBlock;
 import com.swop.blocks.Block;
 
@@ -24,12 +22,10 @@ public class UIActionBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        switch (type.getType()) {
-            case ActionType:
-                this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction());
-                break;
-            default:
-                throw new IllegalArgumentException("Not an Action Block !");
+        if (type.getType() == BlockType.ActionType) {
+            this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction());
+        } else {
+            throw new IllegalArgumentException("Not an Action Block !");
         }
     }
 

@@ -2,8 +2,6 @@ package com.swop.handlers;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class DisplaceBlockHandlerTest {
 
     @Test

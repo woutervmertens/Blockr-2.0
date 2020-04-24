@@ -1,6 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.GameWorld;
 import com.swop.blocks.Block;
 
 import java.awt.*;
@@ -35,11 +34,11 @@ public abstract class UIBlock {
         return this.correspondingBlock;
     }
 
-    public abstract void makeNewCorrespondingBlock();
-
     public void setCorrespondingBlock(Block correspondingBlock) {
         this.correspondingBlock = correspondingBlock;
     }
+
+    public abstract void makeNewCorrespondingBlock();
 
     public Point getPosition() {
         return position;
@@ -80,8 +79,6 @@ public abstract class UIBlock {
      * @return the polygon for this type of UIBlock
      */
     public abstract Polygon getPolygon();
-
-    // TODO: getSocket/PlugPosition here or in Backend only ??
 
     public int getWidth() {
         return width;

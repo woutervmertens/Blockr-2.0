@@ -1,8 +1,8 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.command.DropBlockCommand;
 import com.swop.command.DeleteBlockCommand;
+import com.swop.command.DropBlockCommand;
 import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
 
@@ -13,14 +13,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 // TODO: 14/04/2020 comment
 public class BlockrGame {
+    private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
     private final ProgramArea programArea;
-    private GameWorld gameWorld;
     private final GameWorldType gameWorldType;
     /**
      * Maximum number of blocks that can be used
      */
     private final int maxBlocks;
-    private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
+    private GameWorld gameWorld;
     /**
      * Stack for all the undo's
      */
@@ -32,10 +32,11 @@ public class BlockrGame {
 
     /**
      * Initializes BlockrGame
-     * @param maxBlocks maximum number of blocks that can be used.
+     *
+     * @param maxBlocks     maximum number of blocks that can be used.
      * @param gameWorldType given type of gameWorld
      */
-    private BlockrGame(int maxBlocks,GameWorldType gameWorldType) {
+    private BlockrGame(int maxBlocks, GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
         this.programArea = ProgramArea.getInstance();
         this.gameWorldType = gameWorldType;
@@ -44,20 +45,21 @@ public class BlockrGame {
 
     /**
      * Creates an instance of BlockrGame
-     * @param maxBlocks maximum number of blocks that can be used.
+     *
+     * @param maxBlocks     maximum number of blocks that can be used.
      * @param gameWorldType given type of gameWorld
      * @return Returns an instance of BlockrGame if there isn't one yet.
      */
-    public synchronized  static BlockrGame createInstance(int maxBlocks,GameWorldType gameWorldType){
-        if(instance.get() == null) instance.set(new BlockrGame(maxBlocks,gameWorldType));
+    public synchronized static BlockrGame createInstance(int maxBlocks, GameWorldType gameWorldType) {
+        if (instance.get() == null) instance.set(new BlockrGame(maxBlocks, gameWorldType));
         return instance.get();
     }
 
     /**
      * @return Returns the BlockrGame instance if there is one otherwise an exception will be thrown.
      */
-    public synchronized static BlockrGame getInstance(){
-        if(instance.get() == null) throw new IllegalStateException("BlockrGame instance used before created.");
+    public synchronized static BlockrGame getInstance() {
+        if (instance.get() == null) throw new IllegalStateException("BlockrGame instance used before created.");
         return instance.get();
     }
 
@@ -78,6 +80,7 @@ public class BlockrGame {
 
     /**
      * Adds block to Program Area
+     *
      * @param block given block
      */
     public void dropBlockInPA(Block block) {
@@ -87,8 +90,9 @@ public class BlockrGame {
 
     /**
      * Removes block from Program Area
+     *
      * @param draggedBlock given block
-     * @param isRelease Boolean recording whether this is a release (outside PA) or not (a click)
+     * @param isRelease    Boolean recording whether this is a release (outside PA) or not (a click)
      */
     public void removeBlockFromPA(Block draggedBlock, boolean isRelease) {
         if (isRelease) {
@@ -102,9 +106,11 @@ public class BlockrGame {
      * Executes next block
      */
     public void executeNext() {
-        if(programArea.getCurrentBlock() != null){
+        if (programArea.getCurrentBlock() != null) {
             executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
-           if (programArea.getCurrentBlock().isDone()) {programArea.setNextCurrentBlock();}
+            if (programArea.getCurrentBlock().isDone()) {
+                programArea.setNextCurrentBlock();
+            }
         }
     }
 
@@ -130,22 +136,27 @@ public class BlockrGame {
     /**
      * @return Returns all the blocks that are in the Program Area
      */
-    public List<Block> getAllBlocksInPA(){return programArea.getAllBlocks();}
+    public List<Block> getAllBlocksInPA() {
+        return programArea.getAllBlocks();
+    }
 
     /**
      * position of a block is (x,y)
+     *
      * @param x x-value of position
      * @param y y-value of position
      * @return returns a block if there is one at the given position otherwise null will be returned.
      */
     public Block getBlockInPaAt(int x, int y) {
-        return programArea.getBlockAt(x,y);
+        return programArea.getBlockAt(x, y);
     }
 
     /**
      * @return Returns true if the number of blocks in the program area is equal or greater than the maximum number of blocks
      */
-    public boolean isPaletteHidden(){return (maxBlocks - getNumbBlocksInPA()) <= 0;}
+    public boolean isPaletteHidden() {
+        return (maxBlocks - getNumbBlocksInPA()) <= 0;
+    }
 
     /**
      * @return Returns the game world
@@ -157,13 +168,15 @@ public class BlockrGame {
     /**
      * @return Returns the game world type
      */
-    public GameWorldType getGameWorldType() {return gameWorldType;}
+    public GameWorldType getGameWorldType() {
+        return gameWorldType;
+    }
 
     /**
      * redoes the previous undone operation if an operation is undone otherwise nothing happens
      */
-    public void redoCommand(){
-        if(!redoStack.isEmpty()){
+    public void redoCommand() {
+        if (!redoStack.isEmpty()) {
             System.out.println("REDOSTACK: " + redoStack.size());
             executeCommand(redoStack.pop());
         }
@@ -172,8 +185,8 @@ public class BlockrGame {
     /**
      * undoes the previous operation if there is one otherwise nothing will be done
      */
-    public void undoCommand(){
-        if(!undoStack.isEmpty()){
+    public void undoCommand() {
+        if (!undoStack.isEmpty()) {
             System.out.println("UNDOSTACK: " + undoStack.size());
             ICommand command = undoStack.pop();
             command.undo();
@@ -183,9 +196,10 @@ public class BlockrGame {
 
     /**
      * Given command will be executed
+     *
      * @param command given command
      */
-    public void executeCommand(ICommand command){
+    public void executeCommand(ICommand command) {
         command.execute();
         undoStack.add(command);
     }

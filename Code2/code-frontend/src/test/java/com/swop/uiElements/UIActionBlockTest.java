@@ -2,8 +2,6 @@ package com.swop.uiElements;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UIActionBlockTest {
 
     @Test

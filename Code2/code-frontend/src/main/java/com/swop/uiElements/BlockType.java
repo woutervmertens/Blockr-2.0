@@ -1,9 +1,9 @@
 package com.swop.uiElements;
 
-public enum BlockType{
+public enum BlockType {
     ActionType,
     IfStatement,
     WhileStatement,
     NotCondition,
-    Predicate;
+    Predicate
 }

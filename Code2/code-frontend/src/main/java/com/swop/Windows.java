@@ -1,12 +1,10 @@
 package com.swop;
 
-import com.swop.blocks.ActionBlock;
 import com.swop.uiElements.BlockType;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public enum Windows {
@@ -15,9 +13,9 @@ public enum Windows {
     GAME_WORLD(new Point(PALETTE.getWidth() + PROGRAM_AREA.getWidth(), 0), PALETTE.getWidth(), PALETTE.getHeight());
 
     private static BlockTypes[] types;
-    private Point position;
-    private int width;
-    private int height;
+    private final Point position;
+    private final int width;
+    private final int height;
 
     Windows(Point pos, int width, int height) {
         this.position = pos;
@@ -25,35 +23,13 @@ public enum Windows {
         this.height = height;
     }
 
-    public Point getPosition() {
-        return position;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Check whether the pos represented by the given x and y is within this window.
-     */
-    public boolean isWithin(int x, int y) {
-        return (x > getPosition().x
-                && x < getPosition().x + getWidth()
-                && y > getPosition().y
-                && y < getPosition().y + getHeight());
-    }
-
     /**
      * Draw the palette, program area and game world of this window.
      */
     public static void drawWindows(Graphics g, boolean isPaletteHidden, Collection<UIBlock> uiBlocks, GameWorld gameWorld) {
         drawPalette(g, isPaletteHidden);
-        drawProgramArea(g,uiBlocks);
-        drawGameWorld(g,gameWorld);
+        drawProgramArea(g, uiBlocks);
+        drawGameWorld(g, gameWorld);
     }
 
     private static void drawBlock(UIBlock block, Graphics g) {
@@ -81,26 +57,25 @@ public enum Windows {
         types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3];
         int k = 0;
         //Supported actions
-        for (Action a : gwActions){
-            types[k] = new BlockTypes(a.toString(),110, BlockType.ActionType);
+        for (Action a : gwActions) {
+            types[k] = new BlockTypes(a.toString(), 110, BlockType.ActionType);
             types[k].setAction(a);
             k++;
         }
         //Supported predicates
-        for (Predicate p : gwPredicates){
-            types[k] = new BlockTypes(p.toString(),40,BlockType.Predicate);
+        for (Predicate p : gwPredicates) {
+            types[k] = new BlockTypes(p.toString(), 40, BlockType.Predicate);
             types[k].setPredicate(p);
             k++;
         }
         //Blockr types
-        types[k++] = new BlockTypes("Not",40,BlockType.NotCondition);
-        types[k++] = new BlockTypes("If",110,BlockType.IfStatement);
-        types[k++] = new BlockTypes("While",110,BlockType.WhileStatement);
+        types[k++] = new BlockTypes("Not", 40, BlockType.NotCondition);
+        types[k++] = new BlockTypes("If", 110, BlockType.IfStatement);
+        types[k++] = new BlockTypes("While", 110, BlockType.WhileStatement);
 
         int step = height / types.length;
         for (int i = 0; i < types.length; i++) {
             UIBlock uiBlock = types[i].getNewUIBlock(x, y + step * i);
-            // TODO: if (!uiBlock.isAvailable()) continue;
             uiBlock.setPosition(new Point(x, y + step * i));
             g.setColor(Color.black);
             g.drawRoundRect(5, step * i, width - 10, step, 5, 5);
@@ -108,7 +83,7 @@ public enum Windows {
         }
     }
 
-    private static void drawProgramArea(Graphics g,Collection<UIBlock> uiBlocks) {
+    private static void drawProgramArea(Graphics g, Collection<UIBlock> uiBlocks) {
         Point pos = PROGRAM_AREA.getPosition();
         int width = PROGRAM_AREA.getWidth();
         int height = PROGRAM_AREA.getHeight();
@@ -116,8 +91,8 @@ public enum Windows {
         g.setColor(Color.PINK);
         g.fillRect(pos.x, pos.y, width, height);
 
-        for (UIBlock block : uiBlocks){
-            drawBlock(block,g);
+        for (UIBlock block : uiBlocks) {
+            drawBlock(block, g);
         }
     }
 
@@ -128,11 +103,12 @@ public enum Windows {
      */
     private static void drawGameWorld(Graphics g, GameWorld gameWorld) {
         Point pos = GAME_WORLD.getPosition();
-        gameWorld.paint(g,pos);
+        gameWorld.paint(g, pos);
     }
 
     /**
      * Get type of the area clicked on (assuming that the click is on the palette area.
+     *
      * @pre PALETTE.isWithin(x, y);
      */
     public static BlockTypes getTypeOfClick(int x, int y) {
@@ -150,5 +126,27 @@ public enum Windows {
 //        int step = height / types.length;
 //
 //        int i = Math.floorDiv(PALETTE.getHeight(), y);
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Check whether the pos represented by the given x and y is within this window.
+     */
+    public boolean isWithin(int x, int y) {
+        return (x > getPosition().x
+                && x < getPosition().x + getWidth()
+                && y > getPosition().y
+                && y < getPosition().y + getHeight());
     }
 }

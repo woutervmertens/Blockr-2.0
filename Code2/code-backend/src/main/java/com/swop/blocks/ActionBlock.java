@@ -29,9 +29,8 @@ public class ActionBlock extends Block implements Executable, VerticallyConnecta
     public void execute() {
         Snapshot snap = getGameWorld().createSnapshot();
         SuccessState state = getGameWorld().doAction(action);
-        if(state == SuccessState.FAILURE)
-        {
-           getGameWorld().restoreSnapshot(snap);
+        if (state == SuccessState.FAILURE) {
+            getGameWorld().restoreSnapshot(snap);
         }
     }
 }

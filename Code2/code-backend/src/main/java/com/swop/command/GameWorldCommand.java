@@ -5,7 +5,8 @@ import com.swop.GameWorld;
 
 public abstract class GameWorldCommand implements ICommand {
     protected GameWorld gameWorld;
-    public GameWorldCommand(){
+
+    public GameWorldCommand() {
         gameWorld = BlockrGame.getInstance().getGameWorld();
     }
 }

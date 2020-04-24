@@ -6,13 +6,15 @@ import com.swop.GameWorld;
 import java.awt.*;
 
 public abstract class Block implements Cloneable {
+    protected final int step;
     private final int width;
     private final int height;
-    protected final int step;
     protected ExecuteType executeType;
     private StatementBlock parentStatement;
 
     private boolean done = true;
+    private Point position;
+    private Point previousDropPosition;
 
     protected Block(Point position, int width, int height) {
         this.setPosition(position);
@@ -21,9 +23,9 @@ public abstract class Block implements Cloneable {
         step = height / 6;
     }
 
-    public Block clone(){
+    public Block clone() {
         try {
-            return (Block)super.clone();
+            return (Block) super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -80,22 +82,18 @@ public abstract class Block implements Cloneable {
         return position;
     }
 
-    public Point getPreviousDropPosition() {
-        return previousDropPosition;
-    }
-
     public void setPosition(Point position) {
         if (position == null) throw new IllegalArgumentException();
         this.position = position;
     }
 
+    public Point getPreviousDropPosition() {
+        return previousDropPosition;
+    }
+
     public void setPreviousDropPosition(Point previousDropPosition) {
         this.previousDropPosition = previousDropPosition;
     }
-
-    private Point position;
-
-    private Point previousDropPosition;
 
     public GameWorld getGameWorld() {
         return BlockrGame.getInstance().getGameWorld();

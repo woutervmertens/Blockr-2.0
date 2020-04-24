@@ -7,7 +7,7 @@ import com.swop.uiElements.UIBlock;
 import java.util.Map;
 
 public class ExecuteProgramHandler {
-    private BlockrGame blockrGame;
+    private final BlockrGame blockrGame;
     /**
      * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
      */
@@ -36,10 +36,11 @@ public class ExecuteProgramHandler {
         getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
-    public void undo(){
+    public void undo() {
         blockrGame.undoCommand();
     }
-    public void redo(){
+
+    public void redo() {
         blockrGame.redoCommand();
     }
 

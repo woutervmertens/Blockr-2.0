@@ -9,9 +9,9 @@ import java.awt.*;
 public class BlockTypes {
     private final String text;
     private final int width;
+    private final BlockType type;
     private Action action;
     private Predicate predicate;
-    private final BlockType type;
 
     public BlockTypes(String text, int width, BlockType type) {
         this.text = text;
@@ -31,13 +31,25 @@ public class BlockTypes {
         return this.width;
     }
 
-    public BlockType getType(){return type;}
+    public BlockType getType() {
+        return type;
+    }
 
-    public void setAction(Action action) {this.action = action;}
-    public Action getAction() {return this.action;}
+    public Action getAction() {
+        return this.action;
+    }
 
-    public void setPredicate(Predicate predicate) {this.predicate = predicate;}
-    public Predicate getPredicate() {return predicate;}
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public Predicate getPredicate() {
+        return predicate;
+    }
+
+    public void setPredicate(Predicate predicate) {
+        this.predicate = predicate;
+    }
 
     /**
      * Return new UIBlock of this type at position (x,y)
