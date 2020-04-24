@@ -2,21 +2,20 @@ package com.swop.handlers;
 
 import com.swop.BlockrGame;
 import com.swop.blocks.Block;
+import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIStatementBlock;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class DisplaceBlockHandler {
     /**
      * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
      */
-    private Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    private Map<Block, UIBlock> blockUIBlockMap;
 
     private Map<Block, UIBlock> getBlockUIBlockMap() {
         return blockUIBlockMap;
@@ -34,8 +33,9 @@ public class DisplaceBlockHandler {
         }
     }
 
-    public DisplaceBlockHandler(BlockrGame blockrGame) {
+    public DisplaceBlockHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
         this.blockrGame = blockrGame;
+        this.blockUIBlockMap = blockUIBlockMap;
     }
 
     /**
@@ -81,10 +81,14 @@ public class DisplaceBlockHandler {
             //blockUIBlockMap.remove(backendBlock);
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof StatementBlock) {
-                for (Block bodyBlock : new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks())) {
+                List<Block> newBodyBlocks = new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks());
+                Collections.reverse(newBodyBlocks);
+                for (Block bodyBlock : newBodyBlocks) {
                     blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
-                for (Block condition : new ArrayList<>(((StatementBlock) backendBlock).getConditions())) {
+                List<ConditionBlock> newConditions = new ArrayList<>(((StatementBlock) backendBlock).getConditions());
+                Collections.reverse(newConditions);
+                for (Block condition : newConditions) {
                     blockrGame.removeBlockFromPA(condition, true);
                 }
             }

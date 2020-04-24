@@ -108,6 +108,10 @@ public class BlockrGame {
         }
     }
 
+    public Block getCurrentActiveBlock() {
+        return programArea.getCurrentBlock();
+    }
+
     /**
      * Resets the game world and the program area
      */

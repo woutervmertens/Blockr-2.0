@@ -1,12 +1,29 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
+import com.swop.blocks.Block;
+import com.swop.uiElements.UIBlock;
+
+import java.util.Map;
 
 public class ExecuteProgramHandler {
     private BlockrGame blockrGame;
+    /**
+     * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
+     */
+    private Map<Block, UIBlock> blockUIBlockMap;
 
-    public ExecuteProgramHandler(BlockrGame blockrGame) {
+    public ExecuteProgramHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
         this.blockrGame = blockrGame;
+        this.blockUIBlockMap = blockUIBlockMap;
+    }
+
+    public UIBlock getCorrespondingUiBlockFor(Block block) {
+        try {
+            return blockUIBlockMap.get(block);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public int getNumBlocksInPA() {
@@ -14,7 +31,9 @@ public class ExecuteProgramHandler {
     }
 
     public void executeNext() {
+        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
         blockrGame.executeNext();
+        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
     public void undo(){
