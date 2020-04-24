@@ -15,7 +15,7 @@ public class DisplaceBlockHandler {
     /**
      * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
      */
-    private Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    private Map<Block, UIBlock> blockUIBlockMap;
 
     private Map<Block, UIBlock> getBlockUIBlockMap() {
         return blockUIBlockMap;
@@ -33,8 +33,9 @@ public class DisplaceBlockHandler {
         }
     }
 
-    public DisplaceBlockHandler(BlockrGame blockrGame) {
+    public DisplaceBlockHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
         this.blockrGame = blockrGame;
+        this.blockUIBlockMap = blockUIBlockMap;
     }
 
     /**

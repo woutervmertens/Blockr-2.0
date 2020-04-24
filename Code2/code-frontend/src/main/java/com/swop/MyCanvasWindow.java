@@ -1,5 +1,6 @@
 package com.swop;
 
+import com.swop.blocks.Block;
 import com.swop.handlers.DisplaceBlockHandler;
 import com.swop.handlers.ExecuteProgramHandler;
 import com.swop.uiElements.BlockTypes;
@@ -8,6 +9,8 @@ import com.swop.uiElements.UIBlock;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyCanvasWindow extends CanvasWindow {
     private boolean isPaletteHidden = false;
@@ -31,8 +34,10 @@ public class MyCanvasWindow extends CanvasWindow {
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
         blockrGame = BlockrGame.createInstance(maxBlocks,gameWorldType);
-        displaceBlockHandler = new DisplaceBlockHandler(blockrGame);
-        executeProgramHandler = new ExecuteProgramHandler(blockrGame);
+        // Make blockUIMap and share the REFERENCE to all handlers who need it
+        Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+        displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
+        executeProgramHandler = new ExecuteProgramHandler(blockrGame, blockUIBlockMap);
     }
 
     @Override
