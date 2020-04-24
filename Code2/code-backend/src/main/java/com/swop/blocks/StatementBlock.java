@@ -10,48 +10,48 @@ import java.util.List;
 // TODO BIG !! Should the program in program area contain body-blocks as well
 // TODO BIG !! ... or should the statementblock execute and let know when it finished ??
 public abstract class StatementBlock extends Block implements Executable, VerticallyConnectable {
+    private final int pillarWidth = 10;
     protected List<ConditionBlock> conditions = new ArrayList<>();
     protected List<Block> bodyBlocks = new ArrayList<>();
     protected Block currentBodyBlock = null;
-    private final int pillarWidth = 10;
+    protected Block current = null;
     private int gapSize;
     private int conditionWidth;
-
     private boolean Busy;
-    protected Block current = null;
-
-    public boolean isBusy() { return Busy; }
-
-    public void setBusy(boolean busy) { Busy = busy; }
-
-    public Block getCurrent() { return current; }
-
-    public void setCurrent(Block current) { this.current = current; }
-
-    public void setBodyBlocks(List<Block> bodyBlocks) {
-        this.bodyBlocks = bodyBlocks;
-    }
-
-    public void setConditions(List<ConditionBlock> conditions) {
-        this.conditions = conditions;
-    }
-
-    protected void setNextCurrent() {
-        if (getCurrent() == null && ! getBodyBlocks().isEmpty()){
-            setCurrent(getBodyBlocks().get(0));
-        }else{
-            try {
-                setCurrent(getBodyBlocks().get(getBodyBlocks().indexOf(current ) + 1));
-            } catch (Exception e){
-                setCurrent(null);
-            }
-        }
-    }
+    private boolean done = false;
 
     public StatementBlock(Point position, int width, int height) {
         super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
+    }
+
+    public boolean isBusy() {
+        return Busy;
+    }
+
+    public void setBusy(boolean busy) {
+        Busy = busy;
+    }
+
+    public Block getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Block current) {
+        this.current = current;
+    }
+
+    protected void setNextCurrent() {
+        if (getCurrent() == null && !getBodyBlocks().isEmpty()) {
+            setCurrent(getBodyBlocks().get(0));
+        } else {
+            try {
+                setCurrent(getBodyBlocks().get(getBodyBlocks().indexOf(current) + 1));
+            } catch (Exception e) {
+                setCurrent(null);
+            }
+        }
     }
 
     @Override
@@ -100,6 +100,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         return bodyBlocks;
     }
 
+    public void setBodyBlocks(List<Block> bodyBlocks) {
+        this.bodyBlocks = bodyBlocks;
+    }
+
     @Override
     public boolean isDone() {
         return done;
@@ -110,10 +114,12 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         this.done = done;
     }
 
-    private boolean done = false;
-
     public List<ConditionBlock> getConditions() {
         return conditions;
+    }
+
+    public void setConditions(List<ConditionBlock> conditions) {
+        this.conditions = conditions;
     }
 
     /**
@@ -147,7 +153,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         // 2) Push all next body blocks down
         int distance = block.getHeight() + step;
         if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushFrom(bodyBlocks, index+1, distance);
+        PushBlocks.pushFrom(bodyBlocks, index + 1, distance);
 
         // 3) Increase the gap of this statement and all eventual superior parent statements
         StatementBlock currentParent = block.getParentStatement();
@@ -183,9 +189,9 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         block.setParentStatement(this);
     }
 
-    public void removeConditionBlock(ConditionBlock block){
+    public void removeConditionBlock(ConditionBlock block) {
         ConditionBlock conditionBlock = conditions.get(conditions.size() - 1);
-        while (conditionBlock != block){
+        while (conditionBlock != block) {
             conditionBlock.setParentStatement(null);
             conditions.remove(conditionBlock);
             conditionBlock = conditions.get(conditions.size() - 1);

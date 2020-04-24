@@ -2,7 +2,9 @@ package com.swop.blocks;
 
 import java.awt.*;
 
-public class ConditionBlock extends Block implements HorizontallyConnectable{
+public class ConditionBlock extends Block implements HorizontallyConnectable {
+    private final boolean isPredicate;
+
     /**
      * @param isPredicate Variable registering whether the to make block is a WIF. If not then it is a NOT.
      */
@@ -11,8 +13,6 @@ public class ConditionBlock extends Block implements HorizontallyConnectable{
         this.isPredicate = isPredicate;
         executeType = ExecuteType.NonExecutable;
     }
-
-    private final boolean isPredicate;
 
     public boolean isPredicate() {
         return isPredicate;

@@ -1,6 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.GameWorld;
 import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
 
@@ -28,7 +27,7 @@ public class UIConditionBlock extends UIBlock {
                 this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight());
                 break;
             case NotCondition:
-                 this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight());
+                this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");

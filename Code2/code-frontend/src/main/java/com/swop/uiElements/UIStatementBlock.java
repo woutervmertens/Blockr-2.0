@@ -1,6 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.GameWorld;
 import com.swop.blocks.Block;
 import com.swop.blocks.IfBlock;
 import com.swop.blocks.WhileBlock;
@@ -10,8 +9,8 @@ import java.awt.*;
 public class UIStatementBlock extends UIBlock {
     private Block correspondingBlock = null;
     private int gapSize;
-    private int pillarWidth = 10;
-    private int conditionWidth;
+    private final int pillarWidth = 10;
+    private final int conditionWidth;
 
     public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
         super(width, height, position, text);
@@ -30,13 +29,6 @@ public class UIStatementBlock extends UIBlock {
         this.gapSize = gapSize;
     }
 
-    /* TODO remove
-
-     public void increaseGapSize(int increase) {this.gapSize += increase;}
-
-     public  void decreaseGapSize(int increase) {this.gapSize -= increase;}
-
-    */
     @Override
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
@@ -58,7 +50,7 @@ public class UIStatementBlock extends UIBlock {
 
     @Override
     public int getHeight() {
-        return height + gapSize + pillarWidth;
+        return height + getGapSize() + pillarWidth;
     }
 
     @Override

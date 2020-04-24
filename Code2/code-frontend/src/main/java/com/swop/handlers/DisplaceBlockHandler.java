@@ -7,15 +7,25 @@ import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIStatementBlock;
 
-import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class DisplaceBlockHandler {
+    /**
+     * Connection with backend
+     */
+    private final BlockrGame blockrGame;
     /**
      * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
      */
     private Map<Block, UIBlock> blockUIBlockMap;
+
+    public DisplaceBlockHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
+        this.blockrGame = blockrGame;
+        this.blockUIBlockMap = blockUIBlockMap;
+    }
 
     private Map<Block, UIBlock> getBlockUIBlockMap() {
         return blockUIBlockMap;
@@ -32,16 +42,6 @@ public class DisplaceBlockHandler {
             return null;
         }
     }
-
-    public DisplaceBlockHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
-        this.blockrGame = blockrGame;
-        this.blockUIBlockMap = blockUIBlockMap;
-    }
-
-    /**
-     * Connection with backend
-     */
-    private final BlockrGame blockrGame;
 
     /**
      * @pre draggedBlock.getPosition() is inside the PA
@@ -111,33 +111,15 @@ public class DisplaceBlockHandler {
         Block backendBlock = clickedBlock.getCorrespondingBlock();
         backendBlock.setPreviousDropPosition(backendBlock.getPosition());
         if (backendBlock instanceof StatementBlock) {
-            for (Block bodyBlock: ((StatementBlock) backendBlock).getBodyBlocks()) {
+            for (Block bodyBlock : ((StatementBlock) backendBlock).getBodyBlocks()) {
                 bodyBlock.setPreviousDropPosition(bodyBlock.getPosition());
             }
-            for (Block condition: ((StatementBlock) backendBlock).getConditions()) {
+            for (Block condition : ((StatementBlock) backendBlock).getConditions()) {
                 condition.setPreviousDropPosition(condition.getPosition());
             }
         }
         blockrGame.removeBlockFromPA(backendBlock, false);
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();
-    }
-
-    // TODO: delete
-    public void displaceAllBodyBlocksAndConditionsOfBlockWithDistance(UIStatementBlock draggedBlock, int dx, int dy) {
-        // Body blocks
-        List<Block> bodyAndConditionBlocks = ((StatementBlock) draggedBlock.getCorrespondingBlock()).getBodyBlocks();
-        // Adding conditions
-        bodyAndConditionBlocks.addAll(((StatementBlock) draggedBlock.getCorrespondingBlock()).getConditions());
-
-        for (Block block : bodyAndConditionBlocks) {
-            block.setPosition(new Point(block.getPosition().x + dx, block.getPosition().y + dy));
-            if (block instanceof StatementBlock) {
-                for (Block bodyBlock2 : ((StatementBlock) block).getBodyBlocks()) {
-                    bodyBlock2.setPosition(new Point(bodyBlock2.getPosition().x + dx, bodyBlock2.getPosition().y + dy));
-                }
-            }
-        }
-        adjustAllBlockPositions();
     }
 }

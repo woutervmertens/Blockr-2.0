@@ -13,11 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyCanvasWindow extends CanvasWindow {
-    private boolean isPaletteHidden = false;
-    // Variables
-    private UIBlock draggedBlock;
-    private Point pos = new Point(0, 0);
-    private int maxBlocks = 10;
     // Handlers
     BlockrGame blockrGame;
     DisplaceBlockHandler displaceBlockHandler;
@@ -25,6 +20,11 @@ public class MyCanvasWindow extends CanvasWindow {
     //KeyHolds
     boolean isHoldingCtrl = false;
     boolean isHoldingShift = false;
+    private boolean isPaletteHidden = false;
+    // Variables
+    private UIBlock draggedBlock;
+    private Point pos = new Point(0, 0);
+    private final int maxBlocks = 10;
 
     /**
      * Initializes a CanvasWindow object.
@@ -33,7 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
-        blockrGame = BlockrGame.createInstance(maxBlocks,gameWorldType);
+        blockrGame = BlockrGame.createInstance(maxBlocks, gameWorldType);
         // Make blockUIMap and share the REFERENCE to all handlers who need it
         Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
         displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
@@ -43,7 +43,7 @@ public class MyCanvasWindow extends CanvasWindow {
     @Override
     protected void paint(Graphics g) {
         isPaletteHidden = blockrGame.isPaletteHidden();
-        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(),blockrGame.getGameWorld());
+        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), blockrGame.getGameWorld());
 
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor());
@@ -70,7 +70,7 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_PRESSED:
                 executeProgramHandler.reset();
                 draggedBlock = getUIBlock(x, y);
-                if (Windows.PROGRAM_AREA.isWithin(x,y) && draggedBlock != null) {
+                if (Windows.PROGRAM_AREA.isWithin(x, y) && draggedBlock != null) {
                     displaceBlockHandler.handleProgramAreaForClickOn(draggedBlock);
                 }
                 break;
@@ -80,13 +80,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 if (isBlockDragged()) {
                     pos.x = x;
                     pos.y = y;
-//                    int dx = x - draggedBlock.getPosition().x;
-//                    int dy = y - draggedBlock.getPosition().y;
                     draggedBlock.setPosition((Point) pos.clone());
-//                    if (draggedBlock instanceof UIStatementBlock && draggedBlock.getCorrespondingBlock() != null) {
-//                        // TODO: instead of displacing the body blocks here, do it in setPosition() of body blocks
-//                        displaceBlockHandler.displaceAllBodyBlocksAndConditionsOfBlockWithDistance((UIStatementBlock)draggedBlock, dx, dy);
-//                    }
                     repaint();
                 }
                 break;
@@ -121,7 +115,6 @@ public class MyCanvasWindow extends CanvasWindow {
             BlockTypes type = Windows.getTypeOfClick(x, y);
             return type.getNewUIBlock(x, y);
         } else if (Windows.PROGRAM_AREA.isWithin(x, y)) {
-            // TODO: check, check wat?
             return displaceBlockHandler.getCorrespondingUiBlockFor(blockrGame.getBlockInPaAt(x, y));
         }
         return null;
@@ -149,8 +142,8 @@ public class MyCanvasWindow extends CanvasWindow {
                     bRepaint = true;
                     break;
                 case 90: //Z
-                    if(isHoldingCtrl){
-                        if(isHoldingShift) redo();
+                    if (isHoldingCtrl) {
+                        if (isHoldingShift) redo();
                         else undo();
                         isHoldingShift = false;
                         isHoldingCtrl = false;
@@ -164,7 +157,7 @@ public class MyCanvasWindow extends CanvasWindow {
             System.out.println("Ctrl " + isHoldingCtrl);
             System.out.println("Shift " + isHoldingShift);
 
-            if(bRepaint)repaint();
+            if (bRepaint) repaint();
         }
 
         displaceBlockHandler.adjustAllBlockPositions();
@@ -175,11 +168,11 @@ public class MyCanvasWindow extends CanvasWindow {
         executeProgramHandler.executeNext();
     }
 
-    private void undo(){
+    private void undo() {
         executeProgramHandler.undo();
     }
 
-    private void redo(){
+    private void redo() {
         executeProgramHandler.redo();
     }
 

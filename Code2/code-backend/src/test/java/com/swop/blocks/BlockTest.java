@@ -22,28 +22,28 @@ class BlockTest {
     private int width1 = 9;
     private int height1 = 4;
 
-    private IfBlock ifBlock = new IfBlock(position1,width1,height1);
+    private IfBlock ifBlock = new IfBlock(position1, width1, height1);
 
 
     @Test
     void getStep() {
-        int expectedStep = height/6;
+        int expectedStep = height / 6;
         assertEquals(expectedStep, block.getStep(), "expected and actual step are different");
     }
 
     @Test
     void getWidth() {
-        assertEquals(width, block.getWidth(),"expected and actual width are different");
+        assertEquals(width, block.getWidth(), "expected and actual width are different");
     }
 
     @Test
     void getHeight() {
-        assertEquals(height, block.getHeight(),"expected and actual height are different");
+        assertEquals(height, block.getHeight(), "expected and actual height are different");
     }
 
     @Test
     void getExecuteType() {
-        assertEquals(executeType, block.getExecuteType(),"expected and actual executeType are different" );
+        assertEquals(executeType, block.getExecuteType(), "expected and actual executeType are different");
     }
 
     @Test
@@ -54,12 +54,12 @@ class BlockTest {
     @Test
     void setParentStatement() {
         block.setParentStatement(ifBlock);
-        assertEquals(ifBlock, block.getParentStatement(),"expected and actual parentStatement are different" );
+        assertEquals(ifBlock, block.getParentStatement(), "expected and actual parentStatement are different");
     }
 
     @Test
     void isPositionOnTrue() {
-        assertTrue(block.isPositionOn(5, 10) );
+        assertTrue(block.isPositionOn(5, 10));
     }
 
     @Test
@@ -85,7 +85,7 @@ class BlockTest {
 
     @Test
     void setPosition() {
-        Point expectedPosition = new Point(1,1);
+        Point expectedPosition = new Point(1, 1);
         block.setPosition(expectedPosition);
         assertEquals(expectedPosition.x, block.getPosition().x, "expected and actual x-value are different");
         assertEquals(expectedPosition.y, block.getPosition().y, "expected and actual y-value are different");

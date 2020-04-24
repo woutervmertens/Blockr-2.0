@@ -26,17 +26,26 @@ public class ProgramArea implements PushBlocks {
     private List<Block> allBlocks = new ArrayList<>();
     private Block currentBlock;
 
+    public synchronized static ProgramArea getInstance() {
+        if (instance.get() == null) instance.set(new ProgramArea());
+        return instance.get();
+    }
+
+    /**
+     * @param b Point1
+     * @param p Point2
+     * @return Returns the distance between the two given points.
+     */
+    private static int getDistance(Point b, Point p) {
+        return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
+    }
+
     public List<Block> getAllBlocks() {
         return allBlocks;
     }
 
     public List<Block> getProgram() {
         return program;
-    }
-
-    public synchronized static ProgramArea getInstance() {
-        if (instance.get() == null) instance.set(new ProgramArea());
-        return instance.get();
     }
 
     // TODO: remove method ?
@@ -88,18 +97,19 @@ public class ProgramArea implements PushBlocks {
         } else {
             // 4) statement condition
             try {
-                ((ConditionBlock)draggedBlock).getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
-            }catch (Exception ignored){}
+                ((ConditionBlock) draggedBlock).getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
+            } catch (Exception ignored) {
+            }
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
                 draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
                 ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
-            } else{
+            } else {
                 closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
                 if (closeBlock != null) {
                     draggedBlock.setPosition(((ConditionBlock) closeBlock).getPlugPosition());
                     StatementBlock parent = closeBlock.getParentStatement();
-                     parent.addConditionBlock((ConditionBlock) draggedBlock);
+                    parent.addConditionBlock((ConditionBlock) draggedBlock);
                 }
             }
         }
@@ -130,21 +140,21 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Sets the next block as the current block
-     */
-    public void setNextCurrentBlock() {
-        int i = program.indexOf(currentBlock);
-        Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
-        setCurrentBlock(b);
-    }
-
-    /**
      * Sets the given block as the current block
      *
      * @param first given block
      */
     private void setCurrentBlock(Block first) {
         this.currentBlock = first;
+    }
+
+    /**
+     * Sets the next block as the current block
+     */
+    public void setNextCurrentBlock() {
+        int i = program.indexOf(currentBlock);
+        Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
+        setCurrentBlock(b);
     }
 
     /**
@@ -156,15 +166,6 @@ public class ProgramArea implements PushBlocks {
         Optional<Block> found = getAllBlocks().stream().filter(block1 -> block1.isPositionOn(x, y)).findAny();
         System.out.println(found);
         return found.orElse(null);
-    }
-
-    /**
-     * @param b Point1
-     * @param p Point2
-     * @return Returns the distance between the two given points.
-     */
-    private static int getDistance(Point b, Point p) {
-        return (int) Math.sqrt((p.getX() - b.getX()) * (p.getX() - b.getX()) + (p.getY() - b.getY()) * (p.getY() - b.getY()));
     }
 
 //    private static boolean isAbove(Block block1, Block block2) {
@@ -262,7 +263,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @param block given block
+     * @param block  given block
      * @param radius given radius
      * @return Returns the condition block condition plug within the given radius of the given block
      */
