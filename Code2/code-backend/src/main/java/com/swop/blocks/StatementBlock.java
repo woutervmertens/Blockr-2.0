@@ -52,6 +52,12 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         }
     }
 
+    public void resetExecution() {
+        setCurrent(null);
+        setBusy(false);
+        setDone(false);
+    }
+
     @Override
     public void setPosition(Point position) {
         try {

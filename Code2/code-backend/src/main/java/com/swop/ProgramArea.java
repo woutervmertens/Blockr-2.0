@@ -354,6 +354,11 @@ public class ProgramArea implements PushBlocks {
      * Resets the program area, first block will be current block
      */
     public void resetProgramExecution() {
+        for (Block block: getProgram()) {
+            if (block instanceof StatementBlock) {
+                ((StatementBlock) block).resetExecution();
+            }
+        }
         try {
             setCurrentBlock(((LinkedList<Block>) program).getFirst());
         } catch (NoSuchElementException ignore) {

@@ -56,6 +56,7 @@ public class DisplaceBlockHandler {
         }
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
+        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
     }
 
     public void adjustAllStatementBlockGaps() {
@@ -95,6 +96,7 @@ public class DisplaceBlockHandler {
             //remove the block from program area
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
+        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
     }
 
     public List<UIBlock> getAllUIBlocksInPA() {
