@@ -33,7 +33,12 @@ public class ExecuteProgramHandler {
     public void executeNext() {
         getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
         blockrGame.executeNext();
-        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
+        try {
+            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
+        } catch (NullPointerException e){
+            getCorrespondingUiBlockFor(blockrGame.getAllBlocksInPA().get(0)).setHighlightStateOn(true);
+        }
+
     }
 
     public void undo(){
