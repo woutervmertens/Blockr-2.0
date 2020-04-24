@@ -27,15 +27,19 @@ public class ExecuteProgramHandler {
     }
 
     public int getNumBlocksInPA() {
-        return blockrGame.getNumbBlocksInPA();
+        return blockrGame.getNumBlocksInPA();
     }
 
     public void executeNext() {
-        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
+        try {
+            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        } catch (NullPointerException ignored) {
+        }
         blockrGame.executeNext();
         try {
             getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             getCorrespondingUiBlockFor(blockrGame.getAllBlocksInPA().get(0)).setHighlightStateOn(true);
         }
 
@@ -50,6 +54,6 @@ public class ExecuteProgramHandler {
     }
 
     public void reset() {
-        blockrGame.resetProgramExecution();
+        blockrGame.resetEverything();
     }
 }

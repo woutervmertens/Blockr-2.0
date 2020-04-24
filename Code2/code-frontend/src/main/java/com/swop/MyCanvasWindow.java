@@ -68,7 +68,6 @@ public class MyCanvasWindow extends CanvasWindow {
         super.handleMouseEvent(id, x, y, clickCount);
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
-                executeProgramHandler.reset();
                 draggedBlock = getUIBlock(x, y);
                 if (Windows.PROGRAM_AREA.isWithin(x, y) && draggedBlock != null) {
                     displaceBlockHandler.handleProgramAreaForClickOn(draggedBlock);
@@ -100,6 +99,7 @@ public class MyCanvasWindow extends CanvasWindow {
         }
         displaceBlockHandler.adjustAllBlockPositions();
         displaceBlockHandler.adjustAllStatementBlockGaps();
+        executeProgramHandler.reset();
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 

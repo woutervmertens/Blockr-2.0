@@ -144,12 +144,16 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Sets the next block as the current block
+     * Sets the next block as the current block.
      */
     public void setNextCurrentBlock() {
         int i = program.indexOf(currentBlock);
-        Block b = (i + 1 < program.size()) ? program.get(i + 1) : null;
-        setCurrentBlock(b);
+        if (i + 1 < program.size()) {
+            setCurrentBlock(program.get(i + 1));
+        }
+        else {
+            setCurrentBlock(null);
+        }
     }
 
     /**

@@ -111,6 +111,8 @@ public class BlockrGame {
             if (programArea.getCurrentBlock().isDone()) {
                 programArea.setNextCurrentBlock();
             }
+        } else {
+            resetEverything();
         }
     }
 
@@ -118,9 +120,9 @@ public class BlockrGame {
         if (programArea.getCurrentBlock() instanceof StatementBlock) {
             StatementBlock statementBlock = (StatementBlock) programArea.getCurrentBlock();
 
-            if (((StatementBlock) programArea.getCurrentBlock()).getCurrent() != null){
+            if (((StatementBlock) programArea.getCurrentBlock()).getCurrent() != null) {
                 return statementBlock.getCurrent();
-            } else if (statementBlock.isConditionValid()){
+            } else if (statementBlock.isConditionValid()) {
                 return statementBlock.getBodyBlocks().get(0);
             }
         }
@@ -130,7 +132,7 @@ public class BlockrGame {
     /**
      * Resets the game world and the program area
      */
-    public void resetProgramExecution() {
+    public void resetEverything() {
         programArea.resetProgramExecution();
         gameWorld = gameWorldType.createNewInstance();
     }
@@ -138,8 +140,19 @@ public class BlockrGame {
     /**
      * @return Returns the number of blocks that are in the Program Area
      */
-    public int getNumbBlocksInPA() {
+    public int getNumBlocksInPA() {
         return programArea.getAllBlocks().size();
+    }
+
+    public int getNumBlocksInProgram() {
+        int count = 0;
+        for (Block block : getProgram()) {
+            if (block instanceof StatementBlock) {
+                count += ((StatementBlock) block).getBodyBlocks().size() + ((StatementBlock) block).getConditions().size();
+            }
+            count++;
+        }
+        return count;
     }
 
     /**
@@ -164,7 +177,7 @@ public class BlockrGame {
      * @return Returns true if the number of blocks in the program area is equal or greater than the maximum number of blocks
      */
     public boolean isPaletteHidden() {
-        return (maxBlocks - getNumbBlocksInPA()) <= 0;
+        return (maxBlocks - getNumBlocksInPA()) <= 0;
     }
 
     /**
