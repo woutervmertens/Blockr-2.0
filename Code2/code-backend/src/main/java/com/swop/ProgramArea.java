@@ -95,10 +95,6 @@ public class ProgramArea implements PushBlocks {
             }
         } else {
             // 4) statement condition
-            try {
-                draggedBlock.getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
-            } catch (Exception ignored) {
-            }
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
                 draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
@@ -157,8 +153,6 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @param x
-     * @param y
      * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
      */
     public Block getBlockAt(int x, int y) {
@@ -166,10 +160,6 @@ public class ProgramArea implements PushBlocks {
         System.out.println(found);
         return found.orElse(null);
     }
-
-//    private static boolean isAbove(Block block1, Block block2) {
-//        return block1.getPosition().y < block2.getPosition().y;
-//    }
 
     /**
      * @param draggedBlock block that is dragged
@@ -194,7 +184,6 @@ public class ProgramArea implements PushBlocks {
                     || (block instanceof VerticallyConnectable && !(b instanceof VerticallyConnectable)))
                 continue;
 
-            // TODO: maybe type cast with interfaces
             if (getDistance(block.getSocketPosition(), b.getPlugPosition()) <= radius) {
                 return b;
             }
@@ -214,7 +203,6 @@ public class ProgramArea implements PushBlocks {
                     || (uiBlock instanceof VerticallyConnectable && !(b instanceof VerticallyConnectable)))
                 continue;
 
-            // TODO: maybe type cast with interfaces
             if (getDistance(uiBlock.getPlugPosition(), b.getSocketPosition()) <= radius) {
                 return b;
             }
@@ -222,8 +210,6 @@ public class ProgramArea implements PushBlocks {
         }
         return null;
     }
-
-    // TODO: connect to last body block fix
 
     /**
      * @param block  given block
@@ -241,8 +227,6 @@ public class ProgramArea implements PushBlocks {
         }
         return null;
     }
-
-    // TODO: connect to last condition of the conditions of statement (add getConditionPlugWithinRadius() )
 
     /**
      * @param block  given block
@@ -271,7 +255,7 @@ public class ProgramArea implements PushBlocks {
             if (b == block || !(b instanceof ConditionBlock))
                 continue;
 
-            if (getDistance(block.getSocketPosition(), ((ConditionBlock) b).getPlugPosition()) <= radius) {
+            if (getDistance(block.getSocketPosition(), b.getPlugPosition()) <= radius) {
                 return b;
             }
         }
@@ -323,12 +307,8 @@ public class ProgramArea implements PushBlocks {
         int distance = -block.getHeight() - block.getStep();
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
         PushBlocks.pushFrom(program, index, distance);
-
-        // TODO: Correct method
-
         getProgram().remove(block);
-
-        // TODO: remove from allBlocks as well ? Or is it already done ?
+        allBlocks.remove(block);
     }
 
     /**
@@ -357,15 +337,13 @@ public class ProgramArea implements PushBlocks {
             }
 
         } else {
-            // TODO: clickedBlock.getParentStatement().removeCondition(clickedBlock)
+            clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
         }
 
         allBlocks.remove(clickedBlock);
         if (getProgram().contains(clickedBlock)) {
             removeProgramBlock(clickedBlock);
-            // TODO: check if this body is correct
         }
-        // TODO: remove correctly (for statement block gaps etc.) --> inverse of drop
     }
 
     /**
