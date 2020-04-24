@@ -1,5 +1,7 @@
 package com.swop;
 
+import com.swop.Action;
+import com.swop.ProgramArea;
 import com.swop.blocks.ActionBlock;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProgramAreaTest {
 
-    private ProgramArea programArea = new ProgramArea();
+    private ProgramArea programArea = ProgramArea.getInstance();
 
     private Point aPosition = new Point(2,2);
     private int aWidth = 3;
@@ -19,32 +21,20 @@ class ProgramAreaTest {
     private ActionBlock actionBlock = new ActionBlock(aPosition,aWidth,aHeight,action);
 
 
-
     @Test
-    void dropBlock() {
-        // BIG method
+    void dropBlockIn() {
+        Point expected = new Point(4,10);
+        programArea.dropBlockIn(actionBlock, expected);
+        assertEquals(expected.x,actionBlock.getPosition().x, "The expected and actual x-value of the position of the actionBlock are different.");
+        assertEquals(expected.y, actionBlock.getPosition().y, "The expected and actual y-value of the position of the actionBlock are different." );
+
+        assertTrue(programArea.getAllBlocks().contains(actionBlock));
     }
 
-    @Test
-    void setNextCurrentBlock() {
-    }
 
-    @Test
-    void getBlockAt() {
-        // right position
-        //false position
-    }
 
     @Test
     void getConnectionPoint() {
-    }
-
-    @Test
-    void addProgramBlockAfter() {
-    }
-
-    @Test
-    void removeProgramBlock() {
     }
 
     @Test
@@ -52,6 +42,6 @@ class ProgramAreaTest {
     }
 
     @Test
-    void reset() {
+    void resetProgramExecution() {
     }
 }
