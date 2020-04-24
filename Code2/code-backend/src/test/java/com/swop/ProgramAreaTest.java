@@ -1,7 +1,5 @@
 package com.swop;
 
-import com.swop.Action;
-import com.swop.ProgramArea;
 import com.swop.blocks.ActionBlock;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +7,8 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProgramAreaTest {
 

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicReference;
 
-// TODO: 14/04/2020 comment
 public class BlockrGame {
     private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
     private final ProgramArea programArea;

@@ -7,7 +7,7 @@ import com.swop.SuccessState;
 import java.awt.*;
 
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
-    private Action action;
+    private final Action action;
 
     public ActionBlock(Point position, int width, int height, Action action) {
         super(position, width, height);

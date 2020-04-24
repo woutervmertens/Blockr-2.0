@@ -14,11 +14,9 @@ public class IfBlock extends StatementBlock {
             if (!isBusy()) {
                 setBusy(true);
                 setNextCurrent();
-                executeBlock();
                 //check of volgende null is zo niet -> volgende als current zetten
-            } else {
-                executeBlock();
             }
+            executeBlock();
 
         } else {
             setDone(true);

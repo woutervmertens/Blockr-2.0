@@ -102,6 +102,4 @@ public abstract class Block implements Cloneable {
     public abstract Point getSocketPosition();
 
     public abstract Point getPlugPosition();
-
-    // TODO: should we add getParentStatement() ? Is is needed ?
 }

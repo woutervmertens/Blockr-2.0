@@ -7,8 +7,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO BIG !! Should the program in program area contain body-blocks as well
-// TODO BIG !! ... or should the statementblock execute and let know when it finished ??
 public abstract class StatementBlock extends Block implements Executable, VerticallyConnectable {
     private final int pillarWidth = 10;
     protected List<ConditionBlock> conditions = new ArrayList<>();
@@ -16,7 +14,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     protected Block currentBodyBlock = null;
     protected Block current = null;
     private int gapSize;
-    private int conditionWidth;
+    private final int conditionWidth;
     private boolean Busy;
     private boolean done = false;
 
@@ -100,10 +98,6 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         return bodyBlocks;
     }
 
-    public void setBodyBlocks(List<Block> bodyBlocks) {
-        this.bodyBlocks = bodyBlocks;
-    }
-
     @Override
     public boolean isDone() {
         return done;
@@ -116,10 +110,6 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     public List<ConditionBlock> getConditions() {
         return conditions;
-    }
-
-    public void setConditions(List<ConditionBlock> conditions) {
-        this.conditions = conditions;
     }
 
     /**

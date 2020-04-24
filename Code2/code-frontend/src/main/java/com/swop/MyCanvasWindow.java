@@ -100,6 +100,7 @@ public class MyCanvasWindow extends CanvasWindow {
         }
         displaceBlockHandler.adjustAllBlockPositions();
         displaceBlockHandler.adjustAllStatementBlockGaps();
+        // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
 
@@ -162,6 +163,7 @@ public class MyCanvasWindow extends CanvasWindow {
 
         displaceBlockHandler.adjustAllBlockPositions();
         displaceBlockHandler.adjustAllStatementBlockGaps();
+        // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
     private void executeNext() {

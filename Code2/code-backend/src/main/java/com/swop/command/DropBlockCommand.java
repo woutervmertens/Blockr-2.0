@@ -4,7 +4,6 @@ import com.swop.blocks.Block;
 
 import java.awt.*;
 
-// TODO: make DisplaceBlockCommand instead
 public class DropBlockCommand extends ProgramAreaCommand {
     private final Block block;
     private final Point position;
@@ -24,7 +23,7 @@ public class DropBlockCommand extends ProgramAreaCommand {
     @Override
     public void undo() {
         try {
-            // TODO: ? block.setPreviousDropPosition(block.getPosition());
+            // block.setPreviousDropPosition(block.getPosition());
             block.setPosition(previousPosition);
             programArea.dropBlock(block);
         } catch (IllegalArgumentException e) {

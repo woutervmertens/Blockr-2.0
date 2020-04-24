@@ -7,7 +7,7 @@ import com.swop.blocks.ExecuteType;
 
 public class ExecuteCommand extends GameWorldCommand {
     private Snapshot snapshot;
-    private Block block;
+    private final Block block;
 
     public ExecuteCommand(Block block) {
         this.block = block;
@@ -15,7 +15,6 @@ public class ExecuteCommand extends GameWorldCommand {
 
     @Override
     public void execute() {
-        //TODO: highlight?
         snapshot = gameWorld.createSnapshot();
         if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();

@@ -48,7 +48,6 @@ public class ProgramArea implements PushBlocks {
         return program;
     }
 
-    // TODO: remove method ?
     public void dropBlockIn(Block draggedBlock, Point position) {
         draggedBlock.setPosition(position);
         dropBlock(draggedBlock);
@@ -97,7 +96,7 @@ public class ProgramArea implements PushBlocks {
         } else {
             // 4) statement condition
             try {
-                ((ConditionBlock) draggedBlock).getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
+                draggedBlock.getParentStatement().removeConditionBlock((ConditionBlock) draggedBlock);
             } catch (Exception ignored) {
             }
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
@@ -107,7 +106,7 @@ public class ProgramArea implements PushBlocks {
             } else {
                 closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
                 if (closeBlock != null) {
-                    draggedBlock.setPosition(((ConditionBlock) closeBlock).getPlugPosition());
+                    draggedBlock.setPosition(closeBlock.getPlugPosition());
                     StatementBlock parent = closeBlock.getParentStatement();
                     parent.addConditionBlock((ConditionBlock) draggedBlock);
                 }
