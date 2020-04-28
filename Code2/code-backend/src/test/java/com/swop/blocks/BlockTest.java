@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.Action;
+import com.swop.RobotAction;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ class BlockTest {
     private int width = 9;
     private int height = 4;
 
-    private Action action = Action.MOVE_FORWARD;
+    private Action action = RobotAction.MOVE_FORWARD;
     private ExecuteType executeType = ExecuteType.WorldChanging;
 
     private ActionBlock block = new ActionBlock(position, width, height, action);

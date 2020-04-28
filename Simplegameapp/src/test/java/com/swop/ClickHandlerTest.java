@@ -18,11 +18,11 @@ class ClickHandlerTest {
     @Test
     void handleClick() {
         Snapshot snap = gameWorld.createSnapshot();
-        handler.HandleClick(Action.MOVE_FORWARD);
+        handler.HandleClick(RobotAction.MOVE_FORWARD);
         assertFalse(compareSnapshot((RobotSnapshot) snap, (RobotSnapshot) gameWorld.createSnapshot()));
-        handler.HandleClick(Action.MOVE_FORWARD);
+        handler.HandleClick(RobotAction.MOVE_FORWARD);
         snap = gameWorld.createSnapshot();
-        handler.HandleClick(Action.MOVE_FORWARD);
+        handler.HandleClick(RobotAction.MOVE_FORWARD);
         assertTrue(compareSnapshot((RobotSnapshot) snap, (RobotSnapshot) gameWorld.createSnapshot()));
     }
 

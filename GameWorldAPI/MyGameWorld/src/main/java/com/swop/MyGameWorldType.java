@@ -8,7 +8,7 @@ import java.util.Collections;
 public class MyGameWorldType implements GameWorldType{
     @Override
     public Collection getSupportedActions() {
-        return Arrays.asList(Action.MOVE_LEFT,Action.MOVE_UP,Action.MOVE_RIGHT, Action.MOVE_DOWN);
+        return Arrays.asList(MyAction.MOVE_LEFT,MyAction.MOVE_UP,MyAction.MOVE_RIGHT, MyAction.MOVE_DOWN);
     }
 
     @Override

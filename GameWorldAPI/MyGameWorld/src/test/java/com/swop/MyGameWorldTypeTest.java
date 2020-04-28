@@ -18,7 +18,7 @@ class MyGameWorldTypeTest {
 
     @Test
     void getSupportedActions() {
-        assertEquals(gameWorldType.getSupportedActions(), Arrays.asList(Action.MOVE_LEFT,Action.MOVE_UP,Action.MOVE_RIGHT, Action.MOVE_DOWN));
+        assertEquals(gameWorldType.getSupportedActions(), Arrays.asList(MyAction.MOVE_LEFT,MyAction.MOVE_UP,MyAction.MOVE_RIGHT, MyAction.MOVE_DOWN));
     }
 
     @Test

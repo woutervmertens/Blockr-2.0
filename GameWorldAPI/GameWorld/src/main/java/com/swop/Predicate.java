@@ -1,13 +1,6 @@
 package com.swop;
 
-public enum Predicate {
-    WALL_IN_FRONT("WIF");
-    private String title;
-    private Predicate(String title){
-        this.title = title;
-    }
+public interface Predicate {
     @Override
-    public String toString() {
-        return title;
-    }
+    public String toString();
 }

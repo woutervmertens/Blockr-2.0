@@ -15,12 +15,12 @@ class RobotGameWorldTypeTest {
 
     @Test
     void getSupportedActions() {
-        assertEquals(gameWorldType.getSupportedActions(), Arrays.asList(Action.MOVE_FORWARD,Action.TURN_LEFT,Action.TURN_RIGHT));
+        assertEquals(gameWorldType.getSupportedActions(), Arrays.asList(RobotAction.MOVE_FORWARD,RobotAction.TURN_LEFT,RobotAction.TURN_RIGHT));
     }
 
     @Test
     void getSupportedPredicates() {
-        assertEquals(gameWorldType.getSupportedPredicates(), Arrays.asList(Predicate.WALL_IN_FRONT));
+        assertEquals(gameWorldType.getSupportedPredicates(), Arrays.asList(RobotPredicate.WALL_IN_FRONT));
     }
 
     @Test

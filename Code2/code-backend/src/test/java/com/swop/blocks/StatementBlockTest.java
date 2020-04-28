@@ -1,9 +1,6 @@
 package com.swop.blocks;
 
-import com.swop.Action;
-import com.swop.BlockrGame;
-import com.swop.GameWorld;
-import com.swop.GameWorldType;
+import com.swop.*;
 import com.swop.command.ExecuteCommand;
 import org.junit.jupiter.api.Test;
 
@@ -31,17 +28,17 @@ class StatementBlockTest {
     private Point aPosition = new Point(2, 2);
     private int aWidth = 3;
     private int aHeight = 2;
-    private Action action = Action.MOVE_FORWARD;
+    private Action action = RobotAction.MOVE_FORWARD;
     private ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
     private Point aPosition1 = new Point(2, 4);
     private int aWidth1 = 3;
     private int aHeight1 = 2;
-    private Action action1 = Action.TURN_LEFT;
+    private Action action1 = RobotAction.TURN_LEFT;
     private ActionBlock actionBlock1 = new ActionBlock(aPosition1, aWidth1, aHeight1, action1);
     private Point aPosition2 = new Point(2, 6);
     private int aWidth2 = 3;
     private int aHeight2 = 2;
-    private Action action2 = Action.TURN_RIGHT;
+    private Action action2 = RobotAction.TURN_RIGHT;
     private ActionBlock actionBlock2 = new ActionBlock(aPosition2, aWidth2, aHeight2, action2);
     private ExecuteCommand executeCommand = new ExecuteCommand(actionBlock1);
     private int conditionWidth = wWidth / 2;

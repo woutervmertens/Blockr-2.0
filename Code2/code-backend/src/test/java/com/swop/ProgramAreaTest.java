@@ -17,7 +17,7 @@ class ProgramAreaTest {
     private Point aPosition = new Point(2, 2);
     private int aWidth = 3;
     private int aHeight = 2;
-    private Action action = Action.MOVE_FORWARD;
+    private Action action = RobotAction.MOVE_FORWARD;
 
     private ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
 
