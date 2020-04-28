@@ -5,8 +5,6 @@ import com.swop.blocks.Block;
 import java.awt.*;
 import java.util.List;
 
-// TODO: remove dependency of StatementBlock with PushBlocks and handle only in ProgramArea
-// TODO: merge the two functions in one clear function
 public interface PushBlocks {
     /**
      * Push down or up (based on the sign of the given distance) all blocks of the given list starting from the given index.
@@ -22,7 +20,7 @@ public interface PushBlocks {
 
     /**
      * Push (up or down) the blocks in this list and all eventual body blocks of superior parents.
-     * TODO: whenever calling this method you should make sure also the program is pushed.
+     * Whenever calling this method you should make sure also the program is pushed.
      *
      * @param blockList List of blocks that should be pushed
      * @param index     Index from which the blocks should be pushed
