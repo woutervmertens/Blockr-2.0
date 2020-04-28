@@ -79,18 +79,18 @@ class MyGameWorldTest {
         }
         gameWorld.setGrid(3,numbers);
         //Test illegal action
-        assertEquals(gameWorld.doAction(Action.MOVE_LEFT),SuccessState.FAILURE);
-        assertEquals(gameWorld.doAction(Action.MOVE_UP),SuccessState.FAILURE);
+        assertEquals(gameWorld.doAction(MyAction.MOVE_LEFT),SuccessState.FAILURE);
+        assertEquals(gameWorld.doAction(MyAction.MOVE_UP),SuccessState.FAILURE);
         //Test legal action
-        assertEquals(gameWorld.doAction(Action.MOVE_RIGHT),SuccessState.SUCCESS);
+        assertEquals(gameWorld.doAction(MyAction.MOVE_RIGHT),SuccessState.SUCCESS);
         //Test moved
         assertFalse(compareGrid(grid,gameWorld.getGrid()));
         //Test goal reached
-        gameWorld.doAction(Action.MOVE_DOWN);
-        gameWorld.doAction(Action.MOVE_RIGHT);
-        assertEquals(gameWorld.doAction(Action.MOVE_DOWN),SuccessState.GOAL_REACHED);
+        gameWorld.doAction(MyAction.MOVE_DOWN);
+        gameWorld.doAction(MyAction.MOVE_RIGHT);
+        assertEquals(gameWorld.doAction(MyAction.MOVE_DOWN),SuccessState.GOAL_REACHED);
         //Test no overflow
-        assertEquals(gameWorld.doAction(Action.MOVE_LEFT),SuccessState.FAILURE);
+        assertEquals(gameWorld.doAction(MyAction.MOVE_LEFT),SuccessState.FAILURE);
     }
 
     @org.junit.jupiter.api.Test

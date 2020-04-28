@@ -59,7 +59,7 @@ public enum Windows {
         //Supported actions
         for (Action a : gwActions) {
             types[k] = new BlockTypes(a.toString(), 110, BlockType.ActionType);
-            types[k].setAction(a);
+            types[k].setAction((Action)a);
             k++;
         }
         //Supported predicates

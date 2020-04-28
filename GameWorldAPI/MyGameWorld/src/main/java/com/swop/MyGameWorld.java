@@ -64,7 +64,7 @@ public class MyGameWorld implements GameWorld {
     @Override
     public SuccessState doAction(Action action) {
         if(!evaluateMove(action)) return SuccessState.FAILURE;
-        switch (action){
+        switch ((MyAction)action){
             case MOVE_LEFT:
                 exchange(new Point(0,-1));
                 break;
@@ -87,7 +87,7 @@ public class MyGameWorld implements GameWorld {
      * @return Boolean result
      */
     private boolean evaluateMove(Action action){
-        switch (action){
+        switch ((MyAction)action){
             case MOVE_LEFT:
                 if(emptySquare.y < 1) return false;
                 break;

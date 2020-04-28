@@ -8,12 +8,12 @@ public class RobotGameWorldType implements GameWorldType{
 
     @Override
     public Collection getSupportedActions() {
-        return Arrays.asList(Action.MOVE_FORWARD,Action.TURN_LEFT,Action.TURN_RIGHT);
+        return Arrays.asList(RobotAction.MOVE_FORWARD,RobotAction.TURN_LEFT,RobotAction.TURN_RIGHT);
     }
 
     @Override
     public Collection getSupportedPredicates() {
-        return Arrays.asList(Predicate.WALL_IN_FRONT);
+        return Arrays.asList(RobotPredicate.WALL_IN_FRONT);
     }
 
     @Override

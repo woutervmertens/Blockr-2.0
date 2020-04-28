@@ -17,7 +17,7 @@ class ExecuteCommandTest {
     private Point position = new Point(1, 1);
     private int height = 2;
     private int width = 3;
-    private Action action = Action.TURN_LEFT;
+    private Action action = RobotAction.TURN_LEFT;
     private ActionBlock block = new ActionBlock(position, width, height, action);
     private int maxBlocks = 5;
     BlockrGame blockrGame = BlockrGame.createInstance(maxBlocks, gameWorldType);

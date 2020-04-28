@@ -72,30 +72,30 @@ class RobotGameWorldTest {
         gameWorld.setRobot(Direction.LEFT,new int[]{2,1});
         gameWorld.setGrid(5,walls,new int[]{2,0});
         //Test legal action
-        assertEquals(gameWorld.doAction(Action.TURN_RIGHT),SuccessState.SUCCESS);
+        assertEquals(gameWorld.doAction(RobotAction.TURN_RIGHT),SuccessState.SUCCESS);
         //Test turn right
         assertEquals(gameWorld.getRobot().getDirection(),Direction.UP);
-        gameWorld.doAction(Action.TURN_LEFT);
+        gameWorld.doAction(RobotAction.TURN_LEFT);
         //Test turn left
         assertEquals(gameWorld.getRobot().getDirection(),Direction.LEFT);
-        gameWorld.doAction(Action.MOVE_FORWARD);
+        gameWorld.doAction(RobotAction.MOVE_FORWARD);
         //Test moved
         assertTrue(compareIntArr(gameWorld.getRobot().getPosition(),new int[]{2,0}));
         gameWorld.setRobot(Direction.RIGHT,new int[]{3,3});
         //Test illegal action
-        assertEquals(gameWorld.doAction(Action.MOVE_FORWARD),SuccessState.FAILURE);
+        assertEquals(gameWorld.doAction(RobotAction.MOVE_FORWARD),SuccessState.FAILURE);
         gameWorld.setRobot(Direction.LEFT,new int[]{2,1});
         //Test goal reached
-        assertEquals(gameWorld.doAction(Action.MOVE_FORWARD),SuccessState.GOAL_REACHED);
+        assertEquals(gameWorld.doAction(RobotAction.MOVE_FORWARD),SuccessState.GOAL_REACHED);
     }
 
     @org.junit.jupiter.api.Test
     void evaluate() {
         gameWorld.setGrid(5,walls,new int[]{2,0});
         gameWorld.setRobot(Direction.RIGHT,new int[]{3,3});
-        assertTrue(gameWorld.evaluate(Predicate.WALL_IN_FRONT));
+        assertTrue(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
         gameWorld.setRobot(Direction.LEFT,new int[]{3,3});
-        assertFalse(gameWorld.evaluate(Predicate.WALL_IN_FRONT));
+        assertFalse(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
     }
 
     @org.junit.jupiter.api.Test

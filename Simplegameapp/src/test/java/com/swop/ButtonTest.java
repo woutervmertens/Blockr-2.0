@@ -11,7 +11,7 @@ class ButtonTest {
 
     @BeforeEach
     void setUp(){
-        button = new Button("Turn Left",Color.BLUE,Action.TURN_LEFT);
+        button = new Button("Turn Left",Color.BLUE,RobotAction.TURN_LEFT);
     }
 
     @org.junit.jupiter.api.Test
@@ -36,7 +36,7 @@ class ButtonTest {
 
     @org.junit.jupiter.api.Test
     void getAction() {
-        assertEquals(button.getAction(),Action.TURN_LEFT);
+        assertEquals(button.getAction(),RobotAction.TURN_LEFT);
     }
 
     private boolean comparePoint(Point p1, Point p2){

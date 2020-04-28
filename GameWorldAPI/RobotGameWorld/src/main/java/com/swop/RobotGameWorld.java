@@ -69,7 +69,7 @@ public class RobotGameWorld implements GameWorld {
 
     @Override
     public SuccessState doAction(Action action) {
-        switch (action) {
+        switch ((RobotAction)action) {
             case MOVE_FORWARD:
                 robot.setPosition(robot.getPosititionInFront());
                 break;
@@ -110,7 +110,7 @@ public class RobotGameWorld implements GameWorld {
 
     @Override
     public boolean evaluate(Predicate predicate) {
-        switch (predicate) {
+        switch ((RobotPredicate)predicate) {
             case WALL_IN_FRONT:
                 return getGridSquareByPosition(robot.getPosititionInFront()) == Square.WALL;
         }

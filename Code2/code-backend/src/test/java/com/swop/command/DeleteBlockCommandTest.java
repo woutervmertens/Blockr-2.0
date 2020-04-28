@@ -1,6 +1,7 @@
 package com.swop.command;
 
 import com.swop.Action;
+import com.swop.RobotAction;
 import com.swop.blocks.ActionBlock;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class DeleteBlockCommandTest {
     private Point position = new Point(1, 1);
     private int height = 2;
     private int width = 3;
-    private Action action = Action.MOVE_FORWARD;
+    private Action action = (Action) RobotAction.MOVE_FORWARD;
     private ActionBlock block = new ActionBlock(position, width, height, action);
 
     private DeleteBlockCommand deleteBlockCommand = new DeleteBlockCommand(block);
