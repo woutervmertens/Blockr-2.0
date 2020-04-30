@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>170</x>
+      <y>190</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt; 
+Action</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>500</y>
+      <w>110</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>MyAction
+--
+MOVE_LEFT
+MOVE_UP
+MOVE_RIGHT
+MOVE_DOWN</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>340</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>RobotAction
+--
+MOVE_FORWARD
+TURN_LEFT
+TURN_RIGHT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>230</y>
+      <w>150</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;60.0;10.0;60.0;10.0;230.0;130.0;230.0;130.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>230</y>
+      <w>80</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;60.0;60.0;60.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>440</x>
+      <y>190</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt; 
+Predicate</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>520</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>MyPredicate
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>340</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>RobotPredicate
+--
+WALL_IN_FRONT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>230</y>
+      <w>170</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;60.0;150.0;60.0;150.0;240.0;10.0;240.0;10.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>230</y>
+      <w>100</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;60.0;10.0;60.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>200</x>
+      <y>470</y>
+      <w>290</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>MyGameWorld
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>160</x>
+      <y>160</y>
+      <w>400</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>GameWorld
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>200</x>
+      <y>310</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>RobotGameWorld
+--
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
