@@ -85,6 +85,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
             }
         }
 
+
+        //TODO: WALL_IN_FRONT moet weg, te specifiek aan robotgameworld
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
         if (conditions.size() % 2 == 0) return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
         else return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
@@ -97,7 +99,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     }
 
     protected void executeNextBodyBlock() {
-        // ?
+        // ? //TODO weg?
     }
 
     public List<Block> getBodyBlocks() {
