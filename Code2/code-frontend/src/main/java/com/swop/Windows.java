@@ -1,5 +1,6 @@
 package com.swop;
 
+import com.swop.blocks.Block;
 import com.swop.uiElements.BlockType;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
@@ -16,6 +17,7 @@ public enum Windows {
     private final Point position;
     private final int width;
     private final int height;
+    private BlockrGame blockrGame;
 
     Windows(Point pos, int width, int height) {
         this.position = pos;
@@ -52,8 +54,8 @@ public enum Windows {
 
         int x = 15;
         int y = 10;
-        Collection<Action> gwActions = BlockrGame.getInstance().getGameWorldType().getSupportedActions();
-        Collection<Predicate> gwPredicates = BlockrGame.getInstance().getGameWorldType().getSupportedPredicates();
+        Collection<Action> gwActions = blockrGame.getGameWorldType().getSupportedActions();
+        Collection<Predicate> gwPredicates = blockrGame.getGameWorldType().getSupportedPredicates();
         types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3];
         int k = 0;
         //Supported actions

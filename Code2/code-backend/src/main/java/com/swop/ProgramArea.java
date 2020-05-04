@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * It has no notion of position or width or height.
  */
 public class ProgramArea implements PushBlocks {
-    private final static AtomicReference<ProgramArea> instance = new AtomicReference<>();
 
     private final int radius = 10;  // Radius for connections
     /**
@@ -25,11 +24,6 @@ public class ProgramArea implements PushBlocks {
      */
     private List<Block> allBlocks = new ArrayList<>();
     private Block currentBlock;
-
-    public synchronized static ProgramArea getInstance() {
-        if (instance.get() == null) instance.set(new ProgramArea());
-        return instance.get();
-    }
 
     /**
      * @param b Point1

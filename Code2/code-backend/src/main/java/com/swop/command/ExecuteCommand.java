@@ -1,5 +1,6 @@
 package com.swop.command;
 
+import com.swop.GameWorld;
 import com.swop.Snapshot;
 import com.swop.blocks.Block;
 import com.swop.blocks.Executable;
@@ -9,7 +10,8 @@ public class ExecuteCommand extends GameWorldCommand {
     private Snapshot snapshot;
     private final Block block;
 
-    public ExecuteCommand(Block block) {
+    public ExecuteCommand(GameWorld gameWorld, Block block) {
+        super(gameWorld);
         this.block = block;
     }
 

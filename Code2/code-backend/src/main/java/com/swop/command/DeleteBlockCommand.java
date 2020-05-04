@@ -1,5 +1,6 @@
 package com.swop.command;
 
+import com.swop.ProgramArea;
 import com.swop.blocks.Block;
 
 import java.awt.*;
@@ -8,7 +9,8 @@ public class DeleteBlockCommand extends ProgramAreaCommand {
     private final Block block;
     private final Point previousPosition;
 
-    public DeleteBlockCommand(Block block) {
+    public DeleteBlockCommand(ProgramArea programArea, Block block) {
+        super(programArea);
         this.block = block;
         previousPosition = block.getPreviousDropPosition();
     }

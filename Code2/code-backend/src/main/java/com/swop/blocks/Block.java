@@ -11,16 +11,18 @@ public abstract class Block implements Cloneable {
     private final int height;
     protected ExecuteType executeType;
     private StatementBlock parentStatement;
+    private BlockrGame blockrGame;
 
     private boolean done = true;
     private Point position;
     private Point previousDropPosition;
 
-    protected Block(Point position, int width, int height) {
+    protected Block(Point position, int width, int height, BlockrGame blockrGame) {
         this.setPosition(position);
         this.width = width;
         this.height = height;
         step = height / 6;
+        this.blockrGame = blockrGame;
     }
 
     public Block clone() {
@@ -96,7 +98,7 @@ public abstract class Block implements Cloneable {
     }
 
     public GameWorld getGameWorld() {
-        return BlockrGame.getInstance().getGameWorld();
+        return blockrGame.getGameWorld();
     }
 
     public abstract Point getSocketPosition();

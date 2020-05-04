@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProgramAreaTest {
 
-    private ProgramArea programArea = ProgramArea.getInstance();
+    private ProgramArea programArea = new ProgramArea();
 
     private Point aPosition = new Point(2, 2);
     private int aWidth = 3;

@@ -36,31 +36,11 @@ public class BlockrGame {
      * @param maxBlocks     maximum number of blocks that can be used.
      * @param gameWorldType given type of gameWorld
      */
-    private BlockrGame(int maxBlocks, GameWorldType gameWorldType) {
+    public BlockrGame(int maxBlocks, GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
-        this.programArea = ProgramArea.getInstance();
+        this.programArea = new ProgramArea();
         this.gameWorldType = gameWorldType;
         this.gameWorld = gameWorldType.createNewInstance();
-    }
-
-    /**
-     * Creates an instance of BlockrGame
-     *
-     * @param maxBlocks     maximum number of blocks that can be used.
-     * @param gameWorldType given type of gameWorld
-     * @return Returns an instance of BlockrGame if there isn't one yet.
-     */
-    public synchronized static BlockrGame createInstance(int maxBlocks, GameWorldType gameWorldType) {
-        if (instance.get() == null) instance.set(new BlockrGame(maxBlocks, gameWorldType));
-        return instance.get();
-    }
-
-    /**
-     * @return Returns the BlockrGame instance if there is one otherwise an exception will be thrown.
-     */
-    public synchronized static BlockrGame getInstance() {
-        if (instance.get() == null) throw new IllegalStateException("BlockrGame instance used before created.");
-        return instance.get();
     }
 
     /**
@@ -70,6 +50,7 @@ public class BlockrGame {
         return programArea.getProgram();
     }
 
+    public ProgramArea getProgramArea() {return programArea; }
     /**
      * @param block Given block
      * @return Returns the position of the given block
@@ -85,7 +66,7 @@ public class BlockrGame {
      */
     public void dropBlockInPA(Block block) {
         if (block == null) throw new IllegalArgumentException();
-        executeCommand(new DropBlockCommand(block));
+        executeCommand(new DropBlockCommand(programArea, block));
     }
 
     /**
@@ -96,7 +77,7 @@ public class BlockrGame {
      */
     public void removeBlockFromPA(Block draggedBlock, boolean isRelease) {
         if (isRelease) {
-            executeCommand(new DeleteBlockCommand(draggedBlock));
+            executeCommand(new DeleteBlockCommand(programArea, draggedBlock));
         } else {
             programArea.removeBlockFromPA(draggedBlock);
         }
@@ -107,7 +88,7 @@ public class BlockrGame {
      */
     public void executeNext() {
         if (programArea.getCurrentBlock() != null) {
-            executeCommand(new ExecuteCommand(programArea.getCurrentBlock()));
+            executeCommand(new ExecuteCommand(gameWorld,programArea.getCurrentBlock()));
             if (programArea.getCurrentBlock().isDone()) {
                 programArea.setNextCurrentBlock();
             }

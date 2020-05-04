@@ -1,5 +1,6 @@
 package com.swop.command;
 
+import com.swop.ProgramArea;
 import com.swop.blocks.Block;
 
 import java.awt.*;
@@ -9,7 +10,8 @@ public class DropBlockCommand extends ProgramAreaCommand {
     private final Point position;
     private final Point previousPosition;
 
-    public DropBlockCommand(Block block) {
+    public DropBlockCommand(ProgramArea programArea, Block block) {
+        super(programArea);
         this.block = block;
         this.position = block.getPosition();
         previousPosition = block.getPreviousDropPosition();
