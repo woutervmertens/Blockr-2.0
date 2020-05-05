@@ -24,7 +24,7 @@ public class MyGameWorldType implements GameWorldType{
         return res;
     }
 
-    private ArrayList<Integer> createNumbers(){
+    ArrayList<Integer> createNumbers(){
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         numbers.add(0);
         numbers.add(1);

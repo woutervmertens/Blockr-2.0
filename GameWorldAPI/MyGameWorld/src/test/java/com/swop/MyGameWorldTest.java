@@ -1,9 +1,11 @@
 package com.swop;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +17,19 @@ class MyGameWorldTest {
     void setUp(){
         gameWorld = new MyGameWorld();
         numbers = createNumbers();
+    }
+
+    @Test
+    void actions()
+    {
+        MyAction a = MyAction.MOVE_RIGHT;
+        assertEquals("Move right",a.toString());
+        a = MyAction.MOVE_LEFT;
+        assertEquals("Move left",a.toString());
+        a = MyAction.MOVE_UP;
+        assertEquals("Move up",a.toString());
+        a = MyAction.MOVE_DOWN;
+        assertEquals("Move down",a.toString());
     }
 
     private ArrayList<Integer> createNumbers(){
@@ -45,15 +60,19 @@ class MyGameWorldTest {
 
     @org.junit.jupiter.api.Test
     void setGrid() {
-        NumSquare[][] grid = new NumSquare[3][3];
+        NumSquare[][] grid = new NumSquare[4][4];
+        numbers = new ArrayList<Integer>();
+        for (int i = 0; i < 16; i++) {
+            numbers.add(i);
+        }
         int index = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 int num = numbers.get(index++);
                 grid[i][j] = new NumSquare(num, 50);
             }
         }
-        gameWorld.setGrid(3,numbers);
+        gameWorld.setGrid(4,numbers);
         assertTrue(compareGrid(gameWorld.getGrid(),grid));
     }
 
@@ -79,18 +98,21 @@ class MyGameWorldTest {
         }
         gameWorld.setGrid(3,numbers);
         //Test illegal action
-        assertEquals(gameWorld.doAction(MyAction.MOVE_LEFT),SuccessState.FAILURE);
-        assertEquals(gameWorld.doAction(MyAction.MOVE_UP),SuccessState.FAILURE);
+        assertEquals(SuccessState.FAILURE,gameWorld.doAction(MyAction.MOVE_LEFT));
+        assertEquals(SuccessState.FAILURE,gameWorld.doAction(MyAction.MOVE_UP));
         //Test legal action
-        assertEquals(gameWorld.doAction(MyAction.MOVE_RIGHT),SuccessState.SUCCESS);
+        assertEquals(SuccessState.SUCCESS,gameWorld.doAction(MyAction.MOVE_RIGHT));
         //Test moved
         assertFalse(compareGrid(grid,gameWorld.getGrid()));
         //Test goal reached
         gameWorld.doAction(MyAction.MOVE_DOWN);
         gameWorld.doAction(MyAction.MOVE_RIGHT);
-        assertEquals(gameWorld.doAction(MyAction.MOVE_DOWN),SuccessState.GOAL_REACHED);
+        assertEquals(SuccessState.GOAL_REACHED,gameWorld.doAction(MyAction.MOVE_DOWN));
         //Test no overflow
-        assertEquals(gameWorld.doAction(MyAction.MOVE_LEFT),SuccessState.FAILURE);
+        assertEquals(SuccessState.FAILURE,gameWorld.doAction(MyAction.MOVE_RIGHT));
+        //Test actions after overflow
+        assertEquals(SuccessState.SUCCESS,gameWorld.doAction(MyAction.MOVE_LEFT));
+        assertEquals(SuccessState.SUCCESS,gameWorld.doAction(MyAction.MOVE_UP));
     }
 
     @org.junit.jupiter.api.Test
@@ -107,6 +129,13 @@ class MyGameWorldTest {
         gameWorld.setGrid(3,numbers);
         snap = (MySnapshot) gameWorld.createSnapshot();
         assertTrue(compareGrid(snap.getGrid(),grid));
+        assertTrue(comparePoint(snap.getEmptySquare(),new Point(0,0)));
+    }
+
+    @Test
+    void evaluate()
+    {
+        assertFalse(gameWorld.evaluate(null));
     }
 
     @org.junit.jupiter.api.Test

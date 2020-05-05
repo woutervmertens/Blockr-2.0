@@ -13,8 +13,25 @@ public class NumSquare {
                 4);
     }
 
+    /**
+     * The number value of this square.
+     * @return int
+     */
     public int getNumber(){return number;}
 
+    /**
+     * The polygon of this square.
+     * @return Polygon
+     */
+    Polygon getPolygon() {
+        return polygon;
+    }
+
+    /**
+     * Draw this square.
+     * @param pos The position of the square on the screen.
+     * @param g The Graphics object.
+     */
     public void draw(Point pos,Graphics g){
         polygon.translate(pos.x,pos.y);
         if(number != 0){

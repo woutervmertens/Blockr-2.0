@@ -119,6 +119,9 @@ public class MyGameWorld implements GameWorld {
         return SuccessState.GOAL_REACHED;
     }
 
+    /**
+     * Exchange the Point @param p with the emptySquare.
+     */
     private void exchange(Point p){
         NumSquare k = grid[emptySquare.x + p.x][emptySquare.y + p.y];
         grid[emptySquare.x + p.x][emptySquare.y + p.y] = grid[emptySquare.x][emptySquare.y];
