@@ -1,6 +1,9 @@
+package com.swop;
+
 import com.swop.*;
 import com.swop.Robot;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,6 +31,18 @@ class RobotGameWorldTest {
     void setDrawPosition() {
         gameWorld.setDrawPosition(new Point(200,0));
         assertEquals(gameWorld.getDrawPosition(), new Point(200,0));
+    }
+
+    @Test
+    void robot(){
+        gameWorld.setRobot(Direction.UP, new int[]{2,1});
+        assertTrue(compareIntArr(gameWorld.getRobot().getPosititionInFront(),new int[]{1,1}));
+        gameWorld.getRobot().setDirection(Direction.RIGHT);
+        assertTrue(compareIntArr(gameWorld.getRobot().getPosititionInFront(),new int[]{2,2}));
+        gameWorld.getRobot().setDirection(Direction.DOWN);
+        assertTrue(compareIntArr(gameWorld.getRobot().getPosititionInFront(),new int[]{3,1}));
+        gameWorld.getRobot().setDirection(Direction.LEFT);
+        assertTrue(compareIntArr(gameWorld.getRobot().getPosititionInFront(),new int[]{2,0}));
     }
 
     @org.junit.jupiter.api.Test

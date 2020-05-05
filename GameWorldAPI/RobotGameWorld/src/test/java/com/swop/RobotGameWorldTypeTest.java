@@ -1,3 +1,5 @@
+package com.swop;
+
 import com.swop.*;
 import com.swop.RobotGameWorldType;
 import org.junit.jupiter.api.BeforeEach;
