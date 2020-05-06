@@ -35,7 +35,7 @@ class BlockrGameTest {
     private ConditionBlock conditionBlock = new ConditionBlock(new Point(3, 2), true, 1, 2);
 
 
-    private DropBlockCommand dropBlockCommand = new DropBlockCommand(actionBlock);
+    private DropBlockCommand dropBlockCommand;
 
     @BeforeEach
     void setup() {
@@ -51,6 +51,7 @@ class BlockrGameTest {
         blockrGame = new BlockrGame(maxBlocks, gameWorldType);
         gameWorld = blockrGame.getGameWorld();
         whileBlock.addConditionBlock(conditionBlock);
+        dropBlockCommand = new DropBlockCommand(blockrGame.getProgramArea(),actionBlock);
     }
 
     @Test

@@ -33,7 +33,7 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
-        blockrGame = BlockrGame.createInstance(maxBlocks, gameWorldType);
+        blockrGame = new BlockrGame(maxBlocks, gameWorldType);
         // Make blockUIMap and share the REFERENCE to all handlers who need it
         Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
         displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
