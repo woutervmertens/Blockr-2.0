@@ -40,8 +40,10 @@ public class MyCanvasWindow extends CanvasWindow {
         blockrGame = new BlockrGame(maxBlocks, gameWorldType);
         // Make blockUIMap and share the REFERENCE to all handlers who need it
         Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+        //Handlers
         displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
         executeProgramHandler = new ExecuteProgramHandler(blockrGame, blockUIBlockMap);
+        //Sections
         paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGame);
         programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
         gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
