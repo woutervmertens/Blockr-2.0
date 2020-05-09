@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>2400</w>
+      <h>1340</h>
+    </coordinates>
+    <panel_attributes>title=Execute
+obj=_:UserInterfaceManager_~ui
+obj=:Program~pr
+obj=:Parser~pa
+obj=_:Block_~b
+obj=:GameWorld~gw
+
+found-&gt;&gt;&gt;ui: executeStep;on=ui
+combinedFragment=alt~alt1 id1 id1; id1:[currentStep != NULL];
+id1-&gt;&gt;&gt;id1 + : removeHighlight(blockId)
+--=alt1;
+ui-&gt;&gt;&gt;pr: executeStep;on=pr
+pr.&gt;ui: currentBlockId;
+ui-&gt;&gt;&gt;ui + : highlight(blockId)
+pr-&gt;&gt;&gt;pa: parse(blockId);on=pa
+pa-&gt;&gt;&gt;b: type = getType;on=b
+off=b
+combinedFragment=alt~alt1 ui gw; pa:[BlockType.ActionBlock];
+pa-&gt;&gt;&gt;gw: valid = action(details);on=gw
+gw-&gt;&gt;&gt;gw + :checkValidAction, act
+off=gw
+combinedFragment=alt~alt2 ui gw;
+pa:[!valid]
+pa.&gt;pr: invalidAction;off=pa
+pr.&gt;ui: invalidAction;off=pr
+off=ui
+--=alt2
+..
+on=pa;on=pr;on=ui
+pa:[BlockType.StatementBlock];
+pa-&gt;&gt;&gt;b: conditions = getConditions;on=b;
+off=b;
+pa-&gt;&gt;&gt;pa + : checkConditions;
+
+combinedFragment=alt~alt3 pa gw; 
+pa:[conditions == true];
+pa-&gt;&gt;&gt;b : children = getChildren; on=b
+off=b; pa-&gt;&gt;&gt;pr : addChildrenToQueue(children,isLoop);
+off=pa
+--=alt3;
+--=alt1;
+off=pr
+off=ui
+found-&gt;&gt;&gt;ui: reset;on=ui
+ui-&gt;&gt;&gt;gw: reset;on=gw
+off=ui;off=gw
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
