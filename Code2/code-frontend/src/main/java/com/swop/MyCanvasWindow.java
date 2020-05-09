@@ -25,6 +25,10 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
     private final int maxBlocks = 10;
+    //Windows
+    private PaletteSection paletteSection;
+    private ProgramAreaSection programAreaSection;
+    private GameWorldSection gameWorldSection;
 
     /**
      * Initializes a CanvasWindow object.
@@ -38,12 +42,17 @@ public class MyCanvasWindow extends CanvasWindow {
         Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
         displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
         executeProgramHandler = new ExecuteProgramHandler(blockrGame, blockUIBlockMap);
+        paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGame);
+        programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
+        gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
     }
 
     @Override
     protected void paint(Graphics g) {
         isPaletteHidden = blockrGame.isPaletteHidden();
-        Windows.drawWindows(g, isPaletteHidden, displaceBlockHandler.getAllUIBlocksInPA(), blockrGame.getGameWorld());
+        paletteSection.draw(g,isPaletteHidden);
+        programAreaSection.draw(g,displaceBlockHandler.getAllUIBlocksInPA());
+        gameWorldSection.draw(g,blockrGame.getGameWorld());
 
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor());
@@ -69,7 +78,7 @@ public class MyCanvasWindow extends CanvasWindow {
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
                 draggedBlock = getUIBlock(x, y);
-                if (Windows.PROGRAM_AREA.isWithin(x, y) && draggedBlock != null) {
+                if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
                     displaceBlockHandler.handleProgramAreaForClickOn(draggedBlock);
                 }
                 break;
@@ -85,7 +94,7 @@ public class MyCanvasWindow extends CanvasWindow {
                 break;
             case MouseEvent.MOUSE_RELEASED:
                 if (isBlockDragged()) {
-                    if (Windows.PROGRAM_AREA.isWithin(x, y)) {
+                    if (programAreaSection.isWithin(x, y)) {
                         displaceBlockHandler.handleReleaseInPA(draggedBlock);
                     } else {
                         displaceBlockHandler.handleReleaseOutsidePA(draggedBlock);
@@ -112,10 +121,10 @@ public class MyCanvasWindow extends CanvasWindow {
      * @return The UIBlock at the given coordinates or null
      */
     private UIBlock getUIBlock(int x, int y) {
-        if (Windows.PALETTE.isWithin(x, y) && !isPaletteHidden) {
-            BlockTypes type = Windows.getTypeOfClick(x, y);
+        if (paletteSection.isWithin(x, y) && !isPaletteHidden) {
+            BlockTypes type = paletteSection.getTypeOfClick(x, y);
             return type.getNewUIBlock(x, y);
-        } else if (Windows.PROGRAM_AREA.isWithin(x, y)) {
+        } else if (programAreaSection.isWithin(x, y)) {
             return displaceBlockHandler.getCorrespondingUiBlockFor(blockrGame.getBlockInPaAt(x, y));
         }
         return null;
