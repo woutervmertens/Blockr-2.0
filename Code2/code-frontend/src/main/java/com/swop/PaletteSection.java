@@ -1,5 +1,6 @@
 package com.swop;
 
+import com.swop.handlers.BlockrGameFacade;
 import com.swop.uiElements.BlockType;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
@@ -9,11 +10,11 @@ import java.util.Collection;
 
 public class PaletteSection extends WindowSection {
     private BlockTypes[] types;
-    private BlockrGame blockrGame;
+    private BlockrGameFacade blockrGameFacade;
 
-    public PaletteSection(Point pos, int width, int height, BlockrGame blockrGame){
+    public PaletteSection(Point pos, int width, int height, BlockrGameFacade blockrGameFacade){
         super(pos, width, height);
-        this.blockrGame = blockrGame;
+        this.blockrGameFacade = blockrGameFacade;
     }
 
     public void draw(Graphics g, boolean isPaletteHidden) {
@@ -25,8 +26,8 @@ public class PaletteSection extends WindowSection {
 
         int x = 15;
         int y = 10;
-        Collection<Action> gwActions = blockrGame.getGameWorldType().getSupportedActions();
-        Collection<Predicate> gwPredicates = blockrGame.getGameWorldType().getSupportedPredicates();
+        Collection<Action> gwActions = blockrGameFacade.getSupportedActions();
+        Collection<Predicate> gwPredicates = blockrGameFacade.getSupportedPredicates();
         types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3];
         int k = 0;
         //Supported actions

@@ -26,10 +26,6 @@ public class ExecuteProgramHandler {
         }
     }
 
-    public int getNumBlocksInPA() {
-        return blockrGame.getNumBlocksInPA();
-    }
-
     public void executeNext() {
         if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
         try {
@@ -43,17 +39,5 @@ public class ExecuteProgramHandler {
             getCorrespondingUiBlockFor(blockrGame.getAllBlocksInPA().get(0)).setHighlightStateOn(true);
         }
 
-    }
-
-    public void undo() {
-        blockrGame.undoCommand();
-    }
-
-    public void redo() {
-        blockrGame.redoCommand();
-    }
-
-    public void reset() {
-        blockrGame.resetEverything();
     }
 }

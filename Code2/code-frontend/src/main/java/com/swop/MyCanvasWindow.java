@@ -1,22 +1,17 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-import com.swop.handlers.DisplaceBlockHandler;
-import com.swop.handlers.ExecuteProgramHandler;
+import com.swop.handlers.BlockrGameFacade;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class MyCanvasWindow extends CanvasWindow {
-    // Handlers
-    BlockrGame blockrGame;
-    DisplaceBlockHandler displaceBlockHandler;
-    ExecuteProgramHandler executeProgramHandler;
+    // Facade
+    BlockrGameFacade blockrGameFacade;
     //KeyHolds
     boolean isHoldingCtrl = false;
     boolean isHoldingShift = false;
@@ -37,24 +32,20 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
-        blockrGame = new BlockrGame(maxBlocks, gameWorldType);
-        // Make blockUIMap and share the REFERENCE to all handlers who need it
-        Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
-        //Handlers
-        displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
-        executeProgramHandler = new ExecuteProgramHandler(blockrGame, blockUIBlockMap);
+        //Facade
+        blockrGameFacade = new BlockrGameFacade(maxBlocks,gameWorldType);
         //Sections
-        paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGame);
+        paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGameFacade);
         programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
         gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
     }
 
     @Override
     protected void paint(Graphics g) {
-        isPaletteHidden = blockrGame.isPaletteHidden();
+        isPaletteHidden = blockrGameFacade.isPaletteHidden();
         paletteSection.draw(g,isPaletteHidden);
-        programAreaSection.draw(g,displaceBlockHandler.getAllUIBlocksInPA());
-        gameWorldSection.draw(g,blockrGame.getGameWorld());
+        programAreaSection.draw(g,blockrGameFacade.getAllUIBlocksInPA());
+        gameWorldSection.draw(g,blockrGameFacade.getGameWorld());
 
         if (draggedBlock != null) {
             g.setColor(draggedBlock.getColor());
@@ -63,7 +54,7 @@ public class MyCanvasWindow extends CanvasWindow {
             g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
         }
         g.setColor(Color.BLACK);
-        g.drawString("# blocks available: " + (maxBlocks - executeProgramHandler.getNumBlocksInPA()), width - 140, height - 10);
+        g.drawString("# blocks available: " + (maxBlocks - blockrGameFacade.getNumBlocksInPA()), width - 140, height - 10);
     }
 
     /**
@@ -81,7 +72,7 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_PRESSED:
                 draggedBlock = getUIBlock(x, y);
                 if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
-                    displaceBlockHandler.handleProgramAreaForClickOn(draggedBlock);
+                    blockrGameFacade.handleProgramAreaForClickOn(draggedBlock);
                 }
                 break;
             case MouseEvent.MOUSE_CLICKED:
@@ -97,9 +88,9 @@ public class MyCanvasWindow extends CanvasWindow {
             case MouseEvent.MOUSE_RELEASED:
                 if (isBlockDragged()) {
                     if (programAreaSection.isWithin(x, y)) {
-                        displaceBlockHandler.handleReleaseInPA(draggedBlock);
+                        blockrGameFacade.handleReleaseInPA(draggedBlock);
                     } else {
-                        displaceBlockHandler.handleReleaseOutsidePA(draggedBlock);
+                        blockrGameFacade.handleReleaseOutsidePA(draggedBlock);
                     }
                     draggedBlock = null;
                     repaint();
@@ -108,9 +99,9 @@ public class MyCanvasWindow extends CanvasWindow {
             default:
                 throw new IllegalStateException("Unexpected mouse event: " + id);
         }
-        displaceBlockHandler.adjustAllBlockPositions();
-        displaceBlockHandler.adjustAllStatementBlockGaps();
-        executeProgramHandler.reset();
+        blockrGameFacade.adjustAllBlockPositions();
+        blockrGameFacade.adjustAllStatementBlockGaps();
+        blockrGameFacade.reset();
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
@@ -127,7 +118,7 @@ public class MyCanvasWindow extends CanvasWindow {
             BlockTypes type = paletteSection.getTypeOfClick(x, y);
             return type.getNewUIBlock(x, y);
         } else if (programAreaSection.isWithin(x, y)) {
-            return displaceBlockHandler.getCorrespondingUiBlockFor(blockrGame.getBlockInPaAt(x, y));
+            return blockrGameFacade.getCorrespondingUiBlockFor(blockrGameFacade.getBlockInPaAt(x, y));
         }
         return null;
     }
@@ -172,25 +163,25 @@ public class MyCanvasWindow extends CanvasWindow {
             if (bRepaint) repaint();
         }
 
-        displaceBlockHandler.adjustAllBlockPositions();
-        displaceBlockHandler.adjustAllStatementBlockGaps();
+        blockrGameFacade.adjustAllBlockPositions();
+        blockrGameFacade.adjustAllStatementBlockGaps();
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
     private void executeNext() {
-        executeProgramHandler.executeNext();
+        blockrGameFacade.executeNext();
     }
 
     private void undo() {
-        executeProgramHandler.undo();
+        blockrGameFacade.undo();
     }
 
     private void redo() {
-        executeProgramHandler.redo();
+        blockrGameFacade.redo();
     }
 
     private void resetProgramExecution() {
-        executeProgramHandler.reset();
+        blockrGameFacade.reset();
     }
 
     /**
