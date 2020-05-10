@@ -24,11 +24,11 @@ public class BlockrGame {
     /**
      * Stack for all the undo's
      */
-    private Stack<ICommand> undoStack = new Stack<>();
+    private final Stack<ICommand> undoStack = new Stack<>();
     /**
      * Stack for all the redo's
      */
-    private Stack<ICommand> redoStack = new Stack<>();
+    private final Stack<ICommand> redoStack = new Stack<>();
 
     /**
      * Initializes BlockrGame

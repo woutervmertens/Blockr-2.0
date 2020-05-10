@@ -14,25 +14,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class BlockrGameTest {
 
     GameWorldType gameWorldType;
-    private String[] args = {"com.swop.RobotGameWorldType"};
-    private int maxBlocks = 2;
+    private final String[] args = {"com.swop.RobotGameWorldType"};
+    private final int maxBlocks = 2;
     private BlockrGame blockrGame;
     private GameWorld gameWorld;
 
-    private Point aPosition = new Point(1, 1);
-    private int aWidth = 3;
-    private int aHeight = 2;
-    private Action action = RobotAction.MOVE_FORWARD;
+    private final Point aPosition = new Point(1, 1);
+    private final int aWidth = 3;
+    private final int aHeight = 2;
+    private final Action action = RobotAction.MOVE_FORWARD;
 
-    private ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
+    private final ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
 
-    private Point wPosition = new Point(1, 3);
-    private int wWidth = 4;
-    private int wHeight = 2;
+    private final Point wPosition = new Point(1, 3);
+    private final int wWidth = 4;
+    private final int wHeight = 2;
 
-    private WhileBlock whileBlock = new WhileBlock(wPosition, wWidth, wHeight);
+    private final WhileBlock whileBlock = new WhileBlock(wPosition, wWidth, wHeight);
 
-    private ConditionBlock conditionBlock = new ConditionBlock(new Point(3, 2), true, 1, 2, RobotPredicate.WALL_IN_FRONT);
+    private final ConditionBlock conditionBlock = new ConditionBlock(new Point(3, 2), true, 1, 2, RobotPredicate.WALL_IN_FRONT);
 
 
     private DropBlockCommand dropBlockCommand;

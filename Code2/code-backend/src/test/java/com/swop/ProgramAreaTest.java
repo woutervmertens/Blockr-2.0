@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProgramAreaTest {
 
-    private ProgramArea programArea = new ProgramArea();
+    private final ProgramArea programArea = new ProgramArea();
 
-    private Point aPosition = new Point(2, 2);
-    private int aWidth = 3;
-    private int aHeight = 2;
-    private Action action = RobotAction.MOVE_FORWARD;
+    private final Point aPosition = new Point(2, 2);
+    private final int aWidth = 3;
+    private final int aHeight = 2;
+    private final Action action = RobotAction.MOVE_FORWARD;
 
-    private ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
+    private final ActionBlock actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
 
     @Test
     void dropBlockIn() {

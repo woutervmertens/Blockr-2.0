@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ActionBlockTest {
 
-    private Point position = new Point(5, 1);
-    private int width = 3;
-    private int height = 4;
-    private Action action = RobotAction.MOVE_FORWARD;
+    private final Point position = new Point(5, 1);
+    private final int width = 3;
+    private final int height = 4;
+    private final Action action = RobotAction.MOVE_FORWARD;
 
-    private ActionBlock actionBlock = new ActionBlock(position, width, height, action);
+    private final ActionBlock actionBlock = new ActionBlock(position, width, height, action);
 
     @Test
     void getPlugPosition() {

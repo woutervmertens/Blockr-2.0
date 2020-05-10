@@ -10,20 +10,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BlockTest {
 
-    private Point position = new Point(4, 9);
-    private int width = 9;
-    private int height = 4;
+    private final Point position = new Point(4, 9);
+    private final int width = 9;
+    private final int height = 4;
 
-    private Action action = RobotAction.MOVE_FORWARD;
-    private ExecuteType executeType = ExecuteType.WorldChanging;
+    private final Action action = RobotAction.MOVE_FORWARD;
+    private final ExecuteType executeType = ExecuteType.WorldChanging;
 
-    private ActionBlock block = new ActionBlock(position, width, height, action);
+    private final ActionBlock block = new ActionBlock(position, width, height, action);
 
-    private Point position1 = new Point(4, 2);
-    private int width1 = 9;
-    private int height1 = 4;
+    private final Point position1 = new Point(4, 2);
+    private final int width1 = 9;
+    private final int height1 = 4;
 
-    private IfBlock ifBlock = new IfBlock(position1, width1, height1);
+    private final IfBlock ifBlock = new IfBlock(position1, width1, height1);
 
 
     @Test

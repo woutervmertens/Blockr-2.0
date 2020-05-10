@@ -70,31 +70,15 @@ public class MyCanvasWindow extends CanvasWindow {
         super.handleMouseEvent(id, x, y, clickCount);
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
-                draggedBlock = getUIBlock(x, y);
-                if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
-                    blockrGameFacade.handleProgramAreaForClickOn(draggedBlock);
-                }
+                pressMouse(x, y);
                 break;
             case MouseEvent.MOUSE_CLICKED:
                 break;
             case MouseEvent.MOUSE_DRAGGED:
-                if (isBlockDragged()) {
-                    pos.x = x;
-                    pos.y = y;
-                    draggedBlock.setPosition((Point) pos.clone());
-                    repaint();
-                }
+                dragMouse(x, y);
                 break;
             case MouseEvent.MOUSE_RELEASED:
-                if (isBlockDragged()) {
-                    if (programAreaSection.isWithin(x, y)) {
-                        blockrGameFacade.handleReleaseInPA(draggedBlock);
-                    } else {
-                        blockrGameFacade.handleReleaseOutsidePA(draggedBlock);
-                    }
-                    draggedBlock = null;
-                    repaint();
-                }
+                releaseMouse(x, y);
                 break;
             default:
                 throw new IllegalStateException("Unexpected mouse event: " + id);
@@ -103,6 +87,34 @@ public class MyCanvasWindow extends CanvasWindow {
         blockrGameFacade.adjustAllStatementBlockGaps();
         blockrGameFacade.reset();
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
+    }
+
+    private void pressMouse(int x, int y) {
+        draggedBlock = getUIBlock(x, y);
+        if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
+            blockrGameFacade.handleProgramAreaForClickOn(draggedBlock);
+        }
+    }
+
+    private void dragMouse(int x, int y) {
+        if (isBlockDragged()) {
+            pos.x = x;
+            pos.y = y;
+            draggedBlock.setPosition((Point) pos.clone());
+            repaint();
+        }
+    }
+
+    private void releaseMouse(int x, int y) {
+        if (isBlockDragged()) {
+            if (programAreaSection.isWithin(x, y)) {
+                blockrGameFacade.handleReleaseInPA(draggedBlock);
+            } else {
+                blockrGameFacade.handleReleaseOutsidePA(draggedBlock);
+            }
+            draggedBlock = null;
+            repaint();
+        }
     }
 
 
@@ -145,15 +157,8 @@ public class MyCanvasWindow extends CanvasWindow {
                     bRepaint = true;
                     break;
                 case 90: //Z
-                    if (isHoldingCtrl) {
-                        if (isHoldingShift) redo();
-                        else undo();
-                        isHoldingShift = false;
-                        isHoldingCtrl = false;
-                        bRepaint = true;
-                    }
+                    bRepaint = ctrlZ(bRepaint);
             }
-
             if (keyCode == 17) isHoldingCtrl = true;
             if (keyCode == 16) isHoldingShift = true;
 
@@ -162,10 +167,20 @@ public class MyCanvasWindow extends CanvasWindow {
 
             if (bRepaint) repaint();
         }
-
         blockrGameFacade.adjustAllBlockPositions();
         blockrGameFacade.adjustAllStatementBlockGaps();
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
+    }
+
+    private boolean ctrlZ(boolean bRepaint) {
+        if (isHoldingCtrl) {
+            if (isHoldingShift) redo();
+            else undo();
+            isHoldingShift = false;
+            isHoldingCtrl = false;
+            bRepaint = true;
+        }
+        return bRepaint;
     }
 
     private void executeNext() {

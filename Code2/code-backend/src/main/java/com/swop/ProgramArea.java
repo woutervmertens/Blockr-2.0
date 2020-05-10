@@ -17,11 +17,11 @@ public class ProgramArea implements PushBlocks {
      * List recording all the blocks that belong to the current program of this program area WITHOUT nested blocks.
      * Nested blocks (inside StatementBlocks) should be accessed using ''
      */
-    private List<Block> program = new LinkedList<>();
+    private final List<Block> program = new LinkedList<>();
     /**
      * List recording all blocks currently present in program area
      */
-    private List<Block> allBlocks = new ArrayList<>();
+    private final List<Block> allBlocks = new ArrayList<>();
     private Block currentBlock;
 
     /**
@@ -47,25 +47,37 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
-        if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
-        resetProgramExecution();
-        if (allBlocks.size() == 1) {
-            program.add(draggedBlock);
-            resetProgramExecution();
-            return;
-        }
+        if (reasonToReset(draggedBlock)) return;
 
         // 1) Handle Connection
         handleConnections(draggedBlock);
 
         // 2) Push program blocks if dragged block was added to a statement body
         // TODO: fix this with some pattern to share information about the program
+        pushProgramBlocks(draggedBlock);
+
+        System.out.println("Program has " + getProgram().size() + " blocks !");
+    }
+
+    // TODO: 11/05/2020 better name? 
+    private boolean reasonToReset(Block draggedBlock) {
+        if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
+        resetProgramExecution();
+        if (allBlocks.size() == 1) {
+            program.add(draggedBlock);
+            resetProgramExecution();
+            return true;
+        }
+        return false;
+    }
+
+    // TODO: 11/05/2020 Better name? 
+    private void pushProgramBlocks(Block draggedBlock) {
         if (draggedBlock.getParentStatement() != null) {
             Block currentBlock = draggedBlock;
             while (currentBlock.getParentStatement() != null) {
                 currentBlock = currentBlock.getParentStatement();
             }
-
             if (getProgram().contains(currentBlock)) {
                 // Now currentBlock is a block from the program
                 int distance = draggedBlock.getHeight() + draggedBlock.getStep();
@@ -73,9 +85,8 @@ public class ProgramArea implements PushBlocks {
                 PushBlocks.pushFrom(getProgram(), getProgram().indexOf(currentBlock) + 1, distance);
             }
         }
-
-        System.out.println("Program has " + getProgram().size() + " blocks !");
     }
+
 
     /**
      * Handle eventual connections of close blocks for the given draggedblock.
@@ -91,21 +102,12 @@ public class ProgramArea implements PushBlocks {
         // 1) plug
         closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
         if (closeBlock != null) {
-            if (program.contains(closeBlock)) {
-                addProgramBlockAfter(draggedBlock, closeBlock);
-            } else if (closeBlock.getParentStatement() != null) {
-                closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
-            }
-            draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+            plug(draggedBlock, closeBlock);
         } else {
             // 2) socket
             closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
-                if (program.contains(closeBlock)) {
-                    addProgramBlockBefore(draggedBlock, closeBlock);
-                } else if (closeBlock.getParentStatement() != null) {
-                    closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
-                }
+                socket(draggedBlock, closeBlock);
                 draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
             } else {
                 // 3) statement body
@@ -115,6 +117,25 @@ public class ProgramArea implements PushBlocks {
                     ((StatementBlock) closeBlock).insertBodyBlockAtIndex(draggedBlock, 0);
                 }
             }
+        }
+    }
+
+    // TODO: 11/05/2020 Better name?
+    private void plug(Block draggedBlock, Block closeBlock) {
+        if (program.contains(closeBlock)) {
+            addProgramBlockAfter(draggedBlock, closeBlock);
+        } else if (closeBlock.getParentStatement() != null) {
+            closeBlock.getParentStatement().addBodyBlockAfter(draggedBlock, closeBlock);
+        }
+        draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+    }
+
+    // TODO: 11/05/2020 better name?
+    private void socket(Block draggedBlock, Block closeBlock) {
+        if (program.contains(closeBlock)) {
+            addProgramBlockBefore(draggedBlock, closeBlock);
+        } else if (closeBlock.getParentStatement() != null) {
+            closeBlock.getParentStatement().addBodyBlockBefore(draggedBlock, closeBlock);
         }
     }
 
@@ -331,29 +352,32 @@ public class ProgramArea implements PushBlocks {
         if (!(clickedBlock instanceof ConditionBlock)) {
             StatementBlock parentStatement = clickedBlock.getParentStatement();
             if (parentStatement != null) {
-                // 1) Remove the body and push all superior body-blocks up
-                parentStatement.removeBodyBlock(clickedBlock);
-                // 2) Push program up
-                // 2.1) Find most superior program block
-                while (parentStatement.getParentStatement() != null) {
-                    parentStatement = parentStatement.getParentStatement();
-                }
-                // 2.2) Push
-                if (getProgram().contains(parentStatement)) {
-                    int distance = -clickedBlock.getHeight() - clickedBlock.getStep();
-                    if (clickedBlock instanceof StatementBlock)
-                        distance -= ((StatementBlock) clickedBlock).getGapSize();
-                    PushBlocks.pushFrom(program, program.indexOf(parentStatement) + 1, distance);
-                }
+                pushUp(clickedBlock, parentStatement);
             }
-
         } else {
             clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
         }
-
         allBlocks.remove(clickedBlock);
         if (getProgram().contains(clickedBlock)) {
             removeProgramBlock(clickedBlock);
+        }
+    }
+
+    // TODO: 11/05/2020 better name?
+    private void pushUp(Block clickedBlock, StatementBlock parentStatement) {
+        // 1) Remove the body and push all superior body-blocks up
+        parentStatement.removeBodyBlock(clickedBlock);
+        // 2) Push program up
+        // 2.1) Find most superior program block
+        while (parentStatement.getParentStatement() != null) {
+            parentStatement = parentStatement.getParentStatement();
+        }
+        // 2.2) Push
+        if (getProgram().contains(parentStatement)) {
+            int distance = -clickedBlock.getHeight() - clickedBlock.getStep();
+            if (clickedBlock instanceof StatementBlock)
+                distance -= ((StatementBlock) clickedBlock).getGapSize();
+            PushBlocks.pushFrom(program, program.indexOf(parentStatement) + 1, distance);
         }
     }
 
