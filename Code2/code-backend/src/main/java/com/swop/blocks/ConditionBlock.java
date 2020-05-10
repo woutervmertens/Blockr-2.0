@@ -1,6 +1,8 @@
 package com.swop.blocks;
 
 import com.swop.BlockrGame;
+
+import com.swop.BlockrGame;
 import com.swop.Predicate;
 
 import java.awt.*;

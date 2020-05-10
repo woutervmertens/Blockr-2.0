@@ -47,8 +47,10 @@ public class DisplaceBlockHandler {
      * @pre draggedBlock.getPosition() is inside the PA
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
-        if (draggedBlock.getCorrespondingBlock() == null)
+        if (draggedBlock.getCorrespondingBlock() == null) {
             draggedBlock.makeNewCorrespondingBlock();
+            draggedBlock.getCorrespondingBlock().setBlockrGame(blockrGame);
+        }
 
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (!getBlockUIBlockMap().containsKey(backendBlock)) {
