@@ -17,12 +17,11 @@ public abstract class Block implements Cloneable {
     private Point position;
     private Point previousDropPosition;
 
-    protected Block(Point position, int width, int height, BlockrGame blockrGame) {
+    protected Block(Point position, int width, int height) {
         this.setPosition(position);
         this.width = width;
         this.height = height;
         step = height / 6;
-        this.blockrGame = blockrGame;
     }
 
     public Block clone() {
@@ -32,6 +31,10 @@ public abstract class Block implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void setBlockrGame(BlockrGame blockrGame){
+        this.blockrGame = blockrGame;
     }
 
     public int getStep() {
@@ -98,6 +101,7 @@ public abstract class Block implements Cloneable {
     }
 
     public GameWorld getGameWorld() {
+        if(blockrGame == null) throw new NullPointerException("BlockrGame not set in Block.");
         return blockrGame.getGameWorld();
     }
 

@@ -10,8 +10,8 @@ import java.awt.*;
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
     private final Action action;
 
-    public ActionBlock(Point position, int width, int height, Action action, BlockrGame blockrGame) {
-        super(position, width, height, blockrGame);
+    public ActionBlock(Point position, int width, int height, Action action) {
+        super(position, width, height);
         this.action = action;
         executeType = ExecuteType.WorldChanging;
     }

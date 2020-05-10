@@ -19,8 +19,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private boolean Busy;
     private boolean done = false;
 
-    public StatementBlock(Point position, int width, int height, BlockrGame blockrGame) {
-        super(position, width, height, blockrGame);
+    public StatementBlock(Point position, int width, int height) {
+        super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
     }
