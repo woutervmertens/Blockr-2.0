@@ -32,7 +32,7 @@ class BlockrGameTest {
 
     private WhileBlock whileBlock = new WhileBlock(wPosition, wWidth, wHeight);
 
-    private ConditionBlock conditionBlock = new ConditionBlock(new Point(3, 2), true, 1, 2);
+    private ConditionBlock conditionBlock = new ConditionBlock(new Point(3, 2), true, 1, 2, RobotPredicate.WALL_IN_FRONT);
 
 
     private DropBlockCommand dropBlockCommand;

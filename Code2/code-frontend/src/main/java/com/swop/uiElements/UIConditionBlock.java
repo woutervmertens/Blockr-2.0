@@ -1,5 +1,6 @@
 package com.swop.uiElements;
 
+import com.swop.Predicate;
 import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
 
@@ -24,10 +25,10 @@ public class UIConditionBlock extends UIBlock {
     public void makeNewCorrespondingBlock() {
         switch (type.getType()) {
             case Predicate:
-                this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight());
+                this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight(), type.getPredicate());
                 break;
             case NotCondition:
-                this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight());
+                this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight(), null);
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");

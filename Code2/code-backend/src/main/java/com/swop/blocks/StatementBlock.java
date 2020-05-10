@@ -19,8 +19,8 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private boolean Busy;
     private boolean done = false;
 
-    public StatementBlock(Point position, int width, int height, BlockrGame blockrGame) {
-        super(position, width, height, blockrGame);
+    public StatementBlock(Point position, int width, int height) {
+        super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
 
@@ -80,29 +80,26 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public boolean isConditionValid() throws IllegalStateException {
         if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
 
+        int size = conditions.size();
+        ConditionBlock last = conditions.get(size - 1);
         // Predicate(that isn't NOT) should only be at the last (and has to)
-        for (int i = 0; i < conditions.size(); i++) {
-            if (conditions.get(i).isPredicate() && i < conditions.size() - 1) {
+        for (int i = 0; i < size; i++) {
+            if (conditions.get(i).isPredicate() && i < size - 1) {
                 throw new IllegalStateException("Invalid condition for statement block");
             }
         }
 
 
-        //TODO: WALL_IN_FRONT moet weg, te specifiek aan robotgameworld
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (conditions.size() % 2 == 0) return !getGameWorld().evaluate();
-        else return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        if (conditions.size() % 2 == 0) return !getGameWorld().evaluate(last.getPredicate());
+        else return getGameWorld().evaluate(last.getPredicate());
 
     }
 
     @Override
     public void execute() {
-        if (isConditionValid()) executeNextBodyBlock();
     }
 
-    protected void executeNextBodyBlock() {
-        // ? //TODO weg?
-    }
 
     public List<Block> getBodyBlocks() {
         return bodyBlocks;

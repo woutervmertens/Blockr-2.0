@@ -14,14 +14,13 @@ public class ConditionBlock extends Block implements HorizontallyConnectable {
     /**
      * create a condition BLock
      * @param position position of the block
-     * @param isPredicate Variable registering whether the to make block is a WIF. If not then it is a NOT.
+     * @param isPredicate Variable registering whether the to make block is a predicate (true) otherwise NOT (false).
      * @param width width of the block
      * @param height height of the block
-     * @param blockrGame associated BlockrGame
      * @param predicate predicate of the block
      */
-    public ConditionBlock(Point position, boolean isPredicate, int width, int height, BlockrGame blockrGame, Predicate predicate) {
-        super(position, width, height,blockrGame);
+    public ConditionBlock(Point position, boolean isPredicate, int width, int height, Predicate predicate) {
+        super(position, width, height);
         this.isPredicate = isPredicate;
         this.predicate = predicate;
         executeType = ExecuteType.NonExecutable;
