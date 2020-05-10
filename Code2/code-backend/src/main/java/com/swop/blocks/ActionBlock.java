@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.Action;
+import com.swop.BlockrGame;
 import com.swop.Snapshot;
 import com.swop.SuccessState;
 
@@ -9,8 +10,8 @@ import java.awt.*;
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
     private final Action action;
 
-    public ActionBlock(Point position, int width, int height, Action action) {
-        super(position, width, height);
+    public ActionBlock(Point position, int width, int height, Action action, BlockrGame blockrGame) {
+        super(position, width, height, blockrGame);
         this.action = action;
         executeType = ExecuteType.WorldChanging;
     }

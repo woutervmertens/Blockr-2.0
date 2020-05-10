@@ -1,5 +1,7 @@
 package com.swop.blocks;
 
+import com.swop.BlockrGame;
+
 import java.awt.*;
 
 public class ConditionBlock extends Block implements HorizontallyConnectable {
@@ -8,8 +10,8 @@ public class ConditionBlock extends Block implements HorizontallyConnectable {
     /**
      * @param isPredicate Variable registering whether the to make block is a WIF. If not then it is a NOT.
      */
-    public ConditionBlock(Point position, boolean isPredicate, int width, int height) {
-        super(position, width, height);
+    public ConditionBlock(Point position, boolean isPredicate, int width, int height, BlockrGame blockrGame) {
+        super(position, width, height, blockrGame);
         this.isPredicate = isPredicate;
         executeType = ExecuteType.NonExecutable;
     }
