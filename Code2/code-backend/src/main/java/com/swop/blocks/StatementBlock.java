@@ -1,5 +1,6 @@
 package com.swop.blocks;
 
+import com.swop.BlockrGame;
 import com.swop.Predicate;
 import com.swop.PushBlocks;
 
@@ -18,10 +19,11 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     private boolean Busy;
     private boolean done = false;
 
-    public StatementBlock(Point position, int width, int height) {
-        super(position, width, height);
+    public StatementBlock(Point position, int width, int height, BlockrGame blockrGame) {
+        super(position, width, height, blockrGame);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
+
     }
 
     public boolean isBusy() {
@@ -78,7 +80,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public boolean isConditionValid() throws IllegalStateException {
         if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
 
-        // WIF should only be at the last (and has to)
+        // Predicate(that isn't NOT) should only be at the last (and has to)
         for (int i = 0; i < conditions.size(); i++) {
             if (conditions.get(i).isPredicate() && i < conditions.size() - 1) {
                 throw new IllegalStateException("Invalid condition for statement block");
@@ -88,7 +90,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
         //TODO: WALL_IN_FRONT moet weg, te specifiek aan robotgameworld
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
-        if (conditions.size() % 2 == 0) return !getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
+        if (conditions.size() % 2 == 0) return !getGameWorld().evaluate();
         else return getGameWorld().evaluate(Predicate.WALL_IN_FRONT);
 
     }
