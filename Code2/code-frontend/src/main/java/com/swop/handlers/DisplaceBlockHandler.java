@@ -58,7 +58,10 @@ public class DisplaceBlockHandler {
         }
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
-        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        try {
+            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
+        }
     }
 
     public void adjustAllStatementBlockGaps() {
@@ -98,7 +101,10 @@ public class DisplaceBlockHandler {
             //remove the block from program area
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
-        getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        try {
+            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+        } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
+        }
     }
 
     public List<UIBlock> getAllUIBlocksInPA() {
