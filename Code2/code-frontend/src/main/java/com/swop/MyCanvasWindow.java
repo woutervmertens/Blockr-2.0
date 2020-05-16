@@ -1,6 +1,7 @@
 package com.swop;
 
 import com.swop.handlers.BlockrGameFacade;
+import com.swop.handlers.SharedData;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
 
@@ -33,7 +34,7 @@ public class MyCanvasWindow extends CanvasWindow {
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
         //Facade
-        blockrGameFacade = new BlockrGameFacade(maxBlocks,gameWorldType);
+        blockrGameFacade = new BlockrGameFacade(SharedData.getInstance(maxBlocks, gameWorldType));
         //Sections
         paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGameFacade);
         programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
@@ -161,9 +162,6 @@ public class MyCanvasWindow extends CanvasWindow {
             }
             if (keyCode == 17) isHoldingCtrl = true;
             if (keyCode == 16) isHoldingShift = true;
-
-            System.out.println("Ctrl " + isHoldingCtrl);
-            System.out.println("Shift " + isHoldingShift);
 
             if (bRepaint) repaint();
         }

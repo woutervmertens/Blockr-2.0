@@ -5,33 +5,29 @@ import com.swop.blocks.Block;
 import com.swop.uiElements.UIBlock;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BlockrGameFacade {
     DisplaceBlockHandler displaceBlockHandler;
     ExecuteProgramHandler executeProgramHandler;
-    BlockrGame blockrGame;
-    // Make blockUIMap and share the REFERENCE to all handlers who need it
-    Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    SharedData sharedData;
 
-    public BlockrGameFacade(int maxBlocks, GameWorldType type){
-        blockrGame = new BlockrGame(maxBlocks,type);
-        displaceBlockHandler = new DisplaceBlockHandler(blockrGame, blockUIBlockMap);
-        executeProgramHandler = new ExecuteProgramHandler(blockrGame, blockUIBlockMap);
+    public BlockrGameFacade(SharedData sharedData){
+        this.sharedData = sharedData;
+        displaceBlockHandler = new DisplaceBlockHandler(sharedData);
+        executeProgramHandler = new ExecuteProgramHandler(sharedData);
     }
 
     public Collection<Action> getSupportedActions(){
-        return blockrGame.getGameWorldType().getSupportedActions();
+        return sharedData.getBlockrGame().getGameWorldType().getSupportedActions();
     }
 
     public Collection<Predicate> getSupportedPredicates(){
-        return blockrGame.getGameWorldType().getSupportedPredicates();
+        return sharedData.getBlockrGame().getGameWorldType().getSupportedPredicates();
     }
 
     public boolean isPaletteHidden(){
-        return blockrGame.isPaletteHidden();
+        return sharedData.getBlockrGame().isPaletteHidden();
     }
 
     public List<UIBlock> getAllUIBlocksInPA(){
@@ -39,11 +35,11 @@ public class BlockrGameFacade {
     }
 
     public GameWorld getGameWorld(){
-        return blockrGame.getGameWorld();
+        return sharedData.getBlockrGame().getGameWorld();
     }
 
     public int getNumBlocksInPA() {
-        return blockrGame.getNumBlocksInPA();
+        return sharedData.getBlockrGame().getNumBlocksInPA();
     }
 
     public void handleProgramAreaForClickOn(UIBlock clickedBlock){
@@ -67,11 +63,11 @@ public class BlockrGameFacade {
     }
 
     public UIBlock getCorrespondingUiBlockFor(Block block){
-        return displaceBlockHandler.getCorrespondingUiBlockFor(block);
+        return sharedData.getCorrespondingUiBlockFor(block);
     }
 
     public Block getBlockInPaAt(int x, int y){
-        return blockrGame.getBlockInPaAt(x,y);
+        return sharedData.getBlockrGame().getBlockInPaAt(x,y);
     }
 
     public void executeNext(){
@@ -79,14 +75,14 @@ public class BlockrGameFacade {
     }
 
     public void undo() {
-        blockrGame.undoCommand();
+        sharedData.getBlockrGame().undoCommand();
     }
 
     public void redo() {
-        blockrGame.redoCommand();
+        sharedData.getBlockrGame().redoCommand();
     }
 
     public void reset() {
-        blockrGame.resetEverything();
+        sharedData.getBlockrGame().resetEverything();
     }
 }

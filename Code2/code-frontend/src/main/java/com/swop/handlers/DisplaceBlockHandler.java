@@ -10,37 +10,12 @@ import com.swop.uiElements.UIStatementBlock;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class DisplaceBlockHandler {
-    /**
-     * Connection with backend
-     */
-    private final BlockrGame blockrGame;
-    /**
-     * Map with as keys all the backend blocks present in the PA and their corresponding ui block as value.
-     */
-    private Map<Block, UIBlock> blockUIBlockMap;
+    private final SharedData sharedData;
 
-    public DisplaceBlockHandler(BlockrGame blockrGame, Map<Block, UIBlock> blockUIBlockMap) {
-        this.blockrGame = blockrGame;
-        this.blockUIBlockMap = blockUIBlockMap;
-    }
-
-    private Map<Block, UIBlock> getBlockUIBlockMap() {
-        return blockUIBlockMap;
-    }
-
-    public void putInBlockUIBlockMap(Block key, UIBlock value) {
-        blockUIBlockMap.put(key, value);
-    }
-
-    public UIBlock getCorrespondingUiBlockFor(Block block) {
-        try {
-            return blockUIBlockMap.get(block);
-        } catch (NullPointerException e) {
-            return null;
-        }
+    public DisplaceBlockHandler(SharedData sharedData) {
+        this.sharedData = sharedData;
     }
 
     /**
@@ -49,38 +24,39 @@ public class DisplaceBlockHandler {
     public void handleReleaseInPA(UIBlock draggedBlock) {
         if (draggedBlock.getCorrespondingBlock() == null) {
             draggedBlock.makeNewCorrespondingBlock();
-            draggedBlock.getCorrespondingBlock().setBlockrGame(blockrGame);
+            draggedBlock.getCorrespondingBlock().setBlockrGame(sharedData.getBlockrGame());
         }
 
         Block backendBlock = draggedBlock.getCorrespondingBlock();
-        if (!getBlockUIBlockMap().containsKey(backendBlock)) {
-            putInBlockUIBlockMap(backendBlock, draggedBlock);
-        }
+        sharedData.putInBlockUIBlockMap(backendBlock, draggedBlock);
+
+        BlockrGame blockrGame = sharedData.getBlockrGame();
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
         try {
-            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+            sharedData.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
         } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
         }
     }
 
     public void adjustAllStatementBlockGaps() {
-        for (Block block : blockrGame.getAllBlocksInPA()) {
+        for (Block block : sharedData.getBlockrGame().getAllBlocksInPA()) {
             if (block instanceof StatementBlock) {
-                UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
+                UIStatementBlock uiStatement = (UIStatementBlock) sharedData.getCorrespondingUiBlockFor(block);
                 uiStatement.setGapSize(((StatementBlock) block).getGapSize());
             }
         }
     }
 
     public void adjustAllBlockPositions() {
-        for (Block block : blockrGame.getAllBlocksInPA()) {
-            UIBlock uiBlock = getCorrespondingUiBlockFor(block);
+        for (Block block : sharedData.getBlockrGame().getAllBlocksInPA()) {
+            UIBlock uiBlock = sharedData.getCorrespondingUiBlockFor(block);
             uiBlock.setPosition(block.getPosition());
         }
     }
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
+        BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (backendBlock != null) {
 
@@ -102,16 +78,16 @@ public class DisplaceBlockHandler {
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
         try {
-            getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
+            sharedData.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
         } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
         }
     }
 
     public List<UIBlock> getAllUIBlocksInPA() {
-        List<Block> backBlocks = blockrGame.getAllBlocksInPA();
+        List<Block> backBlocks = sharedData.getBlockrGame().getAllBlocksInPA();
         List<UIBlock> returnUIBlocks = new ArrayList<>();
         for (Block block : backBlocks) {
-            returnUIBlocks.add(getCorrespondingUiBlockFor(block));
+            returnUIBlocks.add(sharedData.getCorrespondingUiBlockFor(block));
         }
         return returnUIBlocks;
     }
@@ -128,7 +104,7 @@ public class DisplaceBlockHandler {
                 condition.setPreviousDropPosition(condition.getPosition());
             }
         }
-        blockrGame.removeBlockFromPA(backendBlock, false);
+        sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
         adjustAllBlockPositions();
         adjustAllStatementBlockGaps();
     }
