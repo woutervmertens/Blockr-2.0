@@ -87,6 +87,7 @@ public class MyCanvasWindow extends CanvasWindow {
         blockrGameFacade.adjustAllBlockPositions();
         blockrGameFacade.adjustAllStatementBlockGaps();
         blockrGameFacade.reset();
+        // TODO: find a way to update highlight (needs method to know which block is currently highlighted)
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
@@ -167,6 +168,7 @@ public class MyCanvasWindow extends CanvasWindow {
         }
         blockrGameFacade.adjustAllBlockPositions();
         blockrGameFacade.adjustAllStatementBlockGaps();
+        // TODO: find a way to update highlight (needs method to know which block is currently highlighted)
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 

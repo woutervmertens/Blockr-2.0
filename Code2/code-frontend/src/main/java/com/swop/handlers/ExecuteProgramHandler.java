@@ -10,6 +10,8 @@ public class ExecuteProgramHandler {
     }
 
     public void executeNext() {
+        // TODO: make a separate method for highlights and fix update bug !
+
         BlockrGame blockrGame = sharedData.getBlockrGame();
         if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
         try {
@@ -24,4 +26,5 @@ public class ExecuteProgramHandler {
         }
 
     }
+
 }

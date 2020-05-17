@@ -39,22 +39,6 @@ public class DisplaceBlockHandler {
         }
     }
 
-    public void adjustAllStatementBlockGaps() {
-        for (Block block : sharedData.getBlockrGame().getAllBlocksInPA()) {
-            if (block instanceof StatementBlock) {
-                UIStatementBlock uiStatement = (UIStatementBlock) sharedData.getCorrespondingUiBlockFor(block);
-                uiStatement.setGapSize(((StatementBlock) block).getGapSize());
-            }
-        }
-    }
-
-    public void adjustAllBlockPositions() {
-        for (Block block : sharedData.getBlockrGame().getAllBlocksInPA()) {
-            UIBlock uiBlock = sharedData.getCorrespondingUiBlockFor(block);
-            uiBlock.setPosition(block.getPosition());
-        }
-    }
-
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = draggedBlock.getCorrespondingBlock();
@@ -92,20 +76,14 @@ public class DisplaceBlockHandler {
         return returnUIBlocks;
     }
 
-    public void handleProgramAreaForClickOn(UIBlock clickedBlock) {
+    public void handleClickOn(UIBlock clickedBlock) {
         if (clickedBlock == null) throw new IllegalArgumentException();
         Block backendBlock = clickedBlock.getCorrespondingBlock();
         backendBlock.setPreviousDropPosition(backendBlock.getPosition());
-        if (backendBlock instanceof StatementBlock) {
-            for (Block bodyBlock : ((StatementBlock) backendBlock).getBodyBlocks()) {
-                bodyBlock.setPreviousDropPosition(bodyBlock.getPosition());
-            }
-            for (Block condition : ((StatementBlock) backendBlock).getConditions()) {
-                condition.setPreviousDropPosition(condition.getPosition());
-            }
-        }
         sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
-        adjustAllBlockPositions();
-        adjustAllStatementBlockGaps();
+        sharedData.adjustAllBlockPositions();
+        sharedData.adjustAllStatementBlockGaps();
+
+        // TODO: restore highlighted block
     }
 }

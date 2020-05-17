@@ -26,6 +26,17 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     }
 
+    @Override
+    public void setPreviousDropPosition(Point previousDropPosition) {
+        super.setPreviousDropPosition(previousDropPosition);
+        for (Block bodyBlock : getBodyBlocks()) {
+            bodyBlock.setPreviousDropPosition(bodyBlock.getPosition());
+        }
+        for (Block condition : getConditions()) {
+            condition.setPreviousDropPosition(condition.getPosition());
+        }
+    }
+
     public boolean isBusy() {
         return Busy;
     }

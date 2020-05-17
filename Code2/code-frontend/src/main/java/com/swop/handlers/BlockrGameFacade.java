@@ -43,7 +43,7 @@ public class BlockrGameFacade {
     }
 
     public void handleProgramAreaForClickOn(UIBlock clickedBlock){
-        displaceBlockHandler.handleProgramAreaForClickOn(clickedBlock);
+        displaceBlockHandler.handleClickOn(clickedBlock);
     }
 
     public void handleReleaseInPA(UIBlock draggedBlock){
@@ -55,11 +55,11 @@ public class BlockrGameFacade {
     }
 
     public void adjustAllBlockPositions(){
-        displaceBlockHandler.adjustAllBlockPositions();
+        sharedData.adjustAllBlockPositions();
     }
 
     public void adjustAllStatementBlockGaps(){
-        displaceBlockHandler.adjustAllStatementBlockGaps();
+        sharedData.adjustAllStatementBlockGaps();
     }
 
     public UIBlock getCorrespondingUiBlockFor(Block block){

@@ -21,6 +21,7 @@ public class ExecuteCommand extends GameWorldCommand {
         if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();
         }
+        // TODO: restore highlighted block
     }
 
     @Override

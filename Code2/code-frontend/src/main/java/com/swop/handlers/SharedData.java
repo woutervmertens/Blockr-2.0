@@ -3,7 +3,9 @@ package com.swop.handlers;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.Block;
+import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIStatementBlock;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,4 +53,22 @@ public class SharedData {
         // TODO: remove the block attribute from uiblocks and fill this method
         return null;
     }
+
+    public void adjustAllStatementBlockGaps() {
+        for (Block block : getBlockrGame().getAllBlocksInPA()) {
+            if (block instanceof StatementBlock) {
+                UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
+                uiStatement.setGapSize(((StatementBlock) block).getGapSize());
+            }
+        }
+    }
+
+    public void adjustAllBlockPositions() {
+        for (Block block : getBlockrGame().getAllBlocksInPA()) {
+            UIBlock uiBlock = getCorrespondingUiBlockFor(block);
+            uiBlock.setPosition(block.getPosition());
+        }
+    }
+
+    // TODO: find a way to "adjust" highlighted block
 }
