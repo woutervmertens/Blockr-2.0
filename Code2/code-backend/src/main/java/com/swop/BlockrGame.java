@@ -50,7 +50,10 @@ public class BlockrGame {
         return programArea.getProgram();
     }
 
-    public ProgramArea getProgramArea() {return programArea; }
+    public ProgramArea getProgramArea() {
+        return programArea;
+    }
+
     /**
      * @param block Given block
      * @return Returns the position of the given block
@@ -87,27 +90,29 @@ public class BlockrGame {
      * Executes next block
      */
     public void executeNext() {
-        if (programArea.getCurrentBlock() != null) {
-            executeCommand(new ExecuteCommand(gameWorld,programArea.getCurrentBlock()));
-            if (programArea.getCurrentBlock().isDone()) {
-                programArea.setNextCurrentBlock();
+        if (programArea.getNextBlock() != null) {
+            executeCommand(new ExecuteCommand(gameWorld, programArea.getNextBlock()));
+            if (programArea.getNextBlock().isDone()) {
+                programArea.setNextBlock();
+
             }
         } else {
             resetEverything();
         }
     }
 
-    public Block getCurrentActiveBlock() {
-        if (programArea.getCurrentBlock() instanceof StatementBlock) {
-            StatementBlock statementBlock = (StatementBlock) programArea.getCurrentBlock();
+    public Block getNextToBeExecutedBlock() {
+        // TODO: fix this method for highlight
+        if (programArea.getNextBlock() instanceof StatementBlock) {
+            StatementBlock statementBlock = (StatementBlock) programArea.getNextBlock();
 
-            if (((StatementBlock) programArea.getCurrentBlock()).getCurrent() != null) {
+            if (((StatementBlock) programArea.getNextBlock()).getCurrent() != null) {
                 return statementBlock.getCurrent();
             } else if (statementBlock.isConditionValid()) {
                 return statementBlock.getBodyBlocks().get(0);
             }
         }
-        return programArea.getCurrentBlock();
+        return programArea.getNextBlock();
     }
 
     /**

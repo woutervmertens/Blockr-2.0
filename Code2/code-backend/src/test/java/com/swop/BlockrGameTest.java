@@ -73,17 +73,17 @@ class BlockrGameTest {
         blockrGame.dropBlockInPA(whileBlock);
         assertEquals(1, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");
         assertEquals(1, blockrGame.getNumBlocksInPA(), "Number of blocks isn't 1");
-        assertEquals(blockrGame.getProgramArea().getCurrentBlock(), whileBlock, "WhileBlock isn't the current block");
+        assertEquals(blockrGame.getProgramArea().getNextBlock(), whileBlock, "WhileBlock isn't the current block");
         assertFalse(blockrGame.isPaletteHidden(), "maximum isn't reached");
 
         blockrGame.dropBlockInPA(actionBlock);
-        assertEquals(blockrGame.getProgramArea().getCurrentBlock(), whileBlock, "WhileBlock isn't the current block");
+        assertEquals(blockrGame.getProgramArea().getNextBlock(), whileBlock, "WhileBlock isn't the current block");
         assertEquals(2, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");
         assertEquals(2, blockrGame.getNumBlocksInPA(), "Number of blocks isn't 2");
         assertTrue(blockrGame.isPaletteHidden(), "maximum is reached");
 
         blockrGame.executeNext();
-        assertEquals(blockrGame.getProgramArea().getCurrentBlock(), actionBlock, "ActionBlock isn't the current block");
+        assertEquals(blockrGame.getProgramArea().getNextBlock(), actionBlock, "ActionBlock isn't the current block");
 
         blockrGame.removeBlockFromPA(whileBlock, true);
         assertEquals(1, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");

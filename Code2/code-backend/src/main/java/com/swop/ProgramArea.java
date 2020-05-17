@@ -22,7 +22,7 @@ public class ProgramArea implements PushBlocks {
      * List recording all blocks currently present in program area
      */
     private final List<Block> allBlocks = new ArrayList<>();
-    private Block currentBlock;
+    private Block nextBlock;
 
     /**
      * @param b Point1
@@ -157,30 +157,22 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return Returns current block from the program area
+     * @return Returns the next to be executed block of the program.
      */
-    public Block getCurrentBlock() {
-        return currentBlock;
+    public Block getNextBlock() {
+        return nextBlock;
+        // TODO: set the firstly added block as the next block and highlight it directly
     }
 
     /**
-     * Sets the given block as the current block
-     *
-     * @param first given block
+     * Sets the next block to the next block in the list, otherwise to null.
      */
-    private void setCurrentBlock(Block first) {
-        this.currentBlock = first;
-    }
-
-    /**
-     * Sets the next block as the current block.
-     */
-    public void setNextCurrentBlock() {
-        int i = program.indexOf(currentBlock);
+    public void setNextBlock() {
+        int i = program.indexOf(nextBlock);
         if (i + 1 < program.size()) {
-            setCurrentBlock(program.get(i + 1));
+            nextBlock = program.get(i + 1);
         } else {
-            setCurrentBlock(null);
+            nextBlock = null;
         }
     }
 
@@ -391,7 +383,7 @@ public class ProgramArea implements PushBlocks {
             }
         }
         try {
-            setCurrentBlock(((LinkedList<Block>) program).getFirst());
+            nextBlock = ((LinkedList<Block>) program).getFirst();
         } catch (NoSuchElementException ignore) {
         }
     }

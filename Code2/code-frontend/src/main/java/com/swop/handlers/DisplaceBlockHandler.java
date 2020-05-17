@@ -5,7 +5,6 @@ import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.UIStatementBlock;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,38 +21,37 @@ public class DisplaceBlockHandler {
      * @pre draggedBlock.getPosition() is inside the PA
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
+        // 1) Handle map
         if (draggedBlock.getCorrespondingBlock() == null) {
             draggedBlock.makeNewCorrespondingBlock();
             draggedBlock.getCorrespondingBlock().setBlockrGame(sharedData.getBlockrGame());
+            sharedData.putInBlockUIBlockMap(draggedBlock.getCorrespondingBlock(), draggedBlock);
         }
 
+        // 2) Handle drop position
         Block backendBlock = draggedBlock.getCorrespondingBlock();
-        sharedData.putInBlockUIBlockMap(backendBlock, draggedBlock);
-
         BlockrGame blockrGame = sharedData.getBlockrGame();
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
-        try {
-            sharedData.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
-        } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
-        }
+
+        // 3) Handle highlight
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
     }
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = draggedBlock.getCorrespondingBlock();
         if (backendBlock != null) {
-
-            //blockUIBlockMap.remove(backendBlock);
+            // TODO: don't remove all bodies and conditions here, let the statementblock do it himself
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof StatementBlock) {
                 List<Block> newBodyBlocks = new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks());
-                Collections.reverse(newBodyBlocks);
+                Collections.reverse(newBodyBlocks);  // Reversing is needed for correct undo
                 for (Block bodyBlock : newBodyBlocks) {
                     blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
                 List<ConditionBlock> newConditions = new ArrayList<>(((StatementBlock) backendBlock).getConditions());
-                Collections.reverse(newConditions);
+                Collections.reverse(newConditions);  // Reversing is needed for correct undo
                 for (Block condition : newConditions) {
                     blockrGame.removeBlockFromPA(condition, true);
                 }
@@ -61,10 +59,8 @@ public class DisplaceBlockHandler {
             //remove the block from program area
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
-        try {
-            sharedData.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(false);
-        } catch (Exception ignore) {  // TODO: fix this exception issue due to getCurrentActiveBlock()
-        }
+
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
     }
 
     public List<UIBlock> getAllUIBlocksInPA() {

@@ -18,6 +18,7 @@ public class SharedData {
     private static SharedData firstInstance = null;
     private final BlockrGame blockrGame;
     private final Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    private UIBlock highlightedBlock;
 
     private SharedData(int maxBlocks, GameWorldType type) {
         blockrGame = new BlockrGame(maxBlocks, type);
@@ -68,6 +69,14 @@ public class SharedData {
             UIBlock uiBlock = getCorrespondingUiBlockFor(block);
             uiBlock.setPosition(block.getPosition());
         }
+    }
+
+    public void setHighlightedBlock(UIBlock block) {
+        if (block == null) throw new IllegalArgumentException();
+
+        if (highlightedBlock != null) highlightedBlock.setHighlightStateOn(false);
+        highlightedBlock = block;
+        highlightedBlock.setHighlightStateOn(true);
     }
 
     // TODO: find a way to "adjust" highlighted block
