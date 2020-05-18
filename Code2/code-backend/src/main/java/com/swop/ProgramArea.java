@@ -347,7 +347,7 @@ public class ProgramArea implements PushBlocks {
                 pushUp(clickedBlock, parentStatement);
             }
         } else {
-            clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
+            if(clickedBlock.getParentStatement() != null)clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
         }
         allBlocks.remove(clickedBlock);
         if (getProgram().contains(clickedBlock)) {
