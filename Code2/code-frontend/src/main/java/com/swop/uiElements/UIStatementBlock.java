@@ -7,7 +7,7 @@ import com.swop.blocks.WhileBlock;
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlock {
-    private Block correspondingBlock = null;
+
     private int gapSize;
     private final int pillarWidth = 10;
     private final int conditionWidth;
@@ -24,11 +24,6 @@ public class UIStatementBlock extends UIBlock {
 
     public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
-    }
-
-    @Override
-    public Block getCorrespondingBlock() {
-        return this.correspondingBlock;
     }
 
     @Override

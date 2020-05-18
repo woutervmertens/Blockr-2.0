@@ -6,15 +6,9 @@ import com.swop.blocks.Block;
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
-    private Block correspondingBlock = null;
 
     public UIActionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
         super(width, height, position, text, type, color, highlightColor);
-    }
-
-    @Override
-    public Block getCorrespondingBlock() {
-        return this.correspondingBlock;
     }
 
     @Override

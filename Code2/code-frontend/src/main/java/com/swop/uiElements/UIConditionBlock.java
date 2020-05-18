@@ -7,15 +7,9 @@ import com.swop.blocks.ConditionBlock;
 import java.awt.*;
 
 public class UIConditionBlock extends UIBlock {
-    private Block correspondingBlock;
 
     public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
         super(width, height, position, text, type, color, highlightColor);
-    }
-
-    @Override
-    public Block getCorrespondingBlock() {
-        return this.correspondingBlock;
     }
 
     @Override
