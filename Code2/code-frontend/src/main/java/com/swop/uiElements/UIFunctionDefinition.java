@@ -13,7 +13,7 @@ public class UIFunctionDefinition extends UIBlock{
     public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
         super(width, height, position, text, type, color, highlightColor);
         titleWidth = width/3;
-        this.gapSize = gapSize + 5;
+        this.gapSize = gapSize;
     }
 
     public int getGapSize() {
