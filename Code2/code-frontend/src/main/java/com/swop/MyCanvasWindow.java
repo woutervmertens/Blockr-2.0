@@ -36,7 +36,7 @@ public class MyCanvasWindow extends CanvasWindow {
         //Facade
         blockrGameFacade = new BlockrGameFacade(SharedData.getInstance(maxBlocks, gameWorldType));
         //Sections
-        paletteSection = new PaletteSection(new Point(0,0),600/4,600, blockrGameFacade);
+        paletteSection = new PaletteSection(new Point(0,0),this.width/4,this.height, blockrGameFacade);
         programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
         gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
     }
