@@ -62,15 +62,15 @@ public class BlockTypes {
         switch (this.type) {
             case ActionType:
                 return new UIActionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this, Color.red, Color.getHSBColor(0, 80, 100));
+                        this.getText(), this, Color.red, Color.getHSBColor(0.0f,0.8f,1.0f));
             case IfStatement:
             case WhileStatement:
                 return new UIStatementBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this,Color.cyan, Color.getHSBColor(180, 100, 30) , 0);
+                        this.getText(), this,Color.cyan, Color.getHSBColor(180.0f, 1.0f, 0.30f) , 0);
             case NotCondition:
             case Predicate:
                 return new UIConditionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this, Color.orange, Color.getHSBColor(45, 65, 100));
+                        this.getText(), this, Color.orange, Color.getHSBColor(45.0f, 0.65f, 1.0f));
             case FunctionCall:
                 return new UIFunctionCall(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.lightGray, Color.white);
             case FunctionDefinition:

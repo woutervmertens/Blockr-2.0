@@ -51,7 +51,7 @@ public abstract class UIBlock {
     }
 
     /**
-     * Check whether the given position is on this block.
+     * Check whether the given position is on this block. //TODO: remove?
      */
     public boolean isPositionOn(int x, int y) {
         return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
