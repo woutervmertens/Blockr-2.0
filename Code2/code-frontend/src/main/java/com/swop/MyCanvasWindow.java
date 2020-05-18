@@ -30,6 +30,7 @@ public class MyCanvasWindow extends CanvasWindow {
      * Initializes a CanvasWindow object.
      *
      * @param title Window title
+     * @param gameWorldType GameWorldType of the API
      */
     protected MyCanvasWindow(String title, GameWorldType gameWorldType) {
         super(title);
@@ -41,6 +42,11 @@ public class MyCanvasWindow extends CanvasWindow {
         gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
     }
 
+    /**
+     * Paints the CanvasWindow.
+     *
+     * @param g This object offers the methods that allow you to paint on the canvas.
+     */
     @Override
     protected void paint(Graphics g) {
         adaptSectionSizes();
@@ -54,6 +60,9 @@ public class MyCanvasWindow extends CanvasWindow {
         paintNumberOfBlocksAvailable(g);
     }
 
+    /**
+     * Sets the sizes and positions of all the sections relative to the current window size.
+     */
     private void adaptSectionSizes(){
         paletteSection.setHeight(getHeight());
         programAreaSection.setHeight(getHeight());
@@ -68,6 +77,11 @@ public class MyCanvasWindow extends CanvasWindow {
         gameWorldSection.setPosition(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0));
     }
 
+    /**
+     * Calls draw on all the sections.
+     *
+     * @param g Graphics Object
+     */
     private void paintSections(Graphics g){
         isPaletteHidden = blockrGameFacade.isPaletteHidden();
         paletteSection.draw(g,isPaletteHidden);
@@ -75,6 +89,11 @@ public class MyCanvasWindow extends CanvasWindow {
         gameWorldSection.draw(g,blockrGameFacade.getGameWorld());
     }
 
+    /**
+     * Paints a Block that is being dragged.
+     *
+     * @param g Graphics Object
+     */
     private void paintDraggedBlock(Graphics g){
         g.setColor(draggedBlock.getColor());
         g.fillPolygon(draggedBlock.getPolygon());
@@ -82,6 +101,11 @@ public class MyCanvasWindow extends CanvasWindow {
         g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
     }
 
+    /**
+     * Paints the text informing the player how many blocks are still available to be placed.
+     *
+     * @param g Graphics Object
+     */
     private void paintNumberOfBlocksAvailable(Graphics g){
         g.setColor(Color.BLACK);
         g.drawString("# blocks available: " + (maxBlocks - blockrGameFacade.getNumBlocksInPA()), getWidth() - 140, getHeight() - 10);
@@ -118,6 +142,12 @@ public class MyCanvasWindow extends CanvasWindow {
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
+    /**
+     * Calls the respective handlers for when the mouse is pressed.
+     *
+     * @param x The x position of the mouse.
+     * @param y The y position of the mouse.
+     */
     private void pressMouse(int x, int y) {
         draggedBlock = getUIBlock(x, y);
         if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
@@ -125,6 +155,12 @@ public class MyCanvasWindow extends CanvasWindow {
         }
     }
 
+    /**
+     * Calls the respective handlers for when the mouse is dragged.
+     *
+     * @param x The x position of the mouse.
+     * @param y The y position of the mouse.
+     */
     private void dragMouse(int x, int y) {
         if (isBlockDragged()) {
             pos.x = x;
@@ -134,6 +170,12 @@ public class MyCanvasWindow extends CanvasWindow {
         }
     }
 
+    /**
+     * Calls the respective handlers for when the mouse is released.
+     *
+     * @param x The x position of the mouse.
+     * @param y The y position of the mouse.
+     */
     private void releaseMouse(int x, int y) {
         if (isBlockDragged()) {
             if (programAreaSection.isWithin(x, y)) {
@@ -186,7 +228,7 @@ public class MyCanvasWindow extends CanvasWindow {
                     bRepaint = true;
                     break;
                 case 90: //Z
-                    bRepaint = ctrlZ(bRepaint);
+                    bRepaint = ctrlZ();
             }
             if (keyCode == 17) isHoldingCtrl = true;
             if (keyCode == 16) isHoldingShift = true;
@@ -197,40 +239,60 @@ public class MyCanvasWindow extends CanvasWindow {
         // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
-    private boolean ctrlZ(boolean bRepaint) {
+    /**
+     * Checks if the combination 'CTRL-Z' is pressed when 'Z' is pressed and calls the respective handlers if needed.
+     *
+     * @return Boolean which indicates if the window needs to be repainted.
+     */
+    private boolean ctrlZ() {
         if (isHoldingCtrl) {
             if (isHoldingShift) redo();
             else undo();
             isHoldingShift = false;
             isHoldingCtrl = false;
-            bRepaint = true;
+            return true;
         }
-        return bRepaint;
+        return false;
     }
 
+    /**
+     * Calls the respective handlers to adjust all block positions and statement gaps.
+     */
     private void adjustAllBlocks(){
         blockrGameFacade.adjustAllBlockPositions();
         blockrGameFacade.adjustAllStatementBlockGaps();
     }
 
+    /**
+     * Calls the respective handler to execute the next block.
+     */
     private void executeNext() {
         blockrGameFacade.executeNext();
     }
 
+    /**
+     * Calls the respective handler to undo the last change.
+     */
     private void undo() {
         blockrGameFacade.undo();
     }
 
+    /**
+     * Calls the respective handler to redo the last undo.
+     */
     private void redo() {
         blockrGameFacade.redo();
     }
 
+    /**
+     * Calls the respective handler to reset the program.
+     */
     private void resetProgramExecution() {
         blockrGameFacade.reset();
     }
 
     /**
-     * Checks whether at this moment a block is being dragged.
+     * Checks if, at this moment, a block is being dragged.
      */
     private boolean isBlockDragged() {
         return draggedBlock != null;
