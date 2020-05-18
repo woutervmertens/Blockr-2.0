@@ -53,7 +53,6 @@ public class ProgramArea implements PushBlocks {
         handleConnections(draggedBlock);
 
         // 2) Push program blocks if dragged block was added to a statement body
-        // TODO: fix this with some pattern to share information about the program
         pushProgramBlocks(draggedBlock);
 
         System.out.println("Program has " + getProgram().size() + " blocks !");
@@ -347,7 +346,8 @@ public class ProgramArea implements PushBlocks {
                 pushUp(clickedBlock, parentStatement);
             }
         } else {
-            if(clickedBlock.getParentStatement() != null)clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
+            if (clickedBlock.getParentStatement() != null)
+                clickedBlock.getParentStatement().removeConditionBlock((ConditionBlock) clickedBlock);
         }
         allBlocks.remove(clickedBlock);
         if (getProgram().contains(clickedBlock)) {

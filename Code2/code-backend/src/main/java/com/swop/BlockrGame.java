@@ -108,7 +108,7 @@ public class BlockrGame {
 
             if (((StatementBlock) programArea.getNextBlock()).getCurrent() != null) {
                 return statementBlock.getCurrent();
-            } else if (statementBlock.isConditionValid()) {
+            } else if (statementBlock.isConditionValid() && !statementBlock.getBodyBlocks().isEmpty()) {
                 return statementBlock.getBodyBlocks().get(0);
             }
         }
