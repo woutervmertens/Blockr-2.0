@@ -263,7 +263,7 @@ public class CanvasWindow {
     }
 
     public int getWidth(){
-        width = frame.getWidth();
+        width = frame.getInnerWidth();
         return width;
     }
 
