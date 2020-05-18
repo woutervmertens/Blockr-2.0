@@ -72,9 +72,9 @@ public class BlockTypes {
                 return new UIConditionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
                         this.getText(), this, Color.orange, new Color(255,255,145));
             case FunctionCall:
-                return new UIFunctionCall(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.lightGray, Color.white);
+                return new UIFunctionCall(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.gray, Color.white);
             case FunctionDefinition:
-                return new UIFunctionDefinition(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.lightGray, Color.white);
+                return new UIFunctionDefinition(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.white, Color.white, 0);
             default:
                 throw new IllegalStateException("Trying to get an Illegal Block !");
         }

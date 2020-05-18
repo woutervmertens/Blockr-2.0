@@ -28,7 +28,7 @@ public class PaletteSection extends WindowSection {
         int y = 10;
         Collection<Action> gwActions = blockrGameFacade.getSupportedActions();
         Collection<Predicate> gwPredicates = blockrGameFacade.getSupportedPredicates();
-        types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3];
+        types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3 + 2];
         int k = 0;
         //Supported actions
         for (Action a : gwActions) {
@@ -46,6 +46,9 @@ public class PaletteSection extends WindowSection {
         types[k++] = new BlockTypes("Not", 40, BlockType.NotCondition);
         types[k++] = new BlockTypes("If", 110, BlockType.IfStatement);
         types[k++] = new BlockTypes("While", 110, BlockType.WhileStatement);
+
+        types[k++] = new BlockTypes("1", 70, BlockType.FunctionCall);
+        types[k++] = new BlockTypes("1", 110, BlockType.FunctionDefinition);
 
         int step = height / types.length;
         for (int i = 0; i < types.length; i++) {
@@ -72,10 +75,5 @@ public class PaletteSection extends WindowSection {
         if (i < s)
             bt = types[i];
         return bt;
-
-//        BlockTypes[] types = BlockTypes.values();
-//        int step = height / types.length;
-//
-//        int i = Math.floorDiv(PALETTE.getHeight(), y);
     }
 }
