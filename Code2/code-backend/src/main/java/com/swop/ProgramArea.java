@@ -60,7 +60,7 @@ public class ProgramArea implements PushBlocks {
         handleConnections(draggedBlock);
 
         // 2) Push program blocks if dragged block was added to a statement body
-        pushProgramBlocks(draggedBlock);
+        pushProgramBlocksForBody(draggedBlock);
 
         // 3) Reset program execution (and adjust next block)
         resetProgramExecution();
@@ -68,8 +68,12 @@ public class ProgramArea implements PushBlocks {
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
 
-    private void pushProgramBlocks(Block draggedBlock) {
+    /**
+     * Push program blocks if the given dragged block was added to a statement body
+     */
+    private void pushProgramBlocksForBody(Block draggedBlock) {
         if (draggedBlock.getParentStatement() != null) {
+
             Block currentBlock = draggedBlock;
             while (currentBlock.getParentStatement() != null) {
                 currentBlock = currentBlock.getParentStatement();
@@ -157,7 +161,6 @@ public class ProgramArea implements PushBlocks {
      */
     public Block getNextBlock() {
         return nextBlock;
-        // TODO: set the firstly added block as the next block and highlight it directly
     }
 
     /**
@@ -371,15 +374,10 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Resets the program area, first block will be current block
+     * Resets the program area, first block will be current block.
      */
     public void resetProgramExecution() {
-        for (Block block : getProgram()) {
-            if (block instanceof StatementBlock) {
-                ((StatementBlock) block).resetExecution();
-            }
-        }
-
+        for (Block block : getProgram()) if (block instanceof StatementBlock) ((StatementBlock) block).resetExecution();
         if (!program.isEmpty()) nextBlock = ((LinkedList<Block>) program).getFirst();
     }
 }
