@@ -5,5 +5,7 @@ public enum BlockType {
     IfStatement,
     WhileStatement,
     NotCondition,
-    Predicate
+    Predicate,
+    FunctionCall,
+    FunctionDefinition
 }

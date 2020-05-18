@@ -18,11 +18,14 @@ public abstract class UIBlock {
      */
     protected Block correspondingBlock;
 
-    public UIBlock(int width, int height, Point position, String text) {
+    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
         this.width = width;
         this.height = height;
         this.position = position;
         this.text = text;
+        this.type = type;
+        this.color = color;
+        this.highlightColor = highlightColor;
         step = height / 6;
     }
 

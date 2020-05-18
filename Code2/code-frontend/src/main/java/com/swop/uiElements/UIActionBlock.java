@@ -8,11 +8,8 @@ import java.awt.*;
 public class UIActionBlock extends UIBlock {
     private Block correspondingBlock = null;
 
-    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type) {
-        super(width, height, position, text);
-        this.type = type;
-        color = Color.red;
-        highlightColor = Color.getHSBColor(0, 80, 100); //light red
+    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
+        super(width, height, position, text, type, color, highlightColor);
     }
 
     @Override

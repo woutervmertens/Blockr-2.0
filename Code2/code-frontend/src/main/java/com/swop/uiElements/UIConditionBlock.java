@@ -9,11 +9,8 @@ import java.awt.*;
 public class UIConditionBlock extends UIBlock {
     private Block correspondingBlock;
 
-    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type) {
-        super(width, height, position, text);
-        this.type = type;
-        color = Color.orange;
-        highlightColor = Color.getHSBColor(45, 65, 100); //light orange
+    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
+        super(width, height, position, text, type, color, highlightColor);
     }
 
     @Override

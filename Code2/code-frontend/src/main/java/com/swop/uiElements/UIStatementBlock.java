@@ -12,12 +12,9 @@ public class UIStatementBlock extends UIBlock {
     private final int pillarWidth = 10;
     private final int conditionWidth;
 
-    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, int gapSize) {
-        super(width, height, position, text);
-        this.type = type;
+    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
+        super(width, height, position, text, type, color, highlightColor);
         this.gapSize = gapSize;
-        color = Color.CYAN;
-        highlightColor = Color.getHSBColor(180, 100, 30);
         conditionWidth = width / 2;
     }
 
