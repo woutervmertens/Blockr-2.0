@@ -72,7 +72,7 @@ public class SharedData {
     }
 
     public void setHighlightedBlock(UIBlock block) {
-        if (block == null) throw new IllegalArgumentException();
+        if (block == null) return;
 
         if (highlightedBlock != null) highlightedBlock.setHighlightStateOn(false);
         highlightedBlock = block;

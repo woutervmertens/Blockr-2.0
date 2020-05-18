@@ -14,8 +14,7 @@ public class ExecuteProgramHandler {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
         blockrGame.executeNext();
-        UIBlock nextBlock = sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock());
-        if(nextBlock != null) sharedData.setHighlightedBlock(nextBlock);
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
     }
 
 }
