@@ -382,9 +382,7 @@ public class ProgramArea implements PushBlocks {
                 ((StatementBlock) block).resetExecution();
             }
         }
-        try {
-            nextBlock = ((LinkedList<Block>) program).getFirst();
-        } catch (NoSuchElementException ignore) {
-        }
+
+        if (!program.isEmpty()) nextBlock = ((LinkedList<Block>) program).getFirst();
     }
 }
