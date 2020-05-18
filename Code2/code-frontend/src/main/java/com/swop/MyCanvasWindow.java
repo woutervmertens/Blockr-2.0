@@ -43,19 +43,48 @@ public class MyCanvasWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
+        adaptSectionSizes();
+
+        paintSections(g);
+
+        if (draggedBlock != null) {
+            paintDraggedBlock(g);
+        }
+
+        paintNumberOfBlocksAvailable(g);
+    }
+
+    private void adaptSectionSizes(){
+        paletteSection.setHeight(getHeight());
+        programAreaSection.setHeight(getHeight());
+        gameWorldSection.setHeight(getHeight());
+
+        paletteSection.setWidth(getWidth()/4);
+        programAreaSection.setWidth(getWidth()/2);
+        gameWorldSection.setWidth(getWidth()/4);
+
+        paletteSection.setPosition(new Point(0,0));
+        programAreaSection.setPosition(new Point(paletteSection.getWidth(),0));
+        gameWorldSection.setPosition(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0));
+    }
+
+    private void paintSections(Graphics g){
         isPaletteHidden = blockrGameFacade.isPaletteHidden();
         paletteSection.draw(g,isPaletteHidden);
         programAreaSection.draw(g,blockrGameFacade.getAllUIBlocksInPA());
         gameWorldSection.draw(g,blockrGameFacade.getGameWorld());
+    }
 
-        if (draggedBlock != null) {
-            g.setColor(draggedBlock.getColor());
-            g.fillPolygon(draggedBlock.getPolygon());
-            g.setColor(Color.BLACK);
-            g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
-        }
+    private void paintDraggedBlock(Graphics g){
+        g.setColor(draggedBlock.getColor());
+        g.fillPolygon(draggedBlock.getPolygon());
         g.setColor(Color.BLACK);
-        g.drawString("# blocks available: " + (maxBlocks - blockrGameFacade.getNumBlocksInPA()), width - 140, height - 10);
+        g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
+    }
+
+    private void paintNumberOfBlocksAvailable(Graphics g){
+        g.setColor(Color.BLACK);
+        g.drawString("# blocks available: " + (maxBlocks - blockrGameFacade.getNumBlocksInPA()), getWidth() - 140, getHeight() - 10);
     }
 
     /**
