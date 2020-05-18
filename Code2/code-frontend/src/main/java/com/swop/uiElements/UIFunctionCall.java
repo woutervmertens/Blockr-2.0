@@ -1,5 +1,7 @@
 package com.swop.uiElements;
 
+import com.swop.blocks.ActionBlock;
+
 import java.awt.*;
 
 public class UIFunctionCall extends UIBlock{
@@ -9,7 +11,11 @@ public class UIFunctionCall extends UIBlock{
 
     @Override
     public void makeNewCorrespondingBlock() {
-
+        if (type.getType() == BlockType.FunctionCall) {
+            this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction()); //TODO: replace
+        } else {
+            throw new IllegalArgumentException("Not a Function Call Block !");
+        }
     }
 
     @Override
