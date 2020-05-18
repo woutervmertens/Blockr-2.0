@@ -343,7 +343,7 @@ public class ProgramArea implements PushBlocks {
         if (!(clickedBlock instanceof ConditionBlock)) {
             StatementBlock parentStatement = clickedBlock.getParentStatement();
             if (parentStatement != null) {
-                pushUp(clickedBlock, parentStatement);
+                pushUpBodyAndProgramAfterClickOn(parentStatement, clickedBlock);
             }
         } else {
             if (clickedBlock.getParentStatement() != null)
@@ -355,8 +355,12 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
-    // TODO: 11/05/2020 better name?
-    private void pushUp(Block clickedBlock, StatementBlock parentStatement) {
+    /**
+     * Push up the body of the given parentStatement and the program due to a click on the given clicked block.
+     * @param clickedBlock
+     * @param parentStatement
+     */
+    private void pushUpBodyAndProgramAfterClickOn(StatementBlock parentStatement, Block clickedBlock) {
         // 1) Remove the body and push all superior body-blocks up
         parentStatement.removeBodyBlock(clickedBlock);
         // 2) Push program up
