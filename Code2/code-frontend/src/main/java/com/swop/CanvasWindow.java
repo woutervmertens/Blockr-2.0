@@ -257,6 +257,16 @@ public class CanvasWindow {
         this.title = title;
     }
 
+    public int getHeight(){
+        height = frame.getInnerHeight();
+        return height;
+    }
+
+    public int getWidth(){
+        width = frame.getWidth();
+        return width;
+    }
+
     public static void replayRecording(String path, CanvasWindow window) {
         try {
             new CanvasWindowRecording(path).replay(window);
@@ -344,6 +354,7 @@ public class CanvasWindow {
         panel = new Panel();
         frame = new Frame(title);
         frame.setVisible(true);
+        height = frame.getHeight()-39;
     }
 
     class Panel extends JPanel {
@@ -436,6 +447,14 @@ public class CanvasWindow {
             pack();
             setLocationRelativeTo(null);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
+
+        private int getInnerHeight(){
+            return this.getHeight()-39;
+        }
+
+        private int getInnerWidth(){
+            return this.getWidth()-16;
         }
     }
 
