@@ -88,8 +88,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         }
     }
 
-    public boolean isConditionValid() throws IllegalStateException {
-        if (conditions.isEmpty()) throw new IllegalStateException("No condition for the statement");
+    public boolean isConditionValid() {
+        // TODO: decide whether to return false or throw exceptions on illegal conditions
+
+        if (conditions.isEmpty()) return false;
 
         int size = conditions.size();
         ConditionBlock last = conditions.get(size - 1);
@@ -100,10 +102,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
             }
         }
 
-
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
         if (conditions.size() % 2 == 0) return !getGameWorld().evaluate(last.getPredicate());
-        else return getGameWorld().evaluate(last.getPredicate());
+        else if (last.isPredicate()) return getGameWorld().evaluate(last.getPredicate());
+        else return false;
 
     }
 
