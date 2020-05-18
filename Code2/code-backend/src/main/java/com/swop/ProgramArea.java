@@ -3,8 +3,10 @@ package com.swop;
 import com.swop.blocks.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
@@ -47,7 +49,12 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
-        if (reasonToReset(draggedBlock)) return;
+        if (allBlocks.size() == 0) {
+            allBlocks.add(draggedBlock);
+            program.add(draggedBlock);
+            nextBlock = draggedBlock;
+            return;
+        } else if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
 
         // 1) Handle Connection
         handleConnections(draggedBlock);
@@ -55,22 +62,12 @@ public class ProgramArea implements PushBlocks {
         // 2) Push program blocks if dragged block was added to a statement body
         pushProgramBlocks(draggedBlock);
 
+        // 3) Reset program execution (and adjust next block)
+        resetProgramExecution();
+
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
 
-    // TODO: 11/05/2020 better name? 
-    private boolean reasonToReset(Block draggedBlock) {
-        if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
-        resetProgramExecution();
-        if (allBlocks.size() == 1) {
-            program.add(draggedBlock);
-            resetProgramExecution();
-            return true;
-        }
-        return false;
-    }
-
-    // TODO: 11/05/2020 Better name? 
     private void pushProgramBlocks(Block draggedBlock) {
         if (draggedBlock.getParentStatement() != null) {
             Block currentBlock = draggedBlock;
