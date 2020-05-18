@@ -9,6 +9,9 @@ import com.swop.blocks.ExecuteType;
 public class ExecuteCommand extends GameWorldCommand {
     private Snapshot snapshot;
     private final Block block;
+//    TODO: fix het next block issue (highlight in frontend)
+//    private final Block previouslyToBeExecutedBlock;
+//    private final Block nextToBeExecutedBlock;
 
     public ExecuteCommand(GameWorld gameWorld, Block block) {
         super(gameWorld);
@@ -18,10 +21,10 @@ public class ExecuteCommand extends GameWorldCommand {
     @Override
     public void execute() {
         snapshot = gameWorld.createSnapshot();
+
         if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();
         }
-        // TODO: restore highlighted block
     }
 
     @Override

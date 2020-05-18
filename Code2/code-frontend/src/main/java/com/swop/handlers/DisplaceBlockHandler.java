@@ -79,7 +79,6 @@ public class DisplaceBlockHandler {
         sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
         sharedData.adjustAllBlockPositions();
         sharedData.adjustAllStatementBlockGaps();
-
-        // TODO: restore highlighted block
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(sharedData.getBlockrGame().getNextToBeExecutedBlock()));
     }
 }

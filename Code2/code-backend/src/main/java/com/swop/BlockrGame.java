@@ -181,24 +181,22 @@ public class BlockrGame {
     }
 
     /**
-     * redoes the previous undone operation if an operation is undone otherwise nothing happens
-     */
-    public void redoCommand() {
-        if (!redoStack.isEmpty()) {
-            System.out.println("REDOSTACK: " + redoStack.size());
-            executeCommand(redoStack.pop());
-        }
-    }
-
-    /**
      * undoes the previous operation if there is one otherwise nothing will be done
      */
     public void undoCommand() {
         if (!undoStack.isEmpty()) {
-            System.out.println("UNDOSTACK: " + undoStack.size());
             ICommand command = undoStack.pop();
             command.undo();
             redoStack.add(command);
+        }
+    }
+
+    /**
+     * redoes the previous undone operation if an operation is undone otherwise nothing happens
+     */
+    public void redoCommand() {
+        if (!redoStack.isEmpty()) {
+            executeCommand(redoStack.pop());
         }
     }
 
