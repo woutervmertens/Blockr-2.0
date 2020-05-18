@@ -121,6 +121,7 @@ public class BlockrGame {
     public void resetEverything() {
         programArea.resetProgramExecution();
         gameWorld = gameWorldType.createNewInstance();
+        // TODO: fix this, no new instance, rather a reset pattern !
     }
 
     /**
@@ -208,6 +209,7 @@ public class BlockrGame {
     public void executeCommand(ICommand command) {
         command.execute();
         undoStack.add(command);
+        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetEverything();
     }
 
 }

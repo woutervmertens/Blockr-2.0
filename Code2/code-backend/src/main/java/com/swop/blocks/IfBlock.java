@@ -8,36 +8,9 @@ public class IfBlock extends StatementBlock {
     }
 
     @Override
-    public void execute() {
-        if (isBusy() || isConditionValid()) {
-            //1st
-            if (!isBusy()) {
-                setBusy(true);
-                setNextCurrent();
-                //check of volgende null is zo niet -> volgende als current zetten
-            }
-            executeBlock();
-
-        } else {
-            setDone(true);
-            setBusy(false);
-        }
-    }
-
-    private void executeBlock() {
-        if (getCurrent() == null) {
-            setDone(true);
-            setBusy(false);
-        } else {
-            Executable exBlock = (Executable) getCurrent();
-            exBlock.execute();
-            setNextCurrent();
-            if (getCurrent() == null) {
-                setDone(true);
-                setBusy(false);
-            }
-
-        }
+    protected void handleEndOfBody() {
+        setDone(true);
+        setBusy(false);
     }
 
 

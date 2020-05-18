@@ -1,7 +1,5 @@
 package com.swop.blocks;
 
-import com.swop.BlockrGame;
-import com.swop.Predicate;
 import com.swop.PushBlocks;
 
 import java.awt.*;
@@ -109,10 +107,36 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     }
 
+    protected abstract void handleEndOfBody();
+
     @Override
     public void execute() {
+        if (isBusy() || isConditionValid()) {
+            if (!isBusy()) {
+                setBusy(true);
+                setNextCurrent();
+            }
+            executeNextBodyBlock();
+
+        } else {
+            setDone(true);
+            setBusy(false);
+        }
     }
 
+    protected void executeNextBodyBlock() {
+        if (getCurrent() == null) {
+            setDone(true);
+            setBusy(false);
+        } else {
+            Executable exBlock = (Executable) getCurrent();
+            exBlock.execute();
+            setNextCurrent();
+            if (getCurrent() == null) {
+                handleEndOfBody();
+            }
+        }
+    }
 
     public List<Block> getBodyBlocks() {
         return bodyBlocks;
