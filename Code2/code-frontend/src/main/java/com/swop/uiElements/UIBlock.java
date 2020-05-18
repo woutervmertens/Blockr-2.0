@@ -11,12 +11,12 @@ public abstract class UIBlock {
     protected int step;  // steps in the plugs and sockets
     protected Point position;
     protected Color color, highlightColor;
-    protected BlockTypes type;
+    private BlockTypes type;
     protected boolean isHighlight;
     /**
      * CorrespondingBlock is only made when a block is released in PA
      */
-    protected Block correspondingBlock;
+    private Block correspondingBlock = null;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
         this.width = width;
@@ -29,16 +29,12 @@ public abstract class UIBlock {
         step = height / 6;
     }
 
-    public int getStep() {
-        return step;
-    }
-
     public Block getCorrespondingBlock() {
         return this.correspondingBlock;
     }
 
-    public void setCorrespondingBlock(Block correspondingBlock) {
-        this.correspondingBlock = correspondingBlock;
+    protected void setCorrespondingBlock(Block block){
+        this.correspondingBlock = block;
     }
 
     public abstract void makeNewCorrespondingBlock();

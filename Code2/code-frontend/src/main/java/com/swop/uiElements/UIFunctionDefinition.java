@@ -11,8 +11,8 @@ public class UIFunctionDefinition extends UIBlock{
 
     @Override
     public void makeNewCorrespondingBlock() {
-        if (type.getType() == BlockType.FunctionDefinition) {
-            this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction()); //TODO: replace
+        if (getType().getType() == BlockType.FunctionDefinition) {
+            setCorrespondingBlock(new ActionBlock(getPosition(), getWidth(), getHeight(), getType().getAction())); //TODO: replace
         } else {
             throw new IllegalArgumentException("Not a Function Definition Block !");
         }

@@ -14,12 +14,12 @@ public class UIConditionBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        switch (type.getType()) {
+        switch (getType().getType()) {
             case Predicate:
-                this.correspondingBlock = new ConditionBlock(getPosition(), true, getWidth(), getHeight(), type.getPredicate());
+                setCorrespondingBlock(new ConditionBlock(getPosition(), true, getWidth(), getHeight(), getType().getPredicate()));
                 break;
             case NotCondition:
-                this.correspondingBlock = new ConditionBlock(getPosition(), false, getWidth(), getHeight(), null);
+                setCorrespondingBlock(new ConditionBlock(getPosition(), false, getWidth(), getHeight(), null));
                 break;
             default:
                 throw new IllegalArgumentException("Not a Condition Block !");
@@ -32,7 +32,7 @@ public class UIConditionBlock extends UIBlock {
         int step = height / 6;
         pol.addPoint(position.x, position.y);
         pol.addPoint(position.x + width, position.y);
-        if (type.getType() != BlockType.Predicate) {
+        if (getType().getType() != BlockType.Predicate) {
             //socket
             pol.addPoint(position.x + width, position.y + step * 2);
             pol.addPoint(position.x + width - step, position.y + step * 3);

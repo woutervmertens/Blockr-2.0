@@ -1,7 +1,6 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.ActionBlock;
-import com.swop.blocks.Block;
 
 import java.awt.*;
 
@@ -13,8 +12,8 @@ public class UIActionBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        if (type.getType() == BlockType.ActionType) {
-            this.correspondingBlock = new ActionBlock(getPosition(), getWidth(), getHeight(), type.getAction());
+        if (getType().getType() == BlockType.ActionType) {
+            setCorrespondingBlock(new ActionBlock(getPosition(), getWidth(), getHeight(), getType().getAction()));
         } else {
             throw new IllegalArgumentException("Not an Action Block !");
         }

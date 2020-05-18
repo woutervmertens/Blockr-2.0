@@ -28,12 +28,12 @@ public class UIStatementBlock extends UIBlock {
 
     @Override
     public void makeNewCorrespondingBlock() {
-        switch (type.getType()) {
+        switch (getType().getType()) {
             case IfStatement:
-                this.correspondingBlock = new IfBlock(getPosition(), getWidth(), getHeight());
+                setCorrespondingBlock(new IfBlock(getPosition(), getWidth(), getHeight()));
                 break;
             case WhileStatement:
-                this.correspondingBlock = new WhileBlock(getPosition(), getWidth(), getHeight());
+                setCorrespondingBlock(new WhileBlock(getPosition(), getWidth(), getHeight()));
                 break;
             default:
                 throw new IllegalArgumentException("Not a Statement Block !");
