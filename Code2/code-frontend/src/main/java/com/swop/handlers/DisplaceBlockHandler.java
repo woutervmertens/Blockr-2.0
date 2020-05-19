@@ -26,7 +26,6 @@ public class DisplaceBlockHandler {
         if (sharedData.getCorrespondingBlockFor(draggedBlock) == null) {
             draggedBlock.makeNewCorrespondingBlock();
             sharedData.getCorrespondingBlockFor(draggedBlock).setBlockrGame(sharedData.getBlockrGame());
-            sharedData.putInBlockUIBlockMap(sharedData.getCorrespondingBlockFor(draggedBlock), draggedBlock);//TODO zet dit in shareddata
         }
 
         // 2) Handle drop position

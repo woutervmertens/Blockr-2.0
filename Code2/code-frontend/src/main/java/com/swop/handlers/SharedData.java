@@ -36,7 +36,7 @@ public class SharedData {
         return blockrGame;
     }
 
-    public void putInBlockUIBlockMap(Block key, UIBlock value) {
+    private void putInBlockUIBlockMap(Block key, UIBlock value) {
         if (!blockUIBlockMap.containsKey(key)) {
             blockUIBlockMap.put(key, value);
         }
@@ -55,37 +55,38 @@ public class SharedData {
     }
 
     public void makeNewCorrespondingBlock(UIBlock uiBlock){
+        Block b;
         switch (uiBlock.getType().getType()) {
             case ActionType:
-                new ActionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getAction());
+                b = new ActionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getAction());
                 break;
             case IfStatement:
-                new IfBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                b = new IfBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
                 break;
             case WhileStatement:
-                new WhileBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                b = new WhileBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
                 break;
             case NotCondition:
-                new ConditionBlock(uiBlock.getPosition(), false, uiBlock.getWidth(), uiBlock.getHeight(), null);
+                b = new ConditionBlock(uiBlock.getPosition(), false, uiBlock.getWidth(), uiBlock.getHeight(), null);
                 break;
             case Predicate:
-                new ConditionBlock(uiBlock.getPosition(), true, uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getPredicate());
+                b = new ConditionBlock(uiBlock.getPosition(), true, uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getPredicate());
                 break;
             case FunctionCall:
-                new FunctionCallBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                b = new FunctionCallBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
                 break;
             case FunctionDefinition:
-                new FunctionDefinitionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                b = new FunctionDefinitionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("Not a Valid Block Type !");
         }
+        putInBlockUIBlockMap(b,uiBlock);
     }
 
     public void adjustAllBodyBlockGaps() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
-            if (block instanceof BlockWithBody) {
-                // TODO: find a way to not just consider UIStatementBlock
+            if (block instanceof StatementBlock) {
                 UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
                 uiStatement.setGapSize(((BlockWithBody) block).getGapSize());
             }
