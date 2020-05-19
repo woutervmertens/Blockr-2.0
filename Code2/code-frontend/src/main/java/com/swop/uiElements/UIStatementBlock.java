@@ -28,20 +28,6 @@ public class UIStatementBlock extends UIBlock {
     }
 
     @Override
-    public void makeNewCorrespondingBlock() {
-        switch (getType().getType()) {
-            case IfStatement:
-                setCorrespondingBlock(new IfBlock(getPosition(), getWidth(), getHeight()));
-                break;
-            case WhileStatement:
-                setCorrespondingBlock(new WhileBlock(getPosition(), getWidth(), getHeight()));
-                break;
-            default:
-                throw new IllegalArgumentException("Not a Statement Block !");
-        }
-    }
-
-    @Override
     public int getHeight() {
         return height + getGapSize() + pillarWidth;
     }

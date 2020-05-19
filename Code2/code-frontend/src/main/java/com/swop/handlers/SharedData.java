@@ -4,10 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
-import com.swop.blocks.Block;
-import com.swop.blocks.BlockWithBody;
-import com.swop.blocks.FunctionDefinitionBlock;
-import com.swop.blocks.StatementBlock;
+import com.swop.blocks.*;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIStatementBlock;
 
@@ -55,6 +52,34 @@ public class SharedData {
 
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
         return blockUIBlockMap.inverse().get(uiBlock);
+    }
+
+    public void makeNewCorrespondingBlock(UIBlock uiBlock){
+        switch (uiBlock.getType().getType()) {
+            case ActionType:
+                new ActionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getAction());
+                break;
+            case IfStatement:
+                new IfBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                break;
+            case WhileStatement:
+                new WhileBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                break;
+            case NotCondition:
+                new ConditionBlock(uiBlock.getPosition(), false, uiBlock.getWidth(), uiBlock.getHeight(), null);
+                break;
+            case Predicate:
+                new ConditionBlock(uiBlock.getPosition(), true, uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getPredicate());
+                break;
+            case FunctionCall:
+                new FunctionCallBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                break;
+            case FunctionDefinition:
+                new FunctionDefinitionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                break;
+            default:
+                throw new IllegalArgumentException("Not a Valid Block Type !");
+        }
     }
 
     public void adjustAllBodyBlockGaps() {

@@ -12,15 +12,6 @@ public class UIActionBlock extends UIBlock {
     }
 
     @Override
-    public void makeNewCorrespondingBlock() {
-        if (getType().getType() == BlockType.ActionType) {
-            setCorrespondingBlock(new ActionBlock(getPosition(), getWidth(), getHeight(), getType().getAction()));
-        } else {
-            throw new IllegalArgumentException("Not an Action Block !");
-        }
-    }
-
-    @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
         int step = height / 6;

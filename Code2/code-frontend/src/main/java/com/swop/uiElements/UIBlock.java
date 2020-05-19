@@ -13,7 +13,7 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     private BlockTypes type;
-    private BlockrGameFacade blockrGameFacade;
+    protected BlockrGameFacade blockrGameFacade;
     protected boolean isHighlight;
     /**
      * CorrespondingBlock is only made when a block is released in PA
@@ -32,15 +32,7 @@ public abstract class UIBlock {
         step = height / 6;
     }
 
-    public Block getCorrespondingBlock() {
-        return this.correspondingBlock;
-    }
-
-    protected void setCorrespondingBlock(Block block){
-        this.correspondingBlock = block;
-    }
-
-    public abstract void makeNewCorrespondingBlock();
+    public void makeNewCorrespondingBlock() {blockrGameFacade.makeNewCorrespondingBlock(this);}
 
     public Point getPosition() {
         return position;

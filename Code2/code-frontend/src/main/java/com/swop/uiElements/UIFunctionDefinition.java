@@ -1,6 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.blocks.ActionBlock;
 import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
@@ -23,15 +22,6 @@ public class UIFunctionDefinition extends UIBlock{
 
     public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
-    }
-
-    @Override
-    public void makeNewCorrespondingBlock() {
-        if (getType().getType() == BlockType.FunctionDefinition) {
-            setCorrespondingBlock(new ActionBlock(getPosition(), getWidth(), getHeight(), getType().getAction())); //TODO: replace
-        } else {
-            throw new IllegalArgumentException("Not a Function Definition Block !");
-        }
     }
 
     @Override
