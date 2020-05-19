@@ -3,12 +3,13 @@ package com.swop.handlers;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.Block;
+import com.swop.blocks.FunctionDefinitionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIStatementBlock;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class holding information about all the shared objects between the existing handlers.
@@ -78,6 +79,14 @@ public class SharedData {
         highlightedBlock = block;
         highlightedBlock.setHighlightStateOn(true);
     }
+
+    public Collection<UIBlock> getFunctionDefinitions(){
+        return getBlockrGame().getAllBlocksInPA().stream()
+                .filter(c -> c instanceof FunctionDefinitionBlock)
+                .map(c -> blockUIBlockMap.get(c))
+                .collect(Collectors.toList());
+    }
+
 
     // TODO: find a way to "adjust" highlighted block
 }

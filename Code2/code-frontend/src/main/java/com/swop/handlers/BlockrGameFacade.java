@@ -26,6 +26,10 @@ public class BlockrGameFacade {
         return sharedData.getBlockrGame().getGameWorldType().getSupportedPredicates();
     }
 
+    public Collection<UIBlock> getFunctionDefinitions(){
+        return sharedData.getFunctionDefinitions();
+    }
+
     public boolean isPaletteHidden(){
         return sharedData.getBlockrGame().isPaletteHidden();
     }
