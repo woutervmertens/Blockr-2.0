@@ -70,6 +70,10 @@ public class BlockrGameFacade {
         return sharedData.getCorrespondingUiBlockFor(block);
     }
 
+    public Block getCorrespondingBlockFor(UIBlock uiBlock) {
+        return sharedData.getCorrespondingBlockFor(uiBlock);
+    }
+
     public Block getBlockInPaAt(int x, int y){
         return sharedData.getBlockrGame().getBlockInPaAt(x,y);
     }

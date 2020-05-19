@@ -1,5 +1,7 @@
 package com.swop.handlers;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.Block;
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 public class SharedData {
     private static SharedData firstInstance = null;
     private final BlockrGame blockrGame;
-    private final Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    private final BiMap<Block, UIBlock> blockUIBlockMap = HashBiMap.create();
     private UIBlock highlightedBlock;
 
     private SharedData(int maxBlocks, GameWorldType type) {
@@ -51,9 +53,7 @@ public class SharedData {
     }
 
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
-        // TODO: decide whether another map is needed for the opposite direction or not (for efficiency)
-        // TODO: remove the block attribute from uiblocks and fill this method
-        return null;
+        return blockUIBlockMap.inverse().get(uiBlock);
     }
 
     public void adjustAllStatementBlockGaps() {
