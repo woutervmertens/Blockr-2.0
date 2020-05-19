@@ -23,14 +23,14 @@ public class DisplaceBlockHandler {
      */
     public void handleReleaseInPA(UIBlock draggedBlock) {
         // 1) Handle map
-        if (draggedBlock.getCorrespondingBlock() == null) {
+        if (sharedData.getCorrespondingBlockFor(draggedBlock) == null) {
             draggedBlock.makeNewCorrespondingBlock();
-            draggedBlock.getCorrespondingBlock().setBlockrGame(sharedData.getBlockrGame());
-            sharedData.putInBlockUIBlockMap(draggedBlock.getCorrespondingBlock(), draggedBlock);
+            sharedData.getCorrespondingBlockFor(draggedBlock).setBlockrGame(sharedData.getBlockrGame());
+            sharedData.putInBlockUIBlockMap(sharedData.getCorrespondingBlockFor(draggedBlock), draggedBlock);//TODO zet dit in shareddata
         }
 
         // 2) Handle drop position
-        Block backendBlock = draggedBlock.getCorrespondingBlock();
+        Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         BlockrGame blockrGame = sharedData.getBlockrGame();
         blockrGame.dropBlockInPA(backendBlock);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
@@ -41,7 +41,7 @@ public class DisplaceBlockHandler {
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         BlockrGame blockrGame = sharedData.getBlockrGame();
-        Block backendBlock = draggedBlock.getCorrespondingBlock();
+        Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         if (backendBlock != null) {
             // TODO: don't remove all bodies and conditions here, let the statementblock do it himself
             // Remove all bodies and conditions as well from program area
@@ -77,7 +77,7 @@ public class DisplaceBlockHandler {
 
     public void handleClickOn(UIBlock clickedBlock) {
         if (clickedBlock == null) throw new IllegalArgumentException();
-        Block backendBlock = clickedBlock.getCorrespondingBlock();
+        Block backendBlock = sharedData.getCorrespondingBlockFor(clickedBlock);
         backendBlock.setPreviousDropPosition(backendBlock.getPosition());
         sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
         sharedData.adjustAllBlockPositions();
