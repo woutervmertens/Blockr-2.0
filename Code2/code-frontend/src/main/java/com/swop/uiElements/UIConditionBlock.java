@@ -1,15 +1,14 @@
 package com.swop.uiElements;
 
-import com.swop.Predicate;
-import com.swop.blocks.Block;
 import com.swop.blocks.ConditionBlock;
+import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
 public class UIConditionBlock extends UIBlock {
 
-    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {
+        super(width, height, position, text, type, color, highlightColor, facade);
     }
 
     @Override

@@ -1,13 +1,14 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.ActionBlock;
+import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
 
-    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {
+        super(width, height, position, text, type, color, highlightColor, facade);
     }
 
     @Override

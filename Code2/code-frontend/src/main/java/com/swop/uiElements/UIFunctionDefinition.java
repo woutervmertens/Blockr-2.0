@@ -1,6 +1,7 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.ActionBlock;
+import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
@@ -10,8 +11,8 @@ public class UIFunctionDefinition extends UIBlock{
     private int gapSize;
     private final int pillarWidth = 10;
 
-    public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade, int gapSize) {
+        super(width, height, position, text, type, color, highlightColor, facade);
         titleWidth = width/3;
         this.gapSize = gapSize;
     }

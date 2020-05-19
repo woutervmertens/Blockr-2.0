@@ -3,6 +3,7 @@ package com.swop.uiElements;
 import com.swop.blocks.Block;
 import com.swop.blocks.IfBlock;
 import com.swop.blocks.WhileBlock;
+import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
@@ -12,8 +13,8 @@ public class UIStatementBlock extends UIBlock {
     private final int pillarWidth = 10;
     private final int conditionWidth;
 
-    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade, int gapSize) {
+        super(width, height, position, text, type, color, highlightColor, facade);
         this.gapSize = gapSize;
         conditionWidth = width / 2;
     }

@@ -1,6 +1,7 @@
 package com.swop.uiElements;
 
 import com.swop.blocks.Block;
+import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
@@ -12,13 +13,14 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     private BlockTypes type;
+    private BlockrGameFacade blockrGameFacade;
     protected boolean isHighlight;
     /**
      * CorrespondingBlock is only made when a block is released in PA
      */
     private Block correspondingBlock = null;
 
-    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
+    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {
         this.width = width;
         this.height = height;
         this.position = position;
@@ -26,6 +28,7 @@ public abstract class UIBlock {
         this.type = type;
         this.color = color;
         this.highlightColor = highlightColor;
+        this.blockrGameFacade = facade;
         step = height / 6;
     }
 
@@ -45,8 +48,8 @@ public abstract class UIBlock {
 
     public void setPosition(Point position) {
         this.position = position;
-        if (getCorrespondingBlock() != null) {
-            getCorrespondingBlock().setPosition(position);
+        if (blockrGameFacade.getCorrespondingBlockFor(this) != null) {
+            blockrGameFacade.getCorrespondingBlockFor(this).setPosition(position);
         }
     }
 
