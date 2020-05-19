@@ -1,6 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.blocks.Block;
 import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
@@ -15,10 +14,6 @@ public abstract class UIBlock {
     private BlockTypes type;
     protected BlockrGameFacade blockrGameFacade;
     protected boolean isHighlight;
-    /**
-     * CorrespondingBlock is only made when a block is released in PA
-     */
-    private Block correspondingBlock = null;
 
     public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {
         this.width = width;
