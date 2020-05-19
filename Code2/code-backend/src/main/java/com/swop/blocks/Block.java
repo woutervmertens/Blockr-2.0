@@ -10,10 +10,10 @@ public abstract class Block implements Cloneable {
     private final int width;
     private final int height;
     protected ExecuteType executeType;
-    private StatementBlock parentStatement;
+    private StatementBlock parentBlock;
     private BlockrGame blockrGame; // TODO: fix the BlockrGame dependency (I think it's not needed, see patterns)
 
-    private boolean done = true;
+    private boolean busy = false;
     private Point position;
     private Point previousDropPosition;
 
@@ -49,24 +49,24 @@ public abstract class Block implements Cloneable {
         return height;
     }
 
-    public boolean isDone() {
-        return done;
+    public boolean isBusy() {
+        return busy;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setBusy(boolean busy) {
+        this.busy = busy;
     }
 
     public ExecuteType getExecuteType() {
         return executeType;
     }
 
-    public StatementBlock getParentStatement() {
-        return parentStatement;
+    public StatementBlock getParentBlock() {
+        return parentBlock;
     }
 
-    public void setParentStatement(StatementBlock parentStatement) {
-        this.parentStatement = parentStatement;
+    public void setParentBlock(StatementBlock parentBlock) {
+        this.parentBlock = parentBlock;
     }
 
     /**

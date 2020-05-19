@@ -92,9 +92,8 @@ public class BlockrGame {
     public void executeNext() {
         if (programArea.getNextBlock() != null) {
             executeCommand(new ExecuteCommand(gameWorld, programArea.getNextBlock()));
-            if (programArea.getNextBlock().isDone()) {
+            if (!programArea.getNextBlock().isBusy()) {
                 programArea.setNextBlock();
-
             }
         } else {
             resetEverything();
@@ -106,8 +105,8 @@ public class BlockrGame {
         if (programArea.getNextBlock() instanceof StatementBlock) {
             StatementBlock statementBlock = (StatementBlock) programArea.getNextBlock();
 
-            if (((StatementBlock) programArea.getNextBlock()).getCurrent() != null) {
-                return statementBlock.getCurrent();
+            if (((StatementBlock) programArea.getNextBlock()).getNextBodyBlock() != null) {
+                return statementBlock.getNextBodyBlock();
             } else if (statementBlock.isConditionValid() && !statementBlock.getBodyBlocks().isEmpty()) {
                 return statementBlock.getBodyBlocks().get(0);
             }

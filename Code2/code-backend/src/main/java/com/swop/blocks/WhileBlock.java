@@ -10,9 +10,8 @@ public class WhileBlock extends StatementBlock {
 
     protected void handleEndOfBody() {
         if (isConditionValid()) {
-            setCurrent(bodyBlocks.get(0));
+            setNextBodyBlock(bodyBlocks.get(0));
         } else {
-            setDone(true);
             setBusy(false);
         }
     }

@@ -49,13 +49,13 @@ class BlockTest {
 
     @Test
     void getParentStatementIsNull() {
-        assertNull(block.getParentStatement(), "actual parentStatement isn't null");
+        assertNull(block.getParentBlock(), "actual parentStatement isn't null");
     }
 
     @Test
     void setParentStatement() {
-        block.setParentStatement(ifBlock);
-        assertEquals(ifBlock, block.getParentStatement(), "expected and actual parentStatement are different");
+        block.setParentBlock(ifBlock);
+        assertEquals(ifBlock, block.getParentBlock(), "expected and actual parentStatement are different");
     }
 
     @Test

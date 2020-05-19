@@ -31,12 +31,12 @@ public interface PushBlocks {
         // 1) Push blocks in same list
         pushBlocksInListFromIndexWithDistance(blockList, index, distance);
         // 2) Push blocks of eventual superior parents
-        Block currentParent = blockList.get(0).getParentStatement();
+        Block currentParent = blockList.get(0).getParentBlock();
         if (currentParent != null) {
-            while (currentParent.getParentStatement() != null) {
-                PushBlocks.pushBlocksInListFromIndexWithDistance(currentParent.getParentStatement().getBodyBlocks(),
-                        currentParent.getParentStatement().getBodyBlocks().indexOf(currentParent) + 1, distance);
-                currentParent = currentParent.getParentStatement();
+            while (currentParent.getParentBlock() != null) {
+                PushBlocks.pushBlocksInListFromIndexWithDistance(currentParent.getParentBlock().getBodyBlocks(),
+                        currentParent.getParentBlock().getBodyBlocks().indexOf(currentParent) + 1, distance);
+                currentParent = currentParent.getParentBlock();
             }
         }
     }

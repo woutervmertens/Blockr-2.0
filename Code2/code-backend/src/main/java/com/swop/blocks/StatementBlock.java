@@ -6,22 +6,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class StatementBlock extends Block implements Executable, VerticallyConnectable {
+public abstract class StatementBlock extends BlockWithBody implements Executable, VerticallyConnectable {
     private final int pillarWidth = 10;
     protected List<ConditionBlock> conditions = new ArrayList<>();
-    protected List<Block> bodyBlocks = new ArrayList<>();
-    protected Block currentBodyBlock = null;
-    protected Block current = null;
-    private int gapSize;
     private final int conditionWidth;
-    private boolean Busy;
-    private boolean done = false;
 
     public StatementBlock(Point position, int width, int height) {
         super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
-
     }
 
     @Override
@@ -35,38 +28,9 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         }
     }
 
-    public boolean isBusy() {
-        return Busy;
-    }
-
-    public void setBusy(boolean busy) {
-        Busy = busy;
-    }
-
-    public Block getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Block current) {
-        this.current = current;
-    }
-
-    protected void setNextCurrent() {
-        if (getCurrent() == null && !getBodyBlocks().isEmpty()) {
-            setCurrent(getBodyBlocks().get(0));
-        } else {
-            try {
-                setCurrent(getBodyBlocks().get(getBodyBlocks().indexOf(current) + 1));
-            } catch (Exception e) {
-                setCurrent(null);
-            }
-        }
-    }
-
     public void resetExecution() {
-        setCurrent(null);
+        setNextBodyBlock(null);
         setBusy(false);
-        setDone(false);
     }
 
     @Override
@@ -107,49 +71,17 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     }
 
-    protected abstract void handleEndOfBody();
-
     @Override
     public void execute() {
-        if (isBusy() || isConditionValid()) {
+        if (isConditionValid() || isBusy()) {
             if (!isBusy()) {
                 setBusy(true);
-                setNextCurrent();
+                setNextBodyBlock();
             }
             executeNextBodyBlock();
-
         } else {
-            setDone(true);
             setBusy(false);
         }
-    }
-
-    protected void executeNextBodyBlock() {
-        if (getCurrent() == null) {
-            setDone(true);
-            setBusy(false);
-        } else {
-            Executable exBlock = (Executable) getCurrent();
-            exBlock.execute();
-            setNextCurrent();
-            if (getCurrent() == null) {
-                handleEndOfBody();
-            }
-        }
-    }
-
-    public List<Block> getBodyBlocks() {
-        return bodyBlocks;
-    }
-
-    @Override
-    public boolean isDone() {
-        return done;
-    }
-
-    @Override
-    public void setDone(boolean done) {
-        this.done = done;
     }
 
     public List<ConditionBlock> getConditions() {
@@ -182,7 +114,7 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
     public void insertBodyBlockAtIndex(Block block, int index) {
         // 1) Add to the body blocks of this statement
         bodyBlocks.add(index, block);
-        block.setParentStatement(this);
+        block.setParentBlock(this);
 
         // 2) Push all next body blocks down
         int distance = block.getHeight() + step;
@@ -190,10 +122,10 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         PushBlocks.pushFrom(bodyBlocks, index + 1, distance);
 
         // 3) Increase the gap of this statement and all eventual superior parent statements
-        StatementBlock currentParent = block.getParentStatement();
+        StatementBlock currentParent = block.getParentBlock();
         while (currentParent != null) {
             currentParent.increaseGapSize(distance);
-            currentParent = currentParent.getParentStatement();
+            currentParent = currentParent.getParentBlock();
         }
     }
 
@@ -209,18 +141,18 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
         PushBlocks.pushFrom(bodyBlocks, index, distance);
 
-        block.setParentStatement(null);
+        block.setParentBlock(null);
 
         StatementBlock currentParent = this;
         while (currentParent != null) {
             currentParent.increaseGapSize(distance);
-            currentParent = currentParent.getParentStatement();
+            currentParent = currentParent.getParentBlock();
         }
     }
 
     public void addConditionBlock(ConditionBlock block) {
         conditions.add(block);
-        block.setParentStatement(this);
+        block.setParentBlock(this);
     }
 
     public void removeConditionBlock(ConditionBlock block) {
@@ -231,14 +163,14 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
         int j = getConditions().indexOf(block);
         for (int i = n - 1; i >= j; i--) {
             currentCondition = getConditions().get(i);
-            currentCondition.setParentStatement(null);
+            currentCondition.setParentBlock(null);
             conditions.remove(currentCondition);
         }
     }
 
     @Override
     public Point getPlugPosition() {
-        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ +gapSize + step);
+        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ +getGapSize() + step);
     }
 
     @Override
@@ -252,18 +184,6 @@ public abstract class StatementBlock extends Block implements Executable, Vertic
 
     public Point getConditionPlugPosition() {
         return new Point(getPosition().x + conditionWidth + step, getPosition().y);
-    }
-
-    public int getGapSize() {
-        return gapSize;
-    }
-
-    public void setGapSize(int gapSize) {
-        this.gapSize = gapSize;
-    }
-
-    public void increaseGapSize(int increase) {
-        this.setGapSize(getGapSize() + increase);
     }
 
     /**
