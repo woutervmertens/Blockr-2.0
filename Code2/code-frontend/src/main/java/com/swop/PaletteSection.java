@@ -63,7 +63,7 @@ public class PaletteSection extends WindowSection {
         }
 
         //Function Definition
-        types[k++] = new BlockTypes(Integer.toString(functionDefinitions.size() + 1), 110, BlockType.FunctionDefinition);
+        types[k++] = new BlockTypes(Integer.toString(functionDefinitions.size()), 110, BlockType.FunctionDefinition);
 
         //Paint all blocks
         int step = height / types.length;
