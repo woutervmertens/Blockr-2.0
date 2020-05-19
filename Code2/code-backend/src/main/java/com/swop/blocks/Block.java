@@ -10,7 +10,7 @@ public abstract class Block implements Cloneable {
     private final int width;
     private final int height;
     protected ExecuteType executeType;
-    private StatementBlock parentBlock;
+    private BlockWithBody parentBlock;
     private BlockrGame blockrGame; // TODO: fix the BlockrGame dependency (I think it's not needed, see patterns)
 
     private boolean busy = false;
@@ -61,11 +61,11 @@ public abstract class Block implements Cloneable {
         return executeType;
     }
 
-    public StatementBlock getParentBlock() {
+    public BlockWithBody getParentBlock() {
         return parentBlock;
     }
 
-    public void setParentBlock(StatementBlock parentBlock) {
+    public void setParentBlock(BlockWithBody parentBlock) {
         this.parentBlock = parentBlock;
     }
 
@@ -104,8 +104,4 @@ public abstract class Block implements Cloneable {
         if(blockrGame == null) throw new NullPointerException("BlockrGame not set in Block.");
         return blockrGame.getGameWorld();
     }
-
-    public abstract Point getSocketPosition();
-
-    public abstract Point getPlugPosition();
 }

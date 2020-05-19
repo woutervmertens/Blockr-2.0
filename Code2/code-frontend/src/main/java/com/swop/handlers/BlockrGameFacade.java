@@ -63,7 +63,7 @@ public class BlockrGameFacade {
     }
 
     public void adjustAllStatementBlockGaps(){
-        sharedData.adjustAllStatementBlockGaps();
+        sharedData.adjustAllBodyBlockGaps();
     }
 
     public UIBlock getCorrespondingUiBlockFor(Block block){

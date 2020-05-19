@@ -81,7 +81,7 @@ public class ProgramArea implements PushBlocks {
             if (getProgram().contains(currentBlock)) {
                 // Now currentBlock is a block from the program
                 int distance = draggedBlock.getHeight() + draggedBlock.getStep();
-                if (draggedBlock instanceof StatementBlock) distance += ((StatementBlock) draggedBlock).getGapSize();
+                if (draggedBlock instanceof BlockWithBody) distance += ((BlockWithBody) draggedBlock).getGapSize();
                 PushBlocks.pushFrom(getProgram(), getProgram().indexOf(currentBlock) + 1, distance);
             }
         }
@@ -108,13 +108,13 @@ public class ProgramArea implements PushBlocks {
             closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
                 socket(draggedBlock, closeBlock);
-                draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+                draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
             } else {
                 // 3) statement body
-                closeBlock = getStatementBlockBodyPlugWithinRadius(draggedBlock, radius);
+                closeBlock = getBlockWithBodyPlugWithinRadius(draggedBlock, radius);
                 if (closeBlock != null) {
-                    draggedBlock.setPosition(((StatementBlock) closeBlock).getBodyPlugPosition());
-                    ((StatementBlock) closeBlock).insertBodyBlockAtIndex(draggedBlock, 0);
+                    draggedBlock.setPosition(((BlockWithBody) closeBlock).getBodyPlugPosition());
+                    ((BlockWithBody) closeBlock).insertBodyBlockAtIndex(draggedBlock, 0);
                 }
             }
         }
@@ -127,7 +127,7 @@ public class ProgramArea implements PushBlocks {
         } else if (closeBlock.getParentBlock() != null) {
             closeBlock.getParentBlock().addBodyBlockAfter(draggedBlock, closeBlock);
         }
-        draggedBlock.setPosition(getConnectionPoint(draggedBlock, closeBlock));
+        draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
     }
 
     // TODO: 11/05/2020 better name?
@@ -149,8 +149,8 @@ public class ProgramArea implements PushBlocks {
         } else {
             closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
-                draggedBlock.setPosition(closeBlock.getPlugPosition());
-                StatementBlock parent = closeBlock.getParentBlock();
+                draggedBlock.setPosition(((HorizontallyConnectable) closeBlock).getPlugPosition());
+                StatementBlock parent = (StatementBlock) closeBlock.getParentBlock();
                 parent.addConditionBlock((ConditionBlock) draggedBlock);
             }
         }
@@ -190,10 +190,14 @@ public class ProgramArea implements PushBlocks {
      * @return Returns the connection point if precondition is valid
      * @pre Both blocks are close enough to each other for connection
      */
-    public Point getConnectionPoint(Block draggedBlock, Block closeBlock) {
-        if (draggedBlock.isUnder(closeBlock)) return closeBlock.getPlugPosition();
+    private Point getVerticalConnectionPoint(Block draggedBlock, Block closeBlock) {
+        if (!(draggedBlock instanceof VerticallyConnectable && closeBlock instanceof VerticallyConnectable))
+            throw new IllegalArgumentException("Not both blocks are vertically connectable");
+
+        if (draggedBlock.isUnder(closeBlock)) return ((VerticallyConnectable) closeBlock).getPlugPosition();
         else
-            return new Point(closeBlock.getSocketPosition().x, closeBlock.getSocketPosition().y - draggedBlock.getHeight() - 10);
+            return new Point(((VerticallyConnectable) closeBlock).getSocketPosition().x,
+                    ((VerticallyConnectable) closeBlock).getSocketPosition().y - draggedBlock.getHeight() - 10);
     }
 
     /**
@@ -203,31 +207,38 @@ public class ProgramArea implements PushBlocks {
      */
     private Block getBlockWithPlugForBlockWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
-            if (b == block || (block instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
-                    || (block instanceof VerticallyConnectable && !(b instanceof VerticallyConnectable)))
-                continue;
+            if (b == block) continue;
 
-            if (getDistance(block.getSocketPosition(), b.getPlugPosition()) <= radius) {
-                return b;
+            if (b instanceof HorizontallyConnectable && block instanceof HorizontallyConnectable) {
+                if (getDistance(((HorizontallyConnectable) block).getSocketPosition(), ((HorizontallyConnectable) b).getPlugPosition()) <= radius) {
+                    return b;
+                }
+            } else if (b instanceof VerticallyConnectable && block instanceof VerticallyConnectable) {
+                if (getDistance(((VerticallyConnectable) block).getSocketPosition(), ((VerticallyConnectable) b).getPlugPosition()) <= radius) {
+                    return b;
+                }
             }
-
         }
         return null;
     }
 
     /**
-     * @param uiBlock given block
-     * @param radius  given radius
+     * @param block  given block
+     * @param radius given radius
      * @return Returns the block with socket within the given radius of the given block
      */
-    private Block getBlockWithSocketForBlockWithinRadius(Block uiBlock, int radius) {
+    private Block getBlockWithSocketForBlockWithinRadius(Block block, int radius) {
         for (Block b : getAllBlocks()) {
-            if (b == uiBlock || (uiBlock instanceof HorizontallyConnectable && !(b instanceof HorizontallyConnectable))
-                    || (uiBlock instanceof VerticallyConnectable && !(b instanceof VerticallyConnectable)))
-                continue;
+            if (b == block) continue;
 
-            if (getDistance(uiBlock.getPlugPosition(), b.getSocketPosition()) <= radius) {
-                return b;
+            if (b instanceof HorizontallyConnectable && block instanceof HorizontallyConnectable) {
+                if (getDistance(((HorizontallyConnectable) block).getPlugPosition(), ((HorizontallyConnectable) b).getSocketPosition()) <= radius) {
+                    return b;
+                }
+            } else if (b instanceof VerticallyConnectable && block instanceof VerticallyConnectable) {
+                if (getDistance(((VerticallyConnectable) block).getPlugPosition(), ((VerticallyConnectable) b).getSocketPosition()) <= radius) {
+                    return b;
+                }
             }
 
         }
@@ -239,12 +250,14 @@ public class ProgramArea implements PushBlocks {
      * @param radius given radius
      * @return Returns the statement block body plug within the given radius of the given block
      */
-    private Block getStatementBlockBodyPlugWithinRadius(Block block, int radius) {
+    private Block getBlockWithBodyPlugWithinRadius(Block block, int radius) {
+        if (!(block instanceof VerticallyConnectable))
+            throw new IllegalArgumentException("Block is not vertically connectable");
         for (Block b : getAllBlocks()) {
-            if (b == block || !(b instanceof StatementBlock) /*|| !((StatementBlock) b).getBodyBlocks().isEmpty()*/)
+            if (b == block || !(b instanceof BlockWithBody) /*|| !((StatementBlock) b).getBodyBlocks().isEmpty()*/)
                 continue;
 
-            if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getBodyPlugPosition()) <= radius) {
+            if (getDistance(((VerticallyConnectable) block).getSocketPosition(), ((BlockWithBody) b).getBodyPlugPosition()) <= radius) {
                 return b;
             }
         }
@@ -257,11 +270,13 @@ public class ProgramArea implements PushBlocks {
      * @return Returns the statement block condition plug within the given radius of the given block
      */
     private Block getStatementBlockConditionPlugWithinRadius(Block block, int radius) {
+        if (!(block instanceof HorizontallyConnectable))
+            throw new IllegalArgumentException("Block is not horizontally connectable");
         for (Block b : getAllBlocks()) {
             if (b == block || !(b instanceof StatementBlock) || !((StatementBlock) b).getConditions().isEmpty())
                 continue;
 
-            if (getDistance(block.getSocketPosition(), ((StatementBlock) b).getConditionPlugPosition()) <= radius) {
+            if (getDistance(((HorizontallyConnectable) block).getSocketPosition(), ((StatementBlock) b).getConditionPlugPosition()) <= radius) {
                 return b;
             }
         }
@@ -274,11 +289,12 @@ public class ProgramArea implements PushBlocks {
      * @return Returns the condition block condition plug within the given radius of the given block
      */
     private Block getConditionBlockConditionPlugWithinRadius(Block block, int radius) {
+        if (!(block instanceof ConditionBlock)) throw new IllegalArgumentException();
         for (Block b : getAllBlocks()) {
             if (b == block || !(b instanceof ConditionBlock))
                 continue;
 
-            if (getDistance(block.getSocketPosition(), b.getPlugPosition()) <= radius) {
+            if (getDistance(((ConditionBlock) block).getSocketPosition(), ((ConditionBlock) b).getPlugPosition()) <= radius) {
                 return b;
             }
         }
@@ -341,13 +357,12 @@ public class ProgramArea implements PushBlocks {
      */
     public void removeBlockFromPA(Block clickedBlock) {
         if (!(clickedBlock instanceof ConditionBlock)) {
-            StatementBlock parentStatement = clickedBlock.getParentBlock();
-            if (parentStatement != null) {
-                pushUpBodyAndProgramAfterClickOn(parentStatement, clickedBlock);
+            BlockWithBody parentBlock = clickedBlock.getParentBlock();
+            if (parentBlock != null) {
+                pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
-        } else {
-            if (clickedBlock.getParentBlock() != null)
-                clickedBlock.getParentBlock().removeConditionBlock((ConditionBlock) clickedBlock);
+        } else if (clickedBlock.getParentBlock() != null) {
+            ((StatementBlock) clickedBlock.getParentBlock()).removeConditionBlock((ConditionBlock) clickedBlock);
         }
         allBlocks.remove(clickedBlock);
         if (getProgram().contains(clickedBlock)) {
@@ -356,24 +371,27 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * Push up the body of the given parentStatement and the program due to a click on the given clicked block.
+     * Push up the body of the given parentBlock and the program due to a click on the given clicked block.
+     *
      * @param clickedBlock
-     * @param parentStatement
+     * @param parentBlock
      */
-    private void pushUpBodyAndProgramAfterClickOn(StatementBlock parentStatement, Block clickedBlock) {
+    private void pushUpBodyAndProgramAfterClickOn(BlockWithBody parentBlock, Block clickedBlock) {
+        // TODO: make sure it doesn't push program if the body belongs to a FunctionDefinitionBlock
+
         // 1) Remove the body and push all superior body-blocks up
-        parentStatement.removeBodyBlock(clickedBlock);
+        parentBlock.removeBodyBlock(clickedBlock);
         // 2) Push program up
         // 2.1) Find most superior program block
-        while (parentStatement.getParentBlock() != null) {
-            parentStatement = parentStatement.getParentBlock();
+        while (parentBlock.getParentBlock() != null) {
+            parentBlock = parentBlock.getParentBlock();
         }
         // 2.2) Push
-        if (getProgram().contains(parentStatement)) {
+        if (getProgram().contains(parentBlock)) {
             int distance = -clickedBlock.getHeight() - clickedBlock.getStep();
             if (clickedBlock instanceof StatementBlock)
                 distance -= ((StatementBlock) clickedBlock).getGapSize();
-            PushBlocks.pushFrom(program, program.indexOf(parentStatement) + 1, distance);
+            PushBlocks.pushFrom(program, program.indexOf(parentBlock) + 1, distance);
         }
     }
 
@@ -381,7 +399,7 @@ public class ProgramArea implements PushBlocks {
      * Resets the program area, first block will be current block.
      */
     public void resetProgramExecution() {
-        for (Block block : getProgram()) if (block instanceof StatementBlock) ((StatementBlock) block).resetExecution();
+        for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
         if (!program.isEmpty()) nextBlock = ((LinkedList<Block>) program).getFirst();
     }
 }

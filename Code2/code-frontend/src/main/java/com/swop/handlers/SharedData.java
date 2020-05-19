@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockWithBody;
 import com.swop.blocks.FunctionDefinitionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
@@ -56,11 +57,12 @@ public class SharedData {
         return blockUIBlockMap.inverse().get(uiBlock);
     }
 
-    public void adjustAllStatementBlockGaps() {
+    public void adjustAllBodyBlockGaps() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
-            if (block instanceof StatementBlock) {
+            if (block instanceof BlockWithBody) {
+                // TODO: find a way to not just consider UIStatementBlock
                 UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
-                uiStatement.setGapSize(((StatementBlock) block).getGapSize());
+                uiStatement.setGapSize(((BlockWithBody) block).getGapSize());
             }
         }
     }
