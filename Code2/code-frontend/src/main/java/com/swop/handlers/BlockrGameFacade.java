@@ -26,6 +26,10 @@ public class BlockrGameFacade {
         return sharedData.getBlockrGame().getGameWorldType().getSupportedPredicates();
     }
 
+    public Collection<UIBlock> getFunctionDefinitions(){
+        return sharedData.getFunctionDefinitions();
+    }
+
     public boolean isPaletteHidden(){
         return sharedData.getBlockrGame().isPaletteHidden();
     }
@@ -59,11 +63,15 @@ public class BlockrGameFacade {
     }
 
     public void adjustAllStatementBlockGaps(){
-        sharedData.adjustAllStatementBlockGaps();
+        sharedData.adjustAllBodyBlockGaps();
     }
 
     public UIBlock getCorrespondingUiBlockFor(Block block){
         return sharedData.getCorrespondingUiBlockFor(block);
+    }
+
+    public Block getCorrespondingBlockFor(UIBlock uiBlock) {
+        return sharedData.getCorrespondingBlockFor(uiBlock);
     }
 
     public Block getBlockInPaAt(int x, int y){

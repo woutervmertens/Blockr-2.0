@@ -111,6 +111,7 @@ public class BlockrGame {
                 return statementBlock.getBodyBlocks().get(0);
             }
         }
+        // TODO: else if statement call block .. OR refactor
         return programArea.getNextBlock();
     }
 
@@ -131,6 +132,7 @@ public class BlockrGame {
     }
 
     public int getNumBlocksInProgram() {
+        // TODO: fix the count for nested statements (recursively !)
         int count = 0;
         for (Block block : getProgram()) {
             if (block instanceof StatementBlock) {

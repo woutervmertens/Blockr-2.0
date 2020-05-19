@@ -1,13 +1,10 @@
 package com.swop.blocks;
 
-import com.swop.PushBlocks;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class StatementBlock extends BlockWithBody implements Executable, VerticallyConnectable {
-    private final int pillarWidth = 10;
     protected List<ConditionBlock> conditions = new ArrayList<>();
     private final int conditionWidth;
 
@@ -26,11 +23,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         for (Block condition : getConditions()) {
             condition.setPreviousDropPosition(condition.getPosition());
         }
-    }
-
-    public void resetExecution() {
-        setNextBodyBlock(null);
-        setBusy(false);
     }
 
     @Override
@@ -88,68 +80,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         return conditions;
     }
 
-    /**
-     * 1) Add the given block after the given existing block
-     * 2) And push all others inside the body
-     * 3) And make all the parents' gap sizes bigger.
-     * <p>
-     * If existing block is null add the given block at the start of the body
-     */
-    public void addBodyBlockAfter(Block block, Block existingBlock) {
-        if (existingBlock == null) throw new IllegalArgumentException();
-        if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
-        insertBodyBlockAtIndex(block, bodyBlocks.indexOf(existingBlock) + 1);
-
-    }
-
-    /**
-     * Add the given block before the given existing block.
-     */
-    public void addBodyBlockBefore(Block block, Block existingBlock) {
-        if (existingBlock == null) throw new IllegalArgumentException();
-        if (!bodyBlocks.contains(existingBlock)) throw new IllegalArgumentException();
-        insertBodyBlockAtIndex(block, bodyBlocks.indexOf(existingBlock));
-    }
-
-    public void insertBodyBlockAtIndex(Block block, int index) {
-        // 1) Add to the body blocks of this statement
-        bodyBlocks.add(index, block);
-        block.setParentBlock(this);
-
-        // 2) Push all next body blocks down
-        int distance = block.getHeight() + step;
-        if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
-        PushBlocks.pushFrom(bodyBlocks, index + 1, distance);
-
-        // 3) Increase the gap of this statement and all eventual superior parent statements
-        StatementBlock currentParent = block.getParentBlock();
-        while (currentParent != null) {
-            currentParent.increaseGapSize(distance);
-            currentParent = currentParent.getParentBlock();
-        }
-    }
-
-    /**
-     * @pre bodyBlocks.contains(block)
-     */
-    public void removeBodyBlock(Block block) {
-        assert bodyBlocks.contains(block);
-
-        int index = bodyBlocks.indexOf(block);
-        bodyBlocks.remove(block);
-        int distance = -block.getHeight() - step;
-        if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
-        PushBlocks.pushFrom(bodyBlocks, index, distance);
-
-        block.setParentBlock(null);
-
-        StatementBlock currentParent = this;
-        while (currentParent != null) {
-            currentParent.increaseGapSize(distance);
-            currentParent = currentParent.getParentBlock();
-        }
-    }
-
     public void addConditionBlock(ConditionBlock block) {
         conditions.add(block);
         block.setParentBlock(this);
@@ -176,10 +106,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
     @Override
     public Point getSocketPosition() {
         return new Point(getPosition().x /*+ step * 3*/, getPosition().y + step);
-    }
-
-    public Point getBodyPlugPosition() {
-        return new Point(getPosition().x + pillarWidth, getPosition().y + getHeight() - step);
     }
 
     public Point getConditionPlugPosition() {

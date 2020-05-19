@@ -1,14 +1,18 @@
 package com.swop.handlers;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockWithBody;
+import com.swop.blocks.FunctionDefinitionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIStatementBlock;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class holding information about all the shared objects between the existing handlers.
@@ -17,7 +21,7 @@ import java.util.Map;
 public class SharedData {
     private static SharedData firstInstance = null;
     private final BlockrGame blockrGame;
-    private final Map<Block, UIBlock> blockUIBlockMap = new HashMap<>();
+    private final BiMap<Block, UIBlock> blockUIBlockMap = HashBiMap.create();
     private UIBlock highlightedBlock;
 
     private SharedData(int maxBlocks, GameWorldType type) {
@@ -50,16 +54,15 @@ public class SharedData {
     }
 
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
-        // TODO: decide whether another map is needed for the opposite direction or not (for efficiency)
-        // TODO: remove the block attribute from uiblocks and fill this method
-        return null;
+        return blockUIBlockMap.inverse().get(uiBlock);
     }
 
-    public void adjustAllStatementBlockGaps() {
+    public void adjustAllBodyBlockGaps() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
-            if (block instanceof StatementBlock) {
+            if (block instanceof BlockWithBody) {
+                // TODO: find a way to not just consider UIStatementBlock
                 UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
-                uiStatement.setGapSize(((StatementBlock) block).getGapSize());
+                uiStatement.setGapSize(((BlockWithBody) block).getGapSize());
             }
         }
     }
@@ -78,6 +81,14 @@ public class SharedData {
         highlightedBlock = block;
         highlightedBlock.setHighlightStateOn(true);
     }
+
+    public Collection<UIBlock> getFunctionDefinitions(){
+        return getBlockrGame().getAllBlocksInPA().stream()
+                .filter(c -> c instanceof FunctionDefinitionBlock)
+                .map(c -> blockUIBlockMap.get(c))
+                .collect(Collectors.toList());
+    }
+
 
     // TODO: find a way to "adjust" highlighted block
 }

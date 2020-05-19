@@ -17,18 +17,28 @@ public class PaletteSection extends WindowSection {
         this.blockrGameFacade = blockrGameFacade;
     }
 
-    public void draw(Graphics g, boolean isPaletteHidden) {
+    /**
+     * Paints the available buttons
+     *
+     * @param g Graphics Objects
+     * @param isPaletteHidden Should the buttons be hidden or not.
+     */
+    public void draw(Graphics g, boolean isPaletteHidden)
+    {
         //Background
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(position.x, position.y, width, height);
 
+        //Hide if needed
         if (isPaletteHidden) return;
 
+        //Get data
         int x = 15;
         int y = 10;
         Collection<Action> gwActions = blockrGameFacade.getSupportedActions();
         Collection<Predicate> gwPredicates = blockrGameFacade.getSupportedPredicates();
-        types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3 + 2];
+        Collection<UIBlock> functionDefinitions = blockrGameFacade.getFunctionDefinitions();
+        types = new BlockTypes[gwActions.size() + gwPredicates.size() + 3 + functionDefinitions.size() + 1];
         int k = 0;
         //Supported actions
         for (Action a : gwActions) {
@@ -47,9 +57,15 @@ public class PaletteSection extends WindowSection {
         types[k++] = new BlockTypes("If", 110, BlockType.IfStatement);
         types[k++] = new BlockTypes("While", 110, BlockType.WhileStatement);
 
-        types[k++] = new BlockTypes("1", 70, BlockType.FunctionCall);
-        types[k++] = new BlockTypes("1", 110, BlockType.FunctionDefinition);
+        //Function calls
+        for(UIBlock b : functionDefinitions){
+            types[k++] = new BlockTypes(b.getText(), 70, BlockType.FunctionCall);
+        }
 
+        //Function Definition
+        types[k++] = new BlockTypes(Integer.toString(functionDefinitions.size()), 110, BlockType.FunctionDefinition);
+
+        //Paint all blocks
         int step = height / types.length;
         for (int i = 0; i < types.length; i++) {
             UIBlock uiBlock = types[i].getNewUIBlock(x, y + step * i);
@@ -61,7 +77,7 @@ public class PaletteSection extends WindowSection {
     }
 
     /**
-     * Get type of the area clicked on (assuming that the click is on the palette area.
+     * Get type of the area clicked on (assuming that the click is on the palette area).
      *
      * @pre isWithin(x, y);
      */

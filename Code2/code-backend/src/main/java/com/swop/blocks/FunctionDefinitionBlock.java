@@ -1,4 +1,15 @@
 package com.swop.blocks;
 
-public class FunctionDefinitionBlock {
+import java.awt.*;
+
+public class FunctionDefinitionBlock extends BlockWithBody{
+
+    protected FunctionDefinitionBlock(Point position, int width, int height) {
+        super(position, width, height);
+    }
+
+    @Override
+    protected void handleEndOfBody() {
+
+    }
 }

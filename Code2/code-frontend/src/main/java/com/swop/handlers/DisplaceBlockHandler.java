@@ -2,6 +2,7 @@ package com.swop.handlers;
 
 import com.swop.BlockrGame;
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockWithBody;
 import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.StatementBlock;
 import com.swop.uiElements.UIBlock;
@@ -44,16 +45,18 @@ public class DisplaceBlockHandler {
         if (backendBlock != null) {
             // TODO: don't remove all bodies and conditions here, let the statementblock do it himself
             // Remove all bodies and conditions as well from program area
-            if (backendBlock instanceof StatementBlock) {
-                List<Block> newBodyBlocks = new ArrayList<>(((StatementBlock) backendBlock).getBodyBlocks());
+            if (backendBlock instanceof BlockWithBody) {
+                List<Block> newBodyBlocks = new ArrayList<>(((BlockWithBody) backendBlock).getBodyBlocks());
                 Collections.reverse(newBodyBlocks);  // Reversing is needed for correct undo
                 for (Block bodyBlock : newBodyBlocks) {
                     blockrGame.removeBlockFromPA(bodyBlock, true);
                 }
-                List<ConditionBlock> newConditions = new ArrayList<>(((StatementBlock) backendBlock).getConditions());
-                Collections.reverse(newConditions);  // Reversing is needed for correct undo
-                for (Block condition : newConditions) {
-                    blockrGame.removeBlockFromPA(condition, true);
+                if (backendBlock instanceof StatementBlock) {
+                    List<ConditionBlock> newConditions = new ArrayList<>(((StatementBlock) backendBlock).getConditions());
+                    Collections.reverse(newConditions);  // Reversing is needed for correct undo
+                    for (Block condition : newConditions) {
+                        blockrGame.removeBlockFromPA(condition, true);
+                    }
                 }
             }
             //remove the block from program area
@@ -78,7 +81,7 @@ public class DisplaceBlockHandler {
         backendBlock.setPreviousDropPosition(backendBlock.getPosition());
         sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
         sharedData.adjustAllBlockPositions();
-        sharedData.adjustAllStatementBlockGaps();
+        sharedData.adjustAllBodyBlockGaps();
         sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(sharedData.getBlockrGame().getNextToBeExecutedBlock()));
     }
 }
