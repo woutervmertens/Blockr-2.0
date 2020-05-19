@@ -199,7 +199,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private UIBlock getUIBlock(int x, int y) {
         if (paletteSection.isWithin(x, y) && !isPaletteHidden) {
             BlockTypes type = paletteSection.getTypeOfClick(x, y);
-            return type.getNewUIBlock(x, y);
+            return type.getNewUIBlock(x, y, blockrGameFacade);
         } else if (programAreaSection.isWithin(x, y)) {
             return blockrGameFacade.getCorrespondingUiBlockFor(blockrGameFacade.getBlockInPaAt(x, y));
         }

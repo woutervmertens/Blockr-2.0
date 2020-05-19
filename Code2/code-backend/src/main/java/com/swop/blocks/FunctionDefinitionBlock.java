@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class FunctionDefinitionBlock extends BlockWithBody{
 
-    protected FunctionDefinitionBlock(Point position, int width, int height) {
+    public FunctionDefinitionBlock(Point position, int width, int height) {
         super(position, width, height);
     }
 
