@@ -6,6 +6,7 @@ import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.*;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIBlockWithBody;
 import com.swop.uiElements.UIStatementBlock;
 
 import java.util.*;
@@ -86,9 +87,9 @@ public class SharedData {
 
     public void adjustAllBodyBlockGaps() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
-            if (block instanceof StatementBlock) {
-                UIStatementBlock uiStatement = (UIStatementBlock) getCorrespondingUiBlockFor(block);
-                uiStatement.setGapSize(((BlockWithBody) block).getGapSize());
+            if (block instanceof BlockWithBody) {
+                UIBlockWithBody uiBlockWithBody = (UIBlockWithBody) getCorrespondingUiBlockFor(block);
+                uiBlockWithBody.setGapSize(((BlockWithBody) block).getGapSize());
             }
         }
     }

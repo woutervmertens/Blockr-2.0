@@ -5,23 +5,12 @@ import com.swop.handlers.BlockrGameFacade;
 import java.awt.*;
 
 
-public class UIFunctionDefinition extends UIBlock{
+public class UIFunctionDefinition extends UIBlockWithBody{
     private int titleWidth;
-    private int gapSize;
-    private final int pillarWidth = 10;
 
     public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor, facade);
+        super(width, height, position, text, type, color, highlightColor, facade, gapSize);
         titleWidth = width/3;
-        this.gapSize = gapSize;
-    }
-
-    public int getGapSize() {
-        return gapSize;
-    }
-
-    public void setGapSize(int gapSize) {
-        this.gapSize = gapSize;
     }
 
     @Override
