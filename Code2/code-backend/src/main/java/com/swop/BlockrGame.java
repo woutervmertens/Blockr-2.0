@@ -7,6 +7,7 @@ import com.swop.command.DropBlockCommand;
 import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
 
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.util.List;
 import java.util.Stack;
@@ -135,10 +136,7 @@ public class BlockrGame {
         // TODO: fix the count for nested statements (recursively !)
         int count = 0;
         for (Block block : getProgram()) {
-            if (block instanceof StatementBlock) {
-                count += ((StatementBlock) block).getBodyBlocks().size() + ((StatementBlock) block).getConditions().size();
-            }
-            count++;
+            count += block.getCount();
         }
         return count;
     }

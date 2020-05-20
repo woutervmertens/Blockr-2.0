@@ -104,4 +104,6 @@ public abstract class Block implements Cloneable {
         if(blockrGame == null) throw new NullPointerException("BlockrGame not set in Block.");
         return blockrGame.getGameWorld();
     }
+
+    public int getCount(){return 1;}
 }

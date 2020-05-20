@@ -120,4 +120,14 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
     public boolean isPositionOn(int x, int y) {
         return (x > getPosition().x && x < getPosition().x + conditionWidth) && (y > getPosition().y && y < getPosition().y + getHeight());
     }
+
+    @Override
+    public int getCount() {
+        int count = 1;
+        count += getConditions().size();
+        for (Block block : getBodyBlocks()){
+           count +=  block.getCount();
+        }
+        return count;
+    }
 }

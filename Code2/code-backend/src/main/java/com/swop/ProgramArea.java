@@ -3,10 +3,8 @@ package com.swop;
 import com.swop.blocks.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
@@ -54,7 +52,13 @@ public class ProgramArea implements PushBlocks {
             program.add(draggedBlock);
             nextBlock = draggedBlock;
             return;
-        } else if (!allBlocks.contains(draggedBlock)) allBlocks.add(draggedBlock);
+        } else if (!allBlocks.contains(draggedBlock)) {
+            allBlocks.add(draggedBlock);
+            if (getNextBlock() == null){
+                setNextBlock(getMostUpperBlock());
+                program.add(getNextBlock());;
+            }
+        }
 
         // 1) Handle Connection
         handleConnections(draggedBlock);
@@ -174,6 +178,7 @@ public class ProgramArea implements PushBlocks {
             nextBlock = null;
         }
     }
+    public void setNextBlock(Block block){this.nextBlock = block;}
 
     /**
      * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
@@ -361,6 +366,11 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
+            else {
+                setNextBlock(getMostUpperBlock());
+                if (getNextBlock() != null){program.add(getNextBlock());}
+
+        }
         } else if (clickedBlock.getParentBlock() != null) {
             ((StatementBlock) clickedBlock.getParentBlock()).removeConditionBlock((ConditionBlock) clickedBlock);
         }
@@ -368,6 +378,11 @@ public class ProgramArea implements PushBlocks {
         if (getProgram().contains(clickedBlock)) {
             removeProgramBlock(clickedBlock);
         }
+    }
+
+    private Block getMostUpperBlock() {
+        Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
+        return min.orElse(null);
     }
 
     /**
