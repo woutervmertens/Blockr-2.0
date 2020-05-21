@@ -3,11 +3,12 @@ package com.swop.blocks;
 import java.awt.*;
 
 public class FunctionCallBlock extends Block implements Executable, VerticallyConnectable{
-    private FunctionDefinitionBlock definitionBlock;
+    private final FunctionDefinitionBlock definitionBlock;
 
     public FunctionCallBlock(Point position, int width, int height, FunctionDefinitionBlock definitionBlock) {
         super(position, width, height);
         this.definitionBlock = definitionBlock;
+        executeType = ExecuteType.NonExecutable;
     }
 
     @Override
@@ -17,11 +18,11 @@ public class FunctionCallBlock extends Block implements Executable, VerticallyCo
 
     @Override
     public Point getPlugPosition() {
-        return null;
+        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + step);
     }
 
     @Override
     public Point getSocketPosition() {
-        return null;
+        return new Point(getPosition().x /*+ step * 3*/, getPosition().y + step);
     }
 }
