@@ -23,15 +23,15 @@ then presses the left mouse key.
 
 ### Extensions (or Alternative Flows):
 *a At any time, user releases the left mouse key inside an if 
-   or while block.
-	1. The system eventually expands the cavity of that if or while block 
-	   and accommodates the block inside that if or while block.
+   or while block or function definition.
+	1. The system eventually expands the cavity of that if or while block or function definition
+	   and accommodates the block inside that if or while block or function definition.
 
-*b At any time,the inital position of the moved block was inside an if or while block and the
-   user releases the left mouse key outside the if or while block.
-	1. The system shrinks the cavity of that if or while block 
+*b At any time,the inital position of the moved block was inside an if or while block or a function definition and the
+   user releases the left mouse key outside the if or while block or function definition.
+	1. The system shrinks the cavity of that if or while block or function definition
 	   and accommodates the optional remaining block or group of blocks inside
-	   that if or while block.
+	   that if or while block or function definition.
 
 1a. User clicks on a block that belongs to a group of blocks.
 	1. System removes block from group

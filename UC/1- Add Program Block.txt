@@ -31,10 +31,10 @@ the mouse.
 
 ### Extensions (or Alternative Flows):
 *a At any time, user releases the left mouse key inside an if 
-   or while block.
+   or while block or function definition.
 	1. System expands the cavity of that block 
 	   and accommodates the block or group of blocks inside
-	   that if or while block.
+	   that if or while block or function definition.
 
 1-3a. When the user releases the mouse key, one of the block’s
       connectors is near a compatible opposite connector of 
@@ -46,6 +46,11 @@ the mouse.
 1-3b. User releases the left mouse key on an area that is not
       the program area.
 	1. The system removes the duplicated dragged block.
+
+1-3c. User releases the left mouse key on an area that is not
+      the program area and the dragged block is a function definition.
+	1. The system removes the duplicated dragged block.
+	2. The system removes the function call blocks related to the definition.
 
 4a. Block is released by the user near the complete bottom or top 
     of a compatible group (eventually single) of blocks.	
@@ -60,4 +65,7 @@ the mouse.
 	2. System adds the duplicated block at the matching connection 
 	   point under the "previous" block and above the "next" block.
 
+5a. The released block is a function definition.
+	1. System creates a function call block in the palette for the definition block that has just been dropped.
+	2. System increases unique number in the function definition in the palette.
 

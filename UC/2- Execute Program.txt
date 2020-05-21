@@ -29,6 +29,9 @@
 1a. User presses F5 when there are no blocks to be executed anymore and the goal is not reached.
 	1. System ends the execution and gives feedback to the user.
 	2. User can reset.
+1b. User presses F5 when a function call is highlighted.
+	1. Step 1-2 get repeated in the function definition until the end of the function definition is reached.
+	2. System returns to the function call and continues from there with step 1.
 2a. System analyses the current code and finds it to lead to a failstate.
 	1. System ends execution and gives feedback to the user.
 	2. User can reset.
