@@ -3,8 +3,11 @@ package com.swop.blocks;
 import java.awt.*;
 
 public class FunctionCallBlock extends Block implements Executable, VerticallyConnectable{
-    public FunctionCallBlock(Point position, int width, int height) {
+    private FunctionDefinitionBlock definitionBlock;
+
+    public FunctionCallBlock(Point position, int width, int height, FunctionDefinitionBlock definitionBlock) {
         super(position, width, height);
+        this.definitionBlock = definitionBlock;
     }
 
     @Override

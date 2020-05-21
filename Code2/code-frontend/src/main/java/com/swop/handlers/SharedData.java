@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.swop.BlockrGame;
 import com.swop.GameWorldType;
 import com.swop.blocks.*;
+import com.swop.uiElements.BlockType;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIBlockWithBody;
 import com.swop.uiElements.UIStatementBlock;
@@ -55,6 +56,16 @@ public class SharedData {
         return blockUIBlockMap.inverse().get(uiBlock);
     }
 
+    private FunctionDefinitionBlock getCorrespondingDefinition(UIBlock uiBlock){
+        for (UIBlock b : blockUIBlockMap.values()) {
+            if(b.getType().getType() == BlockType.FunctionDefinition
+                    && b.getText() == uiBlock.getText()){
+                return (FunctionDefinitionBlock)getCorrespondingBlockFor(b);
+            }
+        }
+        throw new IllegalStateException("No matching definition was found");
+    }
+
     public void makeNewCorrespondingBlock(UIBlock uiBlock){
         Block b;
         switch (uiBlock.getType().getType()) {
@@ -74,7 +85,7 @@ public class SharedData {
                 b = new ConditionBlock(uiBlock.getPosition(), true, uiBlock.getWidth(), uiBlock.getHeight(), uiBlock.getType().getPredicate());
                 break;
             case FunctionCall:
-                b = new FunctionCallBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
+                b = new FunctionCallBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight(), getCorrespondingDefinition(uiBlock));
                 break;
             case FunctionDefinition:
                 b = new FunctionDefinitionBlock(uiBlock.getPosition(), uiBlock.getWidth(), uiBlock.getHeight());
