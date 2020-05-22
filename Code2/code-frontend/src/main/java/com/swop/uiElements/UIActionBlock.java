@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class UIActionBlock extends UIBlock {
 
-    public UIActionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIActionBlock(BlockTypes.stdBlockData data){
+        super(data);
     }
 
     @Override

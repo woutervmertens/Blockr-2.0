@@ -6,8 +6,8 @@ import java.awt.*;
 public class UIFunctionDefinition extends UIBlockWithBody{
     private int titleWidth;
 
-    public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor, gapSize);
+    public UIFunctionDefinition(BlockTypes.stdBlockData data, int gapSize) {
+        super(data, gapSize);
         titleWidth = width/3;
     }
 

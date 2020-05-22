@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class UIConditionBlock extends UIBlock {
 
-    public UIConditionBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIConditionBlock(BlockTypes.stdBlockData data) {
+        super(data);
     }
 
     @Override

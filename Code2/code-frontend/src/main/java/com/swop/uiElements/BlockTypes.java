@@ -2,7 +2,6 @@ package com.swop.uiElements;
 
 import com.swop.Action;
 import com.swop.Predicate;
-import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
@@ -61,25 +60,85 @@ public class BlockTypes {
      * @param y y coordinate
      * @return the new UIBlock
      */
-    public UIBlock getNewUIBlock(int x, int y, BlockrGameFacade facade) {
+    public UIBlock getNewUIBlock(int x, int y) {
+        stdBlockData data = new stdBlockData(this.getWidth(), this.getHeight(), new Point(x,y), this.getText(), this);
         switch (this.type) {
             case ActionType:
-                return new UIActionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this, Color.red, new Color(255,140,140));
+                data.setColor(Color.red);
+                data.setHighlightColor(new Color(255,140,140));
+                return new UIActionBlock(data);
             case IfStatement:
             case WhileStatement:
-                return new UIStatementBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this,Color.cyan, new Color(200,255,255), 0);
+                data.setColor(Color.cyan);
+                data.setHighlightColor(new Color(200,255,255));
+                return new UIStatementBlock(data, 0);
             case NotCondition:
             case Predicate:
-                return new UIConditionBlock(this.getWidth(), this.getHeight(), new Point(x, y),
-                        this.getText(), this, Color.orange, new Color(255,255,145));
+                data.setColor(Color.orange);
+                data.setHighlightColor(new Color(255,255,145));
+                return new UIConditionBlock(data);
             case FunctionCall:
-                return new UIFunctionCall(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.gray, Color.white);
+                data.setColor(Color.gray);
+                data.setHighlightColor(Color.white);
+                return new UIFunctionCall(data);
             case FunctionDefinition:
-                return new UIFunctionDefinition(this.getWidth(),this.getHeight(),new Point(x,y),this.getText(), this, Color.white, Color.white, 0);
+                data.setColor(Color.white);
+                data.setHighlightColor(Color.white);
+                return new UIFunctionDefinition(data,0);
             default:
                 throw new IllegalStateException("Trying to get an Illegal Block !");
+        }
+    }
+
+    protected class stdBlockData{
+        private int width, height;
+        private Point position;
+        private String text;
+        private BlockTypes blockTypes;
+        private Color color, highlightColor;
+
+        protected stdBlockData(int width, int height, Point position, String text, BlockTypes blockTypes){
+            this.width = width;
+            this.height = height;
+            this.position = position;
+            this.text = text;
+            this.blockTypes = blockTypes;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public Point getPosition() {
+            return position;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public BlockTypes getBlockTypes() {
+            return blockTypes;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+
+        public void setColor(Color color) {
+            this.color = color;
+        }
+
+        public Color getHighlightColor() {
+            return highlightColor;
+        }
+
+        public void setHighlightColor(Color highlightColor) {
+            this.highlightColor = highlightColor;
         }
     }
 }
