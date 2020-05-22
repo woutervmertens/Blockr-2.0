@@ -1,9 +1,6 @@
 package com.swop;
 
-import com.swop.uiElements.UIBlock;
-
 import java.awt.*;
-import java.util.Collection;
 
 public class GameWorldSection extends WindowSection{
     public GameWorldSection(Point pos, int width, int height) {

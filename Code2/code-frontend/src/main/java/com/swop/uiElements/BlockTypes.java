@@ -6,7 +6,9 @@ import com.swop.handlers.BlockrGameFacade;
 
 import java.awt.*;
 
-
+/**
+ * Class holding information shared by all block types, and creator of UIBlocks
+ */
 public class BlockTypes {
     private final String text;
     private final int width;

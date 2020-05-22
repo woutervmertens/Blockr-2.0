@@ -96,25 +96,25 @@ public class ProgramArea implements PushBlocks {
      * Handle eventual connections of close blocks for the given draggedblock.
      */
     private void handleConnections(Block draggedBlock) {
-        if (!(draggedBlock instanceof ConditionBlock)) handleVerticalConnections(draggedBlock);
-        else handleHorizontalConnections(draggedBlock);
+        if (draggedBlock instanceof VerticallyConnectable) handleVerticalConnections(draggedBlock);
+        if (draggedBlock instanceof HorizontallyConnectable) handleHorizontalConnections(draggedBlock);
     }
 
     private void handleVerticalConnections(Block draggedBlock) {
-        assert !(draggedBlock instanceof ConditionBlock);
+        assert (draggedBlock instanceof VerticallyConnectable);
         Block closeBlock;
         // 1) plug
         closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
         if (closeBlock != null) {
-            plug(draggedBlock, closeBlock);
+            connectPlug(draggedBlock, closeBlock);
         } else {
             // 2) socket
             closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
-                socket(draggedBlock, closeBlock);
+                connectSocket(draggedBlock, closeBlock);
                 draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
             } else {
-                // 3) statement body
+                // 3) body
                 closeBlock = getBlockWithBodyPlugWithinRadius(draggedBlock, radius);
                 if (closeBlock != null) {
                     draggedBlock.setPosition(((BlockWithBody) closeBlock).getBodyPlugPosition());
@@ -124,8 +124,7 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
-    // TODO: 11/05/2020 Better name?
-    private void plug(Block draggedBlock, Block closeBlock) {
+    private void connectPlug(Block draggedBlock, Block closeBlock) {
         if (program.contains(closeBlock)) {
             addProgramBlockAfter(draggedBlock, closeBlock);
         } else if (closeBlock.getParentBlock() != null) {
@@ -134,8 +133,7 @@ public class ProgramArea implements PushBlocks {
         draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
     }
 
-    // TODO: 11/05/2020 better name?
-    private void socket(Block draggedBlock, Block closeBlock) {
+    private void connectSocket(Block draggedBlock, Block closeBlock) {
         if (program.contains(closeBlock)) {
             addProgramBlockBefore(draggedBlock, closeBlock);
         } else if (closeBlock.getParentBlock() != null) {
@@ -144,7 +142,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     private void handleHorizontalConnections(Block draggedBlock) {
-        assert draggedBlock instanceof ConditionBlock;
+        assert draggedBlock instanceof HorizontallyConnectable;
         Block closeBlock;
         closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
         if (closeBlock != null) {
@@ -392,11 +390,10 @@ public class ProgramArea implements PushBlocks {
      * @param parentBlock
      */
     private void pushUpBodyAndProgramAfterClickOn(BlockWithBody parentBlock, Block clickedBlock) {
-        // TODO: make sure it doesn't push program if the body belongs to a FunctionDefinitionBlock
-
         // 1) Remove the body and push all superior body-blocks up
         parentBlock.removeBodyBlock(clickedBlock);
         // 2) Push program up
+        if(parentBlock instanceof FunctionDefinitionBlock) return;
         // 2.1) Find most superior program block
         while (parentBlock.getParentBlock() != null) {
             parentBlock = parentBlock.getParentBlock();
