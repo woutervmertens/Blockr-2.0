@@ -1,15 +1,13 @@
 package com.swop.uiElements;
 
-import com.swop.handlers.BlockrGameFacade;
-
 import java.awt.*;
 
 public class UIStatementBlock extends UIBlockWithBody {
 
     private final int conditionWidth;
 
-    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor, facade, gapSize);
+    public UIStatementBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
+        super(width, height, position, text, type, color, highlightColor, gapSize);
         conditionWidth = width / 2;
     }
 

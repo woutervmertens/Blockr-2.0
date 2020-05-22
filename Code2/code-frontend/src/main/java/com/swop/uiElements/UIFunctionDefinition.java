@@ -1,15 +1,13 @@
 package com.swop.uiElements;
 
-import com.swop.handlers.BlockrGameFacade;
-
 import java.awt.*;
 
 
 public class UIFunctionDefinition extends UIBlockWithBody{
     private int titleWidth;
 
-    public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor, facade, gapSize);
+    public UIFunctionDefinition(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
+        super(width, height, position, text, type, color, highlightColor, gapSize);
         titleWidth = width/3;
     }
 
