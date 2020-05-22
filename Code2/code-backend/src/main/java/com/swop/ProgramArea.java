@@ -143,17 +143,19 @@ public class ProgramArea implements PushBlocks {
 
     private void handleHorizontalConnections(Block draggedBlock) {
         assert draggedBlock instanceof HorizontallyConnectable;
-        Block closeBlock;
-        closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
-        if (closeBlock != null) {
-            draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
-            ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
-        } else {
-            closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
+        if(draggedBlock instanceof ConditionBlock) {
+            Block closeBlock;
+            closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
-                draggedBlock.setPosition(((HorizontallyConnectable) closeBlock).getPlugPosition());
-                StatementBlock parent = (StatementBlock) closeBlock.getParentBlock();
-                parent.addConditionBlock((ConditionBlock) draggedBlock);
+                draggedBlock.setPosition(((StatementBlock) closeBlock).getConditionPlugPosition());
+                ((StatementBlock) closeBlock).addConditionBlock((ConditionBlock) draggedBlock);
+            } else {
+                closeBlock = getConditionBlockConditionPlugWithinRadius(draggedBlock, radius);
+                if (closeBlock != null) {
+                    draggedBlock.setPosition(((HorizontallyConnectable) closeBlock).getPlugPosition());
+                    StatementBlock parent = (StatementBlock) closeBlock.getParentBlock();
+                    parent.addConditionBlock((ConditionBlock) draggedBlock);
+                }
             }
         }
     }
