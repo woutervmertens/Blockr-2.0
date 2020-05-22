@@ -29,6 +29,8 @@ class DropBlockCommandTest {
         assertEquals(block, dropBlockCommand.programArea.getAllBlocks().get(dropBlockCommand.programArea.getAllBlocks().size() - 1));
         dropBlockCommand.undo();
         assertFalse(dropBlockCommand.programArea.getAllBlocks().contains(block));
+        dropBlockCommand.undo();
+        assertFalse(dropBlockCommand.programArea.getAllBlocks().contains(block));
     }
 
 }
