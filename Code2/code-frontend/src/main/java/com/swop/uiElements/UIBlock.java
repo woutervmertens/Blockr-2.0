@@ -1,7 +1,5 @@
 package com.swop.uiElements;
 
-import com.swop.handlers.BlockrGameFacade;
-
 import java.awt.*;
 
 public abstract class UIBlock {
