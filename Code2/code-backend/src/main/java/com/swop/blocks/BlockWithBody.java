@@ -15,6 +15,20 @@ public abstract class BlockWithBody extends Block{
         super(position, width, height);
     }
 
+    @Override
+    public void setPosition(Point position) {
+        try {
+            int dx = position.x - getPosition().x;
+            int dy = position.y - getPosition().y;
+            super.setPosition(position);
+            for (Block bodyBlock : getBodyBlocks()) {
+                bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
+            }
+        } catch (NullPointerException e) {
+            super.setPosition(position);
+        }
+    }
+
     /**
      * 1) Add the given block after the given existing block
      * 2) And push all others inside the body
@@ -138,5 +152,14 @@ public abstract class BlockWithBody extends Block{
 
     public void increaseGapSize(int increase) {
         this.setGapSize(getGapSize() + increase);
+    }
+
+    @Override
+    public int getCount() {
+        int count = 1;
+        for (Block block : getBodyBlocks()){
+            count +=  block.getCount();
+        }
+        return count;
     }
 }

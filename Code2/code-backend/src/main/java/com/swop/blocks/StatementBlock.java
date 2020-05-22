@@ -31,9 +31,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
             int dx = position.x - getPosition().x;
             int dy = position.y - getPosition().y;
             super.setPosition(position);
-            for (Block bodyBlock : getBodyBlocks()) {
-                bodyBlock.setPosition(new Point(bodyBlock.getPosition().x + dx, bodyBlock.getPosition().y + dy));
-            }
             for (Block conditionBlock : getConditions()) {
                 conditionBlock.setPosition(new Point(conditionBlock.getPosition().x + dx, conditionBlock.getPosition().y + dy));
             }
@@ -123,11 +120,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
 
     @Override
     public int getCount() {
-        int count = 1;
-        count += getConditions().size();
-        for (Block block : getBodyBlocks()){
-           count +=  block.getCount();
-        }
-        return count;
+        return super.getCount() + getConditions().size();
     }
 }
