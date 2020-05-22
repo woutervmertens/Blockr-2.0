@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  */
 public class SharedData {
     private static SharedData firstInstance = null;
+
     private final BlockrGame blockrGame;
     private final BiMap<Block, UIBlock> blockUIBlockMap = HashBiMap.create();
     private UIBlock highlightedBlock;
@@ -119,6 +120,7 @@ public class SharedData {
         highlightedBlock.setHighlightStateOn(true);
     }
 
+    // TODO: weg met blockrGame, zet het in de 2 handlers en niet zo'n getter !
     public Collection<UIBlock> getFunctionDefinitions(){
         return getBlockrGame().getAllBlocksInPA().stream()
                 .filter(c -> c instanceof FunctionDefinitionBlock)

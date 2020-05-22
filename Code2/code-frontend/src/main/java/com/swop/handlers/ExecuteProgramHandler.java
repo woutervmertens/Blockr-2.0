@@ -11,6 +11,7 @@ public class ExecuteProgramHandler {
 
     public void executeNext() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
+        // TODO: subtract from getNumBlocks the blocks in a functiondef
         if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
         blockrGame.executeNext();
         sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
