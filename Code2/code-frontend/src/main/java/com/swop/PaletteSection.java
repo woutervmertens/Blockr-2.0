@@ -68,7 +68,7 @@ public class PaletteSection extends WindowSection {
         //Paint all blocks
         int step = height / types.length;
         for (int i = 0; i < types.length; i++) {
-            UIBlock uiBlock = types[i].getNewUIBlock(x, y + step * i, blockrGameFacade);
+            UIBlock uiBlock = types[i].getNewUIBlock(x, y + step * i);
             uiBlock.setPosition(new Point(x, y + step * i));
             g.setColor(Color.black);
             g.drawRoundRect(5, step * i, width - 10, step, 5, 5);

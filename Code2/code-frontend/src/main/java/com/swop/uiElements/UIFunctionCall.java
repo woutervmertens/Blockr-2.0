@@ -3,8 +3,9 @@ package com.swop.uiElements;
 import java.awt.*;
 
 public class UIFunctionCall extends UIBlock{
-    public UIFunctionCall(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        super(width, height, position, text, type, color, highlightColor);
+
+    public UIFunctionCall(BlockTypes.stdBlockData data) {
+        super(data);
     }
 
     @Override

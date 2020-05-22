@@ -6,8 +6,8 @@ public abstract class UIBlockWithBody extends UIBlock{
     protected int gapSize;
     protected final int pillarWidth = 10;
 
-    public UIBlockWithBody(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, int gapSize) {
-        super(width, height, position, text, type, color, highlightColor);
+    public UIBlockWithBody(BlockTypes.stdBlockData data, int gapSize){
+        super(data);
         this.gapSize = gapSize;
     }
 

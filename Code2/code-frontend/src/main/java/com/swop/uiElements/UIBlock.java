@@ -12,14 +12,14 @@ public abstract class UIBlock {
     private BlockTypes type;
     protected boolean isHighlight;
 
-    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
-        this.width = width;
-        this.height = height;
-        this.position = position;
-        this.text = text;
-        this.type = type;
-        this.color = color;
-        this.highlightColor = highlightColor;
+    public UIBlock(BlockTypes.stdBlockData data){
+        this.width = data.getWidth();
+        this.height = data.getHeight();
+        this.position = data.getPosition();
+        this.text = data.getText();
+        this.type = data.getBlockTypes();
+        this.color = data.getColor();
+        this.highlightColor = data.getHighlightColor();
         step = height / 6;
     }
 
