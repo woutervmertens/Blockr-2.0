@@ -25,11 +25,8 @@ public class DropBlockCommand extends ProgramAreaCommand {
     @Override
     public void undo() {
         try {
-            // block.setPreviousDropPosition(block.getPosition());
             block.setPosition(previousPosition);
             programArea.dropBlock(block);
-        } catch (IllegalArgumentException e) {
-            programArea.removeBlockFromPA(block);
-        }
+        } catch (IllegalArgumentException e) {programArea.removeBlockFromPA(block);}
     }
 }
