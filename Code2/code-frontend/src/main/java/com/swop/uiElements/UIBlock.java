@@ -12,6 +12,7 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     private BlockTypes type;
+    // TODO: blockrGameFacade weg ! Maak corresponding block aan in MyCanvasWindow
     protected BlockrGameFacade blockrGameFacade;
     protected boolean isHighlight;
 

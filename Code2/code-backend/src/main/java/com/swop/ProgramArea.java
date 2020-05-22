@@ -47,6 +47,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
+        // TODO: handle the drop
         if (allBlocks.size() == 0) {
             allBlocks.add(draggedBlock);
             program.add(draggedBlock);
