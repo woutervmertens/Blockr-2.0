@@ -14,7 +14,6 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BlockrGame {
-    private final static AtomicReference<BlockrGame> instance = new AtomicReference<>();
     private final ProgramArea programArea;
     private final GameWorldType gameWorldType;
     /**
