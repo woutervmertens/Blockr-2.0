@@ -12,10 +12,9 @@ public abstract class UIBlock {
     protected Point position;
     protected Color color, highlightColor;
     private BlockTypes type;
-    protected BlockrGameFacade blockrGameFacade;
     protected boolean isHighlight;
 
-    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {
+    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor) {
         this.width = width;
         this.height = height;
         this.position = position;
@@ -23,11 +22,8 @@ public abstract class UIBlock {
         this.type = type;
         this.color = color;
         this.highlightColor = highlightColor;
-        this.blockrGameFacade = facade;
         step = height / 6;
     }
-
-    public void makeNewCorrespondingBlock() {blockrGameFacade.makeNewCorrespondingBlock(this);}
 
     public Point getPosition() {
         return position;
@@ -35,9 +31,6 @@ public abstract class UIBlock {
 
     public void setPosition(Point position) {
         this.position = position;
-        if (blockrGameFacade.getCorrespondingBlockFor(this) != null) {
-            blockrGameFacade.getCorrespondingBlockFor(this).setPosition(position);
-        }
     }
 
     public Point getTextPosition() {

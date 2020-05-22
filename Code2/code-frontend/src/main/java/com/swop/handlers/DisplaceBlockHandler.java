@@ -24,7 +24,7 @@ public class DisplaceBlockHandler {
     public void handleReleaseInPA(UIBlock draggedBlock) {
         // 1) Handle map
         if (sharedData.getCorrespondingBlockFor(draggedBlock) == null) {
-            draggedBlock.makeNewCorrespondingBlock();
+            sharedData.makeNewCorrespondingBlock(draggedBlock);
             sharedData.getCorrespondingBlockFor(draggedBlock).setBlockrGame(sharedData.getBlockrGame());
         }
 
