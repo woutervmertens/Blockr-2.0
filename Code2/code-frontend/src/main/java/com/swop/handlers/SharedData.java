@@ -8,7 +8,6 @@ import com.swop.blocks.*;
 import com.swop.uiElements.BlockType;
 import com.swop.uiElements.UIBlock;
 import com.swop.uiElements.UIBlockWithBody;
-import com.swop.uiElements.UIStatementBlock;
 
 import java.util.*;
 import java.util.stream.Collectors;

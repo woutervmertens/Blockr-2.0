@@ -1,7 +1,6 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.uiElements.UIBlock;
 
 public class ExecuteProgramHandler {
     private final SharedData sharedData;
