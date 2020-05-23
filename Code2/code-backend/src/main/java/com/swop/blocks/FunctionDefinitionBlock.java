@@ -10,6 +10,6 @@ public class FunctionDefinitionBlock extends BlockWithBody{
 
     @Override
     protected void handleEndOfBody() {
-
+        setBusy(false);
     }
 }

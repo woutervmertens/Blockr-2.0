@@ -11,9 +11,15 @@ public class FunctionCallBlock extends Block implements Executable, VerticallyCo
         executeType = ExecuteType.NonExecutable;
     }
 
+    public FunctionDefinitionBlock getDefinitionBlock() {
+        return definitionBlock;
+    }
+
     @Override
     public void execute() {
-
+        setBusy(true);
+        getDefinitionBlock().execute();
+        if (! getDefinitionBlock().isBusy()) setBusy(false);
     }
 
     @Override

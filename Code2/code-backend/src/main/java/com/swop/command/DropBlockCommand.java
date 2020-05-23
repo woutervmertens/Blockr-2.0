@@ -10,10 +10,10 @@ public class DropBlockCommand extends ProgramAreaCommand {
     private final Point position;
     private final Point previousPosition;
 
-    public DropBlockCommand(ProgramArea programArea, Block block) {
+    public DropBlockCommand(ProgramArea programArea, Block block, int x, int y) {
         super(programArea);
         this.block = block;
-        this.position = block.getPosition();
+        this.position = new Point(x,y);
         previousPosition = block.getPreviousDropPosition();
     }
 

@@ -15,14 +15,14 @@ public class ProgramArea implements PushBlocks {
     private final int radius = 10;  // Radius for connections
     /**
      * List recording all the blocks that belong to the current program of this program area WITHOUT nested blocks.
-     * Nested blocks (inside StatementBlocks) should be accessed using ''
+     * Nested blocks (inside blocks with bodies) should be accessed using 'getNextBodyBlock()'
      */
     private final List<Block> program = new LinkedList<>();
     /**
      * List recording all blocks currently present in program area
      */
     private final List<Block> allBlocks = new ArrayList<>();
-    private Block nextBlock;
+    private Block nextProgramBlock;
 
     /**
      * @param b Point1
@@ -51,13 +51,13 @@ public class ProgramArea implements PushBlocks {
         if (allBlocks.size() == 0) {
             allBlocks.add(draggedBlock);
             program.add(draggedBlock);
-            nextBlock = draggedBlock;
+            nextProgramBlock = draggedBlock;
             return;
         } else if (!allBlocks.contains(draggedBlock)) {
             allBlocks.add(draggedBlock);
-            if (getNextBlock() == null){
-                setNextBlock(getMostUpperBlock());
-                program.add(getNextBlock());;
+            if (getNextProgramBlock() == null){
+                setNextProgramBlock(getMostUpperBlock());
+                program.add(getNextProgramBlock());;
             }
         }
 
@@ -77,7 +77,7 @@ public class ProgramArea implements PushBlocks {
      * Push program blocks if the given dragged block was added to a statement body
      */
     private void pushProgramBlocksForBody(Block draggedBlock) {
-        if (draggedBlock.getParentBlock() != null) {
+        if (draggedBlock.getParentBlock() != null && ! (draggedBlock instanceof ConditionBlock)) {
 
             Block currentBlock = draggedBlock;
             while (currentBlock.getParentBlock() != null) {
@@ -162,24 +162,27 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return Returns the next to be executed block of the program.
+     * @return  Returns the next to be executed block of the program. This methods does not return the effectively
+     *          to be executed block, but the next block of the program stack !
      */
-    public Block getNextBlock() {
-        return nextBlock;
+    public Block getNextProgramBlock() {
+        return nextProgramBlock;
     }
 
     /**
      * Sets the next block to the next block in the list, otherwise to null.
      */
-    public void setNextBlock() {
-        int i = program.indexOf(nextBlock);
-        if (i + 1 < program.size()) {
-            nextBlock = program.get(i + 1);
-        } else {
-            nextBlock = null;
+    public void setNextProgramBlock() {
+        if (!getNextProgramBlock().isBusy()) {
+            int i = program.indexOf(nextProgramBlock);
+            if (i + 1 < program.size()) {
+                nextProgramBlock = program.get(i + 1);
+            } else {
+                nextProgramBlock = null;
+            }
         }
     }
-    public void setNextBlock(Block block){this.nextBlock = block;}
+    public void setNextProgramBlock(Block block){this.nextProgramBlock = block;}
 
     /**
      * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
@@ -368,8 +371,8 @@ public class ProgramArea implements PushBlocks {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
             else {
-                setNextBlock(getMostUpperBlock());
-                if (getNextBlock() != null){program.add(getNextBlock());}
+                setNextProgramBlock(getMostUpperBlock());
+                if (getNextProgramBlock() != null){program.add(getNextProgramBlock());}
 
         }
         } else if (clickedBlock.getParentBlock() != null) {
@@ -415,6 +418,6 @@ public class ProgramArea implements PushBlocks {
      */
     public void resetProgramExecution() {
         for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
-        if (!program.isEmpty()) nextBlock = ((LinkedList<Block>) program).getFirst();
+        if (!program.isEmpty()) nextProgramBlock = ((LinkedList<Block>) program).getFirst();
     }
 }

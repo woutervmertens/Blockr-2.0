@@ -51,7 +51,7 @@ class BlockrGameTest {
         blockrGame = new BlockrGame(maxBlocks, gameWorldType);
         gameWorld = blockrGame.getGameWorld();
         whileBlock.addConditionBlock(conditionBlock);
-        dropBlockCommand = new DropBlockCommand(blockrGame.getProgramArea(),actionBlock);
+        dropBlockCommand = new DropBlockCommand(blockrGame.getProgramArea(),actionBlock, wPosition.x, wPosition.y);
     }
 
     @Test
@@ -70,20 +70,20 @@ class BlockrGameTest {
         assertEquals(0, blockrGame.getNumBlocksInPA(), "Number of blocks isn't 0");
         assertFalse(blockrGame.isPaletteHidden(), "maximum isn't reached");
 
-        blockrGame.dropBlockInPA(whileBlock);
+        blockrGame.dropBlockInPAAt(whileBlock, wPosition.x, wPosition.y);
         assertEquals(1, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");
         assertEquals(1, blockrGame.getNumBlocksInPA(), "Number of blocks isn't 1");
-        assertEquals(blockrGame.getProgramArea().getNextBlock(), whileBlock, "WhileBlock isn't the current block");
+        assertEquals(blockrGame.getProgramArea().getNextProgramBlock(), whileBlock, "WhileBlock isn't the current block");
         assertFalse(blockrGame.isPaletteHidden(), "maximum isn't reached");
 
-        blockrGame.dropBlockInPA(actionBlock);
-        assertEquals(blockrGame.getProgramArea().getNextBlock(), whileBlock, "WhileBlock isn't the current block");
+        blockrGame.dropBlockInPAAt(actionBlock, wPosition.x, wPosition.y);
+        assertEquals(blockrGame.getProgramArea().getNextProgramBlock(), whileBlock, "WhileBlock isn't the current block");
         assertEquals(2, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");
         assertEquals(2, blockrGame.getNumBlocksInPA(), "Number of blocks isn't 2");
         assertTrue(blockrGame.isPaletteHidden(), "maximum is reached");
 
         blockrGame.executeNext();
-        assertEquals(blockrGame.getProgramArea().getNextBlock(), actionBlock, "ActionBlock isn't the current block");
+        assertEquals(blockrGame.getProgramArea().getNextProgramBlock(), actionBlock, "ActionBlock isn't the current block");
 
         blockrGame.removeBlockFromPA(whileBlock, true);
         assertEquals(1, blockrGame.getAllBlocksInPA().size(), "didn't add block to program area");

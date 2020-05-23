@@ -10,6 +10,7 @@ public class IfBlock extends StatementBlock {
     @Override
     protected void handleEndOfBody() {
         setBusy(false);
+        setNextBodyBlock(null);
     }
 
 
