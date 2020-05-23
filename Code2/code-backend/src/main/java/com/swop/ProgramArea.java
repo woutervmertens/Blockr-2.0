@@ -3,8 +3,8 @@ package com.swop;
 import com.swop.blocks.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * A program area that handles drops of blocks in it for constructing program(s).
@@ -55,10 +55,11 @@ public class ProgramArea implements PushBlocks {
             return;
         } else if (!allBlocks.contains(draggedBlock)) {
             allBlocks.add(draggedBlock);
-            if (getNextProgramBlock() == null){
-                setNextProgramBlock(getMostUpperBlock());
-                program.add(getNextProgramBlock());;
-            }
+            // TODO: fix dees
+//            if (getNextProgramBlock() == null){
+//                setNextProgramBlock(getMostUpperBlock());
+//                program.add(getNextProgramBlock());;
+//            }
         }
 
         // 1) Handle Connection
@@ -77,7 +78,7 @@ public class ProgramArea implements PushBlocks {
      * Push program blocks if the given dragged block was added to a statement body
      */
     private void pushProgramBlocksForBody(Block draggedBlock) {
-        if (draggedBlock.getParentBlock() != null && ! (draggedBlock instanceof ConditionBlock)) {
+        if (draggedBlock.getParentBlock() != null && !(draggedBlock instanceof ConditionBlock)) {
 
             Block currentBlock = draggedBlock;
             while (currentBlock.getParentBlock() != null) {
@@ -144,7 +145,7 @@ public class ProgramArea implements PushBlocks {
 
     private void handleHorizontalConnections(Block draggedBlock) {
         assert draggedBlock instanceof HorizontallyConnectable;
-        if(draggedBlock instanceof ConditionBlock) {
+        if (draggedBlock instanceof ConditionBlock) {
             Block closeBlock;
             closeBlock = getStatementBlockConditionPlugWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
@@ -162,8 +163,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return  Returns the next to be executed block of the program. This methods does not return the effectively
-     *          to be executed block, but the next block of the program stack !
+     * @return Returns the next to be executed block of the program. This methods does not return the effectively
+     * to be executed block, but the next block of the program stack !
      */
     public Block getNextProgramBlock() {
         return nextProgramBlock;
@@ -182,7 +183,10 @@ public class ProgramArea implements PushBlocks {
             }
         }
     }
-    public void setNextProgramBlock(Block block){this.nextProgramBlock = block;}
+
+    public void setNextProgramBlock(Block block) {
+        this.nextProgramBlock = block;
+    }
 
     /**
      * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
@@ -370,11 +374,13 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
-            else {
-                setNextProgramBlock(getMostUpperBlock());
-                if (getNextProgramBlock() != null){program.add(getNextProgramBlock());}
-
-        }
+            // TODO: remove this!
+//            else {
+//                setNextProgramBlock(getMostUpperBlock());
+//                if (getNextProgramBlock() != null) {
+//                    program.add(getNextProgramBlock());
+//                }
+//            }
         } else if (clickedBlock.getParentBlock() != null) {
             ((StatementBlock) clickedBlock.getParentBlock()).removeConditionBlock((ConditionBlock) clickedBlock);
         }
@@ -399,7 +405,7 @@ public class ProgramArea implements PushBlocks {
         // 1) Remove the body and push all superior body-blocks up
         parentBlock.removeBodyBlock(clickedBlock);
         // 2) Push program up
-        if(parentBlock instanceof FunctionDefinitionBlock) return;
+        if (parentBlock instanceof FunctionDefinitionBlock) return;
         // 2.1) Find most superior program block
         while (parentBlock.getParentBlock() != null) {
             parentBlock = parentBlock.getParentBlock();
