@@ -23,9 +23,9 @@ class ExecuteCommandTest {
     BlockrGame blockrGame = new BlockrGame(maxBlocks, gameWorldType);
     private GameWorld gameWorld = blockrGame.getGameWorld();
     private RobotSnapshot snapshot = (RobotSnapshot) gameWorld.createSnapshot();
-    private ExecuteCommand executeCommand = new ExecuteCommand(gameWorld, block);
+    private ExecuteCommand executeCommand = new ExecuteCommand(blockrGame, block);
     private ConditionBlock conditionBlock = new ConditionBlock(new Point(5, 6), true, 2, 2,RobotPredicate.WALL_IN_FRONT);
-    private ExecuteCommand executeCommand1 = new ExecuteCommand(gameWorld, conditionBlock);
+    private ExecuteCommand executeCommand1 = new ExecuteCommand(blockrGame, conditionBlock);
 
     {
         try {

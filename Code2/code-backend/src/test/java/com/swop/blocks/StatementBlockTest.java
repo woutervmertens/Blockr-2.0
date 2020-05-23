@@ -88,7 +88,7 @@ class StatementBlockTest {
         action2 = RobotAction.TURN_RIGHT;
         actionBlock2 = new ActionBlock(aPosition2, aWidth2, aHeight2, action2);
         actionBlock2.setBlockrGame(blockrGame);
-        executeCommand = new ExecuteCommand(gameWorld,actionBlock1);
+        executeCommand = new ExecuteCommand(blockrGame,actionBlock1);
         conditionWidth = wWidth / 2;
     }
 

@@ -112,10 +112,15 @@ public class SharedData {
         }
     }
 
+    public void handleHighlight(){
+        setHighlightedBlock(getCorrespondingUiBlockFor(blockrGame.getProgramArea().getNextProgramBlock()));
+    }
+
     public void setHighlightedBlock(UIBlock block) {
+        if (highlightedBlock != null) highlightedBlock.setHighlightStateOn(false);
         if (block == null) return;
 
-        if (highlightedBlock != null) highlightedBlock.setHighlightStateOn(false);
+
         highlightedBlock = block;
         highlightedBlock.setHighlightStateOn(true);
     }

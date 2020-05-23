@@ -86,13 +86,16 @@ public class BlockrGameFacade {
 
     public void undo() {
         sharedData.getBlockrGame().undoCommand();
+        sharedData.handleHighlight();
     }
 
     public void redo() {
         sharedData.getBlockrGame().redoCommand();
+        sharedData.handleHighlight();
     }
 
     public void reset() {
-        sharedData.getBlockrGame().resetEverything();
+        sharedData.getBlockrGame().reset();
+        sharedData.handleHighlight();
     }
 }

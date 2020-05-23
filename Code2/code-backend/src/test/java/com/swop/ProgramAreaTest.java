@@ -72,7 +72,6 @@ private final Point tRPosition = new Point(2, 4);
         aWidth = 3;
         aHeight = 2;
         action = RobotAction.MOVE_FORWARD;
-        actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
         whileBlock = new WhileBlock(wPosition,aWidth,aHeight);
     }
 
