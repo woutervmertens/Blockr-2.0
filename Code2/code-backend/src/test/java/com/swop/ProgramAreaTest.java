@@ -25,19 +25,20 @@ class ProgramAreaTest {
     private ActionBlock actionBlock;
     private WhileBlock whileBlock;
 
-// move forward block
+
+    // move forward block
     private final Point mPosition = new Point(2, 2);
     private final int mWidth = 30;
     private final int mHeight = 20;
     private final Action mAction = RobotAction.MOVE_FORWARD;
     private final ActionBlock mActionBlock = new ActionBlock(mPosition, mWidth, mHeight, mAction);
-// turn left block
+    // turn left block
     private final Point tPosition = new Point(2, 4);
     private final int tWidth = 30;
     private final int tHeight = 20;
     private final Action tAction = RobotAction.TURN_LEFT;
     private final ActionBlock tActionBlock = new ActionBlock(tPosition, tWidth, tHeight, tAction);
-// if block
+    // if block
     private final Point ifPosition = new Point(2, 6);
     private final int ifWidth = 30;
     private final int ifHeight = 30;
@@ -56,8 +57,8 @@ class ProgramAreaTest {
     private final int con2Height = 20;
     private final Predicate predicate2 = null;
     private final ConditionBlock notBlock = new ConditionBlock(con2Position, ispredicate2, con2width, con2Height, predicate2);
-// turn right block
-private final Point tRPosition = new Point(2, 4);
+    // turn right block
+    private final Point tRPosition = new Point(2, 4);
     private final int tRWidth = 30;
     private final int tRHeight = 20;
     private final Action tRAction = RobotAction.TURN_LEFT;
@@ -72,6 +73,7 @@ private final Point tRPosition = new Point(2, 4);
         aWidth = 3;
         aHeight = 2;
         action = RobotAction.MOVE_FORWARD;
+        actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
         whileBlock = new WhileBlock(wPosition,aWidth,aHeight);
     }
 
@@ -136,8 +138,6 @@ private final Point tRPosition = new Point(2, 4);
         assertTrue(programArea.getAllBlocks().contains(tRActionBlock));
         assertTrue(ifBlock.getBodyBlocks().contains(tRActionBlock));
 
-        programArea.removeBlockFromPA(actionBlock);
-        assertFalse(programArea.getAllBlocks().contains(actionBlock));
 
     }
 
