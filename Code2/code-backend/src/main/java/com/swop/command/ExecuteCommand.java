@@ -22,9 +22,9 @@ public class ExecuteCommand extends GameWorldCommand {
     public void execute() {
         snapshot = gameWorld.createSnapshot();
 
-        if (block.getExecuteType() != ExecuteType.NonExecutable) {
+    if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();
-        }
+       }
     }
 
     @Override
