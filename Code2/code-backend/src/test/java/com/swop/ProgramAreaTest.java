@@ -25,13 +25,12 @@ class ProgramAreaTest {
     private ActionBlock actionBlock;
     private WhileBlock whileBlock;
 
-    private ProgramArea programArea = new ProgramArea();
 // move forward block
     private final Point mPosition = new Point(2, 2);
     private final int mWidth = 30;
     private final int mHeight = 20;
     private final Action mAction = RobotAction.MOVE_FORWARD;
-    private final ActionBlock actionBlock = new ActionBlock(mPosition, mWidth, mHeight, mAction);
+    private final ActionBlock mActionBlock = new ActionBlock(mPosition, mWidth, mHeight, mAction);
 // turn left block
     private final Point tPosition = new Point(2, 4);
     private final int tWidth = 30;
@@ -94,11 +93,11 @@ private final Point tRPosition = new Point(2, 4);
     void dropBlockIn() {
         //move forward
         Point expected = new Point(4,10);
-        programArea.dropBlockIn(actionBlock, expected);
-        assertEquals(expected.x,actionBlock.getPosition().x, "The expected and actual x-value of the position of the actionBlock are different.");
-        assertEquals(expected.y, actionBlock.getPosition().y, "The expected and actual y-value of the position of the actionBlock are different." );
+        programArea.dropBlockIn(mActionBlock, expected);
+        assertEquals(expected.x,mActionBlock.getPosition().x, "The expected and actual x-value of the position of the actionBlock are different.");
+        assertEquals(expected.y, mActionBlock.getPosition().y, "The expected and actual y-value of the position of the actionBlock are different." );
 
-        assertTrue(programArea.getAllBlocks().contains(actionBlock));
+        assertTrue(programArea.getAllBlocks().contains(mActionBlock));
         // turn left
         Point tExpected = new Point(4,33);
         programArea.dropBlockIn(tActionBlock, tExpected);
@@ -140,31 +139,9 @@ private final Point tRPosition = new Point(2, 4);
 
         programArea.removeBlockFromPA(actionBlock);
         assertFalse(programArea.getAllBlocks().contains(actionBlock));
-        //move forward
-        expected = new Point(4, 33);
-        programArea.dropBlockIn(actionBlock, expected);
-        assertEquals(expected.x,actionBlock.getPosition().x, "The expected and actual x-value of the position of the actionBlock are different.");
-        assertEquals(expected.y, actionBlock.getPosition().y, "The expected and actual y-value of the position of the actionBlock are different." );
 
     }
 
-
-    @Test
-    void getNextProgramBlock() {
-
-    }
-
-    @Test
-    void setNextProgramBlock() {
-    }
-
-    @Test
-    void testSetNextProgramBlock() {
-    }
-
-    @Test
-    void getBlockAt() {
-    }
 
     @Test
     void dropBlock() {
