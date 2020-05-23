@@ -52,6 +52,9 @@ class BlockrGameTest {
         gameWorld = blockrGame.getGameWorld();
         whileBlock.addConditionBlock(conditionBlock);
         dropBlockCommand = new DropBlockCommand(blockrGame.getProgramArea(),actionBlock, wPosition.x, wPosition.y);
+        actionBlock.setBlockrGame(blockrGame);
+        whileBlock.setBlockrGame(blockrGame);
+        conditionBlock.setBlockrGame(blockrGame);
     }
 
     @Test
