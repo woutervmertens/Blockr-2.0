@@ -15,12 +15,23 @@ class FunctionCallBlockTest {
     private final int width = 3;
     private final int height = 4;
     private final FunctionDefinitionBlock definition = new FunctionDefinitionBlock(position,width,height);
+    private ActionBlock action, action2;
     private BlockrGame blockrGame = new BlockrGame(10, new RobotGameWorldType());
 
     private final FunctionCallBlock callBlock = new FunctionCallBlock(position, width, height, definition);
 
     @Test
     void execute() {
+        action = new ActionBlock(position,width,height,RobotAction.TURN_RIGHT);
+        action2 = new ActionBlock(position,width,height,RobotAction.TURN_RIGHT);
+        action.setBlockrGame(blockrGame);
+        action2.setBlockrGame(blockrGame);
+        callBlock.execute();
+        assertFalse(callBlock.isBusy());
+        definition.insertBodyBlockAtIndex(action,0);
+        definition.insertBodyBlockAtIndex(action2,1);
+        callBlock.execute();
+        assertTrue(callBlock.isBusy());
     }
 
     @Test

@@ -22,11 +22,9 @@ public class ExecuteCommand extends GameWorldCommand {
     public void execute() {
         snapshot = gameWorld.createSnapshot();
 
-        ((Executable) block).execute();
-        // TODO: fix dees, want function call/definition blocks konden niet opgeroepen worden
-//        if (block.getExecuteType() != ExecuteType.NonExecutable) {
-//            ((Executable) block).execute();
-//        }
+    if (block.getExecuteType() != ExecuteType.NonExecutable) {
+            ((Executable) block).execute();
+       }
     }
 
     @Override
