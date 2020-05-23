@@ -4,6 +4,7 @@ import com.swop.handlers.BlockrGameFacade;
 import com.swop.handlers.SharedData;
 import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.UIBlockWithBody;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -165,7 +166,13 @@ public class MyCanvasWindow extends CanvasWindow {
         if (isBlockDragged()) {
             pos.x = x;
             pos.y = y;
-            draggedBlock.setPosition((Point) pos.clone());
+            if (blockrGameFacade.getCorrespondingBlockFor(draggedBlock) != null) {
+                draggedBlock.setPosition((Point) pos.clone());
+                blockrGameFacade.getCorrespondingBlockFor(draggedBlock).setPosition((Point) pos.clone());
+            }
+            else {
+                draggedBlock.setPosition((Point) pos.clone());
+            }
             repaint();
         }
     }
