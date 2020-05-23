@@ -2,7 +2,8 @@ package com.swop.blocks;
 
 import java.awt.*;
 
-public class FunctionDefinitionBlock extends BlockWithBody{
+// TODO: fix the executable issue
+public class FunctionDefinitionBlock extends BlockWithBody implements Executable{
 
     public FunctionDefinitionBlock(Point position, int width, int height) {
         super(position, width, height);
