@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BlockWithBody extends Block{
+public abstract class BlockWithBody extends Block implements Executable {
     protected List<Block> bodyBlocks = new ArrayList<>();
     private Block nextBodyBlock = null;
     private int gapSize;
@@ -93,6 +93,15 @@ public abstract class BlockWithBody extends Block{
         }
     }
 
+    @Override
+    public void execute() {
+        if (!isBusy()) {
+            setBusy(true);
+            setNextBodyBlock();
+        }
+        executeNextBodyBlock();
+    }
+
     public void resetExecution() {
         setNextBodyBlock(null);
         setBusy(false);
@@ -157,8 +166,8 @@ public abstract class BlockWithBody extends Block{
     @Override
     public int getCount() {
         int count = 1;
-        for (Block block : getBodyBlocks()){
-            count +=  block.getCount();
+        for (Block block : getBodyBlocks()) {
+            count += block.getCount();
         }
         return count;
     }

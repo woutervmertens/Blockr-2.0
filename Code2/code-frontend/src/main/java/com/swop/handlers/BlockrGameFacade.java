@@ -50,8 +50,8 @@ public class BlockrGameFacade {
         displaceBlockHandler.handleClickOn(clickedBlock);
     }
 
-    public void handleReleaseInPA(UIBlock draggedBlock){
-        displaceBlockHandler.handleReleaseInPA(draggedBlock);
+    public void handleReleaseInPAAt(UIBlock draggedBlock, int x, int y){
+        displaceBlockHandler.handleReleaseInPAAt(draggedBlock, x, y);
     }
 
     public void handleReleaseOutsidePA(UIBlock draggedBlock){

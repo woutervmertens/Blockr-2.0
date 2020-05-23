@@ -20,7 +20,7 @@ class DropBlockCommandTest {
     private ProgramArea programArea = new ProgramArea();
     private ActionBlock block = new ActionBlock(position, width, height, action);
 
-    private DropBlockCommand dropBlockCommand = new DropBlockCommand(programArea, block);
+    private DropBlockCommand dropBlockCommand = new DropBlockCommand(programArea, block, position.x, position.y);
 
 
     @Test

@@ -1,17 +1,15 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.blocks.StatementBlock;
+import com.swop.blocks.BlockWithBody;
 import com.swop.command.DeleteBlockCommand;
 import com.swop.command.DropBlockCommand;
 import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
 
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.util.List;
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class BlockrGame {
     private final ProgramArea programArea;
@@ -67,9 +65,9 @@ public class BlockrGame {
      *
      * @param block given block
      */
-    public void dropBlockInPA(Block block) {
+    public void dropBlockInPAAt(Block block, int x, int y) {
         if (block == null) throw new IllegalArgumentException();
-        executeCommand(new DropBlockCommand(programArea, block));
+        executeCommand(new DropBlockCommand(programArea, block, x, y));
     }
 
     /**
@@ -90,29 +88,28 @@ public class BlockrGame {
      * Executes next block
      */
     public void executeNext() {
-        if (programArea.getNextBlock() != null) {
-            executeCommand(new ExecuteCommand(gameWorld, programArea.getNextBlock()));
-            if (!programArea.getNextBlock().isBusy()) {
-                programArea.setNextBlock();
+        if (programArea.getNextProgramBlock() != null) {
+            executeCommand(new ExecuteCommand(gameWorld, programArea.getNextProgramBlock()));
+            if (!programArea.getNextProgramBlock().isBusy()) {
+                programArea.setNextProgramBlock();
             }
         } else {
             resetEverything();
+            // TODO: you should not simply reset but make a command to make undo possible.
         }
     }
 
     public Block getNextToBeExecutedBlock() {
         // TODO: fix this method for highlight
-        if (programArea.getNextBlock() instanceof StatementBlock) {
-            StatementBlock statementBlock = (StatementBlock) programArea.getNextBlock();
+        if (programArea.getNextProgramBlock() instanceof BlockWithBody) {
+            BlockWithBody blockWithBody = (BlockWithBody) programArea.getNextProgramBlock();
 
-            if (((StatementBlock) programArea.getNextBlock()).getNextBodyBlock() != null) {
-                return statementBlock.getNextBodyBlock();
-            } else if (statementBlock.isConditionValid() && !statementBlock.getBodyBlocks().isEmpty()) {
-                return statementBlock.getBodyBlocks().get(0);
+            if (blockWithBody.getNextBodyBlock() != null) {
+                return blockWithBody.getNextBodyBlock();
             }
         }
         // TODO: else if statement call block .. OR refactor
-        return programArea.getNextBlock();
+        return programArea.getNextProgramBlock();
     }
 
     /**

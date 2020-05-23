@@ -179,7 +179,7 @@ public class MyCanvasWindow extends CanvasWindow {
     private void releaseMouse(int x, int y) {
         if (isBlockDragged()) {
             if (programAreaSection.isWithin(x, y)) {
-                blockrGameFacade.handleReleaseInPA(draggedBlock);
+                blockrGameFacade.handleReleaseInPAAt(draggedBlock, x, y);
             } else {
                 blockrGameFacade.handleReleaseOutsidePA(draggedBlock);
             }

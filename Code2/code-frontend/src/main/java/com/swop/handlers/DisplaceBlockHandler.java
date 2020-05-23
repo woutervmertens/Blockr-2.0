@@ -21,7 +21,7 @@ public class DisplaceBlockHandler {
     /**
      * @pre draggedBlock.getPosition() is inside the PA
      */
-    public void handleReleaseInPA(UIBlock draggedBlock) {
+    public void handleReleaseInPAAt(UIBlock draggedBlock, int x, int y) {
         // 1) Handle map
         if (sharedData.getCorrespondingBlockFor(draggedBlock) == null) {
             sharedData.makeNewCorrespondingBlock(draggedBlock);
@@ -31,7 +31,7 @@ public class DisplaceBlockHandler {
         // 2) Handle drop position
         Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         BlockrGame blockrGame = sharedData.getBlockrGame();
-        blockrGame.dropBlockInPA(backendBlock);
+        blockrGame.dropBlockInPAAt(backendBlock, x, y);
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
 
         // 3) Handle highlight
