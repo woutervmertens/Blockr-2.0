@@ -73,6 +73,15 @@ class BlockWithBodyTest {
     }
 
     @Test
+    void execute(){
+        assertFalse(block.isBusy());
+        block.insertBodyBlockAtIndex(action,0);
+        block.insertBodyBlockAtIndex(action2,1);
+        block.execute();
+        assertTrue(block.isBusy());
+    }
+
+    @Test
     void resetExecution() {
         block.setBusy(true);
         block.resetExecution();
