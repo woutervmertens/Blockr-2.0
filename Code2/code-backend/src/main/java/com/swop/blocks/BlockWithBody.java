@@ -55,7 +55,7 @@ public abstract class BlockWithBody extends Block implements Executable {
     public void insertBodyBlockAtIndex(Block block, int index) {
         // TODO: make sure program is not pushed for FunctionDefinitionBlock
 
-        // 1) Add to the body blocks of this statement
+        // 1) Add to the body blocks of this block
         bodyBlocks.add(index, block);
         block.setParentBlock(this);
 
@@ -64,7 +64,7 @@ public abstract class BlockWithBody extends Block implements Executable {
         if (block instanceof StatementBlock) distance += ((StatementBlock) block).getGapSize();
         PushBlocks.pushFrom(bodyBlocks, index + 1, distance);
 
-        // 3) Increase the gap of this statement and all eventual superior parent statements
+        // 3) If this is a statement, increase the gap and all eventual superior parent statements
         BlockWithBody currentParent = block.getParentBlock();
         while (currentParent != null) {
             currentParent.increaseGapSize(distance);
