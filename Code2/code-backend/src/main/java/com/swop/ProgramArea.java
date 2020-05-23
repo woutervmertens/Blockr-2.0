@@ -433,4 +433,14 @@ public class ProgramArea implements PushBlocks {
         for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
         if (!program.isEmpty()) nextProgramBlock = ((LinkedList<Block>) program).getFirst();
     }
+
+
+    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
+        this.allBlocks.clear();
+        this.allBlocks.addAll(allBlocks);
+        this.program.clear();
+        this.program.addAll(program);
+        setNextProgramBlock(nextProgramBlock);
+
+    }
 }

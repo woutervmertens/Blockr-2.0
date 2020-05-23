@@ -22,10 +22,8 @@ class ProgramAreaTest {
     private int aHeight;
     private Action action;
 
-    private ActionBlock actionBlock;
     private WhileBlock whileBlock;
 
-    private ProgramArea programArea = new ProgramArea();
 // move forward block
     private final Point mPosition = new Point(2, 2);
     private final int mWidth = 30;
@@ -73,7 +71,6 @@ private final Point tRPosition = new Point(2, 4);
         aWidth = 3;
         aHeight = 2;
         action = RobotAction.MOVE_FORWARD;
-        actionBlock = new ActionBlock(aPosition, aWidth, aHeight, action);
         whileBlock = new WhileBlock(wPosition,aWidth,aHeight);
     }
 
@@ -146,24 +143,6 @@ private final Point tRPosition = new Point(2, 4);
         assertEquals(expected.x,actionBlock.getPosition().x, "The expected and actual x-value of the position of the actionBlock are different.");
         assertEquals(expected.y, actionBlock.getPosition().y, "The expected and actual y-value of the position of the actionBlock are different." );
 
-    }
-
-
-    @Test
-    void getNextProgramBlock() {
-
-    }
-
-    @Test
-    void setNextProgramBlock() {
-    }
-
-    @Test
-    void testSetNextProgramBlock() {
-    }
-
-    @Test
-    void getBlockAt() {
     }
 
     @Test

@@ -2,10 +2,7 @@ package com.swop;
 
 import com.swop.blocks.Block;
 import com.swop.blocks.BlockWithBody;
-import com.swop.command.DeleteBlockCommand;
-import com.swop.command.DropBlockCommand;
-import com.swop.command.ExecuteCommand;
-import com.swop.command.ICommand;
+import com.swop.command.*;
 
 import java.awt.*;
 import java.util.List;
@@ -89,13 +86,12 @@ public class BlockrGame {
      */
     public void executeNext() {
         if (programArea.getNextProgramBlock() != null) {
-            executeCommand(new ExecuteCommand(gameWorld, programArea.getNextProgramBlock()));
+            executeCommand(new ExecuteCommand(this, programArea.getNextProgramBlock()));
             if (!programArea.getNextProgramBlock().isBusy()) {
                 programArea.setNextProgramBlock();
             }
         } else {
-            resetEverything();
-            // TODO: you should not simply reset but make a command to make undo possible.
+            executeCommand(new ResetCommand(this));
         }
     }
 
@@ -118,7 +114,6 @@ public class BlockrGame {
     public void resetEverything() {
         programArea.resetProgramExecution();
         gameWorld = gameWorldType.createNewInstance();
-        // TODO: fix this, no new instance, rather a reset pattern !
     }
 
     /**
@@ -205,6 +200,11 @@ public class BlockrGame {
         command.execute();
         undoStack.add(command);
         if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetEverything();
+    }
+
+    public void reset()
+    {
+        executeCommand(new ResetCommand(this));
     }
 
 }

@@ -209,7 +209,18 @@ class BlockrGameTest {
     void executeCommand() {
         int[] startPos = ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition();
         assertArrayEquals(startPos, ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition());
-        blockrGame.executeCommand(new ExecuteCommand(blockrGame.getGameWorld(),actionBlock));
+        blockrGame.executeCommand(new ExecuteCommand(blockrGame,actionBlock));
         assertNotEquals(startPos[1], ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition()[1]);
+    }
+
+    @Test
+    void reset(){
+        int[] startPos = ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition();
+        blockrGame.dropBlockInPAAt(actionBlock, wPosition.x, wPosition.y);
+        assertArrayEquals(startPos, ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition());
+        blockrGame.executeNext();
+        assertNotEquals(startPos[1], ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition()[1]);
+        blockrGame.reset();
+        assertArrayEquals(startPos, ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition());
     }
 }
