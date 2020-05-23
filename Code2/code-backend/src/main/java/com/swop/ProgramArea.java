@@ -374,6 +374,13 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
+            // fixes bug without problems like line 385
+            if (getProgram().size() == 0 && getAllBlocks().size() > 0){
+                setNextProgramBlock(getMostUpperBlock());
+                if (getNextProgramBlock() != null) {
+                    program.add(getNextProgramBlock());
+                }
+            }
             // TODO: remove this!
 //            else {
 //                setNextProgramBlock(getMostUpperBlock());
