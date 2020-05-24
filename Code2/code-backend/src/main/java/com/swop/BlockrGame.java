@@ -194,7 +194,7 @@ public class BlockrGame {
     public void executeCommand(ICommand command) {
         command.execute();
         undoStack.add(command);
-        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetEverything();
+        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) reset();
     }
 
     public void reset()
