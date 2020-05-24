@@ -96,9 +96,10 @@ public class BlockrGame {
         if (programArea.getNextProgramBlock() instanceof BlockWithBody) {
             BlockWithBody blockWithBody = (BlockWithBody) programArea.getNextProgramBlock();
 
-            if (blockWithBody.getNextBodyBlock() != null) {
-                return blockWithBody.getNextBodyBlock();
-            }
+            // TODO:
+//            if (blockWithBody.getNextBodyBlock() != null) {
+//                return blockWithBody.getNextBodyBlock();
+//            }
         }
         // TODO: else if statement call block .. OR refactor
         return programArea.getNextProgramBlock();

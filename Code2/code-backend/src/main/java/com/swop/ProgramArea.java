@@ -178,6 +178,8 @@ public class ProgramArea implements PushBlocks {
             int i = program.indexOf(nextProgramBlock);
             if (i + 1 < program.size()) {
                 nextProgramBlock = program.get(i + 1);
+                // TODO: rename method and return next block to execute, not next program block
+                // TODO: then, once done, simplify "getNextToBeExecutedBlock()" in BlockrGame
             } else {
                 nextProgramBlock = null;
             }
