@@ -87,9 +87,10 @@ public class BlockrGame {
     public void executeNext() {
         if (programArea.getNextProgramBlock() != null) {
             executeCommand(new ExecuteCommand(this, programArea.getNextProgramBlock()));
-            if (!programArea.getNextProgramBlock().isBusy()) {
-                programArea.setNextProgramBlock();
-            }
+            // TODO: remove after fix in execute command
+//            if (!programArea.getNextProgramBlock().isBusy()) {
+//                programArea.setNextProgramBlock();
+//            }
         } else {
             executeCommand(new ResetCommand(this));
         }

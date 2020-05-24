@@ -1,7 +1,6 @@
 package com.swop.command;
 
 import com.swop.BlockrGame;
-import com.swop.GameWorld;
 import com.swop.Snapshot;
 import com.swop.blocks.Block;
 import com.swop.blocks.Executable;
@@ -32,12 +31,15 @@ public class ExecuteCommand extends BlockrGameCommand {
 
         if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();
-       }
+        }
+        if (!blockrGame.getProgramArea().getNextProgramBlock().isBusy()) {
+            blockrGame.getProgramArea().setNextProgramBlock();
+        }
     }
 
     @Override
     public void undo() {
         blockrGame.getGameWorld().restoreSnapshot(snapshot);
-        blockrGame.getProgramArea().restore(allBlocks,program,nextProgramBlock);
+        blockrGame.getProgramArea().restore(allBlocks, program, nextProgramBlock);
     }
 }
