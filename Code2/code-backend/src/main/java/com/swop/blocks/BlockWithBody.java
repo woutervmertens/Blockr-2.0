@@ -119,10 +119,12 @@ public abstract class BlockWithBody extends Block implements Executable {
         if (getNextBodyBlock() == null && !getBodyBlocks().isEmpty()) {
             setNextBodyBlock(getBodyBlocks().get(0));
         } else {
-            try {
-                setNextBodyBlock(getBodyBlocks().get(getBodyBlocks().indexOf(nextBodyBlock) + 1));
-            } catch (Exception e) {
-                setNextBodyBlock(null);
+            if (!getNextBodyBlock().isBusy()) {
+                try {
+                    setNextBodyBlock(getBodyBlocks().get(getBodyBlocks().indexOf(nextBodyBlock) + 1));
+                } catch (Exception e) {
+                    setNextBodyBlock(null);
+                }
             }
         }
     }
