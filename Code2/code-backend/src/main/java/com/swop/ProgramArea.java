@@ -69,7 +69,7 @@ public class ProgramArea implements PushBlocks {
         pushProgramBlocksForBody(draggedBlock);
 
         // 3) Reset program execution (and adjust next block)
-        resetProgramExecution();
+        //resetProgramExecution();
 
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
