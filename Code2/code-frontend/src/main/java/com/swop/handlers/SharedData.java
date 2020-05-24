@@ -38,12 +38,22 @@ public class SharedData {
         return blockrGame;
     }
 
+    /**
+     * Adds a new element to the Block-UIBlock BiMap.
+     * @param key A Block.
+     * @param value A UIBlock.
+     */
     private void putInBlockUIBlockMap(Block key, UIBlock value) {
         if (!blockUIBlockMap.containsKey(key)) {
             blockUIBlockMap.put(key, value);
         }
     }
 
+    /**
+     * Gets the corresponding UIBlock for the given Block.
+     * @param block The Block.
+     * @return The corresponding UIBlock.
+     */
     public UIBlock getCorrespondingUiBlockFor(Block block) {
         try {
             return blockUIBlockMap.get(block);
@@ -52,10 +62,20 @@ public class SharedData {
         }
     }
 
+    /**
+     * Gets the corresponding Block for the given UIBlock.
+     * @param uiBlock The UIBlock.
+     * @return The corresponding Block.
+     */
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
         return blockUIBlockMap.inverse().get(uiBlock);
     }
 
+    /**
+     * Gets the corresponding FunctionDefinitionBlock for the given UIBlock.
+     * @param uiBlock The UIBlock.
+     * @return The corresponding FunctionDefinitionBlock.
+     */
     private FunctionDefinitionBlock getCorrespondingDefinition(UIBlock uiBlock){
         for (UIBlock b : blockUIBlockMap.values()) {
             if(b.getType().getType() == BlockType.FunctionDefinition
@@ -66,6 +86,10 @@ public class SharedData {
         throw new IllegalStateException("No matching definition was found");
     }
 
+    /**
+     * Creates a new corresponding Block for a given UIBlock.
+     * @param uiBlock A UIBlock.
+     */
     public void makeNewCorrespondingBlock(UIBlock uiBlock){
         Block b;
         switch (uiBlock.getType().getType()) {
@@ -96,6 +120,9 @@ public class SharedData {
         putInBlockUIBlockMap(b,uiBlock);
     }
 
+    /**
+     * Makes sure all the gaps in the UIBlocks with a body line up with the size of the body of their corresponding Blocks.
+     */
     public void adjustAllBodyBlockGaps() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
             if (block instanceof BlockWithBody) {
@@ -105,6 +132,9 @@ public class SharedData {
         }
     }
 
+    /**
+     * Makes sure all UIBlocks are in the correct positions, as decided in their corresponding Blocks.
+     */
     public void adjustAllBlockPositions() {
         for (Block block : getBlockrGame().getAllBlocksInPA()) {
             UIBlock uiBlock = getCorrespondingUiBlockFor(block);
@@ -112,10 +142,17 @@ public class SharedData {
         }
     }
 
+    /**
+     * Calls @setHighlightedBlock() on the next to be executed UIBlock.
+     */
     public void handleHighlight(){
         setHighlightedBlock(getCorrespondingUiBlockFor(blockrGame.getProgramArea().getNextProgramBlock()));
     }
 
+    /**
+     * Removes the highlight of the previously highlighted UIBlock and turns on the highlight for the given UIBlock.
+     * @param block The to-be-highlighted UIBlock.
+     */
     public void setHighlightedBlock(UIBlock block) {
         if (highlightedBlock != null) highlightedBlock.setHighlightStateOn(false);
         if (block == null) return;
@@ -125,7 +162,10 @@ public class SharedData {
         highlightedBlock.setHighlightStateOn(true);
     }
 
-    // TODO: weg met blockrGame, zet het in de 2 handlers en niet zo'n getter !
+    /**
+     * Gets a collection of all the FunctionDefinitionBlocks in the Program Area.
+     * @return A Collection of UIBlocks.
+     */
     public Collection<UIBlock> getFunctionDefinitions(){
         return getBlockrGame().getAllBlocksInPA().stream()
                 .filter(c -> c instanceof FunctionDefinitionBlock)
