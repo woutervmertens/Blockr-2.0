@@ -87,17 +87,12 @@ public class BlockrGame {
     public void executeNext() {
         if (programArea.getNextProgramBlock() != null) {
             executeCommand(new ExecuteCommand(this, programArea.getNextProgramBlock()));
-            // TODO: remove after fix in execute command
-//            if (!programArea.getNextProgramBlock().isBusy()) {
-//                programArea.setNextProgramBlock();
-//            }
         } else {
             executeCommand(new ResetCommand(this));
         }
     }
 
     public Block getNextToBeExecutedBlock() {
-        // TODO: fix this method for highlight
         if (programArea.getNextProgramBlock() instanceof BlockWithBody) {
             BlockWithBody blockWithBody = (BlockWithBody) programArea.getNextProgramBlock();
 
@@ -125,7 +120,6 @@ public class BlockrGame {
     }
 
     public int getNumBlocksInProgram() {
-        // TODO: fix the count for nested statements (recursively !)
         int count = 0;
         for (Block block : getProgram()) {
             count += block.getCount();
