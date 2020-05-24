@@ -194,12 +194,16 @@ public class BlockrGame {
     public void executeCommand(ICommand command) {
         command.execute();
         undoStack.add(command);
-        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) reset();
+        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetIfNeeded();
     }
 
-    public void reset()
+    /**
+     * Resets the programArea and gameworld if the program is not already in the start state
+     */
+    public void resetIfNeeded()
     {
-        executeCommand(new ResetCommand(this));
+        if(getProgramArea().getNextProgramBlock() != getProgram().get(0))
+            executeCommand(new ResetCommand(this));
     }
 
 }

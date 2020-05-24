@@ -95,7 +95,7 @@ public class BlockrGameFacade {
     }
 
     public void reset() {
-        sharedData.getBlockrGame().reset();
+        sharedData.getBlockrGame().resetIfNeeded();
         sharedData.handleHighlight();
     }
 }

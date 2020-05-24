@@ -139,8 +139,6 @@ public class MyCanvasWindow extends CanvasWindow {
                 throw new IllegalStateException("Unexpected mouse event: " + id);
         }
         adjustAllBlocks();
-        blockrGameFacade.reset();
-        // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
     /**
@@ -243,7 +241,6 @@ public class MyCanvasWindow extends CanvasWindow {
             if (bRepaint) repaint();
         }
         adjustAllBlocks();
-        // TODO: executeProgramHandler.getCorrespondingUiBlockFor(blockrGame.getCurrentActiveBlock()).setHighlightStateOn(true);
     }
 
     /**

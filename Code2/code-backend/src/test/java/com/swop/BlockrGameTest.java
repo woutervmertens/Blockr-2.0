@@ -220,7 +220,7 @@ class BlockrGameTest {
         assertArrayEquals(startPos, ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition());
         blockrGame.executeNext();
         assertNotEquals(startPos[1], ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition()[1]);
-        blockrGame.reset();
+        blockrGame.resetIfNeeded();
         assertArrayEquals(startPos, ((RobotGameWorld)blockrGame.getGameWorld()).getRobot().getPosition());
     }
 }
