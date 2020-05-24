@@ -9,6 +9,9 @@ public class ExecuteProgramHandler {
         this.sharedData = sharedData;
     }
 
+    /**
+     * Executes the next block in the program.
+     */
     public void executeNext() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         // TODO: subtract from getNumBlocks the blocks in a functiondef
@@ -17,6 +20,9 @@ public class ExecuteProgramHandler {
         updateHighlight();
     }
 
+    /**
+     * Updates the blocks that need to be highlighted.
+     */
     public void updateHighlight() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));

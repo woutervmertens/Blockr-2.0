@@ -19,7 +19,12 @@ public class DisplaceBlockHandler {
     }
 
     /**
-     * @pre draggedBlock.getPosition() is inside the PA
+     * Handles logic for when a block is dropped in the Program Area.
+     *
+     * @pre draggedBlock.getPosition() is inside the PA.
+     * @param draggedBlock The dropped block.
+     * @param x The x coordinate of the drop.
+     * @param y The y coordinate of the drop.
      */
     public void handleReleaseInPAAt(UIBlock draggedBlock, int x, int y) {
         // 1) Handle map
@@ -38,6 +43,11 @@ public class DisplaceBlockHandler {
         sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
     }
 
+    /**
+     * Handles logic for when a block is dropped outside the Program Area.
+     *
+     * @param draggedBlock The dropped block.
+     */
     public void handleReleaseOutsidePA(UIBlock draggedBlock) {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
@@ -65,6 +75,11 @@ public class DisplaceBlockHandler {
         sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
     }
 
+    /**
+     * Gets all the UIBlocks in the Program Area.
+     *
+     * @return A list of UIBlocks.
+     */
     public List<UIBlock> getAllUIBlocksInPA() {
         List<Block> backBlocks = sharedData.getBlockrGame().getAllBlocksInPA();
         List<UIBlock> returnUIBlocks = new ArrayList<>();
@@ -74,6 +89,11 @@ public class DisplaceBlockHandler {
         return returnUIBlocks;
     }
 
+    /**
+     * Handles the logic when a block is clicked.
+     *
+     * @param clickedBlock The clicked block.
+     */
     public void handleClickOn(UIBlock clickedBlock) {
         if (clickedBlock == null) throw new IllegalArgumentException();
         Block backendBlock = sharedData.getCorrespondingBlockFor(clickedBlock);
