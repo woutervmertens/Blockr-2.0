@@ -1,0 +1,37 @@
+Index: code-frontend/src/main/java/com/swop/uiElements/UIBlock.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.swop.uiElements;\n\nimport com.swop.handlers.BlockrGameFacade;\n\nimport java.awt.*;\n\npublic abstract class UIBlock {\n    protected final String text;\n    protected int width;\n    protected int height;  // default 30 ?\n    protected int step;  // steps in the plugs and sockets\n    protected Point position;\n    protected Color color, highlightColor;\n    private BlockTypes type;\n    // TODO: blockrGameFacade weg ! Maak corresponding block aan in MyCanvasWindow\n    protected BlockrGameFacade blockrGameFacade;\n    protected boolean isHighlight;\n\n    public UIBlock(int width, int height, Point position, String text, BlockTypes type, Color color, Color highlightColor, BlockrGameFacade facade) {\n        this.width = width;\n        this.height = height;\n        this.position = position;\n        this.text = text;\n        this.type = type;\n        this.color = color;\n        this.highlightColor = highlightColor;\n        this.blockrGameFacade = facade;\n        step = height / 6;\n    }\n\n    public void makeNewCorrespondingBlock() {blockrGameFacade.makeNewCorrespondingBlock(this);}\n\n    public Point getPosition() {\n        return position;\n    }\n\n    public void setPosition(Point position) {\n        this.position = position;\n        if (blockrGameFacade.getCorrespondingBlockFor(this) != null) {\n            blockrGameFacade.getCorrespondingBlockFor(this).setPosition(position);\n        }\n    }\n\n    public Point getTextPosition() {\n        return new Point(position.x + 10, position.y + 20);\n    }\n\n    public String getText() {\n        return text;\n    }\n\n    public Color getColor() {\n        if (isHighlight()) return highlightColor;\n        return color;\n    }\n\n    public BlockTypes getType() {\n        return this.type;\n    }\n\n    /**\n     * @return the polygon for this type of UIBlock\n     */\n    public abstract Polygon getPolygon();\n\n    public int getWidth() {\n        return width;\n    }\n\n    public void setWidth(int width) {\n        this.width = width;\n    }\n\n    public int getHeight() {\n        return height;\n    }\n\n    public void setHeight(int height) {\n        this.height = height;\n    }\n\n    public boolean isHighlight() {\n        return this.isHighlight;\n    }\n\n    public void setHighlightStateOn(boolean isHighlight) {\n        this.isHighlight = isHighlight;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- code-frontend/src/main/java/com/swop/uiElements/UIBlock.java	(revision c5bc513e4c7c4ce8d2b6e92ddbc03313634e368c)
++++ code-frontend/src/main/java/com/swop/uiElements/UIBlock.java	(date 1590162110391)
+@@ -11,8 +11,7 @@
+     protected int step;  // steps in the plugs and sockets
+     protected Point position;
+     protected Color color, highlightColor;
+-    private BlockTypes type;
+-    // TODO: blockrGameFacade weg ! Maak corresponding block aan in MyCanvasWindow
++    private final BlockTypes type;
+     protected BlockrGameFacade blockrGameFacade;
+     protected boolean isHighlight;
+ 
+@@ -28,6 +27,7 @@
+         step = height / 6;
+     }
+ 
++    // TODO: fix this in MyCanvasWindow and then remove blockrGameFacade
+     public void makeNewCorrespondingBlock() {blockrGameFacade.makeNewCorrespondingBlock(this);}
+ 
+     public Point getPosition() {
+@@ -36,9 +36,6 @@
+ 
+     public void setPosition(Point position) {
+         this.position = position;
+-        if (blockrGameFacade.getCorrespondingBlockFor(this) != null) {
+-            blockrGameFacade.getCorrespondingBlockFor(this).setPosition(position);
+-        }
+     }
+ 
+     public Point getTextPosition() {
