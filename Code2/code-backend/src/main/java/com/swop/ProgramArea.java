@@ -175,19 +175,31 @@ public class ProgramArea implements PushBlocks {
      * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public void setNextProgramBlock() {
-        if (getNextProgramBlock() == null && !getProgram().isEmpty()) {
-            setNextProgramBlock((getProgram().get(0)));
+        if(getProgram().isEmpty()) {
+            setNextProgramBlock(null);
+            return;
+        }
+        if (getNextProgramBlock() == null){
+            return;
         } else if (!getNextProgramBlock().isBusy()) {
             int i = program.indexOf(nextProgramBlock);
             if (i + 1 < program.size()) {
                 // TODO: If the next block is a statement and its condition is not true, go over it
                 // TODO: If the next block is a call and its function def is empty, go over it
 
-                nextProgramBlock = program.get(i + 1);
+                setNextProgramBlock(program.get(i + 1));
             } else {
-                nextProgramBlock = null;
+                setNextProgramBlock(null);
             }
         }
+    }
+
+    public void resetNextProgramBlock(){
+        if(getProgram().isEmpty()) {
+            setNextProgramBlock(null);
+            return;
+        }
+        setNextProgramBlock(getProgram().get(0));
     }
 
     private void setNextProgramBlock(Block block) {
@@ -437,7 +449,7 @@ public class ProgramArea implements PushBlocks {
      */
     public void resetProgramExecution() {
         for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
-        if (!program.isEmpty()) setNextProgramBlock();
+        if (!program.isEmpty()) resetNextProgramBlock();
     }
 
 

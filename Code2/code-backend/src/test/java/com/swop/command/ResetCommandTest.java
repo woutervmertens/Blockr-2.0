@@ -39,7 +39,7 @@ class ResetCommandTest {
         block.setBlockrGame(blockrGame);
         blockrGame.getProgramArea().dropBlock(block);
         executeCommand.execute();
-        assertEquals(block,blockrGame.getProgramArea().getNextProgramBlock());
+        assertEquals(null,blockrGame.getProgramArea().getNextProgramBlock());
         resetCommand.execute();
         assertTrue(compareSnapshot((RobotSnapshot) snap,(RobotSnapshot)blockrGame.getGameWorld().createSnapshot()));
     }

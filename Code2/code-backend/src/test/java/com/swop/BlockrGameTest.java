@@ -83,7 +83,8 @@ class BlockrGameTest {
         assertFalse(blockrGame.getAllBlocksInPA().contains(whileBlock));
         blockrGame.removeBlockFromPA(actionBlock,true);
         assertFalse(blockrGame.getAllBlocksInPA().contains(actionBlock));
-        blockrGame.undoCommand();
+        blockrGame.undoCommand(); //Undo reset
+        blockrGame.undoCommand(); //Undo action
         assertTrue(blockrGame.getAllBlocksInPA().contains(actionBlock));
     }
 
