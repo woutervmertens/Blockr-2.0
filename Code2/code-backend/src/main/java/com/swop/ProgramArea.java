@@ -48,6 +48,11 @@ public class ProgramArea implements PushBlocks {
 
     public void dropBlock(Block draggedBlock) {
         // TODO: correct below. When adding a first block we should make sure a functiondef is not added to program.
+        //FIX KRISTOF
+        if (getAllBlocks().size() > getProgram().size()){
+            getProgram().clear();
+            getProgram().add(getMostUpperBlock());
+        }
         if (allBlocks.size() == 0) {
             allBlocks.add(draggedBlock);
             program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).

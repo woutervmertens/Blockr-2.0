@@ -70,7 +70,7 @@ public class BlockrGame {
      * Removes block from Program Area
      *
      * @param draggedBlock given block
-     * @param isRelease    Boolean recording whether this is a release (outside PA) or not (a click)
+     * @param isRelease Boolean recording whether this is a release (outside PA) or not (a click)
      */
     public void removeBlockFromPA(Block draggedBlock, boolean isRelease) {
         if (isRelease) {

@@ -7,6 +7,9 @@ import com.swop.Predicate;
 
 import java.awt.*;
 
+/**
+ * A block that is a condition.
+ */
 public class ConditionBlock extends Block implements HorizontallyConnectable {
     private final boolean isPredicate;
     private final Predicate predicate;
@@ -31,11 +34,17 @@ public class ConditionBlock extends Block implements HorizontallyConnectable {
     }
     public Predicate getPredicate() { return predicate;}
 
+    /**
+     * @return returns the plug position of the conditionBlock.
+     */
     @Override
     public Point getPlugPosition() {
         return new Point(getPosition().x + getWidth() + step, getPosition().y/* + step * 3*/);
     }
 
+    /**
+     * @return  returns the plug position of the conditionBlock.
+     */
     @Override
     public Point getSocketPosition() {
         return new Point(getPosition().x + step, getPosition().y/* + step * 3*/);

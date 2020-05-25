@@ -11,6 +11,12 @@ public abstract class BlockWithBody extends Block implements Executable {
     private Block nextBodyBlock = null;
     private int gapSize;
 
+    /**
+     * Creates a block that can have a body.
+     * @param position The position of the block.
+     * @param width The width of the block.
+     * @param height The height of the block.
+     */
     protected BlockWithBody(Point position, int width, int height) {
         super(position, width, height);
     }
@@ -93,6 +99,9 @@ public abstract class BlockWithBody extends Block implements Executable {
         }
     }
 
+    /**
+     * The next body block will be executed. If there wasn't a block executed before the boolean 'busy' will be set true and the nextBodyBlock gets chosen.
+     */
     @Override
     public void execute() {
         if (!isBusy()) {
@@ -102,6 +111,9 @@ public abstract class BlockWithBody extends Block implements Executable {
         executeNextBodyBlock();
     }
 
+    /**
+     * The execution state of a block with a body resets to the beginning state: the nextBodyBlock is null and busy is false.
+     */
     public void resetExecution() {
         setNextBodyBlock(null);
         setBusy(false);
@@ -115,6 +127,9 @@ public abstract class BlockWithBody extends Block implements Executable {
         this.nextBodyBlock = nextBodyBlock;
     }
 
+    /**
+     * if there isn't a (next) bodyBlock, nextBodyBlock will be null otherwise the next or the first bodyBlock.
+     */
     public void setNextBodyBlock() {
         if (getNextBodyBlock() == null && !getBodyBlocks().isEmpty()) {
             setNextBodyBlock(getBodyBlocks().get(0));
@@ -127,6 +142,9 @@ public abstract class BlockWithBody extends Block implements Executable {
         }
     }
 
+    /**
+     * The next body block will be executed or busy will be set to false.
+     */
     protected void executeNextBodyBlock() {
         if (getNextBodyBlock() == null) {
             setBusy(false);
@@ -146,6 +164,9 @@ public abstract class BlockWithBody extends Block implements Executable {
         return bodyBlocks;
     }
 
+    /**
+     * @return Returns the plug position of the body
+     */
     public Point getBodyPlugPosition() {
         int pillarWidth = 10;
         return new Point(getPosition().x + pillarWidth, getPosition().y + getHeight() - step);
@@ -159,10 +180,17 @@ public abstract class BlockWithBody extends Block implements Executable {
         this.gapSize = gapSize;
     }
 
+    /**
+     * Increases the gap size with the given size.
+     * @param increase the given size
+     */
     public void increaseGapSize(int increase) {
         this.setGapSize(getGapSize() + increase);
     }
 
+    /**
+     * @return Returns the number of blocks: blockWithBody + # bodyBlocks
+     */
     @Override
     public int getCount() {
         int count = 1;

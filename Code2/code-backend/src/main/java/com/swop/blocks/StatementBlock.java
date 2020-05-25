@@ -4,16 +4,29 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A block that is a statement.
+ */
 public abstract class StatementBlock extends BlockWithBody implements Executable, VerticallyConnectable {
     protected List<ConditionBlock> conditions = new ArrayList<>();
     private final int conditionWidth;
 
+    /**
+     * Creates a block that is a statement with the given position, width and height.
+     * @param position the given position of the statementBlock.
+     * @param width the given width of the statementBlock.
+     * @param height the given height of the statementBlock.
+     */
     public StatementBlock(Point position, int width, int height) {
         super(position, width, height);
         conditionWidth = width / 2;
         executeType = ExecuteType.NonWorldChanging;
     }
 
+    /**
+     * Sets the previous position of the statementBlock and sets all the bodyBlocks of the statementBlock to their previous position.
+     * @param previousDropPosition The given previous drop position
+     */
     @Override
     public void setPreviousDropPosition(Point previousDropPosition) {
         super.setPreviousDropPosition(previousDropPosition);
@@ -25,6 +38,10 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         }
     }
 
+    /**
+     * Sets the position of the statementBlock to the given position and the conditionBlock(s) to their adjusted position.
+     * @param position the given position.
+     */
     @Override
     public void setPosition(Point position) {
         try {
@@ -39,6 +56,9 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         }
     }
 
+    /**
+     * @return Returns true or false according to the combination of conditions are true or false.
+     */
     public boolean isConditionValid() {
         // TODO: decide whether to return false or throw exceptions on illegal conditions
 
@@ -60,6 +80,9 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
 
     }
 
+    /**
+     * Executes the nextBodyBlock if there is one otherwise busy will be set to false.
+     */
     @Override
     public void execute() {
         if (isConditionValid() || isBusy()) {
@@ -77,11 +100,19 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         return conditions;
     }
 
+    /**
+     * Adds the given conditionBlock to the statement and sets the parentBlock of the given block to this statementBlock.
+     * @param block The given conditionBlock.
+     */
     public void addConditionBlock(ConditionBlock block) {
         conditions.add(block);
         block.setParentBlock(this);
     }
 
+    /**
+     * Removes all the ConditionBlocks behind the given conditionBlock and the given conditionBlock from the statementBlock.
+     * @param block The given conditionBlock.
+     */
     public void removeConditionBlock(ConditionBlock block) {
         assert getConditions().contains(block);
 
@@ -95,11 +126,17 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
         }
     }
 
+    /**
+     * @return Returns the plug position of the statementBlock.
+     */
     @Override
     public Point getPlugPosition() {
         return new Point(getPosition().x /*+ step * 3*/, getPosition().y + getHeight() + /*pillarWidth*/ +getGapSize() + step);
     }
 
+    /**
+     * @return Returns the socket position of the statementBlock.
+     */
     @Override
     public Point getSocketPosition() {
         return new Point(getPosition().x /*+ step * 3*/, getPosition().y + step);
@@ -111,7 +148,7 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
 
     /**
      * Is the given position on this statement block.
-     * This method is overridden bcs statementblocks should only be clicked on their upper part (conditionWidth).
+     * This method is overridden bcs statementBlocks should only be clicked on their upper part (conditionWidth).
      */
     @Override
     public boolean isPositionOn(int x, int y) {

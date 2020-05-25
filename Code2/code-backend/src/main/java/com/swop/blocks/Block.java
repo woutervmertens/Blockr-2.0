@@ -17,6 +17,12 @@ public abstract class Block implements Cloneable {
     private Point position;
     private Point previousDropPosition;
 
+    /**
+     * Creates a block with the given position, width and height.
+     * @param position Position of the block.
+     * @param width Width of the block.
+     * @param height Height of the block.
+     */
     protected Block(Point position, int width, int height) {
         this.setPosition(position);
         this.width = width;
@@ -24,6 +30,9 @@ public abstract class Block implements Cloneable {
         step = height / 6;
     }
 
+    /**
+     * @return Returns a clone of the given block.
+     */
     public Block clone() {
         try {
             return (Block) super.clone();
@@ -69,15 +78,19 @@ public abstract class Block implements Cloneable {
         this.parentBlock = parentBlock;
     }
 
+
     /**
-     * Check whether the given position is on this block.
+     * @param x x-position.
+     * @param y y-position.
+     * @return Returns whether the given position is on this block.
      */
     public boolean isPositionOn(int x, int y) {
         return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
     /**
-     * Check whether this block is under the given block
+     * @param block the given block
+     * @return Return whether this block is under the given block.
      */
     public boolean isUnder(Block block) {
         return this.getPosition().y > block.getPosition().y;
@@ -100,6 +113,10 @@ public abstract class Block implements Cloneable {
         this.previousDropPosition = previousDropPosition;
     }
 
+    /**
+     * @pre blockerGame isn't null
+     * @return Returns the blockrGame where the block belongs.
+     */
     public GameWorld getGameWorld() {
         if(blockrGame == null) throw new NullPointerException("BlockrGame not set in Block.");
         return blockrGame.getGameWorld();
