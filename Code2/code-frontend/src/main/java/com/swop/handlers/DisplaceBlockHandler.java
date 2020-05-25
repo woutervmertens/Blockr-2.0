@@ -41,7 +41,7 @@ public class DisplaceBlockHandler {
         draggedBlock.setPosition(blockrGame.getBlockPosition(backendBlock));
 
         // 3) Handle highlight
-        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getToHighlightBlock()));
     }
 
     /**
@@ -55,7 +55,8 @@ public class DisplaceBlockHandler {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         if (backendBlock != null) {
-            // TODO: don't remove all bodies and conditions here, let the statementblock do it himself
+            // TODO: don't remove all bodies and conditions here, let the block with body do it himself
+            // TODO: do the same for function def. Bcs then all calls should disappear as well.
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof BlockWithBody) {
                 List<Block> newBodyBlocks = new ArrayList<>(((BlockWithBody) backendBlock).getBodyBlocks());
@@ -75,7 +76,7 @@ public class DisplaceBlockHandler {
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
 
-        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getToHighlightBlock()));
     }
 
     /**
@@ -105,6 +106,6 @@ public class DisplaceBlockHandler {
         sharedData.getBlockrGame().removeBlockFromPA(backendBlock, false);
         sharedData.adjustAllBlockPositions();
         sharedData.adjustAllBodyBlockGaps();
-        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(sharedData.getBlockrGame().getNextToBeExecutedBlock()));
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(sharedData.getBlockrGame().getToHighlightBlock()));
     }
 }

@@ -4,9 +4,7 @@ import com.swop.blocks.ActionBlock;
 import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.WhileBlock;
 import org.junit.jupiter.api.BeforeEach;
-import com.swop.blocks.ConditionBlock;
 import com.swop.blocks.IfBlock;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -176,12 +174,6 @@ class ProgramAreaTest {
     }
 
     @Test
-    void setNextProgramBlock() {
-        programArea.setNextProgramBlock(actionBlock);
-        assertEquals(actionBlock,programArea.getNextProgramBlock());
-    }
-
-    @Test
     void getBlockAt() {
         programArea.dropBlock(actionBlock);
         assertEquals(actionBlock,programArea.getBlockAt(aPosition.x + 1,aPosition.y + 1));
@@ -201,7 +193,9 @@ class ProgramAreaTest {
 
     @Test
     void resetProgramExecution() {
-        programArea.setNextProgramBlock(whileBlock);
+        // TODO:
+//        programArea.getProgram().add(whileBlock);
+//        programArea.setNextBlock();
         programArea.dropBlock(actionBlock);
         programArea.resetProgramExecution();
         assertEquals(actionBlock,programArea.getNextProgramBlock());

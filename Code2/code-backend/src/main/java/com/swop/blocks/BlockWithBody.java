@@ -97,7 +97,7 @@ public abstract class BlockWithBody extends Block implements Executable {
     public void execute() {
         if (!isBusy()) {
             setBusy(true);
-            setNextBodyBlock();
+            if (getNextBodyBlock() == null) setNextBodyBlock();
         }
         executeNextBodyBlock();
     }
@@ -111,11 +111,11 @@ public abstract class BlockWithBody extends Block implements Executable {
         return nextBodyBlock;
     }
 
-    protected void setNextBodyBlock(Block nextBodyBlock) {
+    public void setNextBodyBlock(Block nextBodyBlock) {
         this.nextBodyBlock = nextBodyBlock;
     }
 
-    protected void setNextBodyBlock() {
+    public void setNextBodyBlock() {
         if (getNextBodyBlock() == null && !getBodyBlocks().isEmpty()) {
             setNextBodyBlock(getBodyBlocks().get(0));
         } else {

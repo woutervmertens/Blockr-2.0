@@ -25,7 +25,7 @@ public class ExecuteProgramHandler {
      */
     public void updateHighlight() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
-        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getNextToBeExecutedBlock()));
+        sharedData.setHighlightedBlock(sharedData.getCorrespondingUiBlockFor(blockrGame.getToHighlightBlock()));
     }
 
 }

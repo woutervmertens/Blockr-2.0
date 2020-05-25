@@ -1,7 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-import com.swop.blocks.BlockWithBody;
+import com.swop.blocks.*;
 import com.swop.command.*;
 
 import java.awt.*;
@@ -92,16 +91,25 @@ public class BlockrGame {
         }
     }
 
-    public Block getNextToBeExecutedBlock() {
-        if (programArea.getNextProgramBlock() instanceof BlockWithBody) {
-            BlockWithBody blockWithBody = (BlockWithBody) programArea.getNextProgramBlock();
+    public Block getToHighlightBlock() {
+        Block nextProgramBlock = programArea.getNextProgramBlock();
 
-            // TODO:
-//            if (blockWithBody.getNextBodyBlock() != null) {
-//                return blockWithBody.getNextBodyBlock();
-//            }
+        if (nextProgramBlock instanceof FunctionCallBlock) {
+            nextProgramBlock = ((FunctionCallBlock) nextProgramBlock).getDefinitionBlock();
         }
-        // TODO: else if statement call block .. OR refactor
+
+        if (nextProgramBlock instanceof BlockWithBody) {
+            if (((BlockWithBody) nextProgramBlock).getNextBodyBlock() != null) {
+                return ((BlockWithBody) nextProgramBlock).getNextBodyBlock();
+            } else if (! ((BlockWithBody) nextProgramBlock).getBodyBlocks().isEmpty()) {
+                if (nextProgramBlock instanceof StatementBlock) {
+                    if (((StatementBlock) nextProgramBlock).isConditionValid()) {
+                        return ((StatementBlock) nextProgramBlock).getBodyBlocks().get(0);
+                    }
+                }
+            }
+        }
+
         return programArea.getNextProgramBlock();
     }
 

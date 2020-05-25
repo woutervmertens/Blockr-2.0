@@ -47,10 +47,10 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
-        // TODO: handle the drop
+        // TODO: correct below. When adding a first block we should make sure a functiondef is not added to program.
         if (allBlocks.size() == 0) {
             allBlocks.add(draggedBlock);
-            program.add(draggedBlock);
+            program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).
             nextProgramBlock = draggedBlock;
             return;
         } else if (!allBlocks.contains(draggedBlock)) {
@@ -163,30 +163,34 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return Returns the next to be executed block of the program. This methods does not return the effectively
-     * to be executed block, but the next block of the program stack !
+     * @return  Returns the next to be executed block.
+     *          This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public Block getNextProgramBlock() {
         return nextProgramBlock;
     }
 
     /**
-     * Sets the next block to the next block in the list, otherwise to null.
+     * Sets the next block to the next block from the program list, otherwise to null.
+     * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public void setNextProgramBlock() {
-        if (!getNextProgramBlock().isBusy()) {
+        if (getNextProgramBlock() == null && !getProgram().isEmpty()) {
+            setNextProgramBlock((getProgram().get(0)));
+        } else if (!getNextProgramBlock().isBusy()) {
             int i = program.indexOf(nextProgramBlock);
             if (i + 1 < program.size()) {
+                // TODO: If the next block is a statement and its condition is not true, go over it
+                // TODO: If the next block is a call and its function def is empty, go over it
+
                 nextProgramBlock = program.get(i + 1);
-                // TODO: rename method and return next block to execute, not next program block
-                // TODO: then, once done, simplify "getNextToBeExecutedBlock()" in BlockrGame
             } else {
                 nextProgramBlock = null;
             }
         }
     }
 
-    public void setNextProgramBlock(Block block) {
+    private void setNextProgramBlock(Block block) {
         this.nextProgramBlock = block;
     }
 
@@ -376,14 +380,14 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
-            // fixes bug without problems like line 385
+            // fixes bug without problems
             if (getProgram().size() == 0 && getAllBlocks().size() > 0){
                 setNextProgramBlock(getMostUpperBlock());
                 if (getNextProgramBlock() != null) {
                     program.add(getNextProgramBlock());
                 }
             }
-            // TODO: remove this!
+            // TODO: correct this!
 //            else {
 //                setNextProgramBlock(getMostUpperBlock());
 //                if (getNextProgramBlock() != null) {
@@ -433,7 +437,7 @@ public class ProgramArea implements PushBlocks {
      */
     public void resetProgramExecution() {
         for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
-        if (!program.isEmpty()) nextProgramBlock = ((LinkedList<Block>) program).getFirst();
+        if (!program.isEmpty()) setNextProgramBlock();
     }
 
 

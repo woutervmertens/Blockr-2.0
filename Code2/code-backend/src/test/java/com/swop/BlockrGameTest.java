@@ -101,7 +101,7 @@ class BlockrGameTest {
     @Test
     void getNextToBeExecutedBlock() {
         blockrGame.dropBlockInPAAt(actionBlock, wPosition.x, wPosition.y);
-        assertEquals(actionBlock,blockrGame.getNextToBeExecutedBlock());
+        assertEquals(actionBlock,blockrGame.getToHighlightBlock());
         blockrGame.removeBlockFromPA(actionBlock,false);
         whileBlock.insertBodyBlockAtIndex(actionBlock,0);
         whileBlock.insertBodyBlockAtIndex(actionBlock,1);
@@ -109,7 +109,7 @@ class BlockrGameTest {
         whileBlock.addConditionBlock(conditionBlock);
         blockrGame.dropBlockInPAAt(whileBlock,wPosition.x,wPosition.y);
         blockrGame.executeNext();
-        assertEquals(actionBlock,blockrGame.getNextToBeExecutedBlock());
+        assertEquals(actionBlock,blockrGame.getToHighlightBlock());
     }
 
     @Test

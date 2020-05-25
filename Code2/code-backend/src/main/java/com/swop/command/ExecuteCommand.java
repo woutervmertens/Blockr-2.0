@@ -3,6 +3,7 @@ package com.swop.command;
 import com.swop.BlockrGame;
 import com.swop.Snapshot;
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockWithBody;
 import com.swop.blocks.Executable;
 import com.swop.blocks.ExecuteType;
 
@@ -14,6 +15,7 @@ public class ExecuteCommand extends BlockrGameCommand {
     private Snapshot snapshot;
     private final Block block;
     private Block nextProgramBlock;
+    private Block nextBodyBlock;
     private List<Block> allBlocks;
     private List<Block> program;
 
@@ -26,6 +28,7 @@ public class ExecuteCommand extends BlockrGameCommand {
     public void execute() {
         snapshot = blockrGame.getGameWorld().createSnapshot();
         nextProgramBlock = blockrGame.getProgramArea().getNextProgramBlock();
+        if (nextProgramBlock instanceof BlockWithBody) nextBodyBlock = ((BlockWithBody) nextProgramBlock).getNextBodyBlock();
         allBlocks = new ArrayList<>(blockrGame.getAllBlocksInPA());
         program = new LinkedList<>(blockrGame.getProgram());
 
@@ -41,5 +44,7 @@ public class ExecuteCommand extends BlockrGameCommand {
     public void undo() {
         blockrGame.getGameWorld().restoreSnapshot(snapshot);
         blockrGame.getProgramArea().restore(allBlocks, program, nextProgramBlock);
+        if (nextProgramBlock instanceof BlockWithBody) ((BlockWithBody) nextProgramBlock).setNextBodyBlock(nextBodyBlock);
+        // TODO: highlight in not updated for body (instead the whole statement gets highlighted)
     }
 }
