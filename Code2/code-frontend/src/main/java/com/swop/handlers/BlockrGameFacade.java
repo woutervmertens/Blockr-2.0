@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class BlockrGameFacade {
-    DisplaceBlockHandler displaceBlockHandler;
-    ExecuteProgramHandler executeProgramHandler;
-    SharedData sharedData;
+    private DisplaceBlockHandler displaceBlockHandler;
+    private ExecuteProgramHandler executeProgramHandler;
+    private SharedData sharedData;
 
     public BlockrGameFacade(SharedData sharedData){
         this.sharedData = sharedData;
@@ -73,8 +73,6 @@ public class BlockrGameFacade {
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
         return sharedData.getCorrespondingBlockFor(uiBlock);
     }
-
-    public void makeNewCorrespondingBlock(UIBlock uiBlock) {sharedData.makeNewCorrespondingBlock(uiBlock);}
 
     public Block getBlockInPaAt(int x, int y){
         return sharedData.getBlockrGame().getBlockInPaAt(x,y);
