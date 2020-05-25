@@ -48,15 +48,12 @@ public class ProgramArea implements PushBlocks {
 
     public void dropBlock(Block draggedBlock) {
         // TODO: correct below. When adding a first block we should make sure a functiondef is not added to program.
-        //FIX KRISTOF
-        if (getAllBlocks().size() > getProgram().size()){
-            getProgram().clear();
-            getProgram().add(getMostUpperBlock());
-        }
-        if (allBlocks.size() == 0) {
+        if (getProgram().isEmpty()) {
             allBlocks.add(draggedBlock);
-            program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).
-            nextProgramBlock = draggedBlock;
+            if (!(draggedBlock instanceof FunctionDefinitionBlock)) {
+                program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).
+                nextProgramBlock = draggedBlock;
+            }
             return;
         } else if (!allBlocks.contains(draggedBlock)) {
             allBlocks.add(draggedBlock);
@@ -168,8 +165,17 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return  Returns the next to be executed block.
-     *          This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
+     * Get the first to be executed program block.
+     */
+//    public Block getFirstProgramBlock() {
+//        for(Block block: getProgram()) {
+//            //if (block instanceof StatementBlock)
+//        }
+//    }
+
+    /**
+     * @return Returns the next to be executed block.
+     * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public Block getNextProgramBlock() {
         return nextProgramBlock;
@@ -180,19 +186,22 @@ public class ProgramArea implements PushBlocks {
      * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public void setNextProgramBlock() {
-        if(getProgram().isEmpty()) {
+        if (getProgram().isEmpty()) {
             setNextProgramBlock(null);
             return;
         }
-        if (getNextProgramBlock() == null){
+        if (getNextProgramBlock() == null) {
             return;
         } else if (!getNextProgramBlock().isBusy()) {
-            int i = program.indexOf(nextProgramBlock);
-            if (i + 1 < program.size()) {
-                // TODO: If the next block is a statement and its condition is not true, go over it
-                // TODO: If the next block is a call and its function def is empty, go over it
+            int i = program.indexOf(nextProgramBlock) + 1;
+            Block next = i < program.size() ? program.get(i) : null;
 
-                setNextProgramBlock(program.get(i + 1));
+            if (next instanceof StatementBlock && !((StatementBlock) next).isConditionValid()) i += 1;
+            else if (next instanceof FunctionCallBlock && ((FunctionCallBlock) next).getDefinitionBlock().getBodyBlocks().isEmpty())
+                i += 1;
+
+            if (i < program.size()) {
+                setNextProgramBlock(program.get(i));
             } else {
                 setNextProgramBlock(null);
             }
@@ -202,8 +211,8 @@ public class ProgramArea implements PushBlocks {
     /**
      * Sets the next block to the first block from the program list if the program list is not empty, otherwise to null.
      */
-    public void resetNextProgramBlock(){
-        if(getProgram().isEmpty()) {
+    public void resetNextProgramBlock() {
+        if (getProgram().isEmpty()) {
             setNextProgramBlock(null);
             return;
         }
@@ -382,6 +391,14 @@ public class ProgramArea implements PushBlocks {
         int index = program.indexOf(block);
         program.remove(block);
 
+        // fixes bug without problems
+        if (getProgram().size() == 0 && getAllBlocks().size() > 0) {
+            setNextProgramBlock(getMostUpperBlock());
+            if (getNextProgramBlock() != null) {
+                program.add(getNextProgramBlock());
+            }
+        }
+
         int distance = -block.getHeight() - block.getStep();
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
         PushBlocks.pushFrom(program, index, distance);
@@ -400,13 +417,14 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
+            // TODO: check if can be removed
             // fixes bug without problems
-            if (getProgram().size() == 0 && getAllBlocks().size() > 0){
-                setNextProgramBlock(getMostUpperBlock());
-                if (getNextProgramBlock() != null) {
-                    program.add(getNextProgramBlock());
-                }
-            }
+//            if (getProgram().size() == 0 && getAllBlocks().size() > 0) {
+//                setNextProgramBlock(getMostUpperBlock());
+//                if (getNextProgramBlock() != null) {
+//                    program.add(getNextProgramBlock());
+//                }
+//            }
             // TODO: correct this!
 //            else {
 //                setNextProgramBlock(getMostUpperBlock());
@@ -461,7 +479,7 @@ public class ProgramArea implements PushBlocks {
     }
 
 
-    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
+    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock) {
         this.allBlocks.clear();
         this.allBlocks.addAll(allBlocks);
         this.program.clear();
