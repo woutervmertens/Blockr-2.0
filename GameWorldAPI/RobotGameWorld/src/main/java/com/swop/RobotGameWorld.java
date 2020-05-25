@@ -104,6 +104,7 @@ public class RobotGameWorld implements GameWorld {
     }
 
     private Square getGridSquareByPosition(int[] position){
+        if(position[0] > grid.length - 1 || position[0] < 0 || position[1] > grid[0].length - 1 || position[1] < 0) return null;
         return grid[position[0]][position[1]];
     }
 

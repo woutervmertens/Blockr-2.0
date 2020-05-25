@@ -111,6 +111,10 @@ class RobotGameWorldTest {
         assertTrue(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
         gameWorld.setRobot(Direction.LEFT,new int[]{3,3});
         assertFalse(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
+        gameWorld.setRobot(Direction.UP,new int[]{0,0});
+        assertFalse(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
+        gameWorld.setRobot(Direction.DOWN,new int[]{4,4});
+        assertFalse(gameWorld.evaluate(RobotPredicate.WALL_IN_FRONT));
     }
 
     @org.junit.jupiter.api.Test
