@@ -21,7 +21,7 @@ public class MyCanvasWindow extends CanvasWindow {
     // Variables
     private UIBlock draggedBlock;
     private Point pos = new Point(0, 0);
-    private final int maxBlocks = 10;
+    private final int maxBlocks = 20;
     //Windows
     private PaletteSection paletteSection;
     private ProgramAreaSection programAreaSection;
