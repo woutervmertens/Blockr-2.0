@@ -203,7 +203,7 @@ public class BlockrGame {
      */
     public void resetIfNeeded()
     {
-        if(getProgramArea().getNextProgramBlock() != getProgram().get(0))
+        if(!getProgram().isEmpty() && getProgramArea().getNextProgramBlock() != getProgram().get(0))
             executeCommand(new ResetCommand(this));
     }
 

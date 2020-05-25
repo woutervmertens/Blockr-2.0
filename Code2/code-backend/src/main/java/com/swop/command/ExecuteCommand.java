@@ -32,7 +32,7 @@ public class ExecuteCommand extends BlockrGameCommand {
         if (block.getExecuteType() != ExecuteType.NonExecutable) {
             ((Executable) block).execute();
         }
-        if (!blockrGame.getProgramArea().getNextProgramBlock().isBusy()) {
+        if (nextProgramBlock != null && !nextProgramBlock.isBusy()) {
             blockrGame.getProgramArea().setNextProgramBlock();
         }
     }
