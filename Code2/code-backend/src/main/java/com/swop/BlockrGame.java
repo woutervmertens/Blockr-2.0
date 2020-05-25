@@ -105,10 +105,14 @@ public class BlockrGame {
                 if (toHighlightBlock instanceof StatementBlock) {
                     if (((StatementBlock) toHighlightBlock).isConditionValid()) {
                         toHighlightBlock = ((StatementBlock) toHighlightBlock).getBodyBlocks().get(0);
+                    } else {
+                        break;
                     }
                 } else {  // function definition
                     toHighlightBlock = ((BlockWithBody) toHighlightBlock).getBodyBlocks().get(0);
                 }
+            } else {
+                break;
             }
         }
 
