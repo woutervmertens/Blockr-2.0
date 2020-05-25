@@ -201,9 +201,9 @@ public class BlockrGame {
     /**
      * Resets the programArea and gameworld if the program is not already in the start state
      */
-    public void resetIfNeeded()
-    {
-        if(getProgramArea().getNextProgramBlock() != getProgram().get(0))
+    public void resetIfNeeded() {
+        Block first = getProgram().isEmpty() ? null : getProgram().get(0);
+        if (getProgramArea().getNextProgramBlock() != first)
             executeCommand(new ResetCommand(this));
     }
 
