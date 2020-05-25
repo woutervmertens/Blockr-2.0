@@ -92,25 +92,27 @@ public class BlockrGame {
     }
 
     public Block getToHighlightBlock() {
-        Block nextProgramBlock = programArea.getNextProgramBlock();
+        Block toHighlightBlock = programArea.getNextProgramBlock();
 
-        if (nextProgramBlock instanceof FunctionCallBlock) {
-            nextProgramBlock = ((FunctionCallBlock) nextProgramBlock).getDefinitionBlock();
+        if (toHighlightBlock instanceof FunctionCallBlock) {
+            toHighlightBlock = ((FunctionCallBlock) toHighlightBlock).getDefinitionBlock();
         }
 
-        if (nextProgramBlock instanceof BlockWithBody) {
-            if (((BlockWithBody) nextProgramBlock).getNextBodyBlock() != null) {
-                return ((BlockWithBody) nextProgramBlock).getNextBodyBlock();
-            } else if (! ((BlockWithBody) nextProgramBlock).getBodyBlocks().isEmpty()) {
-                if (nextProgramBlock instanceof StatementBlock) {
-                    if (((StatementBlock) nextProgramBlock).isConditionValid()) {
-                        return ((StatementBlock) nextProgramBlock).getBodyBlocks().get(0);
+        while (toHighlightBlock instanceof BlockWithBody) {
+            if (((BlockWithBody) toHighlightBlock).getNextBodyBlock() != null) {
+                toHighlightBlock = ((BlockWithBody) toHighlightBlock).getNextBodyBlock();
+            } else if (! ((BlockWithBody) toHighlightBlock).getBodyBlocks().isEmpty()) {
+                if (toHighlightBlock instanceof StatementBlock) {
+                    if (((StatementBlock) toHighlightBlock).isConditionValid()) {
+                        toHighlightBlock = ((StatementBlock) toHighlightBlock).getBodyBlocks().get(0);
                     }
+                } else {  // function definition
+                    toHighlightBlock = ((BlockWithBody) toHighlightBlock).getBodyBlocks().get(0);
                 }
             }
         }
 
-        return programArea.getNextProgramBlock();
+        return toHighlightBlock;
     }
 
     /**
