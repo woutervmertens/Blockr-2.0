@@ -194,6 +194,9 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
+    /**
+     * Sets the next block to the first block from the program list if the program list is not empty, otherwise to null.
+     */
     public void resetNextProgramBlock(){
         if(getProgram().isEmpty()) {
             setNextProgramBlock(null);
