@@ -17,21 +17,12 @@ import java.util.stream.Collectors;
  * This class represents the "database" between frontend and backend.
  */
 public class SharedData {
-    private static SharedData firstInstance = null;
-
     private final BlockrGame blockrGame;
     private final BiMap<Block, UIBlock> blockUIBlockMap = HashBiMap.create();
     private UIBlock highlightedBlock;
 
-    private SharedData(int maxBlocks, GameWorldType type) {
+    public SharedData(int maxBlocks, GameWorldType type) {
         blockrGame = new BlockrGame(maxBlocks, type);
-    }
-
-    public static SharedData getInstance(int maxBlocks, GameWorldType type) {
-        if (firstInstance == null) {
-            firstInstance = new SharedData(maxBlocks, type);
-        }
-        return firstInstance;
     }
 
     public BlockrGame getBlockrGame() {
@@ -68,6 +59,7 @@ public class SharedData {
      * @return The corresponding Block.
      */
     public Block getCorrespondingBlockFor(UIBlock uiBlock) {
+        if(uiBlock == null) return null;
         return blockUIBlockMap.inverse().get(uiBlock);
     }
 

@@ -97,6 +97,9 @@ public class ProgramArea implements PushBlocks {
         if (draggedBlock instanceof HorizontallyConnectable) handleHorizontalConnections(draggedBlock);
     }
 
+    /**
+     * Connect the @param draggedBlock to the blocks in the Program Area in a vertical direction.
+     */
     private void handleVerticalConnections(Block draggedBlock) {
         assert (draggedBlock instanceof VerticallyConnectable);
         Block closeBlock;
@@ -131,6 +134,11 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
+    /**
+     * Connect the plugs of the two given blocks.
+     * @param draggedBlock The Block that has just been added.
+     * @param closeBlock The closest Block in the Program Area.
+     */
     private void connectPlug(Block draggedBlock, Block closeBlock) {
         if (program.contains(closeBlock)) {
             addProgramBlockAfter(draggedBlock, closeBlock);
@@ -140,6 +148,11 @@ public class ProgramArea implements PushBlocks {
         draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
     }
 
+    /**
+     * Connect the sockets of the two given blocks.
+     * @param draggedBlock The Block that has just been added.
+     * @param closeBlock The closest Block in the Program Area.
+     */
     private void connectSocket(Block draggedBlock, Block closeBlock) {
         if (program.contains(closeBlock)) {
             addProgramBlockBefore(draggedBlock, closeBlock);
@@ -148,6 +161,9 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
+    /**
+     * Connect the @param draggedBlock to the blocks in the Program Area in a horizontal direction.
+     */
     private void handleHorizontalConnections(Block draggedBlock) {
         assert draggedBlock instanceof HorizontallyConnectable;
         if (draggedBlock instanceof ConditionBlock) {
@@ -426,6 +442,10 @@ public class ProgramArea implements PushBlocks {
         }
     }
 
+    /**
+     * Gets the block with the smallest Y value in the Program Area that is not a condition or a function definition.
+     * @return A Block object.
+     */
     private Block getMostUpperBlock() {
         Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock) && !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
         return min.orElse(null);
@@ -434,8 +454,8 @@ public class ProgramArea implements PushBlocks {
     /**
      * Push up the body of the given parentBlock and the program due to a click on the given clicked block.
      *
-     * @param clickedBlock
-     * @param parentBlock
+     * @param clickedBlock Block clicked.
+     * @param parentBlock Block parent.
      */
     private void pushUpBodyAndProgramAfterClickOn(BlockWithBody parentBlock, Block clickedBlock) {
         // 1) Remove the body and push all superior body-blocks up
@@ -464,7 +484,13 @@ public class ProgramArea implements PushBlocks {
         ExecutedBlocks.getInstance().clear();
     }
 
-
+    /**
+     * Set the Program Area Blocks, Program Blocks and next-to-be-executed Block.
+     *
+     * @param allBlocks List<Block> to fill the Program Area Blocks.
+     * @param program List<Block> to fill the Program Blocks.
+     * @param nextProgramBlock Block.
+     */
     public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
         this.allBlocks.clear();
         this.allBlocks.addAll(allBlocks);

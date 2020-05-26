@@ -61,6 +61,8 @@ public class BlockrGame {
      * Adds block to Program Area
      *
      * @param block given block
+     * @param x x position
+     * @param y y position
      */
     public void dropBlockInPAAt(Block block, int x, int y) {
         if (block == null) throw new IllegalArgumentException();
@@ -142,6 +144,9 @@ public class BlockrGame {
         return programArea.getAllBlocks().size();
     }
 
+    /**
+     * @return Returns the number of Blocks in the Program Area.
+     */
     public int getNumBlocksInProgram() {
         int count = 0;
         if (getProgram().isEmpty() || getProgram().get(0) == null) return count;
