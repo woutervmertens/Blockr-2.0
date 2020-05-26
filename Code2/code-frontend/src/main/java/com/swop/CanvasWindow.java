@@ -318,7 +318,10 @@ public class CanvasWindow {
     /**
      * Called when the user presses (id == MouseEvent.MOUSE_PRESSED), releases (id == MouseEvent.MOUSE_RELEASED), or drags (id == MouseEvent.MOUSE_DRAGGED) the mouse.
      *
-     * @param e Details about the event
+     * @param id event id
+     * @param x event x coordinate
+     * @param y event y coordinate
+     * @param clickCount amount of event clicks
      */
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
     }
@@ -333,7 +336,9 @@ public class CanvasWindow {
     /**
      * Called when the user presses a key (id == KeyEvent.KEY_PRESSED) or enters a character (id == KeyEvent.KEY_TYPED).
      *
-     * @param e
+     * @param id event id
+     * @param keyCode event key code
+     * @param keyChar event key char
      */
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
     }

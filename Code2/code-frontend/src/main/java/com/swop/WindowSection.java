@@ -49,6 +49,9 @@ public abstract class WindowSection {
 
     /**
      * Check whether the pos represented by the given x and y is within this window.
+     * @param x The given x
+     * @param y The given y
+     * @return Boolean
      */
     protected boolean isWithin(int x, int y) {
         return (x > getPosition().x
