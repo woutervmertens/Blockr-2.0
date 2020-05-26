@@ -419,13 +419,6 @@ public class ProgramArea implements PushBlocks {
                     program.add(getNextProgramBlock());
                 }
             }
-            // TODO: correct this!
-//            else {
-//                setNextProgramBlock(getMostUpperBlock());
-//                if (getNextProgramBlock() != null) {
-//                    program.add(getNextProgramBlock());
-//                }
-//            }
         } else if (clickedBlock.getParentBlock() != null) {
             ((StatementBlock) clickedBlock.getParentBlock()).removeConditionBlock((ConditionBlock) clickedBlock);
         }
