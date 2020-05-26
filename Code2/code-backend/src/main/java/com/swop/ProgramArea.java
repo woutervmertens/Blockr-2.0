@@ -47,22 +47,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
-        // TODO: correct below. When adding a first block we should make sure a functiondef is not added to program.
-        if (getProgram().isEmpty()) {
-            allBlocks.add(draggedBlock);
-            if (!(draggedBlock instanceof FunctionDefinitionBlock)) {
-                program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).
-                nextProgramBlock = draggedBlock;
-            }
-            return;
-        } else if (!allBlocks.contains(draggedBlock)) {
-            allBlocks.add(draggedBlock);
-            // TODO: fix dees
-//            if (getNextProgramBlock() == null){
-//                setNextProgramBlock(getMostUpperBlock());
-//                program.add(getNextProgramBlock());;
-//            }
-        }
+
+        allBlocks.add(draggedBlock);
 
         // 1) Handle Connection
         handleConnections(draggedBlock);
@@ -72,6 +58,15 @@ public class ProgramArea implements PushBlocks {
 
         // 3) Reset program execution (and adjust next block)
         // TODO: check if mag weg --> resetProgramExecution();
+        if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+            program.clear();
+            program.add(getMostUpperBlock());
+            nextProgramBlock = getMostUpperBlock();
+        }
+
+
+
+
 
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
@@ -110,11 +105,21 @@ public class ProgramArea implements PushBlocks {
         // 1) plug
         closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
         if (closeBlock != null) {
+            if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+                program.clear();
+                program.add(getMostUpperBlock());
+                nextProgramBlock = getMostUpperBlock();
+            }
             connectPlug(draggedBlock, closeBlock);
         } else {
             // 2) socket
             closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
+                if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+                    program.clear();
+                    program.add(getMostUpperBlock());
+                    nextProgramBlock = getMostUpperBlock();
+                }
                 connectSocket(draggedBlock, closeBlock);
                 draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
             } else {
@@ -163,15 +168,6 @@ public class ProgramArea implements PushBlocks {
             }
         }
     }
-
-    /**
-     * Get the first to be executed program block.
-     */
-//    public Block getFirstProgramBlock() {
-//        for(Block block: getProgram()) {
-//            //if (block instanceof StatementBlock)
-//        }
-//    }
 
     /**
      * @return Returns the next to be executed block.
@@ -393,14 +389,6 @@ public class ProgramArea implements PushBlocks {
         int index = program.indexOf(block);
         program.remove(block);
 
-        // fixes bug without problems
-        if (getProgram().size() == 0 && getAllBlocks().size() > 0) {
-            setNextProgramBlock(getMostUpperBlock());
-            if (getNextProgramBlock() != null) {
-                program.add(getNextProgramBlock());
-            }
-        }
-
         int distance = -block.getHeight() - block.getStep();
         if (block instanceof StatementBlock) distance -= ((StatementBlock) block).getGapSize();
         PushBlocks.pushFrom(program, index, distance);
@@ -419,14 +407,13 @@ public class ProgramArea implements PushBlocks {
             if (parentBlock != null) {
                 pushUpBodyAndProgramAfterClickOn(parentBlock, clickedBlock);
             }
-            // TODO: check if can be removed
             // fixes bug without problems
-//            if (getProgram().size() == 0 && getAllBlocks().size() > 0) {
-//                setNextProgramBlock(getMostUpperBlock());
-//                if (getNextProgramBlock() != null) {
-//                    program.add(getNextProgramBlock());
-//                }
-//            }
+            if (getProgram().size() == 0 && getAllBlocks().size() > 0){
+                setNextProgramBlock(getMostUpperBlock());
+                if (getNextProgramBlock() != null) {
+                    program.add(getNextProgramBlock());
+                }
+            }
             // TODO: correct this!
 //            else {
 //                setNextProgramBlock(getMostUpperBlock());
@@ -444,7 +431,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     private Block getMostUpperBlock() {
-        Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
+        Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock) && !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
         return min.orElse(null);
     }
 

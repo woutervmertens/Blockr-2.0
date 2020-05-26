@@ -139,6 +139,7 @@ public class BlockrGame {
 
     public int getNumBlocksInProgram() {
         int count = 0;
+        if (getProgram().isEmpty() || getProgram().get(0) == null) return count;
         for (Block block : getProgram()) {
             count += block.getCount();
         }
