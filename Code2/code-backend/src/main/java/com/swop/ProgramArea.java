@@ -170,8 +170,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return Returns the next to be executed block.
-     * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
+     * @return  Returns the next to be executed block.
+     *          This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public Block getNextProgramBlock() {
         return nextProgramBlock;
@@ -239,9 +239,14 @@ public class ProgramArea implements PushBlocks {
             throw new IllegalArgumentException("Not both blocks are vertically connectable");
 
         if (draggedBlock.isUnder(closeBlock)) return ((VerticallyConnectable) closeBlock).getPlugPosition();
-        else
+        else if(draggedBlock instanceof StatementBlock){
             return new Point(((VerticallyConnectable) closeBlock).getSocketPosition().x,
-                    ((VerticallyConnectable) closeBlock).getSocketPosition().y - draggedBlock.getHeight() - 10);
+                    ((VerticallyConnectable) closeBlock).getSocketPosition().y - draggedBlock.getHeight() - 10 - ((StatementBlock)draggedBlock).getGapSize());
+        }
+        else{
+            return new Point(((VerticallyConnectable) closeBlock).getSocketPosition().x,
+                    ((VerticallyConnectable) closeBlock).getSocketPosition().y - draggedBlock.getHeight() - 10 );
+        }
     }
 
     /**
@@ -466,7 +471,7 @@ public class ProgramArea implements PushBlocks {
     }
 
 
-    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock) {
+    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
         this.allBlocks.clear();
         this.allBlocks.addAll(allBlocks);
         this.program.clear();
