@@ -146,7 +146,8 @@ public class SharedData {
      * Calls @setHighlightedBlock() on the next to be executed UIBlock.
      */
     public void handleHighlight(){
-        setHighlightedBlock(getCorrespondingUiBlockFor(blockrGame.getProgramArea().getNextProgramBlock()));
+        //setHighlightedBlock(getCorrespondingUiBlockFor(blockrGame.getProgramArea().getNextProgramBlock()));
+        setHighlightedBlock(getCorrespondingUiBlockFor(blockrGame.getToHighlightBlock()));
     }
 
     /**

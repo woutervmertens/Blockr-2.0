@@ -15,7 +15,6 @@ public class ExecuteCommand extends BlockrGameCommand {
     private Snapshot snapshot;
     private final Block block;
     private Block nextProgramBlock;
-    private Block nextBodyBlock;
     private List<Block> allBlocks;
     private List<Block> program;
 
@@ -28,7 +27,6 @@ public class ExecuteCommand extends BlockrGameCommand {
     public void execute() {
         snapshot = blockrGame.getGameWorld().createSnapshot();
         nextProgramBlock = blockrGame.getProgramArea().getNextProgramBlock();
-        if (nextProgramBlock instanceof BlockWithBody) nextBodyBlock = ((BlockWithBody) nextProgramBlock).getNextBodyBlock();
         allBlocks = new ArrayList<>(blockrGame.getAllBlocksInPA());
         program = new LinkedList<>(blockrGame.getProgram());
 
@@ -44,7 +42,43 @@ public class ExecuteCommand extends BlockrGameCommand {
     public void undo() {
         blockrGame.getGameWorld().restoreSnapshot(snapshot);
         blockrGame.getProgramArea().restore(allBlocks, program, nextProgramBlock);
-        if (nextProgramBlock instanceof BlockWithBody) ((BlockWithBody) nextProgramBlock).setNextBodyBlock(nextBodyBlock);
+
+
+//        // Restore the effective nextBlock (to be executed, can be a body of a body of a body ...)
+//        Block parentBlock = nextProgramBlock;
+//        // 1) Get most deep next body block
+//        while (nextProgramBlock instanceof BlockWithBody) {
+//            parentBlock = nextProgramBlock;
+//            nextProgramBlock = ((BlockWithBody) nextProgramBlock).getNextBodyBlock();
+//        }
+//        // 2) Select the previously executed body block as the next body block.
+//        while (parentBlock instanceof BlockWithBody) {
+//            int i = ((BlockWithBody) parentBlock).getBodyBlocks().indexOf(nextProgramBlock);
+//            // Go to parent bcs this is the highest body block
+//            if (i <= 0) {
+//                nextProgramBlock = parentBlock;
+//                parentBlock = parentBlock.getParentBlock();
+//                if (parentBlock == null) break;
+//            }
+//            // Next body becomes the previous body block
+//            else {
+//                ((BlockWithBody) parentBlock).setNextBodyBlock(((BlockWithBody) parentBlock).getBodyBlocks().get(i - 1));
+//                break;
+//            }
+//        }
+
         // TODO: highlight in not updated for body (instead the whole statement gets highlighted)
     }
+
+//    private void restorePreviousBlockState(Block previousBlock, Block currentNextBlock) {
+//        // Restore block's nextBodyBlock of the eventual previous block with body
+//        if (previousBlock != currentNextBlock) {
+//            if (previousBlock instanceof BlockWithBody && ((BlockWithBody) previousBlock).getNextBodyBlock() == null) {
+//                if (!(((BlockWithBody) nextProgramBlock).getBodyBlocks().isEmpty())) {
+//                    // Set the last body as next
+//                    ((BlockWithBody) nextProgramBlock).setNextBodyBlock(((BlockWithBody) nextProgramBlock).getBodyBlocks().get(((BlockWithBody) block).getBodyBlocks().size() - 1));
+//                }
+//            }
+//        }
+//    }
 }

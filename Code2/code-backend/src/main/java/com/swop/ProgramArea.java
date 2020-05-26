@@ -193,13 +193,15 @@ public class ProgramArea implements PushBlocks {
         if (getNextProgramBlock() == null) {
             return;
         } else if (!getNextProgramBlock().isBusy()) {
+            // 1) Find the correct next index (by skipping illegal statements and functioncallblocks)
             int i = program.indexOf(nextProgramBlock) + 1;
             Block next = i < program.size() ? program.get(i) : null;
-
-            if (next instanceof StatementBlock && !((StatementBlock) next).isConditionValid()) i += 1;
+            if (next instanceof StatementBlock && (!((StatementBlock) next).isConditionValid() || ((StatementBlock) next).getBodyBlocks().isEmpty()))
+                i += 1;
             else if (next instanceof FunctionCallBlock && ((FunctionCallBlock) next).getDefinitionBlock().getBodyBlocks().isEmpty())
                 i += 1;
 
+            // 2) Set the next program block, and if it was already the last set to null
             if (i < program.size()) {
                 setNextProgramBlock(program.get(i));
             } else {
@@ -485,6 +487,5 @@ public class ProgramArea implements PushBlocks {
         this.program.clear();
         this.program.addAll(program);
         setNextProgramBlock(nextProgramBlock);
-
     }
 }

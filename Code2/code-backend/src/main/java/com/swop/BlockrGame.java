@@ -200,7 +200,10 @@ public class BlockrGame {
      */
     public void redoCommand() {
         if (!redoStack.isEmpty()) {
+            Stack<ICommand> redoBackup = new Stack<>();
+            redoBackup.addAll(redoStack);
             executeCommand(redoStack.pop());
+            redoStack.addAll(redoBackup);
         }
     }
 
@@ -212,6 +215,7 @@ public class BlockrGame {
     public void executeCommand(ICommand command) {
         command.execute();
         undoStack.add(command);
+        redoStack.clear();
         if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetIfNeeded();
     }
 
