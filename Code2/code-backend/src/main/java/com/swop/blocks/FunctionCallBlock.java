@@ -18,6 +18,7 @@ public class FunctionCallBlock extends Block implements Executable, VerticallyCo
     public FunctionCallBlock(Point position, int width, int height, FunctionDefinitionBlock definitionBlock) {
         super(position, width, height);
         this.definitionBlock = definitionBlock;
+        definitionBlock.addCall(this);
         executeType = ExecuteType.NonWorldChanging;
     }
 

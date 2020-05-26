@@ -1,7 +1,6 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.blocks.Block;
 import com.swop.blocks.FunctionDefinitionBlock;
 
 public class ExecuteProgramHandler {

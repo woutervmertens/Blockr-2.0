@@ -1,10 +1,7 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
-import com.swop.blocks.Block;
-import com.swop.blocks.BlockWithBody;
-import com.swop.blocks.ConditionBlock;
-import com.swop.blocks.StatementBlock;
+import com.swop.blocks.*;
 import com.swop.uiElements.UIBlock;
 
 import java.util.ArrayList;
@@ -69,8 +66,16 @@ public class DisplaceBlockHandler {
                     for (Block condition : newConditions) {
                         blockrGame.removeBlockFromPA(condition, true);
                     }
+                } else if (backendBlock instanceof FunctionDefinitionBlock) {
+                    for (FunctionCallBlock call: new ArrayList<>(((FunctionDefinitionBlock) backendBlock).getCalls())) {
+                        blockrGame.removeBlockFromPA(call, true);
+                        ((FunctionDefinitionBlock) backendBlock).removeCall(call);
+                    }
                 }
-            }  // TODO: else if instance of functiondef --> remove all calls
+            }  else if (backendBlock instanceof FunctionCallBlock) {
+                ((FunctionCallBlock) backendBlock).getDefinitionBlock().removeCall((FunctionCallBlock) backendBlock);
+            }
+
             //remove the block from program area
             blockrGame.removeBlockFromPA(backendBlock, true);
         }
