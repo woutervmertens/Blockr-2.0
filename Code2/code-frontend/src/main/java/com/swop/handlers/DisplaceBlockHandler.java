@@ -70,7 +70,7 @@ public class DisplaceBlockHandler {
                         blockrGame.removeBlockFromPA(condition, true);
                     }
                 }
-            }
+            }  // TODO: else if instance of functiondef --> remove all calls
             //remove the block from program area
             blockrGame.removeBlockFromPA(backendBlock, true);
         }

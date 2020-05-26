@@ -16,7 +16,6 @@ public class ExecuteProgramHandler {
      */
     public void executeNext() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
-        // TODO: subtract from getNumBlocks the blocks in a functiondef
         if ((blockrGame.getProgramArea().getAllBlocks().stream().filter(block -> !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).count()
                 > blockrGame.getProgram().stream().filter(block -> !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).count())||(blockrGame.getProgram().isEmpty())) return;
         blockrGame.executeNext();

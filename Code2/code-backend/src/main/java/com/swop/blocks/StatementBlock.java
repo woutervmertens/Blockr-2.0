@@ -60,8 +60,6 @@ public abstract class StatementBlock extends BlockWithBody implements Executable
      * @return Returns true or false according to the combination of conditions are true or false.
      */
     public boolean isConditionValid() {
-        // TODO: decide whether to return false or throw exceptions on illegal conditions
-
         if (conditions.isEmpty()) return false;
 
         int size = conditions.size();

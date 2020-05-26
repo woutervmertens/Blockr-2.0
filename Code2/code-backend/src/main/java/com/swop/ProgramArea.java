@@ -56,8 +56,6 @@ public class ProgramArea implements PushBlocks {
         // 2) Push program blocks if dragged block was added to a statement body
         pushProgramBlocksForBody(draggedBlock);
 
-        // 3) Reset program execution (and adjust next block)
-        // TODO: check if mag weg --> resetProgramExecution();
         if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
             program.clear();
             program.add(getMostUpperBlock());

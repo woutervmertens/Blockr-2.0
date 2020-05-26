@@ -11,7 +11,7 @@ public abstract class Block implements Cloneable {
     private final int height;
     protected ExecuteType executeType;
     private BlockWithBody parentBlock;
-    private BlockrGame blockrGame; // TODO: fix the BlockrGame dependency (I think it's not needed, see patterns)
+    private BlockrGame blockrGame;
 
     private boolean busy = false;
     private Point position;

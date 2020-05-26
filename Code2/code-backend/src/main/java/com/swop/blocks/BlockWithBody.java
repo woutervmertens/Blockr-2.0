@@ -59,8 +59,6 @@ public abstract class BlockWithBody extends Block implements Executable {
     }
 
     public void insertBodyBlockAtIndex(Block block, int index) {
-        // TODO: make sure program is not pushed for FunctionDefinitionBlock
-
         // 1) Add to the body blocks of this block
         bodyBlocks.add(index, block);
         block.setParentBlock(this);

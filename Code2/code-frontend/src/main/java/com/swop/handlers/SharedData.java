@@ -174,6 +174,4 @@ public class SharedData {
                 .collect(Collectors.toList());
     }
 
-
-    // TODO: find a way to "adjust" highlighted block
 }
