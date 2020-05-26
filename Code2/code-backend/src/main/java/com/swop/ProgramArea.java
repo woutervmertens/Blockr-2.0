@@ -170,8 +170,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
-     * @return  Returns the next to be executed block.
-     *          This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
+     * @return Returns the next to be executed block.
+     * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public Block getNextProgramBlock() {
         return nextProgramBlock;
@@ -182,19 +182,22 @@ public class ProgramArea implements PushBlocks {
      * This is not necessarily the next to be executed block, rather it is the next in the list (can be a statement).
      */
     public void setNextProgramBlock() {
-        if(getProgram().isEmpty()) {
+        if (getProgram().isEmpty()) {
             setNextProgramBlock(null);
             return;
         }
-        if (getNextProgramBlock() == null){
+        if (getNextProgramBlock() == null) {
             return;
         } else if (!getNextProgramBlock().isBusy()) {
-            int i = program.indexOf(nextProgramBlock);
-            if (i + 1 < program.size()) {
-                // TODO: If the next block is a statement and its condition is not true, go over it
-                // TODO: If the next block is a call and its function def is empty, go over it
+            int i = program.indexOf(nextProgramBlock) + 1;
+            Block next = i < program.size() ? program.get(i) : null;
 
-                setNextProgramBlock(program.get(i + 1));
+            if (next instanceof StatementBlock && !((StatementBlock) next).isConditionValid()) i += 1;
+            else if (next instanceof FunctionCallBlock && ((FunctionCallBlock) next).getDefinitionBlock().getBodyBlocks().isEmpty())
+                i += 1;
+
+            if (i < program.size()) {
+                setNextProgramBlock(program.get(i));
             } else {
                 setNextProgramBlock(null);
             }
@@ -204,8 +207,8 @@ public class ProgramArea implements PushBlocks {
     /**
      * Sets the next block to the first block from the program list if the program list is not empty, otherwise to null.
      */
-    public void resetNextProgramBlock(){
-        if(getProgram().isEmpty()) {
+    public void resetNextProgramBlock() {
+        if (getProgram().isEmpty()) {
             setNextProgramBlock(null);
             return;
         }
@@ -463,7 +466,7 @@ public class ProgramArea implements PushBlocks {
     }
 
 
-    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
+    public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock) {
         this.allBlocks.clear();
         this.allBlocks.addAll(allBlocks);
         this.program.clear();

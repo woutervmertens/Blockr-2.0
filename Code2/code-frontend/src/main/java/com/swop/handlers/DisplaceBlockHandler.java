@@ -55,8 +55,7 @@ public class DisplaceBlockHandler {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         if (backendBlock != null) {
-            // TODO: don't remove all bodies and conditions here, let the block with body do it himself
-            // TODO: do the same for function def. Bcs then all calls should disappear as well.
+            // TODO: recursively remove all bodies
             // Remove all bodies and conditions as well from program area
             if (backendBlock instanceof BlockWithBody) {
                 List<Block> newBodyBlocks = new ArrayList<>(((BlockWithBody) backendBlock).getBodyBlocks());
