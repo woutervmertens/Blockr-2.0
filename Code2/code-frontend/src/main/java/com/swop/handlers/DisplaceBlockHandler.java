@@ -57,7 +57,7 @@ public class DisplaceBlockHandler {
                 List<Block> newBodyBlocks = new ArrayList<>(((BlockWithBody) backendBlock).getBodyBlocks());
                 Collections.reverse(newBodyBlocks);  // Reversing is needed for correct undo
                 for (Block bodyBlock : newBodyBlocks) {
-                    blockrGame.removeBlockFromPA(bodyBlock, true);
+                    handleReleaseOutsidePA(sharedData.getCorrespondingUiBlockFor(bodyBlock));  // recursion
                 }
                 if (backendBlock instanceof StatementBlock) {
                     List<ConditionBlock> newConditions = new ArrayList<>(((StatementBlock) backendBlock).getConditions());
