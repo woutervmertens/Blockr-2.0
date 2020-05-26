@@ -79,7 +79,7 @@ class BlockrGameTest {
     void removeBlockFromPA() {
         blockrGame.dropBlockInPAAt(whileBlock, wPosition.x, wPosition.y);
         blockrGame.dropBlockInPAAt(actionBlock, wPosition.x, wPosition.y);
-        blockrGame.removeBlockFromPA(whileBlock,false);
+        blockrGame.removeBlockFromPA(whileBlock,true);
         assertFalse(blockrGame.getAllBlocksInPA().contains(whileBlock));
         blockrGame.removeBlockFromPA(actionBlock,true);
         assertFalse(blockrGame.getAllBlocksInPA().contains(actionBlock));

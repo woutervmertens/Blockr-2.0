@@ -168,7 +168,7 @@ class ProgramAreaTest {
 
     @Test
     void getNextProgramBlock() {
-        assertEquals(null,programArea.getNextProgramBlock());
+        assertNull(programArea.getNextProgramBlock());
         programArea.dropBlock(actionBlock);
         assertEquals(actionBlock,programArea.getNextProgramBlock());
     }
@@ -193,11 +193,10 @@ class ProgramAreaTest {
 
     @Test
     void resetProgramExecution() {
-        // TODO:
-//        programArea.getProgram().add(whileBlock);
-//        programArea.setNextBlock();
+        programArea.getProgram().add(whileBlock);
+        programArea.setNextProgramBlock();
         programArea.dropBlock(actionBlock);
         programArea.resetProgramExecution();
-        assertEquals(actionBlock,programArea.getNextProgramBlock());
+        assertEquals(whileBlock,programArea.getNextProgramBlock());
     }
 }

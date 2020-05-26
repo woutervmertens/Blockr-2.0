@@ -225,8 +225,6 @@ public class BlockrGame {
         command.execute();
         undoStack.add(command);
         redoStack.clear();
-        // TODO: waarom was dat nog nodig ? Het zorgt voor problemen bij undo delete block with body
-        //if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetIfNeeded();
     }
 
     /**
