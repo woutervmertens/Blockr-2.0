@@ -35,6 +35,7 @@ public class BlockrGame {
         this.programArea = new ProgramArea();
         this.gameWorldType = gameWorldType;
         this.gameWorld = gameWorldType.createNewInstance();
+
     }
 
     /**
@@ -101,7 +102,10 @@ public class BlockrGame {
             toHighlightBlock = ((FunctionCallBlock) toHighlightBlock).getDefinitionBlock();
         }
 
-        while (toHighlightBlock instanceof BlockWithBody) {
+        while (toHighlightBlock instanceof BlockWithBody || toHighlightBlock instanceof FunctionCallBlock) {
+            if (toHighlightBlock instanceof FunctionCallBlock) {
+                toHighlightBlock = ((FunctionCallBlock) toHighlightBlock).getDefinitionBlock();
+            }
             if (((BlockWithBody) toHighlightBlock).getNextBodyBlock() != null) {
                 toHighlightBlock = ((BlockWithBody) toHighlightBlock).getNextBodyBlock();
             } else if (! ((BlockWithBody) toHighlightBlock).getBodyBlocks().isEmpty()) {
@@ -203,8 +207,11 @@ public class BlockrGame {
         if (!redoStack.isEmpty()) {
             Stack<ICommand> redoBackup = new Stack<>();
             redoBackup.addAll(redoStack);
+
             executeCommand(redoStack.pop());
+
             redoStack.addAll(redoBackup);
+            redoStack.pop();
         }
     }
 

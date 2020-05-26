@@ -463,6 +463,7 @@ public class ProgramArea implements PushBlocks {
     public void resetProgramExecution() {
         for (Block block : getAllBlocks()) if (block instanceof BlockWithBody) ((BlockWithBody) block).resetExecution();
         if (!program.isEmpty()) resetNextProgramBlock();
+        ExecutedBlocks.getInstance().clear();
     }
 
 
@@ -472,5 +473,18 @@ public class ProgramArea implements PushBlocks {
         this.program.clear();
         this.program.addAll(program);
         setNextProgramBlock(nextProgramBlock);
+
+        try {
+            // Reset next program block
+            Block parent = ExecutedBlocks.getInstance().pop();
+            while (parent.getParentBlock() != null) {
+                parent.getParentBlock().setNextBodyBlock(parent);
+                parent = parent.getParentBlock();
+            }
+            if (getProgram().contains(parent)) setNextProgramBlock(parent);
+        } catch (EmptyStackException ignore) {
+
+        }
+
     }
 }

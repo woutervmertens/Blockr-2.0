@@ -11,7 +11,6 @@ import java.awt.*;
  */
 public class ActionBlock extends Block implements Executable, VerticallyConnectable {
     private final Action action;
-    //private final ExecutedBlocks executedBlocks;
 
     /**
      * Creates an actionBlock with the given position, width, height and action.
@@ -20,11 +19,10 @@ public class ActionBlock extends Block implements Executable, VerticallyConnecta
      * @param height The height of the actionBlock.
      * @param action The action that the actionBlock can perform on the gameworld.
      */
-    public ActionBlock(Point position, int width, int height, Action action/*, ExecutedBlocks executedBlocks*/) {
+    public ActionBlock(Point position, int width, int height, Action action) {
         super(position, width, height);
         this.action = action;
         executeType = ExecuteType.WorldChanging;
-        //this.executedBlocks = executedBlocks;
     }
 
     /**
@@ -53,6 +51,6 @@ public class ActionBlock extends Block implements Executable, VerticallyConnecta
         if (state == SuccessState.FAILURE) {
             getGameWorld().restoreSnapshot(snap);
         }
-
+        ExecutedBlocks.getInstance().push(this);
     }
 }
