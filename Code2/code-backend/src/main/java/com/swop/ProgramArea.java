@@ -47,25 +47,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     public void dropBlock(Block draggedBlock) {
-        // TODO: correct below. When adding a first block we should make sure a functiondef is not added to program.
-        //FIX KRISTOF
-        if (getAllBlocks().size() > getProgram().size()){
-            getProgram().clear();
-            getProgram().add(getMostUpperBlock());
-        }
-        if (allBlocks.size() == 0) {
-            allBlocks.add(draggedBlock);
-            program.add(draggedBlock);  // TODO: not here when allBlocks is empty, rather when program is empty (bcs allBlocks could be non empty bcs the only block is being dragged).
-            nextProgramBlock = draggedBlock;
-            return;
-        } else if (!allBlocks.contains(draggedBlock)) {
-            allBlocks.add(draggedBlock);
-            // TODO: fix dees
-//            if (getNextProgramBlock() == null){
-//                setNextProgramBlock(getMostUpperBlock());
-//                program.add(getNextProgramBlock());;
-//            }
-        }
+
+        allBlocks.add(draggedBlock);
 
         // 1) Handle Connection
         handleConnections(draggedBlock);
@@ -75,6 +58,15 @@ public class ProgramArea implements PushBlocks {
 
         // 3) Reset program execution (and adjust next block)
         // TODO: check if mag weg --> resetProgramExecution();
+        if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+            program.clear();
+            program.add(getMostUpperBlock());
+            nextProgramBlock = getMostUpperBlock();
+        }
+
+
+
+
 
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
@@ -113,11 +105,21 @@ public class ProgramArea implements PushBlocks {
         // 1) plug
         closeBlock = getBlockWithPlugForBlockWithinRadius(draggedBlock, radius);
         if (closeBlock != null) {
+            if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+                program.clear();
+                program.add(getMostUpperBlock());
+                nextProgramBlock = getMostUpperBlock();
+            }
             connectPlug(draggedBlock, closeBlock);
         } else {
             // 2) socket
             closeBlock = getBlockWithSocketForBlockWithinRadius(draggedBlock, radius);
             if (closeBlock != null) {
+                if ((program.isEmpty() || program.get(0) == null) && !(draggedBlock instanceof FunctionDefinitionBlock) ){
+                    program.clear();
+                    program.add(getMostUpperBlock());
+                    nextProgramBlock = getMostUpperBlock();
+                }
                 connectSocket(draggedBlock, closeBlock);
                 draggedBlock.setPosition(getVerticalConnectionPoint(draggedBlock, closeBlock));
             } else {
@@ -424,7 +426,7 @@ public class ProgramArea implements PushBlocks {
     }
 
     private Block getMostUpperBlock() {
-        Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
+        Optional<Block> min = getAllBlocks().stream().filter(block -> !(block instanceof ConditionBlock) && !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).min(Comparator.comparingInt(block -> (int) block.getPosition().getY()));
         return min.orElse(null);
     }
 

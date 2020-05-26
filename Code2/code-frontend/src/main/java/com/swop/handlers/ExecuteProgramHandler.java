@@ -1,6 +1,8 @@
 package com.swop.handlers;
 
 import com.swop.BlockrGame;
+import com.swop.blocks.Block;
+import com.swop.blocks.FunctionDefinitionBlock;
 
 public class ExecuteProgramHandler {
     private final SharedData sharedData;
@@ -15,7 +17,8 @@ public class ExecuteProgramHandler {
     public void executeNext() {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         // TODO: subtract from getNumBlocks the blocks in a functiondef
-        // TODO: if (blockrGame.getNumBlocksInPA() > blockrGame.getNumBlocksInProgram()) return;
+        if ((blockrGame.getProgramArea().getAllBlocks().stream().filter(block -> !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).count()
+                > blockrGame.getProgram().stream().filter(block -> !(block instanceof FunctionDefinitionBlock) && (block.getParentBlock() == null)).count())||(blockrGame.getProgram().isEmpty())) return;
         blockrGame.executeNext();
         updateHighlight();
     }
