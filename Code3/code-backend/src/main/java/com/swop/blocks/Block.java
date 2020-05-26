@@ -13,7 +13,6 @@ public abstract class Block implements Cloneable {
     private BlockWithBody parentBlock;
     private BlockrGame blockrGame;
 
-    private boolean busy = false;
     private Point position;
     private Point previousDropPosition;
 
@@ -58,14 +57,6 @@ public abstract class Block implements Cloneable {
         return height;
     }
 
-    public boolean isBusy() {
-        return busy;
-    }
-
-    public void setBusy(boolean busy) {
-        this.busy = busy;
-    }
-
     public ExecuteType getExecuteType() {
         return executeType;
     }
@@ -76,24 +67,6 @@ public abstract class Block implements Cloneable {
 
     public void setParentBlock(BlockWithBody parentBlock) {
         this.parentBlock = parentBlock;
-    }
-
-
-    /**
-     * @param x x-position.
-     * @param y y-position.
-     * @return Returns whether the given position is on this block.
-     */
-    public boolean isPositionOn(int x, int y) {
-        return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
-    }
-
-    /**
-     * @param block the given block
-     * @return Return whether this block is under the given block.
-     */
-    public boolean isUnder(Block block) {
-        return this.getPosition().y > block.getPosition().y;
     }
 
     public Point getPosition() {
@@ -122,5 +95,8 @@ public abstract class Block implements Cloneable {
         return blockrGame.getGameWorld();
     }
 
-    public int getCount(){return 1;}
+    /**
+     * Is droppedPosition close to socket?
+     */
+    public abstract boolean handleDroppedBlock(Point droppedPosition);
 }

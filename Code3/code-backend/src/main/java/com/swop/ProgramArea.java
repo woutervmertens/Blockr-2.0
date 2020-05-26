@@ -60,4 +60,11 @@ public class ProgramArea implements PushBlocks {
 
     }
 
+    /*
+    * Returns the numbers of blocks in the program area.
+    */
+    public int getCount(){
+        return allBlocks.size();
+    }
+
 }
