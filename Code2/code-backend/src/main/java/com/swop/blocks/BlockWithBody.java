@@ -41,6 +41,9 @@ public abstract class BlockWithBody extends Block implements Executable {
      * 3) And make all the parents' gap sizes bigger.
      * <p>
      * If existing block is null add the given block at the start of the body
+     *
+     * @param block The block to add.
+     * @param existingBlock The already existing block.
      */
     public void addBodyBlockAfter(Block block, Block existingBlock) {
         if (existingBlock == null) throw new IllegalArgumentException();
@@ -51,6 +54,9 @@ public abstract class BlockWithBody extends Block implements Executable {
 
     /**
      * Add the given block before the given existing block.
+     *
+     * @param block The block to add.
+     * @param existingBlock The already existing block.
      */
     public void addBodyBlockBefore(Block block, Block existingBlock) {
         if (existingBlock == null) throw new IllegalArgumentException();
@@ -58,6 +64,12 @@ public abstract class BlockWithBody extends Block implements Executable {
         insertBodyBlockAtIndex(block, bodyBlocks.indexOf(existingBlock));
     }
 
+    /**
+     * Add the given block at a certain index in the body.
+     *
+     * @param block The block to add.
+     * @param index The index.
+     */
     public void insertBodyBlockAtIndex(Block block, int index) {
         // 1) Add to the body blocks of this block
         bodyBlocks.add(index, block);
@@ -77,7 +89,9 @@ public abstract class BlockWithBody extends Block implements Executable {
     }
 
     /**
-     * @pre bodyBlocks.contains(block)
+     * Remove a block from the body.
+     * @custom.pre bodyBlocks.contains(block)
+     * @param block The block to remove
      */
     public void removeBodyBlock(Block block) {
         assert bodyBlocks.contains(block);

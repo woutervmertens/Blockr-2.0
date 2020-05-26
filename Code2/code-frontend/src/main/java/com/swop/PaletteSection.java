@@ -79,7 +79,10 @@ public class PaletteSection extends WindowSection {
     /**
      * Get type of the area clicked on (assuming that the click is on the palette area).
      *
-     * @pre isWithin(x, y);
+     * @custom.pre isWithin(x, y);
+     * @param x Click x coordinate.
+     * @param y Click y coordinate.
+     * @return The BlockTypes of the clicked element.
      */
     public BlockTypes getTypeOfClick(int x, int y) {
         assert isWithin(x, y);

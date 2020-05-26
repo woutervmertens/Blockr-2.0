@@ -114,7 +114,7 @@ public abstract class Block implements Cloneable {
     }
 
     /**
-     * @pre blockerGame isn't null
+     * @custom.pre blockerGame isn't null
      * @return Returns the blockrGame where the block belongs.
      */
     public GameWorld getGameWorld() {

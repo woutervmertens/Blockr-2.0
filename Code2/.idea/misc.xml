@@ -6,6 +6,7 @@
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../BlockrJavaDoc" />
+    <option name="OTHER_OPTIONS" value="-tag custom.pre:a:&quot;Preconditions:&quot;" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

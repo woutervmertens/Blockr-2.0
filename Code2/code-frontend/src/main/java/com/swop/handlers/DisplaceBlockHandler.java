@@ -19,7 +19,7 @@ public class DisplaceBlockHandler {
      * Handles logic for when a block is dropped in the Program Area.
      * It handles the BiMap addition, the drop position and the highlight.
      *
-     * @pre draggedBlock.getPosition() is inside the PA.
+     * @custom.pre draggedBlock.getPosition() is inside the PA.
      * @param draggedBlock The dropped block.
      * @param x The x coordinate of the drop.
      * @param y The y coordinate of the drop.

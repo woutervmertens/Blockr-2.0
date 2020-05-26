@@ -94,6 +94,7 @@ public class BlockrGame {
 
     /**
      * Get next effectively to be executed block for highlight.
+     * @return A Block to highlight.
      */
     public Block getToHighlightBlock() {
         Block toHighlightBlock = programArea.getNextProgramBlock();

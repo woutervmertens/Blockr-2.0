@@ -232,6 +232,8 @@ public class ProgramArea implements PushBlocks {
     }
 
     /**
+     * @param x Given x coordinate.
+     * @param y Given y coordinate.
      * @return returns the block at the given position (x,y) if that block exists otherwise null will be returned.
      */
     public Block getBlockAt(int x, int y) {
@@ -483,8 +485,8 @@ public class ProgramArea implements PushBlocks {
     /**
      * Set the Program Area Blocks, Program Blocks and next-to-be-executed Block.
      *
-     * @param allBlocks List<Block> to fill the Program Area Blocks.
-     * @param program List<Block> to fill the Program Blocks.
+     * @param allBlocks List of Block elements to fill the Program Area Blocks.
+     * @param program List of Block elements to fill the Program Blocks.
      * @param nextProgramBlock Block.
      */
     public void restore(List<Block> allBlocks, List<Block> program, Block nextProgramBlock){
