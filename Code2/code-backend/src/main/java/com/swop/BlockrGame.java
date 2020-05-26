@@ -26,9 +26,8 @@ public class BlockrGame {
 
     /**
      * Initializes BlockrGame
-     *
-     * @param maxBlocks     maximum number of blocks that can be used.
-     * @param gameWorldType given type of gameWorld
+     * @param maxBlocks     Maximum number of blocks that can be used.
+     * @param gameWorldType Given type of gameWorld.
      */
     public BlockrGame(int maxBlocks, GameWorldType gameWorldType) {
         this.maxBlocks = maxBlocks;
@@ -59,7 +58,6 @@ public class BlockrGame {
 
     /**
      * Adds block to Program Area
-     *
      * @param block given block
      * @param x x position
      * @param y y position
@@ -72,7 +70,6 @@ public class BlockrGame {
 
     /**
      * Removes block from Program Area
-     *
      * @param draggedBlock given block
      * @param isRelease Boolean recording whether this is a release (outside PA) or not (a click)
      */
@@ -165,10 +162,9 @@ public class BlockrGame {
 
     /**
      * position of a block is (x,y)
-     *
      * @param x x-value of position
      * @param y y-value of position
-     * @return returns a block if there is one at the given position otherwise null will be returned.
+     * @return Returns a block if there is one at the given position otherwise null will be returned.
      */
     public Block getBlockInPaAt(int x, int y) {
         return programArea.getBlockAt(x, y);
@@ -182,21 +178,21 @@ public class BlockrGame {
     }
 
     /**
-     * @return Returns the game world
+     * @return Returns the game world.
      */
     public GameWorld getGameWorld() {
         return gameWorld;
     }
 
     /**
-     * @return Returns the game world type
+     * @return Returns the game world type.
      */
     public GameWorldType getGameWorldType() {
         return gameWorldType;
     }
 
     /**
-     * undoes the previous operation if there is one otherwise nothing will be done
+     * Undoes the previous operation if there is one otherwise nothing will be done.
      */
     public void undoCommand() {
         if (!undoStack.isEmpty()) {
@@ -207,7 +203,7 @@ public class BlockrGame {
     }
 
     /**
-     * redoes the previous undone operation if an operation is undone otherwise nothing happens
+     * Redoes the previous undone operation if an operation is undone otherwise nothing happens.
      */
     public void redoCommand() {
         if (!redoStack.isEmpty()) {
@@ -222,8 +218,7 @@ public class BlockrGame {
     }
 
     /**
-     * Given command will be executed
-     *
+     * Given command will be executed.
      * @param command given command
      */
     public void executeCommand(ICommand command) {
@@ -233,7 +228,7 @@ public class BlockrGame {
     }
 
     /**
-     * Resets the programArea and gameworld if the program is not already in the start state
+     * Resets the programArea and gameWorld if the program is not already in the start state.
      */
     public void resetIfNeeded() {
         Block first = getProgram().isEmpty() ? null : getProgram().get(0);

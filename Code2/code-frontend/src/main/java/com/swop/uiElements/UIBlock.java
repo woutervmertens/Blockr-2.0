@@ -5,7 +5,7 @@ import java.awt.*;
 public abstract class UIBlock {
     protected final String text;
     protected int width;
-    protected int height;  // default 30 ?
+    protected int height;  // default 30
     protected int step;  // steps in the plugs and sockets
     protected Point position;
     protected Color color, highlightColor;

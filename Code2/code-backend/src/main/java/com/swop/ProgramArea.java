@@ -62,10 +62,6 @@ public class ProgramArea implements PushBlocks {
             nextProgramBlock = getMostUpperBlock();
         }
 
-
-
-
-
         System.out.println("Program has " + getProgram().size() + " blocks !");
     }
 
