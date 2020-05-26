@@ -52,8 +52,7 @@ public class DisplaceBlockHandler {
         BlockrGame blockrGame = sharedData.getBlockrGame();
         Block backendBlock = sharedData.getCorrespondingBlockFor(draggedBlock);
         if (backendBlock != null) {
-            // TODO: recursively remove all bodies
-            // Remove all bodies and conditions as well from program area
+            // Remove all bodies and conditions as well from program area (eventually all call blocks)
             if (backendBlock instanceof BlockWithBody) {
                 List<Block> newBodyBlocks = new ArrayList<>(((BlockWithBody) backendBlock).getBodyBlocks());
                 Collections.reverse(newBodyBlocks);  // Reversing is needed for correct undo

@@ -65,6 +65,7 @@ public class BlockrGame {
     public void dropBlockInPAAt(Block block, int x, int y) {
         if (block == null) throw new IllegalArgumentException();
         executeCommand(new DropBlockCommand(programArea, block, x, y));
+        resetIfNeeded();
     }
 
     /**
@@ -224,7 +225,8 @@ public class BlockrGame {
         command.execute();
         undoStack.add(command);
         redoStack.clear();
-        if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetIfNeeded();
+        // TODO: waarom was dat nog nodig ? Het zorgt voor problemen bij undo delete block with body
+        //if (command instanceof DeleteBlockCommand || command instanceof DropBlockCommand) resetIfNeeded();
     }
 
     /**

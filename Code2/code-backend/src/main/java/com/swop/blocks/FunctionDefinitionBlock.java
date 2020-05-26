@@ -40,5 +40,4 @@ public class FunctionDefinitionBlock extends BlockWithBody implements Executable
         setBusy(false);
     }
 
-    // TODO: make a terminate method for all blocks, and when you terminate this block all call blocks should be gone.
 }
