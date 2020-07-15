@@ -1,6 +1,5 @@
 package com.swop.command;
 
-import com.swop.BlockrGame;
 import com.swop.Snapshot;
 import com.swop.blocks.BlockModel;
 

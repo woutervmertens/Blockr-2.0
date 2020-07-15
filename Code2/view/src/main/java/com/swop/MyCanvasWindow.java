@@ -82,10 +82,9 @@ public class MyCanvasWindow extends CanvasWindow {
      * @param g Graphics Object
      */
     private void paintSections(Graphics g){
-        isPaletteHidden = blockrGameFacade.isPaletteHidden();
-        paletteView.draw(g,isPaletteHidden);
-        programAreaView.draw(g,blockrGameFacade.getAllUIBlocksInPA());
-        gameWorldView.draw(g,blockrGameFacade.getGameWorld());
+        paletteView.draw(g);
+        programAreaView.draw(g);
+        gameWorldView.draw(g);
     }
 
     /**
@@ -94,10 +93,7 @@ public class MyCanvasWindow extends CanvasWindow {
      * @param g Graphics Object
      */
     private void paintDraggedBlock(Graphics g){
-        g.setColor(draggedBlock.getColor());
-        g.fillPolygon(draggedBlock.getPolygon());
-        g.setColor(Color.BLACK);
-        g.drawString(draggedBlock.getText(), draggedBlock.getTextPosition().x, draggedBlock.getTextPosition().y);
+        draggedBlock.draw(g);
     }
 
     /**
