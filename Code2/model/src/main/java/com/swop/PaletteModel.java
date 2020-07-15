@@ -15,4 +15,12 @@ public class PaletteModel {
     public boolean isHidden() {
         return isHidden;
     }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
+    }
+
+    public void setSupportedBlocks(Collection<BlockModel> supportedBlocks) {
+        this.supportedBlocks = supportedBlocks;
+    }
 }
