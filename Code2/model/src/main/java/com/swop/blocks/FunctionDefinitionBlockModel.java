@@ -1,32 +1,28 @@
-package com.swop.uiElements;
+package com.swop.blocks;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UIStatementBlock extends UIBlockWithBody {
-
-    private final int conditionWidth;
-
-    public UIStatementBlock(BlockTypes.stdBlockData data, int gapSize) {
-        super(data, gapSize);
-        conditionWidth = width / 2;
+/**
+ * A block that defines a function.
+ */
+public class FunctionDefinitionBlockModel extends BlockModelWithBody{
+    List<FunctionCallBlockModel> calls = new ArrayList<>();
+    /**
+     * Creates a block that defines a function with the given position, width and height.
+     */
+    public FunctionDefinitionBlockModel(StdBlockData data) {
+        super(data);
     }
 
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
         pol.addPoint(position.x, position.y);
-        //socket top
-        pol.addPoint(position.x + step * 2, position.y);
-        pol.addPoint(position.x + step * 3, position.y + step);
-        pol.addPoint(position.x + step * 4, position.y);
+        pol.addPoint(position.x + width, position.y);
 
-        pol.addPoint(position.x + conditionWidth, position.y);
-        //socket condition
-        pol.addPoint(position.x + conditionWidth, position.y + step * 2);
-        pol.addPoint(position.x + conditionWidth - step, position.y + step * 3);
-        pol.addPoint(position.x + conditionWidth, position.y + step * 4);
-
-        pol.addPoint(position.x + conditionWidth, position.y + height);
+        pol.addPoint(position.x + width, position.y + height);
 
         //plug body
         pol.addPoint(position.x + pillarWidth + step * 4, position.y + height);
@@ -46,12 +42,19 @@ public class UIStatementBlock extends UIBlockWithBody {
         pol.addPoint(position.x + width, position.y + gapSize + height);
         pol.addPoint(position.x + width, position.y + height + pillarWidth + gapSize);
 
-        //plug bottom
-        pol.addPoint(position.x + step * 4, position.y + height + pillarWidth + gapSize);
-        pol.addPoint(position.x + step * 3, position.y + height + pillarWidth + gapSize + step);
-        pol.addPoint(position.x + step * 2, position.y + height + pillarWidth + gapSize);
-
         pol.addPoint(position.x, position.y + height + pillarWidth + gapSize);
         return pol;
+    }
+
+    public List<FunctionCallBlockModel> getCalls() {
+        return calls;
+    }
+
+    public void addCall(FunctionCallBlockModel callBlock) {
+        calls.add(callBlock);
+    }
+
+    public void removeCall(FunctionCallBlockModel callBlock) {
+        calls.remove(callBlock);
     }
 }

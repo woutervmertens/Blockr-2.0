@@ -2,8 +2,8 @@ package com.swop;
 
 import java.awt.*;
 
-public class GameWorldSection extends WindowSection{
-    public GameWorldSection(Point pos, int width, int height) {
+public class GameWorldView extends WindowSection{
+    public GameWorldView(Point pos, int width, int height) {
         super(pos, width, height);
     }
 

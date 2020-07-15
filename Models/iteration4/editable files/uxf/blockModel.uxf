@@ -258,7 +258,7 @@ m1=0..n</panel_attributes>
       <w>180</w>
       <h>90</h>
     </coordinates>
-    <panel_attributes>BlockViewModel
+    <panel_attributes>ProgramAreaViewModel
 --
 Blocks : BlockContainer
 --

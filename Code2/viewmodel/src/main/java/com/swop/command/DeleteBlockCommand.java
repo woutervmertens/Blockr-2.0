@@ -1,28 +1,27 @@
 package com.swop.command;
 
-import com.swop.ProgramArea;
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockModel;
 
 import java.awt.*;
 
 public class DeleteBlockCommand extends ProgramAreaCommand {
-    private final Block block;
+    private final BlockModel blockModel;
     private final Point previousPosition;
 
-    public DeleteBlockCommand(ProgramArea programArea, Block block) {
+    public DeleteBlockCommand(ProgramArea programArea, BlockModel blockModel) {
         super(programArea);
-        this.block = block;
-        previousPosition = block.getPreviousDropPosition();
+        this.blockModel = blockModel;
+        previousPosition = blockModel.getPreviousDropPosition();
     }
 
     @Override
     public void execute() {
-        programArea.removeBlockFromPA(block);
+        programArea.removeBlockFromPA(blockModel);
     }
 
     @Override
     public void undo() {
-        if (previousPosition != null) block.setPosition(previousPosition);
-        programArea.dropBlock(block);
+        if (previousPosition != null) blockModel.setPosition(previousPosition);
+        programArea.dropBlock(blockModel);
     }
 }

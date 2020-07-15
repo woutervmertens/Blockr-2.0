@@ -1,9 +1,6 @@
 package com.swop;
 
-import com.swop.uiElements.UIBlock;
-
 import java.awt.*;
-import java.util.Collection;
 
 public abstract class WindowSection {
     protected Point position;
@@ -14,13 +11,6 @@ public abstract class WindowSection {
         this.position = pos;
         this.width = width;
         this.height = height;
-    }
-
-    protected void drawBlock(UIBlock block, Graphics g) {
-        g.setColor(block.getColor());
-        g.fillPolygon(block.getPolygon());
-        g.setColor(Color.BLACK);
-        g.drawString(block.getText(), block.getTextPosition().x, block.getTextPosition().y);
     }
 
     public void setPosition(Point p) {

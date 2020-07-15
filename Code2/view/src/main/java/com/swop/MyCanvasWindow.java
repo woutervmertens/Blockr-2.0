@@ -2,9 +2,7 @@ package com.swop;
 
 import com.swop.handlers.BlockrGameFacade;
 import com.swop.handlers.SharedData;
-import com.swop.uiElements.BlockTypes;
 import com.swop.uiElements.UIBlock;
-import com.swop.uiElements.UIBlockWithBody;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -23,9 +21,9 @@ public class MyCanvasWindow extends CanvasWindow {
     private Point pos = new Point(0, 0);
     private final int maxBlocks = 20;
     //Windows
-    private PaletteSection paletteSection;
-    private ProgramAreaSection programAreaSection;
-    private GameWorldSection gameWorldSection;
+    private PaletteView paletteView;
+    private ProgramAreaView programAreaView;
+    private GameWorldView gameWorldView;
 
     /**
      * Initializes a CanvasWindow object.
@@ -38,9 +36,9 @@ public class MyCanvasWindow extends CanvasWindow {
         //Facade
         blockrGameFacade = new BlockrGameFacade(new SharedData(maxBlocks, gameWorldType));
         //Sections
-        paletteSection = new PaletteSection(new Point(0,0),this.width/4,this.height, blockrGameFacade);
-        programAreaSection = new ProgramAreaSection(new Point(paletteSection.getWidth(),0),paletteSection.getWidth() * 2,paletteSection.getHeight());
-        gameWorldSection = new GameWorldSection(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0),paletteSection.getWidth(),paletteSection.getHeight());
+        paletteView = new PaletteView(new Point(0,0),this.width/4,this.height, blockrGameFacade);
+        programAreaView = new ProgramAreaView(new Point(paletteView.getWidth(),0), paletteView.getWidth() * 2, paletteView.getHeight());
+        gameWorldView = new GameWorldView(new Point(paletteView.getWidth() + programAreaView.getWidth(),0), paletteView.getWidth(), paletteView.getHeight());
     }
 
     /**
@@ -65,17 +63,17 @@ public class MyCanvasWindow extends CanvasWindow {
      * Sets the sizes and positions of all the sections relative to the current window size.
      */
     private void adaptSectionSizes(){
-        paletteSection.setHeight(getHeight());
-        programAreaSection.setHeight(getHeight());
-        gameWorldSection.setHeight(getHeight());
+        paletteView.setHeight(getHeight());
+        programAreaView.setHeight(getHeight());
+        gameWorldView.setHeight(getHeight());
 
-        paletteSection.setWidth(getWidth()/4);
-        programAreaSection.setWidth(getWidth()/2);
-        gameWorldSection.setWidth(getWidth()/4);
+        paletteView.setWidth(getWidth()/4);
+        programAreaView.setWidth(getWidth()/2);
+        gameWorldView.setWidth(getWidth()/4);
 
-        paletteSection.setPosition(new Point(0,0));
-        programAreaSection.setPosition(new Point(paletteSection.getWidth(),0));
-        gameWorldSection.setPosition(new Point(paletteSection.getWidth() + programAreaSection.getWidth(),0));
+        paletteView.setPosition(new Point(0,0));
+        programAreaView.setPosition(new Point(paletteView.getWidth(),0));
+        gameWorldView.setPosition(new Point(paletteView.getWidth() + programAreaView.getWidth(),0));
     }
 
     /**
@@ -85,9 +83,9 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     private void paintSections(Graphics g){
         isPaletteHidden = blockrGameFacade.isPaletteHidden();
-        paletteSection.draw(g,isPaletteHidden);
-        programAreaSection.draw(g,blockrGameFacade.getAllUIBlocksInPA());
-        gameWorldSection.draw(g,blockrGameFacade.getGameWorld());
+        paletteView.draw(g,isPaletteHidden);
+        programAreaView.draw(g,blockrGameFacade.getAllUIBlocksInPA());
+        gameWorldView.draw(g,blockrGameFacade.getGameWorld());
     }
 
     /**
@@ -149,7 +147,7 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     private void pressMouse(int x, int y) {
         draggedBlock = getUIBlock(x, y);
-        if (programAreaSection.isWithin(x, y) && draggedBlock != null) {
+        if (programAreaView.isWithin(x, y) && draggedBlock != null) {
             blockrGameFacade.handleProgramAreaForClickOn(draggedBlock);
         }
     }
@@ -183,7 +181,7 @@ public class MyCanvasWindow extends CanvasWindow {
      */
     private void releaseMouse(int x, int y) {
         if (isBlockDragged()) {
-            if (programAreaSection.isWithin(x, y)) {
+            if (programAreaView.isWithin(x, y)) {
                 blockrGameFacade.handleReleaseInPAAt(draggedBlock, x, y);
             } else {
                 blockrGameFacade.handleReleaseOutsidePA(draggedBlock);
@@ -202,10 +200,10 @@ public class MyCanvasWindow extends CanvasWindow {
      * @return The UIBlock at the given coordinates or null
      */
     private UIBlock getUIBlock(int x, int y) {
-        if (paletteSection.isWithin(x, y) && !isPaletteHidden) {
-            BlockTypes type = paletteSection.getTypeOfClick(x, y);
+        if (paletteView.isWithin(x, y) && !isPaletteHidden) {
+            BlockTypes type = paletteView.getTypeOfClick(x, y);
             return type.getNewUIBlock(x, y);
-        } else if (programAreaSection.isWithin(x, y)) {
+        } else if (programAreaView.isWithin(x, y)) {
             return blockrGameFacade.getCorrespondingUiBlockFor(blockrGameFacade.getBlockInPaAt(x, y));
         }
         return null;

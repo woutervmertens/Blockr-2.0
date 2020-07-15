@@ -1,11 +1,29 @@
-package com.swop.uiElements;
+package com.swop.blocks;
+
+import com.swop.Action;
 
 import java.awt.*;
 
-public class UIFunctionCall extends UIBlock{
+/**
+ * A block to perform an action.
+ */
+public class ActionBlockModel extends BlockModel {
+    private final Action action;
 
-    public UIFunctionCall(BlockTypes.stdBlockData data) {
+    /**
+     * Creates an actionBlock with the given position, width, height and action.
+     * @param action The action that the actionBlock can perform on the gameworld.
+     */
+    public ActionBlockModel(StdBlockData data, Action action) {
         super(data);
+        this.action = action;
+        Connectors.put(new Connector(pointSum(position,ConnectorType.TOP.getOffset(data))),ConnectorType.TOP);
+        Connectors.put(new Connector(pointSum(position,ConnectorType.BOTTOM.getOffset(data))),ConnectorType.BOTTOM);
+    }
+
+    protected Action getAction()
+    {
+        return action;
     }
 
     @Override
