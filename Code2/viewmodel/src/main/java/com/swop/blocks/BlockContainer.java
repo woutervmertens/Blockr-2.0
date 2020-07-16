@@ -1,16 +1,10 @@
 package com.swop.blocks;
 
-import com.swop.GameWorld;
-import com.swop.SuccessState;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BlockContainer {
-    private List<BlockModel> AllBlocks;
-    private Queue<BlockModel> BlockProgram;
+    private List<BlockModel> AllBlocks = new ArrayList<>();
+    private Queue<BlockModel> BlockProgram = new LinkedList<>();
 
     public void AddBlockToProgramFront(BlockModel block){
         BlockProgram.add(block);
@@ -19,13 +13,32 @@ public class BlockContainer {
         BlockProgram.addAll(blocks);
     }
 
-    public BlockModel GetNextToExecute(){
-        return BlockProgram.poll();
+    /**
+     * Generates a new program if none exists
+     * Pops the first element blockModel and changes the highlight
+     * Checks and flags if the blockModel is the last element, if not it sets the highlight for the next block
+     * @return a Block made with blockModel
+     */
+    public Block GetNextToExecute(){
+        if(BlockProgram.isEmpty()) GenerateProgram();
+
+        BlockModel blockModel = BlockProgram.poll();
+        blockModel.setHighlightState(false);
+
+        BlockModel nextBlock = BlockProgram.peek();
+        if (nextBlock != null) {
+            nextBlock.setHighlightState(true);
+        } else {
+            blockModel.flagLastBlock();
+        }
+
+        return new Block(blockModel);
     }
 
     public void GenerateProgram(){
         BlockProgram.clear();
         //TODO
+        BlockProgram.peek().setHighlightState(true);
     }
 
     public List<Block> getAllBlockVMs() {

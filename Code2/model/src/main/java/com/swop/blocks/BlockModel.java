@@ -14,6 +14,7 @@ public abstract class BlockModel implements Cloneable {
 
     protected Color color, highlightColor;
     protected boolean isHighlight = false;
+    private boolean isLastBlock = false;
 
     protected HashMap<Connector,ConnectorType> Connectors;
 
@@ -54,16 +55,6 @@ public abstract class BlockModel implements Cloneable {
 
     public int getHeight() {
         return height;
-    }
-
-
-    /**
-     * @param x x-position.
-     * @param y y-position.
-     * @return Returns whether the given position is on this block.
-     */
-    public boolean isPositionOn(int x, int y) {
-        return (x > position.x && x < position.x + width) && (y > position.y && y < position.y + height);
     }
 
     public Point getPosition() {
@@ -107,12 +98,21 @@ public abstract class BlockModel implements Cloneable {
         return this.isHighlight;
     }
 
-    public void setHighlightStateOn(boolean isHighlight) {
+    public void setHighlightState(boolean isHighlight) {
         this.isHighlight = isHighlight;
     }
 
+    public void flagLastBlock(){
+        isLastBlock = true;
+    }
+    public boolean checkLastBlockFlagOnce(){
+        boolean state = isLastBlock;
+        isLastBlock = false;
+        return state;
+    }
+
     /**
-     * Check whether the pos represented by the given x and y is within this window.
+     * Check whether the pos represented by the given x and y is within this block.
      * @param x The given x
      * @param y The given y
      * @return Boolean
