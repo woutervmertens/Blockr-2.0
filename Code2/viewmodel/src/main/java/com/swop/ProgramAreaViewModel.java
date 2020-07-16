@@ -15,8 +15,19 @@ public class ProgramAreaViewModel extends ViewModel {
     }
 
     @Override
-    public void HandleClick(int x, int y) {
+    public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
+        //TODO
+    }
+
+    @Override
+    public void HandleMouseRelease(Block draggedBlock, int x, int y) {
+        return; //TODO
+    }
+
+    @Override
+    public void HandleMouseDrag(int x, int y) {
+
     }
 
     public List<Block> getAllBlocks(){

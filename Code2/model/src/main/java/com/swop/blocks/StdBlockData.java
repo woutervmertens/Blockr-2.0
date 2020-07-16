@@ -7,10 +7,10 @@ public class StdBlockData {
     private Point position;
     private String text;
 
-    StdBlockData(Point position, int width, int height, String text){
+    public StdBlockData(Point position, int width, int height, String text){
         this(position,width,height,0,0,0,text);
     }
-    StdBlockData(Point position, int width, int height, int titleHeight, int pillarWidth, int gapSize, String text){
+    public StdBlockData(Point position, int width, int height, int titleHeight, int pillarWidth, int gapSize, String text){
         this.width = width;
         this.height = height;
         this.position = position;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * A window for custom drawing.
  * <p>
  * To use this class, create a subclass, say com.com.swop.MyCanvasWindow, that overrides
- * methods {@link #paint(Graphics)}, {@link #handleMouseEvent(int, int, int, int)}, and {@link #handleKeyEvent(int, int, char)}, and then launch
+ * methods {@link #paint(Graphics)}, {@link #handleMouseEvent(int, int, int, int)}, and {@link #handleKeyEvent(int, int, char, boolean, boolean)}, and then launch
  * it from your com.com.swop.main method as follows:
  *
  * <pre>
@@ -202,6 +202,7 @@ class CanvasWindowRecording {
                 }
                 case "KeyEvent": {
                     int id;
+                    KeyEvent e;
                     switch (words[1]) {
                         case "KEY_PRESSED":
                             id = KeyEvent.KEY_PRESSED;
@@ -330,7 +331,7 @@ public class CanvasWindow {
         System.out.println(e);
         if (recording != null)
             recording.items.add(new KeyEventItem(e.getID(), e.getKeyCode(), e.getKeyChar()));
-        handleKeyEvent(e.getID(), e.getKeyCode(), e.getKeyChar());
+        handleKeyEvent(e.getID(), e.getKeyCode(), e.getKeyChar(),e.isControlDown(),e.isShiftDown());
     }
 
     /**
@@ -340,7 +341,10 @@ public class CanvasWindow {
      * @param keyCode event key code
      * @param keyChar event key char
      */
-    protected void handleKeyEvent(int id, int keyCode, char keyChar) {
+    protected void handleKeyEvent(int id, int keyCode, char keyChar, boolean isControlDown, boolean isShiftDown) {
+    }
+    protected void handleKeyEvent(int id, int keyCode, char keyChar){
+        this.handleKeyEvent(id, keyCode, keyChar,false,false);
     }
 
     BufferedImage captureImage() {

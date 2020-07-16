@@ -1,16 +1,13 @@
 package com.swop;
 
 import com.swop.blocks.Block;
-import com.swop.handlers.BlockrGameFacade;
 import com.swop.uiElements.UIBlock;
 
 import java.awt.*;
 
-public class PaletteView {
-    private PaletteViewModel viewModel;
-
-    public PaletteView(Point pos, int width, int height, BlockrGameFacade blockrGameFacade){
-        viewModel = new PaletteViewModel(pos, width, height,blockrGameFacade);
+public class PaletteView extends View{
+    public PaletteView(Point pos, int width, int height, GameController gameController){
+        viewModel = new PaletteViewModel(pos, width, height,gameController);
     }
 
     /**
@@ -25,10 +22,10 @@ public class PaletteView {
         g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
 
         //Hide if needed
-        if (viewModel.isHidden()) return;
+        if (((PaletteViewModel)viewModel).isHidden()) return;
 
         //Get data
-        for (Block block : viewModel.getAllBlocks()) {
+        for (Block block : ((PaletteViewModel)viewModel).getAllBlocks()) {
             UIBlock b = new UIBlock(block);
             b.draw(g);
         }

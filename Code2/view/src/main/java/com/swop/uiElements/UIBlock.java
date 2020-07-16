@@ -11,6 +11,7 @@ public class UIBlock {
     public UIBlock(Block viewModel){}
 
     public void draw(Graphics g){
+        if(viewModel == null) return;
         BlockViewData data = viewModel.getViewData();
         g.setColor(data.getColor());
         g.fillPolygon(data.getPolygon());

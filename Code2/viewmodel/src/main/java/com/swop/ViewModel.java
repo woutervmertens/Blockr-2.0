@@ -1,5 +1,7 @@
 package com.swop;
 
+import com.swop.blocks.Block;
+
 import java.awt.*;
 
 public abstract class ViewModel {
@@ -37,8 +39,9 @@ public abstract class ViewModel {
         return width;
     }
 
-    public abstract void HandleClick(int x, int y);
-
+    public abstract void HandleMousePress(int x, int y);
+    public abstract void HandleMouseRelease(Block draggedBlock, int x, int y);
+    public abstract void HandleMouseDrag(int x, int y);
     /**
      * Check whether the pos represented by the given x and y is within this window.
      * @param x The given x
@@ -51,4 +54,6 @@ public abstract class ViewModel {
                 && y > getPosition().y
                 && y < getPosition().y + getHeight());
     }
+
+
 }

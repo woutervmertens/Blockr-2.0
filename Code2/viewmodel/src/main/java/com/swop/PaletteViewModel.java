@@ -1,8 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-import com.swop.blocks.BlockModel;
-import com.swop.handlers.BlockrGameFacade;
+import com.swop.blocks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,13 +8,43 @@ import java.util.Collection;
 
 public class PaletteViewModel extends ViewModel {
     private PaletteModel model;
-    public PaletteViewModel(Point pos, int width, int height, BlockrGameFacade gameController) {
+    public PaletteViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
+        model = new PaletteModel();
         fillModelWithSupportedBlocks(gameController);
     }
 
-    private void fillModelWithSupportedBlocks(BlockrGameFacade gameController) {
+    private void fillModelWithSupportedBlocks(GameController gameController) {
+        ArrayList<BlockModel> blockModels = new ArrayList<>();
+        StdBlockData defAcData = gameController.getDefaultActionData();
+        StdBlockData defPrData = gameController.getDefaultPredicateData();
+        StdBlockData defBodData = gameController.getDefaultBodyBlockData();
+        int x = position.x + 15;
+        int y = position.y + 10;
+        for(Action action : gameController.getSupportedActions()){
+            blockModels.add(new ActionBlockModel(
+                    new StdBlockData(
+                            new Point(x,y),
+                            defAcData.getWidth(),
+                            defAcData.getHeight(),
+                            action.toString()),action));
+            y += defAcData.getHeight();
+        }
+        for(Predicate predicate : gameController.getSupportedPredicates()){
+            blockModels.add(new ConditionBlockModel(
+                    new StdBlockData(
+                            new Point(x,y),
+                            defPrData.getWidth(),
+                            defPrData.getHeight(),
+                            predicate.toString()),true,predicate));
+            y += defPrData.getHeight();
+        }
         //TODO
+        //NOT
+        //IF
+        //WHILE
+        //FUNCTION DEFINITION
+        //FUNCTION CALL
     }
 
     public boolean isHidden(){
@@ -51,8 +79,18 @@ public class PaletteViewModel extends ViewModel {
     }
 
     @Override
-    public void HandleClick(int x, int y) {
+    public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
         //TODO
+    }
+
+    @Override
+    public void HandleMouseRelease(Block draggedBlock, int x, int y) {
+        return;
+    }
+
+    @Override
+    public void HandleMouseDrag(int x, int y) {
+
     }
 }

@@ -3,6 +3,8 @@ package com.swop.blocks;
 import com.swop.GameWorld;
 import com.swop.SuccessState;
 
+import java.awt.*;
+
 public class Block implements Cloneable {
     BlockModel model;
     public Block(BlockModel model){
@@ -18,6 +20,10 @@ public class Block implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void setPosition(Point pos){
+        model.setPosition(pos);
     }
 
     public SuccessState Execute(GameWorld gw, BlockContainer b) {return null;}
