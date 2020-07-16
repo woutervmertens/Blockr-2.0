@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PaletteViewModel extends WindowSection{
+public class PaletteViewModel extends ViewModel {
     private PaletteModel model;
     public PaletteViewModel(Point pos, int width, int height, BlockrGameFacade gameController) {
         super(pos, width, height);
@@ -38,7 +38,7 @@ public class PaletteViewModel extends WindowSection{
      * @custom.pre isWithin(x, y);
      * @param x Click x coordinate.
      * @param y Click y coordinate.
-     * @return The BlockTypes of the clicked element.
+     * @return The Block of the clicked element.
      */
     public Block getBlockClicked(int x, int y) {
         assert isWithin(x, y);
@@ -48,5 +48,11 @@ public class PaletteViewModel extends WindowSection{
             if(bm.isWithin(x,y)) return new Block(bm);
         }
         return null;
+    }
+
+    @Override
+    public void HandleClick(int x, int y) {
+        if(!isWithin(x,y)) return;
+        //TODO
     }
 }

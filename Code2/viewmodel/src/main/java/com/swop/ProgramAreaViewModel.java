@@ -8,11 +8,17 @@ import com.swop.blocks.Connector;
 import java.awt.*;
 import java.util.List;
 
-public class ProgramAreaViewModel extends WindowSection{
+public class ProgramAreaViewModel extends ViewModel {
     private BlockContainer blocks = new BlockContainer();
     public ProgramAreaViewModel(Point pos, int width, int height) {
         super(pos, width, height);
     }
+
+    @Override
+    public void HandleClick(int x, int y) {
+        if(!isWithin(x,y)) return;
+    }
+
     public List<Block> getAllBlocks(){
         return blocks.getAllBlockVMs();
     }

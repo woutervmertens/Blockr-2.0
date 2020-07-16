@@ -2,6 +2,7 @@ package com.swop.blocks;
 
 import java.util.*;
 
+//TODO: Implements cloneable?
 public class BlockContainer {
     private List<BlockModel> AllBlocks = new ArrayList<>();
     private Queue<BlockModel> BlockProgram = new LinkedList<>();

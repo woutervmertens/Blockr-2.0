@@ -2,12 +2,12 @@ package com.swop;
 
 import java.awt.*;
 
-public abstract class WindowSection {
+public abstract class ViewModel {
     protected Point position;
     protected int width;
     protected int height;
 
-    public WindowSection(Point pos, int width, int height){
+    public ViewModel(Point pos, int width, int height){
         this.position = pos;
         this.width = width;
         this.height = height;
@@ -36,6 +36,8 @@ public abstract class WindowSection {
     public int getWidth() {
         return width;
     }
+
+    public abstract void HandleClick(int x, int y);
 
     /**
      * Check whether the pos represented by the given x and y is within this window.

@@ -1,9 +1,27 @@
 package com.swop;
 
-public class GameController {
-    ProgramAreaViewModel programAreaViewModel;
-    PaletteViewModel paletteViewModel;
-    GameWorldViewModel gameWorldViewModel;
+import java.util.ArrayList;
 
-    GameWorldType gameWorldType;
+public class GameController {
+    private ArrayList<ViewModel> viewModels;
+    private GameWorldType gameWorldType;
+
+    public GameController(GameWorldType gameWorldType){
+        this.gameWorldType = gameWorldType;
+        this.viewModels = new ArrayList<>();
+    }
+
+    public void AddViewModel(ViewModel newVM){
+        viewModels.add(newVM);
+    }
+
+    public void RemoveViewModel(ViewModel oldVM){
+        viewModels.remove(oldVM);
+    }
+
+    public void HandleClick(int x, int y){
+        for (ViewModel vm : viewModels){
+            vm.HandleClick(x,y);
+        }
+    }
 }
