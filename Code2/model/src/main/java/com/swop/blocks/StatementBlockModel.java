@@ -116,7 +116,7 @@ public class StatementBlockModel extends BlockModelWithBody {
      * This method is overridden bcs statementBlocks should only be clicked on their upper part (conditionWidth).
      */
     @Override
-    public boolean isPositionOn(int x, int y) {
+    public boolean isWithin(int x, int y) {
         return (x > getPosition().x && x < getPosition().x + conditionWidth) && (y > getPosition().y && y < getPosition().y + getHeight());
     }
 

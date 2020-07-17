@@ -14,17 +14,19 @@ public class GameWorldViewModel extends ViewModel {
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
-        //TODO
+        //TODO: scrollbar
     }
 
     @Override
     public void HandleMouseRelease(Block draggedBlock, int x, int y) {
         return;
+        //TODO: scrollbar
     }
 
     @Override
     public void HandleMouseDrag(int x, int y) {
         return;
+        //TODO: scrollbar
     }
 
     public void paint(Graphics g){

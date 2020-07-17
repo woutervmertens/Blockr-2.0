@@ -39,12 +39,46 @@ public class PaletteViewModel extends ViewModel {
                             predicate.toString()),true,predicate));
             y += defPrData.getHeight();
         }
-        //TODO
         //NOT
+        blockModels.add(new ConditionBlockModel(
+                new StdBlockData(
+                        new Point(x,y),
+                        defPrData.getWidth(),
+                        defPrData.getHeight(),
+                        "Not"),false,null));
+        y += defPrData.getHeight();
         //IF
+        blockModels.add(new IfBlockModel(
+                new StdBlockData(
+                        new Point(x,y),
+                        defBodData.getWidth(),
+                        defBodData.getHeight(),
+                        "If")));
+        y += defBodData.getHeight();
         //WHILE
+        blockModels.add(new WhileBlockModel(
+                new StdBlockData(
+                        new Point(x,y),
+                        defBodData.getWidth(),
+                        defBodData.getHeight(),
+                        "While")));
+        y += defBodData.getHeight();
         //FUNCTION DEFINITION
+        FunctionDefinitionBlockModel fDefMod = new FunctionDefinitionBlockModel(
+                new StdBlockData(
+                        new Point(x,y),
+                        defBodData.getWidth(),
+                        defBodData.getHeight(),
+                        "0"));
+        blockModels.add(fDefMod);
+        y += defBodData.getHeight();
         //FUNCTION CALL
+        blockModels.add(new FunctionCallBlockModel(
+                new StdBlockData(
+                        new Point(x,y),
+                        defAcData.getWidth(),
+                        defAcData.getHeight(),
+                        "0"),fDefMod));
     }
 
     public boolean isHidden(){
