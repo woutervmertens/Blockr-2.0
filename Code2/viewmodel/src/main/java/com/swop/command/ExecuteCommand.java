@@ -1,38 +1,28 @@
 package com.swop.command;
 
-import com.swop.Snapshot;
-import com.swop.blocks.BlockModel;
+import com.swop.GameController;
+import com.swop.GameWorld;
+import com.swop.ProgramAreaViewModel;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+public class ExecuteCommand extends GameCommand {
+    private ProgramAreaViewModel programAreaViewModel;
+    private GameWorld gameWorld;
 
-public class ExecuteCommand extends BlockrGameCommand {
-    private Snapshot snapshot;
-    private final BlockModel blockModel;
-    private BlockModel nextProgramBlockModel;
-    private List<BlockModel> allBlockModels;
-    private List<BlockModel> program;
-
-    public ExecuteCommand(BlockrGame blockrGame, BlockModel blockModel) {
-        super(blockrGame);
-        this.blockModel = blockModel;
+    public ExecuteCommand(GameController gameController, ProgramAreaViewModel programAreaViewModel, GameWorld gameWorld) {
+        super(gameController);
+        this.programAreaViewModel = programAreaViewModel;
+        this.gameWorld = gameWorld;
     }
 
     @Override
     public void execute() {
-        snapshot = blockrGame.getGameWorld().createSnapshot();
-        nextProgramBlockModel = blockrGame.getProgramArea().getNextProgramBlockModel();
-        allBlockModels = new ArrayList<>(blockrGame.getAllBlocksInPA());
-        program = new LinkedList<>(blockrGame.getProgram());
-
-
+        super.execute();
+        programAreaViewModel.ExecuteNext(gameWorld);
     }
 
     @Override
     public void undo() {
-        blockrGame.getGameWorld().restoreSnapshot(snapshot);
-        blockrGame.getProgramArea().restore(allBlockModels, program, nextProgramBlockModel);
+        super.execute();
     }
 
 }

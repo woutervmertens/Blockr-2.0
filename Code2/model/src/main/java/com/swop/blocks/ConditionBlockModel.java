@@ -20,8 +20,10 @@ public class ConditionBlockModel extends BlockModel {
         super(data);
         this.isPredicate = isPredicate;
         this.predicate = predicate;
-        Connectors.put(new Connector(pointSum(position,ConnectorType.LEFT.getOffset(data))),ConnectorType.LEFT);
-        if(!isPredicate)Connectors.put(new Connector(pointSum(position,ConnectorType.RIGHT.getOffset(data))),ConnectorType.RIGHT);
+        this.color = Color.ORANGE;
+        this.highlightColor = new Color(255,255,145);
+        Connectors.put(ConnectorType.LEFT,new Connector(this,pointSum(position,ConnectorType.LEFT.getOffset(data))));
+        if(!isPredicate)Connectors.put(ConnectorType.RIGHT,new Connector(this,pointSum(position,ConnectorType.RIGHT.getOffset(data))));
     }
 
     public boolean isPredicate() {

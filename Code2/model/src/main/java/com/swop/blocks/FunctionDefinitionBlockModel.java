@@ -14,6 +14,8 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
      */
     public FunctionDefinitionBlockModel(StdBlockData data) {
         super(data);
+        this.color = Color.white;
+        this.highlightColor = Color.white;
     }
 
     @Override

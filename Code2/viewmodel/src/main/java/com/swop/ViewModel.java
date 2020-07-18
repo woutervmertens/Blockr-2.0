@@ -42,6 +42,9 @@ public abstract class ViewModel {
     public abstract void HandleMousePress(int x, int y);
     public abstract void HandleMouseRelease(Block draggedBlock, int x, int y);
     public abstract void HandleMouseDrag(int x, int y);
+    public abstract void HandleReset();
+    public abstract Object getModel();
+
     /**
      * Check whether the pos represented by the given x and y is within this window.
      * @param x The given x

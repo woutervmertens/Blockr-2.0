@@ -8,7 +8,7 @@ import java.awt.*;
 public class UIBlock {
     private Block viewModel;
 
-    public UIBlock(Block viewModel){}
+    public UIBlock(Block viewModel){this.viewModel = viewModel;}
 
     public void draw(Graphics g){
         if(viewModel == null) return;

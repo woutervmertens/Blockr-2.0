@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ public class FunctionDefinitionBlock extends BlockWithBody{
     }
 
     @Override
-    public SuccessState Execute(GameWorld gw, BlockContainer b) {
+    public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         b.AddBlockGroupToProgramFront(model.bodyBlockModels);
         return SuccessState.SUCCESS;
     }

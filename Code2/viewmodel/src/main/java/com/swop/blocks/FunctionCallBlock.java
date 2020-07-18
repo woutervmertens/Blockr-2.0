@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class FunctionCallBlock extends Block{
         //model = new FunctionCallBlockModel(new StdBlockData(position,width,height,definitionBlock.getText()),definitionBlock);
     }
     @Override
-    public SuccessState Execute(GameWorld gw, BlockContainer b) {
+    public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         b.AddBlockToProgramFront(model);
         return SuccessState.SUCCESS;
     }

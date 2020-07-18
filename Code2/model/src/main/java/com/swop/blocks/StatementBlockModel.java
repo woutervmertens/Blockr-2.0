@@ -14,12 +14,14 @@ public class StatementBlockModel extends BlockModelWithBody {
     /**
      * Creates a block that is a statement with the given position, width and height.
      */
-    public StatementBlockModel(StdBlockData data) {
+    public StatementBlockModel(StdBlockData data, int conditionWidth) {
         super(data);
-        conditionWidth = data.getWidth() / 2; //TODO
-        Connectors.put(new Connector(pointSum(position,ConnectorType.TOP.getOffset(data))),ConnectorType.TOP);
-        Connectors.put(new Connector(pointSum(position,ConnectorType.BOTTOM.getOffset(data))),ConnectorType.BOTTOM);
-        Connectors.put(new Connector(pointSum(position,ConnectorType.RIGHT.getOffset(data))),ConnectorType.RIGHT);
+        this.conditionWidth = conditionWidth;
+        this.color = Color.cyan;
+        this.highlightColor = new Color(200,255,255);
+        Connectors.put(ConnectorType.TOP,new Connector(this,pointSum(position,ConnectorType.TOP.getOffset(data))));
+        Connectors.put(ConnectorType.BOTTOM,new Connector(this,pointSum(position,ConnectorType.BOTTOM.getOffset(data))));
+        Connectors.put(ConnectorType.RIGHT,new Connector(this,pointSum(position,ConnectorType.RIGHT.getOffset(data))));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
 import java.awt.*;
@@ -26,9 +27,17 @@ public class Block implements Cloneable {
         model.setPosition(pos);
     }
 
-    public SuccessState Execute(GameWorld gw, BlockContainer b) {return null;}
+    public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {return null;}
 
     public BlockViewData getViewData(){
         return new BlockViewData(model.getText(),model.getTextPosition(),model.getColor(),model.getPolygon());
+    }
+
+    public void prepareRemoval() {
+        return;//TODO: links the block below to the block above, or the block to the right, with the block to the left
+    }
+
+    public Connector findParentConnector() {
+        return null; //TODO: returns the parent connector
     }
 }

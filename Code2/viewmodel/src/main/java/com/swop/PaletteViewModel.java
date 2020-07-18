@@ -28,7 +28,7 @@ public class PaletteViewModel extends ViewModel {
                             defAcData.getWidth(),
                             defAcData.getHeight(),
                             action.toString()),action));
-            y += defAcData.getHeight();
+            y += defAcData.getHeight() + 10;
         }
         for(Predicate predicate : gameController.getSupportedPredicates()){
             blockModels.add(new ConditionBlockModel(
@@ -37,7 +37,7 @@ public class PaletteViewModel extends ViewModel {
                             defPrData.getWidth(),
                             defPrData.getHeight(),
                             predicate.toString()),true,predicate));
-            y += defPrData.getHeight();
+            y += defPrData.getHeight() + 10;
         }
         //NOT
         blockModels.add(new ConditionBlockModel(
@@ -46,23 +46,23 @@ public class PaletteViewModel extends ViewModel {
                         defPrData.getWidth(),
                         defPrData.getHeight(),
                         "Not"),false,null));
-        y += defPrData.getHeight();
+        y += defPrData.getHeight() + 10;
         //IF
         blockModels.add(new IfBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
-                        "If")));
-        y += defBodData.getHeight();
+                        "If"),defPrData.getWidth() + 10));
+        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //WHILE
         blockModels.add(new WhileBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
-                        "While")));
-        y += defBodData.getHeight();
+                        "While"),defPrData.getWidth() + 10));
+        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //FUNCTION DEFINITION
         FunctionDefinitionBlockModel fDefMod = new FunctionDefinitionBlockModel(
                 new StdBlockData(
@@ -71,7 +71,7 @@ public class PaletteViewModel extends ViewModel {
                         defBodData.getHeight(),
                         "0"));
         blockModels.add(fDefMod);
-        y += defBodData.getHeight();
+        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //FUNCTION CALL
         blockModels.add(new FunctionCallBlockModel(
                 new StdBlockData(
@@ -79,6 +79,8 @@ public class PaletteViewModel extends ViewModel {
                         defAcData.getWidth(),
                         defAcData.getHeight(),
                         "0"),fDefMod));
+
+        model.setSupportedBlocks(blockModels);
     }
 
     public boolean isHidden(){
@@ -126,5 +128,19 @@ public class PaletteViewModel extends ViewModel {
     @Override
     public void HandleMouseDrag(int x, int y) {
 
+    }
+
+    @Override
+    public void HandleReset() {
+
+    }
+
+    @Override
+    public PaletteModel getModel() {
+        return model;
+    }
+
+    public void setModel(PaletteModel model){
+        this.model = model;
     }
 }

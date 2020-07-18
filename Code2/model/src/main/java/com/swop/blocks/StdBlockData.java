@@ -8,7 +8,7 @@ public class StdBlockData {
     private String text;
 
     public StdBlockData(Point position, int width, int height, String text){
-        this(position,width,height,0,0,0,text);
+        this(position,width,height,30,10,0,text);
     }
     public StdBlockData(Point position, int width, int height, int titleHeight, int pillarWidth, int gapSize, String text){
         this.width = width;

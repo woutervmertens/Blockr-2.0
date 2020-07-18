@@ -15,9 +15,11 @@ public class FunctionCallBlockModel extends BlockModel{
     public FunctionCallBlockModel(StdBlockData data, FunctionDefinitionBlockModel definitionBlock) {
         super(data);
         this.definitionBlock = definitionBlock;
+        this.color = Color.GRAY;
+        this.highlightColor = Color.white;
         definitionBlock.addCall(this);
-        Connectors.put(new Connector(pointSum(position,ConnectorType.TOP.getOffset(data))),ConnectorType.TOP);
-        Connectors.put(new Connector(pointSum(position,ConnectorType.BOTTOM.getOffset(data))),ConnectorType.BOTTOM);
+        Connectors.put(ConnectorType.TOP,new Connector(this,pointSum(position,ConnectorType.TOP.getOffset(data))));
+        Connectors.put(ConnectorType.BOTTOM,new Connector(this,pointSum(position,ConnectorType.BOTTOM.getOffset(data))));
     }
 
     public FunctionDefinitionBlockModel getDefinitionBlock() {

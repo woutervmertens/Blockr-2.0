@@ -9,8 +9,8 @@ public class IfBlockModel extends StatementBlockModel {
     /**
      * creates a block that is an if-statement with the given position, width and height.
      */
-    public IfBlockModel(StdBlockData data) {
-        super(data);
+    public IfBlockModel(StdBlockData data, int conditionWidth) {
+        super(data,conditionWidth);
     }
 
 

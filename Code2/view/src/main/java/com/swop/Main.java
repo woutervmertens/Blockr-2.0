@@ -15,7 +15,7 @@ public class Main {
             GameWorldType gameWorldType = (GameWorldType) clasz.getConstructor().newInstance();
             GameController gameController = new GameController(gameWorldType);
             java.awt.EventQueue.invokeLater(() -> {
-                new MainView("My Canvas Window", gameWorldType).show();
+                new MainView("My Canvas Window", gameController).show();
             });
         } catch (ClassNotFoundException | InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();

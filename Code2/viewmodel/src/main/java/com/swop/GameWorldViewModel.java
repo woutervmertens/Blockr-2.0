@@ -9,6 +9,7 @@ public class GameWorldViewModel extends ViewModel {
 
     public GameWorldViewModel(Point pos, int width, int height) {
         super(pos, width, height);
+        model = new GameWorldModel();
     }
 
     @Override
@@ -29,7 +30,22 @@ public class GameWorldViewModel extends ViewModel {
         //TODO: scrollbar
     }
 
+    @Override
+    public void HandleReset() {
+
+    }
+
+    @Override
+    public GameWorldModel getModel() {
+        return model;
+    }
+
     public void paint(Graphics g){
         model.gameWorld.paint(g, position);
     }
+
+    public GameWorld getGameWorld() {
+        return model.gameWorld;
+    }
+    public void setGameWorld(GameWorld gw) {model.setGameWorld(gw);}
 }

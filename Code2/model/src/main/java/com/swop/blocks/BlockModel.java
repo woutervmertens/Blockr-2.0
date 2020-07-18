@@ -16,12 +16,13 @@ public abstract class BlockModel implements Cloneable {
     protected boolean isHighlight = false;
     private boolean isLastBlock = false;
 
-    protected HashMap<Connector,ConnectorType> Connectors;
+    protected HashMap<ConnectorType,Connector> Connectors;
 
     /**
      * Creates a block with the given position, width and height.
      */
     protected BlockModel(StdBlockData data) {
+        Connectors = new HashMap<>();
         this.setPosition(data.getPosition());
         this.width = data.getWidth();
         this.height = data.getHeight();
@@ -90,6 +91,10 @@ public abstract class BlockModel implements Cloneable {
 
     public void setPreviousDropPosition(Point previousDropPosition) {
         this.previousDropPosition = previousDropPosition;
+    }
+
+    public Connector getConnector(ConnectorType type){
+        return Connectors.get(type);
     }
 
     public int getCount(){return 1;}

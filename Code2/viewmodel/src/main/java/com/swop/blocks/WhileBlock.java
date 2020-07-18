@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class WhileBlock extends StatementBlock{
     }
 
     @Override
-    public SuccessState Execute(GameWorld gw, BlockContainer b) {
+    public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         if(super.isConditionValid(gw)){
             b.AddBlockToProgramFront(model);
             b.AddBlockGroupToProgramFront(model.bodyBlockModels);

@@ -19,8 +19,8 @@ public abstract class BlockModelWithBody extends BlockModel{
         this.titleHeight = data.getTitleHeight();
         this.pillarWidth = data.getPillarWidth();
         this.gapSize = data.getGapSize();
-        Connectors.put(new Connector(pointSum(position,ConnectorType.INNER_TOP.getOffset(data))),ConnectorType.INNER_TOP);
-        Connectors.put(new Connector(pointSum(position,ConnectorType.INNER_BOTTOM.getOffset(data))),ConnectorType.INNER_BOTTOM);
+        Connectors.put(ConnectorType.INNER_TOP,new Connector(this,pointSum(position,ConnectorType.INNER_TOP.getOffset(data))));
+        Connectors.put(ConnectorType.INNER_BOTTOM,new Connector(this,pointSum(position,ConnectorType.INNER_BOTTOM.getOffset(data))));
     }
 
     public BlockModel getNextBodyBlockModel() {
@@ -64,5 +64,13 @@ public abstract class BlockModelWithBody extends BlockModel{
             count += blockModel.getCount();
         }
         return count;
+    }
+
+    @Override
+    public int getHeight() {
+        int height = pillarWidth;
+        height += getGapSize();
+        height += titleHeight;
+        return height;
     }
 }

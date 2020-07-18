@@ -17,8 +17,7 @@ public class MainViewModel extends ViewModel{
     }
 
     public String getFeedback(){
-        return "# blocks available: " + gameController.getNrBlocksAvailable();
-        //TODO: + "GOAL REACHED"
+        return "# blocks available: " + gameController.getNrBlocksAvailable() + "\n" + gameController.getFeedback();
     }
 
     public Block getDraggedBlock(){
@@ -109,14 +108,14 @@ public class MainViewModel extends ViewModel{
      * Calls the respective handler to undo the last change.
      */
     private void undo() {
-        gameController.undo();
+        gameController.undoCommand();
     }
 
     /**
      * Calls the respective handler to redo the last undo.
      */
     private void redo() {
-        gameController.redo();
+        gameController.redoCommand();
     }
 
     /**
@@ -146,5 +145,15 @@ public class MainViewModel extends ViewModel{
     @Override
     public void HandleMouseDrag(int x, int y) {
         gameController.HandleMouseDrag(x,y);
+    }
+
+    @Override
+    public void HandleReset() {
+        return;
+    }
+
+    @Override
+    public Object getModel() {
+        return null;
     }
 }
