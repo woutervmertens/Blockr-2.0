@@ -19,8 +19,7 @@ public class ActionBlockModel extends BlockModel {
         this.action = action;
         this.color = Color.RED;
         this.highlightColor = new Color(255,140,140);
-        Connectors.put(ConnectorType.TOP,new Connector(this,pointSum(position,ConnectorType.TOP.getOffset(data))));
-        Connectors.put(ConnectorType.BOTTOM,new Connector(this,pointSum(position,ConnectorType.BOTTOM.getOffset(data))));
+        nextConnector = new Connector(pointSum(position,ConnectorType.BOTTOM.getOffset(data)));
     }
 
     protected Action getAction()

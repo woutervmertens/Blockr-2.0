@@ -7,7 +7,8 @@ import com.swop.SuccessState;
 import java.awt.*;
 
 public class Block implements Cloneable {
-    BlockModel model;
+    protected BlockModel model;
+
     public Block(BlockModel model){
         this.model = model;
     }
@@ -37,7 +38,16 @@ public class Block implements Cloneable {
         return;//TODO: links the block below to the block above, or the block to the right, with the block to the left
     }
 
-    public Connector findParentConnector() {
-        return null; //TODO: returns the parent connector
+    public void updatePosition(Point ConnectorPos){
+        if(ConnectorPos != null) model.position = ConnectorPos;
+        model.updateConnectors();
+    };
+
+    public BlockModel getNext() {
+        return model.nextBlock;
+    }
+
+    public void setNext(BlockModel next) {
+        this.model.nextBlock = next;
     }
 }

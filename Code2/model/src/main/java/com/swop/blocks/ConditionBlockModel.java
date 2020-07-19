@@ -22,8 +22,6 @@ public class ConditionBlockModel extends BlockModel {
         this.predicate = predicate;
         this.color = Color.ORANGE;
         this.highlightColor = new Color(255,255,145);
-        Connectors.put(ConnectorType.LEFT,new Connector(this,pointSum(position,ConnectorType.LEFT.getOffset(data))));
-        if(!isPredicate)Connectors.put(ConnectorType.RIGHT,new Connector(this,pointSum(position,ConnectorType.RIGHT.getOffset(data))));
     }
 
     public boolean isPredicate() {

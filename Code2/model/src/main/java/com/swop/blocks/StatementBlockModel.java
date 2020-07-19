@@ -10,7 +10,8 @@ import java.util.List;
 public class StatementBlockModel extends BlockModelWithBody {
     protected List<ConditionBlockModel> conditions = new ArrayList<>();
     private final int conditionWidth;
-
+    protected Connector conditionConnector;
+    protected ConditionBlockModel firstCondition;
     /**
      * Creates a block that is a statement with the given position, width and height.
      */
@@ -19,9 +20,7 @@ public class StatementBlockModel extends BlockModelWithBody {
         this.conditionWidth = conditionWidth;
         this.color = Color.cyan;
         this.highlightColor = new Color(200,255,255);
-        Connectors.put(ConnectorType.TOP,new Connector(this,pointSum(position,ConnectorType.TOP.getOffset(data))));
-        Connectors.put(ConnectorType.BOTTOM,new Connector(this,pointSum(position,ConnectorType.BOTTOM.getOffset(data))));
-        Connectors.put(ConnectorType.RIGHT,new Connector(this,pointSum(position,ConnectorType.RIGHT.getOffset(data))));
+        conditionConnector = new Connector(pointSum(position,ConnectorType.RIGHT.getOffset(data)));
     }
 
     @Override
@@ -67,23 +66,23 @@ public class StatementBlockModel extends BlockModelWithBody {
         pol.addPoint(position.x, position.y + height + pillarWidth + gapSize);
         return pol;
     }
-
-    public List<ConditionBlockModel> getConditions() {
-        return conditions;
-    }
-
-    /**
-     * Adds the given conditionBlock to the statement and sets the parentBlock of the given block to this statementBlock.
-     * @param block The given conditionBlock.
-     */
-    public void addConditionBlock(ConditionBlockModel block) {
-        conditions.add(block);
+    private void fillConditions(){
+        conditions.clear();
+        //Fill conditions
+        ConditionBlockModel nextCondition = firstCondition;
+        while(nextCondition != null){
+            conditions.add(nextCondition);
+            nextCondition = (ConditionBlockModel) nextCondition.nextBlock;
+        }
     }
 
     /**
      * @return conditionlist is not empty,no NOT at the end and no predicate before the end
      */
     protected boolean checkConditions(){
+        fillConditions();
+
+        //Check conditions
         if (conditions.isEmpty()) return false;
 
         int size = conditions.size();
@@ -98,22 +97,6 @@ public class StatementBlockModel extends BlockModelWithBody {
     }
 
     /**
-     * Removes all the ConditionBlocks behind the given conditionBlock and the given conditionBlock from the statementBlock.
-     * @param block The given conditionBlock.
-     */
-    public void removeConditionBlock(ConditionBlockModel block) {
-        assert getConditions().contains(block);
-
-        ConditionBlockModel currentCondition;
-        int n = getConditions().size();
-        int j = getConditions().indexOf(block);
-        for (int i = n - 1; i >= j; i--) {
-            currentCondition = getConditions().get(i);
-            conditions.remove(currentCondition);
-        }
-    }
-
-    /**
      * Is the given position on this statement block.
      * This method is overridden bcs statementBlocks should only be clicked on their upper part (conditionWidth).
      */
@@ -124,6 +107,7 @@ public class StatementBlockModel extends BlockModelWithBody {
 
     @Override
     public int getCount() {
-        return super.getCount() + getConditions().size();
+        fillConditions();
+        return super.getCount() + conditions.size();
     }
 }

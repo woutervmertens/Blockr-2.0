@@ -5,31 +5,25 @@ import java.awt.*;
 public class Connector {
     private Point position;
     private int range;
-    private Connector connectedTo = null;
-    private BlockModel blockModel;
-    public Connector (BlockModel blockModel,Point position){
-        this(blockModel,position,10);
+
+    public Connector (Point position){
+        this(position,10);
     }
-    public Connector (BlockModel blockModel, Point position, int range){
+    public Connector (Point position, int range){
         this.position = position;
         this.range = range;
-        this.blockModel = blockModel;
     }
     public boolean isOnConnector(Point coordinates){
         return getDistance(coordinates,position) <= range;
     }
 
-    public void connect(Connector connectTo){
-        this.connectedTo = connectTo;
+    public Point getPosition() {
+        return position;
     }
-    public void disconnect(){
-        this.connectedTo = null;
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
-    public BlockModel getConnectingBlock() {
-        assert connectedTo != null;
-        return connectedTo.getBlockModel();
-    }
-    public BlockModel getBlockModel() { return blockModel;}
     /**
      * @param b Point1
      * @param p Point2

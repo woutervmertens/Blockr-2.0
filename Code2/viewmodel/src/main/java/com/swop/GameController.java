@@ -1,5 +1,7 @@
 package com.swop;
 
+import com.swop.GameStates.GameState;
+import com.swop.GameStates.defaultState;
 import com.swop.blocks.Block;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.StdBlockData;
@@ -17,6 +19,7 @@ public class GameController {
     private ProgramAreaViewModel programAreaVM;
     private GameWorldViewModel gameWorldVM;
     private GameWorldType gameWorldType;
+    private GameState gameState = new defaultState();
 
     private StdBlockData defaultActionData;
     private StdBlockData defaultPredicateData;
@@ -185,5 +188,11 @@ public class GameController {
         this.gameWorldVM = gameWorldVM;
         gameWorldVM.setGameWorld(gameWorldType.createNewInstance());
         addViewModel(this.gameWorldVM);
+    }
+
+    public void dropDraggedBlock() {
+        //if inPA: reset GW, addBlock()
+        //else: remove draggedblock()
+        //TODO
     }
 }

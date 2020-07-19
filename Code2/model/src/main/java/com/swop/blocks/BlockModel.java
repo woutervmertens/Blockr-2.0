@@ -9,20 +9,20 @@ public abstract class BlockModel implements Cloneable {
     protected final int width;
     protected final int height;
 
+    private boolean isFirst = true;
     protected Point position;
-    private Point previousDropPosition;
 
     protected Color color, highlightColor;
     protected boolean isHighlight = false;
     private boolean isLastBlock = false;
 
-    protected HashMap<ConnectorType,Connector> Connectors;
+    protected Connector nextConnector = null;
+    protected BlockModel nextBlock = null;
 
     /**
      * Creates a block with the given position, width and height.
      */
     protected BlockModel(StdBlockData data) {
-        Connectors = new HashMap<>();
         this.setPosition(data.getPosition());
         this.width = data.getWidth();
         this.height = data.getHeight();
@@ -70,6 +70,9 @@ public abstract class BlockModel implements Cloneable {
         return text;
     }
 
+    public void setIsFirstFlag(boolean b){ isFirst = b;}
+    public boolean isFirst() {return isFirst;}
+
     public Color getColor() {
         if (isHighlight) return highlightColor;
         return color;
@@ -83,18 +86,6 @@ public abstract class BlockModel implements Cloneable {
     public void setPosition(Point position) {
         if (position == null) throw new IllegalArgumentException();
         this.position = position;
-    }
-
-    public Point getPreviousDropPosition() {
-        return previousDropPosition;
-    }
-
-    public void setPreviousDropPosition(Point previousDropPosition) {
-        this.previousDropPosition = previousDropPosition;
-    }
-
-    public Connector getConnector(ConnectorType type){
-        return Connectors.get(type);
     }
 
     public int getCount(){return 1;}
@@ -128,4 +119,8 @@ public abstract class BlockModel implements Cloneable {
                 && y > getPosition().y
                 && y < getPosition().y + getHeight());
     }
+
+    public void updateConnectors(){
+        nextConnector.setPosition(new Point(position.x,position.y + getHeight()));
+    };
 }
