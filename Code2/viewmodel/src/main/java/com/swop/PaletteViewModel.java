@@ -121,7 +121,7 @@ public class PaletteViewModel extends ViewModel {
     }
 
     @Override
-    public void HandleMouseRelease(Block draggedBlock, int x, int y) {
+    public void HandleMouseRelease(int x, int y) {
         return;
     }
 

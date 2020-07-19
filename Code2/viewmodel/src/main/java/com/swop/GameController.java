@@ -5,6 +5,7 @@ import com.swop.GameStates.defaultState;
 import com.swop.blocks.Block;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.StdBlockData;
+import com.swop.command.AddBlockCommand;
 import com.swop.command.ExecuteCommand;
 import com.swop.command.ICommand;
 
@@ -24,6 +25,8 @@ public class GameController {
     private StdBlockData defaultActionData;
     private StdBlockData defaultPredicateData;
     private StdBlockData defaultBodyBlockData;
+
+    private Block draggedBlock = null;
 
     /**
      * Stack for all the undo's
@@ -70,10 +73,11 @@ public class GameController {
         }
     }
 
-    public void HandleMouseRelease(Block draggedBlock, int x, int y){
+    public void HandleMouseRelease(int x, int y){
         for (ViewModel vm : viewModels){
-            vm.HandleMouseRelease(draggedBlock,x,y);
+            vm.HandleMouseRelease(x,y);
         }
+        draggedBlock = null;
     }
 
     public void HandleMouseDrag(int x, int y){
@@ -154,8 +158,12 @@ public class GameController {
         return defaultBodyBlockData;
     }
 
+    public Block getDraggedBlock(){
+        return draggedBlock;
+    }
+
     public String getFeedback() {
-        return "";
+        return gameState.getFeedback();
     }
 
     public GameSnapshot createSnapshot() {
@@ -169,9 +177,11 @@ public class GameController {
     }
 
     public void deleteBlock(BlockModel blockModel) {
+        programAreaVM.RemoveBlock(blockModel);
     }
 
     public void addBlock(BlockModel blockModel) {
+        programAreaVM.DropBlock(blockModel);
     }
 
     public void setPaletteVM(PaletteViewModel paletteVM) {
@@ -192,7 +202,10 @@ public class GameController {
 
     public void dropDraggedBlock() {
         //if inPA: reset GW, addBlock()
-        //else: remove draggedblock()
-        //TODO
+        if(programAreaVM.isWithin(draggedBlock.getPosition().x,draggedBlock.getPosition().y))
+        {
+            executeCommand(new AddBlockCommand(this,draggedBlock.getModel()));
+        }
+        draggedBlock = null;
     }
 }

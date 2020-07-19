@@ -24,9 +24,13 @@ public class Block implements Cloneable {
         return null;
     }
 
+    public BlockModel getModel() { return model; }
+
     public void setPosition(Point pos){
         model.setPosition(pos);
     }
+
+    public Point getPosition() { return model.getPosition();}
 
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {return null;}
 
