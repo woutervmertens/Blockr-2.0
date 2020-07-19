@@ -10,7 +10,6 @@ public class MainViewModel extends ViewModel{
     GameController gameController;
     private boolean bRepaint = false;
 
-    private Block draggedBlock = null;
     public MainViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
         this.gameController = gameController;
@@ -21,7 +20,7 @@ public class MainViewModel extends ViewModel{
     }
 
     public Block getDraggedBlock(){
-        return draggedBlock;
+        return gameController.getDraggedBlock();
     }
 
     public void handleKeyInput(int id, int keyCode, boolean isHoldingCtrl, boolean isHoldingShift){
@@ -81,8 +80,8 @@ public class MainViewModel extends ViewModel{
      * @param y The y position of the mouse.
      */
     private void dragMouse(int x, int y) {
-        if (draggedBlock != null) {
-            draggedBlock.setPosition(new Point(x,y));
+        if (getDraggedBlock() != null) {
+            getDraggedBlock().setPosition(new Point(x,y));
             bRepaint = true;
         }
         HandleMouseDrag(x,y);
@@ -95,9 +94,8 @@ public class MainViewModel extends ViewModel{
      * @param y The y position of the mouse.
      */
     private void releaseMouse(int x, int y) {
-        if (draggedBlock != null) {
-            HandleMouseRelease(draggedBlock,x,y);
-            draggedBlock = null;
+        if (getDraggedBlock() != null) {
+            HandleMouseRelease(x,y);
             bRepaint = true;
         }
     }
@@ -138,8 +136,8 @@ public class MainViewModel extends ViewModel{
     }
 
     @Override
-    public void HandleMouseRelease(Block draggedBlock, int x, int y) {
-        gameController.HandleMouseRelease(draggedBlock, x, y);
+    public void HandleMouseRelease(int x, int y) {
+        gameController.HandleMouseRelease(x, y);
     }
 
     @Override

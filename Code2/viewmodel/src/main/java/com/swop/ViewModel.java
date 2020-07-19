@@ -40,7 +40,7 @@ public abstract class ViewModel {
     }
 
     public abstract void HandleMousePress(int x, int y);
-    public abstract void HandleMouseRelease(Block draggedBlock, int x, int y);
+    public abstract void HandleMouseRelease(int x, int y);
     public abstract void HandleMouseDrag(int x, int y);
     public abstract void HandleReset();
     public abstract Object getModel();

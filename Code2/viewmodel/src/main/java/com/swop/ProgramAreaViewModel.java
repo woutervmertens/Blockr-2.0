@@ -20,7 +20,7 @@ public class ProgramAreaViewModel extends ViewModel {
     }
 
     @Override
-    public void HandleMouseRelease(Block draggedBlock, int x, int y) {
+    public void HandleMouseRelease(int x, int y) {
         return; //TODO
     }
 
