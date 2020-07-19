@@ -48,4 +48,8 @@ public class ProgramAreaModel implements Cloneable{
         AllBlocks.remove(blockModel);
         BlockProgram.remove(blockModel);
     }
+
+    public BlockModel getParent(BlockModel blockModel) {
+        return AllBlocks.stream().filter(x -> x.hasConnectedBlock(blockModel)).findFirst().orElse(null);
+    }
 }

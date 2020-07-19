@@ -120,7 +120,12 @@ public abstract class BlockModel implements Cloneable {
                 && y < getPosition().y + getHeight());
     }
 
+    //TODO: override in children
     public void updateConnectors(){
         nextConnector.setPosition(new Point(position.x,position.y + getHeight()));
-    };
+    }
+    //TODO: override in children
+    public boolean hasConnectedBlock(BlockModel blockModel){
+        return nextBlock == blockModel;
+    }
 }

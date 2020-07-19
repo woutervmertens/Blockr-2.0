@@ -47,6 +47,10 @@ public class Block implements Cloneable {
         return model.nextBlock;
     }
 
+    public Point getNextPosition(){
+        return model.nextConnector.getPosition();
+    }
+
     public void setNext(BlockModel next) {
         this.model.nextBlock = next;
     }
