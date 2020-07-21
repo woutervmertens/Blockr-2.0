@@ -7,8 +7,8 @@ import java.awt.*;
 
 //TODO: decorator voor scrollbar
 public class ProgramAreaView extends View{
-    public ProgramAreaView(Point pos, int width, int height) {
-        viewModel = new ProgramAreaViewModel(pos, width, height);
+    public ProgramAreaView(Point pos, int width, int height, GameController gameController) {
+        viewModel = new ProgramAreaViewModel(pos, width, height, gameController);
     }
 
     public void draw(Graphics g) {

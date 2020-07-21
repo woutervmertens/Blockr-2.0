@@ -10,7 +10,7 @@ public class goalReachedState implements GameState{
     }
 
     @Override
-    public GameState release(GameController gameController) {
+    public GameState release(GameController gameController, int x, int y) {
         return new defaultState();
     }
 

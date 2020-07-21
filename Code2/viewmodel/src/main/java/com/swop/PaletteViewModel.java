@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PaletteViewModel extends ViewModel {
+public class PaletteViewModel extends ScrollableViewModel {
     private PaletteModel model;
     public PaletteViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
@@ -127,12 +127,12 @@ public class PaletteViewModel extends ViewModel {
 
     @Override
     public void HandleMouseDrag(int x, int y) {
-
+        return;
     }
 
     @Override
     public void HandleReset() {
-
+        return;
     }
 
     @Override

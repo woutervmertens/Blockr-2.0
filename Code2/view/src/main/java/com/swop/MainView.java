@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class MainView extends CanvasWindow {
     //Windows
-    private PaletteView paletteView;
-    private ProgramAreaView programAreaView;
-    private GameWorldView gameWorldView;
+    private View paletteView;
+    private View programAreaView;
+    private View gameWorldView;
     //ViewModel
     private MainViewModel viewModel;
 
@@ -24,9 +24,9 @@ public class MainView extends CanvasWindow {
         viewModel = new MainViewModel(new Point(0, 0),width,height,gameController);
 
         //Sections
-        paletteView = new PaletteView(new Point(0,0),this.width/4,this.height,gameController);
-        programAreaView = new ProgramAreaView(new Point(paletteView.viewModel.getWidth(),0), paletteView.viewModel.getWidth() * 2, paletteView.viewModel.getHeight());
-        gameWorldView = new GameWorldView(new Point(paletteView.viewModel.getWidth() + programAreaView.viewModel.getWidth(),0), paletteView.viewModel.getWidth(), paletteView.viewModel.getHeight());
+        paletteView = new ScrollableView(new PaletteView(new Point(0,0),this.width/4,this.height,gameController));
+        programAreaView = new ScrollableView(new ProgramAreaView(new Point(paletteView.viewModel.getWidth(),0), paletteView.viewModel.getWidth() * 2, paletteView.viewModel.getHeight(), gameController));
+        gameWorldView = new ScrollableView(new GameWorldView(new Point(paletteView.viewModel.getWidth() + programAreaView.viewModel.getWidth(),0), paletteView.viewModel.getWidth(), paletteView.viewModel.getHeight()));
         gameController.setPaletteVM((PaletteViewModel) paletteView.viewModel);
         gameController.setProgramAreaVM((ProgramAreaViewModel) programAreaView.viewModel);
         gameController.setGameWorldVM((GameWorldViewModel) gameWorldView.viewModel);

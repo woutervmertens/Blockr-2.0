@@ -11,8 +11,8 @@ public class defaultState implements GameState{
     }
 
     @Override
-    public GameState release(GameController gameController) {
-        //Do nothing
+    public GameState release(GameController gameController, int x, int y) {
+        gameController.CallReleaseInVms(x,y);
         return this;
     }
 

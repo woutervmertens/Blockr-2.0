@@ -4,7 +4,7 @@ import com.swop.blocks.Block;
 
 import java.awt.*;
 
-public class GameWorldViewModel extends ViewModel {
+public class GameWorldViewModel extends ScrollableViewModel {
     GameWorldModel model;
 
     public GameWorldViewModel(Point pos, int width, int height) {

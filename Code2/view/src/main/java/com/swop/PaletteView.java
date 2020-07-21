@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class PaletteView extends View{
     public PaletteView(Point pos, int width, int height, GameController gameController){
-        viewModel = new PaletteViewModel(pos, width, height,gameController);
+        super.viewModel = new PaletteViewModel(pos, width, height,gameController);
     }
 
     /**

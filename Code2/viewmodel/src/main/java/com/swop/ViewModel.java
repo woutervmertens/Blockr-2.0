@@ -58,5 +58,4 @@ public abstract class ViewModel {
                 && y < getPosition().y + getHeight());
     }
 
-
 }

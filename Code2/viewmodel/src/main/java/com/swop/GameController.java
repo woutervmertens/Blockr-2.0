@@ -20,7 +20,6 @@ public class GameController {
     private ProgramAreaViewModel programAreaVM;
     private GameWorldViewModel gameWorldVM;
     private GameWorldType gameWorldType;
-    private GameState gameState = new defaultState();
 
     private StdBlockData defaultActionData;
     private StdBlockData defaultPredicateData;
@@ -73,21 +72,24 @@ public class GameController {
         }
     }
 
-    public void HandleMouseRelease(int x, int y){
+    public void CallReleaseInVms(int x, int y){
         for (ViewModel vm : viewModels){
             vm.HandleMouseRelease(x,y);
         }
-        draggedBlock = null;
     }
 
     public void HandleMouseDrag(int x, int y){
-        for (ViewModel vm : viewModels){
-            vm.HandleMouseDrag(x,y);
+        if(draggedBlock != null)
+            draggedBlock.updatePosition(new Point(x,y));
+        else {
+            for (ViewModel vm : viewModels) {
+                vm.HandleMouseDrag(x, y);
+            }
         }
     }
 
     public int getNrBlocksAvailable() {
-        return 20;
+        return 20 - programAreaVM.getNumBlocksUsed();
     }
 
     /**
@@ -162,10 +164,6 @@ public class GameController {
         return draggedBlock;
     }
 
-    public String getFeedback() {
-        return gameState.getFeedback();
-    }
-
     public GameSnapshot createSnapshot() {
         return new GameSnapshot(gameWorldVM.getGameWorld().createSnapshot(),paletteVM.getModel(),programAreaVM.getModel());
     }
@@ -207,5 +205,10 @@ public class GameController {
             executeCommand(new AddBlockCommand(this,draggedBlock.getModel()));
         }
         draggedBlock = null;
+    }
+
+    public void setDraggedBlock(BlockModel bm) {
+        if(bm == null) draggedBlock = null;
+        else draggedBlock = new Block(bm);
     }
 }
