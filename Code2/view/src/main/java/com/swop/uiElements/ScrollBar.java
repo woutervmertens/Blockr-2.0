@@ -11,7 +11,13 @@ public class ScrollBar extends View {
     }
     @Override
     public void draw(Graphics g) {
-
+        if(((ScrollBarViewModel)viewModel).isActive()){
+            //Draw model
+        }
+        else
+        {
+            //grey out
+        }
     }
     //TODO
 }

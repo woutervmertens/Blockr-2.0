@@ -3,6 +3,7 @@ package com.swop;
 import java.awt.*;
 
 public class ScrollBarViewModel extends ViewModel{
+    private boolean active;
     public ScrollBarViewModel(Point pos, int width, int height) {
         super(pos, width, height);
     }
@@ -30,5 +31,13 @@ public class ScrollBarViewModel extends ViewModel{
     @Override
     public Object getModel() {
         return null;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

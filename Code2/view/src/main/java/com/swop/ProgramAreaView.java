@@ -5,7 +5,6 @@ import com.swop.uiElements.UIBlock;
 
 import java.awt.*;
 
-//TODO: decorator voor scrollbar
 public class ProgramAreaView extends View{
     public ProgramAreaView(Point pos, int width, int height, GameController gameController) {
         viewModel = new ProgramAreaViewModel(pos, width, height, gameController);

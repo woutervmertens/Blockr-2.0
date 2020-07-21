@@ -15,19 +15,17 @@ public class GameWorldViewModel extends ScrollableViewModel {
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
-        //TODO: scrollbar
+        scrollBarViewModel.HandleMousePress(x,y);
     }
 
     @Override
     public void HandleMouseRelease(int x, int y) {
-        return;
-        //TODO: scrollbar
+        scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
     @Override
     public void HandleMouseDrag(int x, int y) {
-        return;
-        //TODO: scrollbar
+        scrollBarViewModel.HandleMouseDrag(x,y);
     }
 
     @Override

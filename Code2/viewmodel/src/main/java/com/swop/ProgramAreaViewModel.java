@@ -25,16 +25,17 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
                 return;
             }
         }
+        scrollBarViewModel.HandleMousePress(x,y);
     }
 
     @Override
     public void HandleMouseRelease(int x, int y) {
-        return;
+        scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
     @Override
     public void HandleMouseDrag(int x, int y) {
-        return;
+        scrollBarViewModel.HandleMouseDrag(x,y);
     }
 
     @Override
