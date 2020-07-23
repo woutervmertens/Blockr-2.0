@@ -38,7 +38,8 @@ public class Block implements Cloneable {
         return new BlockViewData(model.getText(),model.getTextPosition(),model.getColor(),model.getPolygon());
     }
 
-    public void prepareRemoval() {
+    //Sets the links, calls remove on body
+    public void Remove(ProgramAreaModel b) {
         return;//TODO: links the block below to the block above, or the block to the right, with the block to the left
     }
 
@@ -57,5 +58,12 @@ public class Block implements Cloneable {
 
     public void setNext(BlockModel next) {
         this.model.nextBlock = next;
+    }
+
+    //TODO: override for body
+    public Connector getConnectorOrNull(Point position){
+        if(model.nextConnector.isOnConnector(position))
+            return model.nextConnector;
+        return null;
     }
 }

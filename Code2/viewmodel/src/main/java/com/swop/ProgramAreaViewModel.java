@@ -2,6 +2,7 @@ package com.swop;
 
 import com.swop.blocks.Block;
 import com.swop.blocks.BlockModel;
+import com.swop.blocks.Connector;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -62,7 +63,20 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public void DropBlock(BlockModel blockModel){
         assert isWithin(blockModel.getPosition().x,blockModel.getPosition().y);
         //Check AllBlocks for connector link and add block
-        //TODO
+        Block b;
+        for(BlockModel bm : model.getAllBlocks()){
+            b = new Block(bm);
+            Connector c = b.getConnectorOrNull(bm.getPosition());
+            if(c != null) {
+                BlockModel bNext = b.getNext();
+                b.setNext(blockModel);
+                blockModel.setPosition(c.getPosition());
+                Block newBlock = new Block(blockModel);
+                newBlock.setNext(bNext);
+                break;
+            }
+        }
+        model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
         Block parentBlock = new Block(model.getParent(blockModel));
         fixBlockPositions(parentBlock);
@@ -74,11 +88,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
         Block parentBlock = new Block(model.getParent(blockModel));
-        //Link block below with block above
+        //Call remove on block
         Block oldBlock = new Block(blockModel);
-        oldBlock.prepareRemoval(); //TODO: probably will need to delete body as well
-        //Remove block
-        model.removeBlock(blockModel);
+        oldBlock.Remove(model);
         //Reorder block positions to fit actual blocks
         fixBlockPositions(parentBlock);
     }
@@ -124,6 +136,14 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         return new Block(blockModel);
     }
 
+    private List<BlockModel> findFirstBlock(){
+        List<BlockModel> firsts = new ArrayList<>();
+        for(BlockModel bm : model.getAllBlocks()){
+            if(bm.isFirst()) firsts.add(bm);
+        }
+        return firsts;
+    }
+
     /**
      * Clears the current program
      * Generates a new one if all conditions are met:
@@ -132,7 +152,19 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      */
     public void GenerateProgram(){
         model.getBlockProgram().clear();
-        //TODO
+
+        List<BlockModel> firsts = findFirstBlock();
+        if(firsts.size() != 1) return;
+
+        BlockModel block = firsts.get(0);
+        ArrayList<BlockModel> tempProgram = new ArrayList<>();
+
+        while(!block.checkLastBlockFlag()){
+            tempProgram.add(block);
+            block = block.getNext();
+        }
+        tempProgram.add(block);
+
         model.getBlockProgram().peek().setHighlightState(true);
     }
 

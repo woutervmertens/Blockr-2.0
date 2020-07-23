@@ -101,6 +101,10 @@ public abstract class BlockModel implements Cloneable {
     public void flagLastBlock(){
         isLastBlock = true;
     }
+
+    public boolean checkLastBlockFlag(){
+        return isLastBlock;
+    }
     public boolean checkLastBlockFlagOnce(){
         boolean state = isLastBlock;
         isLastBlock = false;
@@ -118,6 +122,10 @@ public abstract class BlockModel implements Cloneable {
                 && x < getPosition().x + getWidth()
                 && y > getPosition().y
                 && y < getPosition().y + getHeight());
+    }
+
+    public BlockModel getNext(){
+        return nextBlock;
     }
 
     //TODO: override in children

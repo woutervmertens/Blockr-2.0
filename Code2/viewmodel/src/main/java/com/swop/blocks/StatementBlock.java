@@ -1,6 +1,7 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
+import com.swop.ProgramAreaModel;
 
 import java.awt.*;
 
@@ -22,5 +23,15 @@ public abstract class StatementBlock extends BlockWithBody{
         if (size % 2 == 0) return !gw.evaluate(last.getPredicate());
         else if (last.isPredicate()) return gw.evaluate(last.getPredicate());
         else return false;
+    }
+
+    @Override
+    public void Remove(ProgramAreaModel b) {
+        for (BlockModel bm : ((StatementBlockModel)model).getConditions())
+        {
+            Block block = new Block(bm);
+            block.Remove(b);
+        }
+        super.Remove(b);
     }
 }

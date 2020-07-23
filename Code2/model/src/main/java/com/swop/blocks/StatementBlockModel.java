@@ -96,6 +96,10 @@ public class StatementBlockModel extends BlockModelWithBody {
         return true;
     }
 
+    public List<ConditionBlockModel> getConditions() {
+        return conditions;
+    }
+
     /**
      * Is the given position on this statement block.
      * This method is overridden bcs statementBlocks should only be clicked on their upper part (conditionWidth).

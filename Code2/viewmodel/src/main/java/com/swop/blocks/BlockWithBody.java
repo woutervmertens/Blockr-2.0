@@ -1,5 +1,7 @@
 package com.swop.blocks;
 
+import com.swop.ProgramAreaModel;
+
 import java.awt.*;
 
 public abstract class BlockWithBody extends Block{
@@ -37,6 +39,20 @@ public abstract class BlockWithBody extends Block{
         if (!model.bodyBlockModels.contains(existingBlockModel)) throw new IllegalArgumentException();
         insertBodyBlockAtIndex(blockModel, model.bodyBlockModels.indexOf(existingBlockModel) + 1);
 
+    }
+
+    /**
+     * Calls remove on body, then removes itself
+     * @param b ProgramAreaModel
+     */
+    @Override
+    public void Remove(ProgramAreaModel b) {
+        for (BlockModel bm : model.bodyBlockModels)
+        {
+            Block block = new Block(bm);
+            block.Remove(b);
+        }
+        super.Remove(b);
     }
 
     /**
