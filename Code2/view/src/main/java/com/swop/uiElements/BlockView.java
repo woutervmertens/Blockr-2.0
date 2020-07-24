@@ -1,14 +1,14 @@
 package com.swop.uiElements;
 
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockViewData;
 
 import java.awt.*;
 
-public class UIBlock {
-    private Block viewModel;
+public class BlockView {
+    private BlockVM viewModel;
 
-    public UIBlock(Block viewModel){this.viewModel = viewModel;}
+    public BlockView(BlockVM viewModel){this.viewModel = viewModel;}
 
     public void draw(Graphics g){
         if(viewModel == null) return;

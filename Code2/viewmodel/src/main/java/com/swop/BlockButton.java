@@ -1,6 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockFactory;
 
 import java.awt.*;
@@ -16,7 +16,7 @@ public class BlockButton {
 
     public void HandleClick(int x, int y){
         if(!model.isWithin(x,y)) return;
-        gameController.setDraggedBlock(model.getBlockModel().clone());
+        gameController.setDraggedBlockVM(model.getBlockModel().clone());
     }
 
     public Polygon getBGPolygon(){
@@ -27,7 +27,7 @@ public class BlockButton {
         return model.getBGColor();
     }
 
-    public Block getBlock() {
+    public BlockVM getBlock() {
         return BlockFactory.getInstance().createBlockVM(model.getBlockModel().clone());
     }
 }

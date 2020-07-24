@@ -4,10 +4,10 @@ import com.swop.ProgramAreaModel;
 
 import java.awt.*;
 
-public abstract class BlockWithBody extends Block{
+public abstract class BlockVMWithBody extends BlockVM {
     BlockModelWithBody model;
 
-    public BlockWithBody(BlockModelWithBody model) {
+    public BlockVMWithBody(BlockModelWithBody model) {
         super(model);
     }
 
@@ -49,8 +49,8 @@ public abstract class BlockWithBody extends Block{
     public void Remove(ProgramAreaModel b) {
         for (BlockModel bm : model.bodyBlockModels)
         {
-            Block block = BlockFactory.getInstance().createBlockVM(bm);
-            block.Remove(b);
+            BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
+            blockVM.Remove(b);
         }
         super.Remove(b);
     }

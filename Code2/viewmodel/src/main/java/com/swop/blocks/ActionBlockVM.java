@@ -1,14 +1,11 @@
 package com.swop.blocks;
 
-import com.swop.Action;
 import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
-import java.awt.*;
-
-public class ActionBlock extends Block{
-    protected ActionBlock(ActionBlockModel model) {
+public class ActionBlockVM extends BlockVM {
+    protected ActionBlockVM(ActionBlockModel model) {
         super(model);
         //super.model = new ActionBlockModel(new StdBlockData(position,width,height,action.toString()),action);
     }

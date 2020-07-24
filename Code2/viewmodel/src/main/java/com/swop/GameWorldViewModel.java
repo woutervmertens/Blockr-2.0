@@ -1,7 +1,5 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-
 import java.awt.*;
 
 public class GameWorldViewModel extends ScrollableViewModel {

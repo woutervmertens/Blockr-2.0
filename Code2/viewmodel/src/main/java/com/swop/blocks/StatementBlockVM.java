@@ -3,11 +3,9 @@ package com.swop.blocks;
 import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 
-import java.awt.*;
+public abstract class StatementBlockVM extends BlockVMWithBody {
 
-public abstract class StatementBlock extends BlockWithBody{
-
-    public StatementBlock(StatementBlockModel model) {
+    public StatementBlockVM(StatementBlockModel model) {
         super(model);
     }
 
@@ -29,8 +27,8 @@ public abstract class StatementBlock extends BlockWithBody{
     public void Remove(ProgramAreaModel b) {
         for (BlockModel bm : ((StatementBlockModel)model).getConditions())
         {
-            Block block = BlockFactory.getInstance().createBlockVM(bm);
-            block.Remove(b);
+            BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
+            blockVM.Remove(b);
         }
         super.Remove(b);
     }

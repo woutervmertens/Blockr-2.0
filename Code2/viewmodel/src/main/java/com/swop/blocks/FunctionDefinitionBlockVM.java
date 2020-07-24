@@ -4,11 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
-import java.awt.*;
+public class FunctionDefinitionBlockVM extends BlockVMWithBody {
 
-public class FunctionDefinitionBlock extends BlockWithBody{
-
-    public FunctionDefinitionBlock(FunctionDefinitionBlockModel model) {
+    public FunctionDefinitionBlockVM(FunctionDefinitionBlockModel model) {
         super(model);
         //super.model = new FunctionDefinitionBlockModel(new StdBlockData(position, width, height,text));
     }

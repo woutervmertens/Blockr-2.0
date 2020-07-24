@@ -6,11 +6,11 @@ import java.awt.*;
 
 public class BlockButtonView {
     private BlockButton viewModel;
-    private UIBlock block;
+    private BlockView block;
 
     public BlockButtonView(BlockButton viewModel){
         this.viewModel = viewModel;
-        block = new UIBlock(viewModel.getBlock());
+        block = new BlockView(viewModel.getBlock());
     }
 
     public void draw(Graphics g){

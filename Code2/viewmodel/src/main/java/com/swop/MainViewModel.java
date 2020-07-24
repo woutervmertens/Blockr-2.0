@@ -1,7 +1,7 @@
 package com.swop;
 
 import com.swop.GameStates.StateHandler;
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockVM;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -21,8 +21,8 @@ public class MainViewModel extends ViewModel{
         return "# blocks available: " + gameController.getNrBlocksAvailable() + "\n" + stateHandler.getFeedback();
     }
 
-    public Block getDraggedBlock(){
-        return gameController.getDraggedBlock();
+    public BlockVM getDraggedBlock(){
+        return gameController.getDraggedBlockVM();
     }
 
     public void handleKeyInput(int id, int keyCode, boolean isHoldingCtrl, boolean isHoldingShift){

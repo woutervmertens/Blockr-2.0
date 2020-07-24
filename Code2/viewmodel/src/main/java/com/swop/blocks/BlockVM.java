@@ -6,18 +6,18 @@ import com.swop.SuccessState;
 
 import java.awt.*;
 
-public class Block implements Cloneable {
+public class BlockVM implements Cloneable {
     protected BlockModel model;
 
-    public Block(BlockModel model){
+    public BlockVM(BlockModel model){
         this.model = model;
     }
     /**
      * @return Returns a clone of the given block.
      */
-    public Block clone() {
+    public BlockVM clone() {
         try {
-            return (Block) super.clone();
+            return (BlockVM) super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

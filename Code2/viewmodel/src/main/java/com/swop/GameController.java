@@ -1,8 +1,6 @@
 package com.swop;
 
-import com.swop.GameStates.GameState;
-import com.swop.GameStates.defaultState;
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.StdBlockData;
@@ -26,7 +24,7 @@ public class GameController {
     private StdBlockData defaultPredicateData;
     private StdBlockData defaultBodyBlockData;
 
-    private Block draggedBlock = null;
+    private BlockVM draggedBlockVM = null;
 
     /**
      * Stack for all the undo's
@@ -81,8 +79,8 @@ public class GameController {
     }
 
     public void HandleMouseDrag(int x, int y){
-        if(draggedBlock != null)
-            draggedBlock.updatePosition(new Point(x,y));
+        if(draggedBlockVM != null)
+            draggedBlockVM.updatePosition(new Point(x,y));
         else {
             for (ViewModel vm : viewModels) {
                 vm.HandleMouseDrag(x, y);
@@ -166,8 +164,8 @@ public class GameController {
         return defaultBodyBlockData;
     }
 
-    public Block getDraggedBlock(){
-        return draggedBlock;
+    public BlockVM getDraggedBlockVM(){
+        return draggedBlockVM;
     }
 
     public GameSnapshot createSnapshot() {
@@ -206,15 +204,15 @@ public class GameController {
 
     public void dropDraggedBlock() {
         //if inPA: reset GW, addBlock()
-        if(programAreaVM.isWithin(draggedBlock.getPosition().x,draggedBlock.getPosition().y))
+        if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
-            executeCommand(new AddBlockCommand(this,draggedBlock.getModel()));
+            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel()));
         }
-        draggedBlock = null;
+        draggedBlockVM = null;
     }
 
-    public void setDraggedBlock(BlockModel bm) {
-        if(bm == null) draggedBlock = null;
-        else draggedBlock = BlockFactory.getInstance().createBlockVM(bm);
+    public void setDraggedBlockVM(BlockModel bm) {
+        if(bm == null) draggedBlockVM = null;
+        else draggedBlockVM = BlockFactory.getInstance().createBlockVM(bm);
     }
 }

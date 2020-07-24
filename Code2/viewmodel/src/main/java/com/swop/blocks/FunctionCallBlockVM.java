@@ -4,11 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
-import java.awt.*;
+public class FunctionCallBlockVM extends BlockVM {
 
-public class FunctionCallBlock extends Block{
-
-    protected FunctionCallBlock(FunctionCallBlockModel model) {
+    protected FunctionCallBlockVM(FunctionCallBlockModel model) {
         super(model);
         //model = new FunctionCallBlockModel(new StdBlockData(position,width,height,definitionBlock.getText()),definitionBlock);
     }

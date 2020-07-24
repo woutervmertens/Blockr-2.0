@@ -12,7 +12,7 @@ public class StateHandler {
 
     public void HandleMouseRelease(int x, int y){
         gameState = gameState.release(gameController, x, y);
-        gameController.setDraggedBlock(null);
+        gameController.setDraggedBlockVM(null);
         RepaintEventController.getInstance().CallRepaint();
     }
 

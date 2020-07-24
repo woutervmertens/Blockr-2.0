@@ -1,7 +1,5 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-
 import java.awt.*;
 
 public abstract class ViewModel {

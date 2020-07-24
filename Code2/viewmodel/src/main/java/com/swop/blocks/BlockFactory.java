@@ -8,20 +8,20 @@ public class BlockFactory {
         return instance;
     }
 
-    public Block createBlockVM(BlockModel model){
+    public BlockVM createBlockVM(BlockModel model){
         switch(model.getBlockModelType()){
             case ACTION:
-                return new ActionBlock((ActionBlockModel) model);
+                return new ActionBlockVM((ActionBlockModel) model);
             case CONDITION:
-                return new ConditionBlock((ConditionBlockModel) model);
+                return new ConditionBlockVM((ConditionBlockModel) model);
             case FUNCCALL:
-                return new FunctionCallBlock((FunctionCallBlockModel) model);
+                return new FunctionCallBlockVM((FunctionCallBlockModel) model);
             case FUNCDEF:
-                return new FunctionDefinitionBlock((FunctionDefinitionBlockModel) model);
+                return new FunctionDefinitionBlockVM((FunctionDefinitionBlockModel) model);
             case IF:
-                return new IfBlock((IfBlockModel) model);
+                return new IfBlockVM((IfBlockModel) model);
             case WHILE:
-                return new WhileBlock((WhileBlockModel) model);
+                return new WhileBlockVM((WhileBlockModel) model);
             case NULL:
                 throw new IllegalArgumentException("Unsupported BlockModel");
         }

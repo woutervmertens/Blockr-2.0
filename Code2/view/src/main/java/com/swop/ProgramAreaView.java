@@ -1,7 +1,7 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-import com.swop.uiElements.UIBlock;
+import com.swop.blocks.BlockVM;
+import com.swop.uiElements.BlockView;
 
 import java.awt.*;
 
@@ -14,8 +14,8 @@ public class ProgramAreaView extends View{
         g.setColor(Color.PINK);
         g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
 
-        for (Block block : ((ProgramAreaViewModel)viewModel).getAllBlocks()) {
-            UIBlock b = new UIBlock(block);
+        for (BlockVM blockVM : ((ProgramAreaViewModel)viewModel).getAllBlocks()) {
+            BlockView b = new BlockView(blockVM);
             b.draw(g);
         }
     }

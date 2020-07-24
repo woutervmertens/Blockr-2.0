@@ -1,6 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.Block;
+import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.Connector;
@@ -23,7 +23,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         for (BlockModel bm : model.getAllBlocks())
         {
             if(bm.isWithin(x,y)) {
-                gameController.setDraggedBlock(bm);
+                gameController.setDraggedBlockVM(bm);
                 return;
             }
         }
@@ -54,7 +54,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         this.model = model;
     }
 
-    public List<Block> getAllBlocks(){
+    public List<BlockVM> getAllBlocks(){
         return getAllBlockVMs();
     }
 
@@ -64,7 +64,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public void DropBlock(BlockModel blockModel){
         assert isWithin(blockModel.getPosition().x,blockModel.getPosition().y);
         //Check AllBlocks for connector link and add block
-        Block b;
+        BlockVM b;
         for(BlockModel bm : model.getAllBlocks()){
             b = BlockFactory.getInstance().createBlockVM(bm);
             Connector c = b.getConnectorOrNull(bm.getPosition());
@@ -72,15 +72,15 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
                 BlockModel bNext = b.getNext();
                 b.setNext(blockModel);
                 blockModel.setPosition(c.getPosition());
-                Block newBlock = BlockFactory.getInstance().createBlockVM(blockModel);
-                newBlock.setNext(bNext);
+                BlockVM newBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
+                newBlockVM.setNext(bNext);
                 break;
             }
         }
         model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
-        Block parentBlock = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
-        fixBlockPositions(parentBlock);
+        BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
+        fixBlockPositions(parentBlockVM);
     }
 
     /**
@@ -88,26 +88,26 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      */
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
-        Block parentBlock = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
+        BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
         //Call remove on block
-        Block oldBlock = BlockFactory.getInstance().createBlockVM(blockModel);
-        oldBlock.Remove(model);
+        BlockVM oldBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
+        oldBlockVM.Remove(model);
         //Reorder block positions to fit actual blocks
-        fixBlockPositions(parentBlock);
+        fixBlockPositions(parentBlockVM);
     }
 
     /***
      * Start correcting the model positions to the position of the parents connector position, starting after last correct Block @param startBlock
      */
-    private void fixBlockPositions(Block startBlock){
-        if(startBlock == null) return;
-        BlockModel nextModel = startBlock.getNext();
-        Block b;
+    private void fixBlockPositions(BlockVM startBlockVM){
+        if(startBlockVM == null) return;
+        BlockModel nextModel = startBlockVM.getNext();
+        BlockVM b;
         while(nextModel != null){
             b = BlockFactory.getInstance().createBlockVM(nextModel);
-            b.updatePosition(startBlock.getNextPosition());
-            startBlock = b;
-            nextModel = startBlock.getNext();
+            b.updatePosition(startBlockVM.getNextPosition());
+            startBlockVM = b;
+            nextModel = startBlockVM.getNext();
         }
     }
 
@@ -121,7 +121,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      * Checks and flags if the blockModel is the last element, if not it sets the highlight for the next block
      * @return a Block made with blockModel
      */
-    public Block GetNextToExecute(){
+    public BlockVM GetNextToExecute(){
         if(model.getBlockProgram().isEmpty()) GenerateProgram();
 
         BlockModel blockModel = model.getBlockProgram().poll();
@@ -172,8 +172,8 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     /**
      * @return All of the ViewModels of all the blocks in the program area
      */
-    public List<Block> getAllBlockVMs() {
-        List<Block> bs = new ArrayList<>();
+    public List<BlockVM> getAllBlockVMs() {
+        List<BlockVM> bs = new ArrayList<>();
         for (BlockModel bm : model.getAllBlocks()){
             bs.add(BlockFactory.getInstance().createBlockVM(bm));
         }

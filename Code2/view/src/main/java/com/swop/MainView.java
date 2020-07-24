@@ -1,6 +1,6 @@
 package com.swop;
 
-import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.BlockView;
 
 import java.awt.*;
 
@@ -43,7 +43,7 @@ public class MainView extends CanvasWindow {
 
         paintSections(g);
 
-        UIBlock b = new UIBlock(viewModel.getDraggedBlock());
+        BlockView b = new BlockView(viewModel.getDraggedBlock());
         b.draw(g);
 
         paintFeedback(g);

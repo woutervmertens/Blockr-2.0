@@ -4,17 +4,16 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
-import java.awt.*;
-
-public class IfBlock extends StatementBlock{
-    public IfBlock(IfBlockModel model){
+public class WhileBlockVM extends StatementBlockVM {
+    public WhileBlockVM(WhileBlockModel model){
         super(model);
-        //model = new IfBlockModel(new StdBlockData(position, width, height,"IF"));
+        //model = new WhileBlockModel(new StdBlockData(position, width, height,"WHILE"));
     }
 
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         if(super.isConditionValid(gw)){
+            b.AddBlockToProgramFront(model);
             b.AddBlockGroupToProgramFront(model.bodyBlockModels);
         }
         return SuccessState.SUCCESS;
