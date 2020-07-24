@@ -29,7 +29,7 @@ public abstract class StatementBlock extends BlockWithBody{
     public void Remove(ProgramAreaModel b) {
         for (BlockModel bm : ((StatementBlockModel)model).getConditions())
         {
-            Block block = new Block(bm);
+            Block block = BlockFactory.getInstance().createBlockVM(bm);
             block.Remove(b);
         }
         super.Remove(b);

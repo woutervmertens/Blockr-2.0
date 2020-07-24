@@ -49,7 +49,7 @@ public abstract class BlockWithBody extends Block{
     public void Remove(ProgramAreaModel b) {
         for (BlockModel bm : model.bodyBlockModels)
         {
-            Block block = new Block(bm);
+            Block block = BlockFactory.getInstance().createBlockVM(bm);
             block.Remove(b);
         }
         super.Remove(b);

@@ -3,6 +3,7 @@ package com.swop;
 import com.swop.GameStates.GameState;
 import com.swop.GameStates.defaultState;
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.StdBlockData;
 import com.swop.command.AddBlockCommand;
@@ -209,6 +210,6 @@ public class GameController {
 
     public void setDraggedBlock(BlockModel bm) {
         if(bm == null) draggedBlock = null;
-        else draggedBlock = new Block(bm);
+        else draggedBlock = BlockFactory.getInstance().createBlockVM(bm);
     }
 }

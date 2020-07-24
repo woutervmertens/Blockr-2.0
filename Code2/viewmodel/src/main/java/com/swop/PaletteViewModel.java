@@ -91,7 +91,7 @@ public class PaletteViewModel extends ScrollableViewModel {
         Collection<BlockModel> bms = model.getSupportedBlocks();
         Collection<Block> bs = new ArrayList<>();
         for (BlockModel bm : bms){
-            bs.add(new Block(bm));
+            bs.add(BlockFactory.getInstance().createBlockVM(bm));
         }
         return bs;
     }
@@ -109,7 +109,7 @@ public class PaletteViewModel extends ScrollableViewModel {
 
         Collection<BlockModel> bms = model.getSupportedBlocks();
         for (BlockModel bm : bms){
-            if(bm.isWithin(x,y)) return new Block(bm);
+            if(bm.isWithin(x,y)) return BlockFactory.getInstance().createBlockVM(bm);
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package com.swop;
 
 import com.swop.blocks.Block;
+import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.Connector;
 
@@ -65,20 +66,20 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         //Check AllBlocks for connector link and add block
         Block b;
         for(BlockModel bm : model.getAllBlocks()){
-            b = new Block(bm);
+            b = BlockFactory.getInstance().createBlockVM(bm);
             Connector c = b.getConnectorOrNull(bm.getPosition());
             if(c != null) {
                 BlockModel bNext = b.getNext();
                 b.setNext(blockModel);
                 blockModel.setPosition(c.getPosition());
-                Block newBlock = new Block(blockModel);
+                Block newBlock = BlockFactory.getInstance().createBlockVM(blockModel);
                 newBlock.setNext(bNext);
                 break;
             }
         }
         model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
-        Block parentBlock = new Block(model.getParent(blockModel));
+        Block parentBlock = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
         fixBlockPositions(parentBlock);
     }
 
@@ -87,9 +88,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      */
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
-        Block parentBlock = new Block(model.getParent(blockModel));
+        Block parentBlock = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
         //Call remove on block
-        Block oldBlock = new Block(blockModel);
+        Block oldBlock = BlockFactory.getInstance().createBlockVM(blockModel);
         oldBlock.Remove(model);
         //Reorder block positions to fit actual blocks
         fixBlockPositions(parentBlock);
@@ -103,7 +104,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         BlockModel nextModel = startBlock.getNext();
         Block b;
         while(nextModel != null){
-            b = new Block(nextModel);
+            b = BlockFactory.getInstance().createBlockVM(nextModel);
             b.updatePosition(startBlock.getNextPosition());
             startBlock = b;
             nextModel = startBlock.getNext();
@@ -133,7 +134,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
             blockModel.flagLastBlock();
         }
 
-        return new Block(blockModel);
+        return BlockFactory.getInstance().createBlockVM(blockModel);
     }
 
     private List<BlockModel> findFirstBlock(){
@@ -174,7 +175,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public List<Block> getAllBlockVMs() {
         List<Block> bs = new ArrayList<>();
         for (BlockModel bm : model.getAllBlocks()){
-            bs.add(new Block(bm));
+            bs.add(BlockFactory.getInstance().createBlockVM(bm));
         }
         return bs;
     }
