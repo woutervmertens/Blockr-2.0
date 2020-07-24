@@ -11,6 +11,7 @@ public class WhileBlockModel extends StatementBlockModel {
      */
     public WhileBlockModel(StdBlockData data, int conditionWidth) {
         super(data, conditionWidth);
+        blockModelType = BlockModelType.WHILE;
     }
 
 }

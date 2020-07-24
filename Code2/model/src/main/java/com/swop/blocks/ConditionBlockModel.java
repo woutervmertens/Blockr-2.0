@@ -22,6 +22,7 @@ public class ConditionBlockModel extends BlockModel {
         this.predicate = predicate;
         this.color = Color.ORANGE;
         this.highlightColor = new Color(255,255,145);
+        blockModelType = BlockModelType.CONDITION;
     }
 
     public boolean isPredicate() {

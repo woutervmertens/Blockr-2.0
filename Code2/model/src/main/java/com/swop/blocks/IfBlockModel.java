@@ -11,6 +11,7 @@ public class IfBlockModel extends StatementBlockModel {
      */
     public IfBlockModel(StdBlockData data, int conditionWidth) {
         super(data,conditionWidth);
+        blockModelType = BlockModelType.IF;
     }
 
 

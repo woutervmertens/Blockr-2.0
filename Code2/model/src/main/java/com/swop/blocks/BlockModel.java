@@ -19,6 +19,8 @@ public abstract class BlockModel implements Cloneable {
     protected Connector nextConnector = null;
     protected BlockModel nextBlock = null;
 
+    protected BlockModelType blockModelType = BlockModelType.NULL;
+
     /**
      * Creates a block with the given position, width and height.
      */
@@ -127,6 +129,8 @@ public abstract class BlockModel implements Cloneable {
     public BlockModel getNext(){
         return nextBlock;
     }
+
+    public BlockModelType getBlockModelType(){return blockModelType;}
 
     //TODO: override in children
     public void updateConnectors(){

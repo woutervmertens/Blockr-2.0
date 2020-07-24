@@ -18,6 +18,7 @@ public class FunctionCallBlockModel extends BlockModel{
         this.color = Color.GRAY;
         this.highlightColor = Color.white;
         definitionBlock.addCall(this);
+        blockModelType = BlockModelType.FUNCCALL;
     }
 
     public FunctionDefinitionBlockModel getDefinitionBlock() {
