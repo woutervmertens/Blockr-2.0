@@ -16,7 +16,7 @@ public class BlockButton {
 
     public void HandleClick(int x, int y){
         if(!model.isWithin(x,y)) return;
-        gameController.setDraggedBlock(model.getBlockModel());
+        gameController.setDraggedBlock(model.getBlockModel().clone());
     }
 
     public Polygon getBGPolygon(){
@@ -28,6 +28,6 @@ public class BlockButton {
     }
 
     public Block getBlock() {
-        return BlockFactory.getInstance().createBlockVM(model.getBlockModel());
+        return BlockFactory.getInstance().createBlockVM(model.getBlockModel().clone());
     }
 }

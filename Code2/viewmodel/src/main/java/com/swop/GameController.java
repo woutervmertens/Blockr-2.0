@@ -71,6 +71,7 @@ public class GameController {
         for (ViewModel vm : viewModels){
             vm.HandleMousePress(x,y);
         }
+        RepaintEventController.getInstance().CallRepaint();
     }
 
     public void CallReleaseInVms(int x, int y){
@@ -87,6 +88,7 @@ public class GameController {
                 vm.HandleMouseDrag(x, y);
             }
         }
+        RepaintEventController.getInstance().CallRepaint();
     }
 
     public int getNrBlocksAvailable() {
@@ -101,6 +103,7 @@ public class GameController {
             ICommand command = undoStack.pop();
             command.undo();
             redoStack.add(command);
+            RepaintEventController.getInstance().CallRepaint();
         }
     }
 
@@ -116,6 +119,7 @@ public class GameController {
 
             redoStack.addAll(redoBackup);
             redoStack.pop();
+            RepaintEventController.getInstance().CallRepaint();
         }
     }
 
@@ -137,6 +141,7 @@ public class GameController {
         for (ViewModel vm : viewModels){
             vm.HandleReset();
         }
+        RepaintEventController.getInstance().CallRepaint();
     }
 
     public Collection<Action> getSupportedActions()

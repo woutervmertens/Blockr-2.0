@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 public class MainViewModel extends ViewModel{
     GameController gameController;
     StateHandler stateHandler;
-    private boolean bRepaint = false;
 
     public MainViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
@@ -27,22 +26,18 @@ public class MainViewModel extends ViewModel{
     }
 
     public void handleKeyInput(int id, int keyCode, boolean isHoldingCtrl, boolean isHoldingShift){
-        bRepaint = false;
         if (id == KeyEvent.KEY_PRESSED) {
             switch (keyCode) {
                 case 116: //F5
                     executeNext();
-                    bRepaint = true;
                     break;
                 case 27: //Escape
                     resetProgramExecution();
-                    bRepaint = true;
                     break;
                 case 90: //Z
                     if(isHoldingCtrl){
                         if(isHoldingShift) redo();
                         else undo();
-                        bRepaint = true;
                     }
             }
         }
@@ -66,7 +61,7 @@ public class MainViewModel extends ViewModel{
         }
     }
 
-    public boolean shouldRepaint(){return bRepaint;}
+    public boolean shouldRepaint(){return RepaintEventController.getInstance().ShouldRepaint();}
 
     /**
      * Calls the respective handler to undo the last change.
