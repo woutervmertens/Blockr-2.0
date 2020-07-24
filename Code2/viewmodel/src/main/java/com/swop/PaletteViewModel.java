@@ -8,60 +8,67 @@ import java.util.Collection;
 
 public class PaletteViewModel extends ScrollableViewModel {
     private PaletteModel model;
+    private GameController gameController;
     public PaletteViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
         model = new PaletteModel();
+        this.gameController = gameController;
         fillModelWithSupportedBlocks(gameController);
     }
 
     private void fillModelWithSupportedBlocks(GameController gameController) {
-        ArrayList<BlockModel> blockModels = new ArrayList<>();
+        ArrayList<BlockButtonModel> blockBtnModels = new ArrayList<>();
         StdBlockData defAcData = gameController.getDefaultActionData();
         StdBlockData defPrData = gameController.getDefaultPredicateData();
         StdBlockData defBodData = gameController.getDefaultBodyBlockData();
-        int x = position.x + 15;
-        int y = position.y + 10;
+        int x = position.x;
+        int y = position.y;
         for(Action action : gameController.getSupportedActions()){
-            blockModels.add(new ActionBlockModel(
+            blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defAcData.getHeight() + 10,
+                    new ActionBlockModel(
                     new StdBlockData(
                             new Point(x,y),
                             defAcData.getWidth(),
                             defAcData.getHeight(),
-                            action.toString()),action));
+                            action.toString()),action)));
             y += defAcData.getHeight() + 10;
         }
         for(Predicate predicate : gameController.getSupportedPredicates()){
-            blockModels.add(new ConditionBlockModel(
+            blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defPrData.getHeight() + 10,
+                    new ConditionBlockModel(
                     new StdBlockData(
                             new Point(x,y),
                             defPrData.getWidth(),
                             defPrData.getHeight(),
-                            predicate.toString()),true,predicate));
+                            predicate.toString()),true,predicate)));
             y += defPrData.getHeight() + 10;
         }
         //NOT
-        blockModels.add(new ConditionBlockModel(
+        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defPrData.getHeight() + 10,
+                new ConditionBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defPrData.getWidth(),
                         defPrData.getHeight(),
-                        "Not"),false,null));
+                        "Not"),false,null)));
         y += defPrData.getHeight() + 10;
         //IF
-        blockModels.add(new IfBlockModel(
+        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+                new IfBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
-                        "If"),defPrData.getWidth() + 10));
+                        "If"),defPrData.getWidth() + 10)));
         y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //WHILE
-        blockModels.add(new WhileBlockModel(
+        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+                new WhileBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
-                        "While"),defPrData.getWidth() + 10));
+                        "While"),defPrData.getWidth() + 10)));
         y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //FUNCTION DEFINITION
         FunctionDefinitionBlockModel fDefMod = new FunctionDefinitionBlockModel(
@@ -70,53 +77,40 @@ public class PaletteViewModel extends ScrollableViewModel {
                         defBodData.getWidth(),
                         defBodData.getHeight(),
                         "0"));
-        blockModels.add(fDefMod);
+        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod));
         y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
         //FUNCTION CALL
-        blockModels.add(new FunctionCallBlockModel(
+        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
                         new Point(x,y),
                         defAcData.getWidth(),
                         defAcData.getHeight(),
-                        "0"),fDefMod));
+                        "0"),fDefMod)));
 
-        model.setSupportedBlocks(blockModels);
+        model.setSupportedBlocks(blockBtnModels);
     }
 
     public boolean isHidden(){
         return model.isHidden();
     }
 
-    public Collection<Block> getAllBlocks(){
-        Collection<BlockModel> bms = model.getSupportedBlocks();
-        Collection<Block> bs = new ArrayList<>();
-        for (BlockModel bm : bms){
-            bs.add(BlockFactory.getInstance().createBlockVM(bm));
+    public Collection<BlockButton> getAllButtons(){
+        Collection<BlockButtonModel> bms = model.getSupportedBlocks();
+        Collection<BlockButton> bs = new ArrayList<>();
+        for (BlockButtonModel bm : bms){
+            bs.add(new BlockButton(bm,gameController));
         }
         return bs;
-    }
-
-    /**
-     * Get type of the area clicked on (assuming that the click is on the palette area).
-     *
-     * @custom.pre isWithin(x, y);
-     * @param x Click x coordinate.
-     * @param y Click y coordinate.
-     * @return The Block of the clicked element.
-     */
-    public Block getBlockClicked(int x, int y) {
-        assert isWithin(x, y);
-
-        Collection<BlockModel> bms = model.getSupportedBlocks();
-        for (BlockModel bm : bms){
-            if(bm.isWithin(x,y)) return BlockFactory.getInstance().createBlockVM(bm);
-        }
-        return null;
     }
 
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
+        Collection<BlockButtonModel> bms = model.getSupportedBlocks();
+        for (BlockButtonModel bm : bms){
+            BlockButton b = new BlockButton(bm,gameController);
+            b.HandleClick(x,y);
+        }
         scrollBarViewModel.HandleMousePress(x,y);
     }
 

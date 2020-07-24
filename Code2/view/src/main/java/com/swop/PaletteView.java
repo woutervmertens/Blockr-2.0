@@ -1,7 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.Block;
-import com.swop.uiElements.UIBlock;
+import com.swop.uiElements.BlockButtonView;
 
 import java.awt.*;
 
@@ -25,9 +24,9 @@ public class PaletteView extends View{
         if (((PaletteViewModel)viewModel).isHidden()) return;
 
         //Get data
-        for (Block block : ((PaletteViewModel)viewModel).getAllBlocks()) {
-            UIBlock b = new UIBlock(block);
-            b.draw(g);
+        for (BlockButton blockBtn : ((PaletteViewModel)viewModel).getAllButtons()) {
+            BlockButtonView btnView = new BlockButtonView(blockBtn);
+            btnView.draw(g);
         }
     }
 }

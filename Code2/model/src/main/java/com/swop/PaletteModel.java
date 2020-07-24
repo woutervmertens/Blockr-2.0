@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public class PaletteModel implements Cloneable{
     private boolean isHidden = false;
-    private Collection<BlockModel> supportedBlocks;
+    private Collection<BlockButtonModel> supportedBlocks;
 
-    public Collection<BlockModel> getSupportedBlocks(){
+    public Collection<BlockButtonModel> getSupportedBlocks(){
         return supportedBlocks;
     }
 
@@ -20,7 +20,7 @@ public class PaletteModel implements Cloneable{
         isHidden = hidden;
     }
 
-    public void setSupportedBlocks(Collection<BlockModel> supportedBlocks) {
+    public void setSupportedBlocks(Collection<BlockButtonModel> supportedBlocks) {
         this.supportedBlocks = supportedBlocks;
     }
 
