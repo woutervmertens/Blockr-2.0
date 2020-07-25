@@ -207,6 +207,7 @@ public class GameController {
     }
 
     public void dropDraggedBlock() {
+        if(draggedBlockVM == null) return;
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
             executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel().clone()));
