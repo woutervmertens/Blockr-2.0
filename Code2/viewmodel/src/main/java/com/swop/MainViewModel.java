@@ -82,6 +82,7 @@ public class MainViewModel extends ViewModel{
      */
     private void executeNext() {
         stateHandler.HandleExecute();
+        if(gameController.getLastSuccessState() == SuccessState.GOAL_REACHED) stateHandler.setStateGoal();
     }
 
     /**
@@ -94,6 +95,7 @@ public class MainViewModel extends ViewModel{
     @Override
     public void HandleMousePress(int x, int y) {
         gameController.HandleMousePress(x,y);
+        if(gameController.getDraggedBlockVM() != null)stateHandler.setStateDrag();
     }
 
     @Override

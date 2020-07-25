@@ -24,4 +24,12 @@ public class StateHandler {
         gameState = gameState.execute(gameController);
         RepaintEventController.getInstance().CallRepaint();
     }
+
+    public void setStateDrag(){
+        gameState = new draggingBlockState();
+    }
+
+    public void setStateGoal() {
+        gameState = new goalReachedState();
+    }
 }

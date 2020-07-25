@@ -24,6 +24,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         {
             if(bm.isWithin(x,y)) {
                 gameController.setDraggedBlockVM(bm);
+                RemoveBlock(bm);
                 return;
             }
         }
@@ -47,7 +48,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
 
     @Override
     public ProgramAreaModel getModel() {
-        return getModel();
+        return model;
     }
 
     public void setModel(ProgramAreaModel model) {
@@ -79,6 +80,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         }
         model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
+        if(model.getParent(blockModel) == null) return;
         BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
         fixBlockPositions(parentBlockVM);
     }

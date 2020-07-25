@@ -26,6 +26,8 @@ public class GameController {
 
     private BlockVM draggedBlockVM = null;
 
+    private SuccessState lastSuccessState = SuccessState.SUCCESS;
+
     /**
      * Stack for all the undo's
      */
@@ -206,13 +208,25 @@ public class GameController {
         //if inPA: reset GW, addBlock()
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
-            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel()));
+            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel().clone()));
         }
         draggedBlockVM = null;
     }
 
     public void setDraggedBlockVM(BlockModel bm) {
-        if(bm == null) draggedBlockVM = null;
-        else draggedBlockVM = BlockFactory.getInstance().createBlockVM(bm);
+        if(bm == null) {
+            draggedBlockVM = null;
+            return;
+        }
+        draggedBlockVM = BlockFactory.getInstance().createBlockVM(bm);
+
+    }
+
+    public SuccessState getLastSuccessState() {
+        return lastSuccessState;
+    }
+
+    public void setLastSuccessState(SuccessState lastSuccessState) {
+        this.lastSuccessState = lastSuccessState;
     }
 }

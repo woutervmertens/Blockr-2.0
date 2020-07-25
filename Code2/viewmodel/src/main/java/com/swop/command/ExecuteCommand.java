@@ -17,7 +17,7 @@ public class ExecuteCommand extends GameCommand {
     @Override
     public void execute() {
         super.execute();
-        programAreaViewModel.ExecuteNext(gameWorld);
+        gameController.setLastSuccessState(programAreaViewModel.ExecuteNext(gameWorld));
     }
 
     @Override
