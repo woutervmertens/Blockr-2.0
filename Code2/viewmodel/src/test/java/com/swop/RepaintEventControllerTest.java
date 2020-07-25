@@ -7,19 +7,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RepaintEventControllerTest {
 
+    RepaintEventController rec;
     @BeforeEach
     void setUp() {
-    }
-
-    @Test
-    void getInstance() {
+        rec = RepaintEventController.getInstance();
     }
 
     @Test
     void callRepaint() {
+        rec.CallRepaint();
+        assertTrue(rec.ShouldRepaint());
     }
 
     @Test
     void shouldRepaint() {
+        rec.CallRepaint();
+        assertTrue(rec.ShouldRepaint());
+        assertFalse(rec.ShouldRepaint());
     }
 }
