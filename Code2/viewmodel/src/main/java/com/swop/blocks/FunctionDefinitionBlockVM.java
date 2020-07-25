@@ -8,7 +8,6 @@ public class FunctionDefinitionBlockVM extends BlockVMWithBody {
 
     public FunctionDefinitionBlockVM(FunctionDefinitionBlockModel model) {
         super(model);
-        //super.model = new FunctionDefinitionBlockModel(new StdBlockData(position, width, height,text));
     }
 
     @Override

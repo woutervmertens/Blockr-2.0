@@ -7,7 +7,6 @@ import com.swop.SuccessState;
 public class ConditionBlockVM extends BlockVM {
     public ConditionBlockVM(ConditionBlockModel model){
         super(model);
-        //super.model = new ConditionBlockModel(new StdBlockData(position,width,height,(isPredicate) ? predicate.toString(): "NOT"), isPredicate,  predicate);
     }
 
     @Override

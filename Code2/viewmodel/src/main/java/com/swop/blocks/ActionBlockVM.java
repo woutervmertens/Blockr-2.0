@@ -7,7 +7,6 @@ import com.swop.SuccessState;
 public class ActionBlockVM extends BlockVM {
     protected ActionBlockVM(ActionBlockModel model) {
         super(model);
-        //super.model = new ActionBlockModel(new StdBlockData(position,width,height,action.toString()),action);
     }
 
     /**

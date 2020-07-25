@@ -7,7 +7,6 @@ import com.swop.SuccessState;
 public class WhileBlockVM extends StatementBlockVM {
     public WhileBlockVM(WhileBlockModel model){
         super(model);
-        //model = new WhileBlockModel(new StdBlockData(position, width, height,"WHILE"));
     }
 
     @Override

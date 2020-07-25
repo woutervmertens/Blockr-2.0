@@ -7,7 +7,6 @@ import com.swop.SuccessState;
 public class IfBlockVM extends StatementBlockVM {
     public IfBlockVM(IfBlockModel model){
         super(model);
-        //model = new IfBlockModel(new StdBlockData(position, width, height,"IF"));
     }
 
     @Override

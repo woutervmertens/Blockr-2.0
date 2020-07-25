@@ -8,7 +8,6 @@ public class FunctionCallBlockVM extends BlockVM {
 
     protected FunctionCallBlockVM(FunctionCallBlockModel model) {
         super(model);
-        //model = new FunctionCallBlockModel(new StdBlockData(position,width,height,definitionBlock.getText()),definitionBlock);
     }
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
