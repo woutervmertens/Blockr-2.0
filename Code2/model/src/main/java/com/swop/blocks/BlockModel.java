@@ -14,7 +14,7 @@ public abstract class BlockModel implements Cloneable {
 
     protected Color color, highlightColor;
     protected boolean isHighlight = false;
-    private boolean isLastBlock = false;
+    private boolean isLastBlock = true;
 
     protected Connector nextConnector = null;
     protected BlockModel nextBlock = null;
@@ -100,8 +100,8 @@ public abstract class BlockModel implements Cloneable {
         this.isHighlight = isHighlight;
     }
 
-    public void flagLastBlock(){
-        isLastBlock = true;
+    public void setIsLastFlag(boolean b){
+        isLastBlock = b;
     }
 
     public boolean checkLastBlockFlag(){
@@ -134,6 +134,7 @@ public abstract class BlockModel implements Cloneable {
 
     //TODO: override in children
     public void updateConnectors(){
+        if(nextConnector == null) return;
         nextConnector.setPosition(new Point(position.x,position.y + getHeight()));
     }
     //TODO: override in children

@@ -68,13 +68,14 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         BlockVM b;
         for(BlockModel bm : model.getAllBlocks()){
             b = BlockFactory.getInstance().createBlockVM(bm);
-            Connector c = b.getConnectorOrNull(bm.getPosition());
+            Connector c = b.getConnectorOrNull(blockModel.getPosition());
             if(c != null) {
                 BlockModel bNext = b.getNext();
                 b.setNext(blockModel);
                 blockModel.setPosition(c.getPosition());
                 BlockVM newBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
                 newBlockVM.setNext(bNext);
+                blockModel.setIsFirstFlag(false);
                 break;
             }
         }
@@ -90,7 +91,11 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      */
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
-        BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
+        BlockModel parent = model.getParent(blockModel);
+        BlockVM parentBlockVM = null;
+        if(parent != null) {
+            parentBlockVM = BlockFactory.getInstance().createBlockVM(parent);
+        }
         //Call remove on block
         BlockVM oldBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
         oldBlockVM.Remove(model);
@@ -114,7 +119,8 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     }
 
     public SuccessState ExecuteNext(GameWorld gw){
-        return GetNextToExecute().Execute(gw,model);
+        BlockVM b = GetNextToExecute();
+        return (b == null)? SuccessState.FAILURE : b.Execute(gw,model);
     }
 
     /**
@@ -126,14 +132,13 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public BlockVM GetNextToExecute(){
         if(model.getBlockProgram().isEmpty()) GenerateProgram();
 
+        if(model.getBlockProgram().isEmpty())return null;
         BlockModel blockModel = model.getBlockProgram().poll();
         blockModel.setHighlightState(false);
 
         BlockModel nextBlock = model.getBlockProgram().peek();
         if (nextBlock != null) {
             nextBlock.setHighlightState(true);
-        } else {
-            blockModel.flagLastBlock();
         }
 
         return BlockFactory.getInstance().createBlockVM(blockModel);
@@ -167,7 +172,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
             block = block.getNext();
         }
         tempProgram.add(block);
-
+        model.AddBlockGroupToProgramFront(tempProgram);
         model.getBlockProgram().peek().setHighlightState(true);
     }
 

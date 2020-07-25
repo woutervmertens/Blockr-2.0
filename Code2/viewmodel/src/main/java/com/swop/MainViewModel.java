@@ -95,7 +95,8 @@ public class MainViewModel extends ViewModel{
     @Override
     public void HandleMousePress(int x, int y) {
         gameController.HandleMousePress(x,y);
-        if(gameController.getDraggedBlockVM() != null)stateHandler.setStateDrag();
+        if(gameController.getDraggedBlockVM() != null)
+            stateHandler.setStateDrag();
     }
 
     @Override
@@ -105,6 +106,7 @@ public class MainViewModel extends ViewModel{
 
     @Override
     public void HandleMouseDrag(int x, int y) {
+
         gameController.HandleMouseDrag(x,y);
     }
 

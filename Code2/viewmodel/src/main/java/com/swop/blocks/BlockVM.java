@@ -58,6 +58,7 @@ public class BlockVM implements Cloneable {
 
     public void setNext(BlockModel next) {
         this.model.nextBlock = next;
+        model.setIsLastFlag(next == null);
     }
 
     //TODO: override for body
