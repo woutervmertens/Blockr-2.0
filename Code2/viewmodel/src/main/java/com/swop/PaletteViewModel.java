@@ -116,6 +116,7 @@ public class PaletteViewModel extends ScrollableViewModel {
 
     @Override
     public void HandleMouseRelease(int x, int y) {
+        gameController.setDraggedBlockVM(null);
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 

@@ -182,10 +182,12 @@ public class GameController {
 
     public void deleteBlock(BlockModel blockModel) {
         programAreaVM.RemoveBlock(blockModel);
+        gameWorldVM.HandleReset();
     }
 
     public void addBlock(BlockModel blockModel) {
         programAreaVM.DropBlock(blockModel);
+        gameWorldVM.HandleReset();
     }
 
     public void setPaletteVM(PaletteViewModel paletteVM) {
@@ -205,7 +207,6 @@ public class GameController {
     }
 
     public void dropDraggedBlock() {
-        //if inPA: reset GW, addBlock()
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
             executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel().clone()));

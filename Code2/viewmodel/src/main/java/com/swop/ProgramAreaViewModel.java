@@ -99,6 +99,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         //Call remove on block
         BlockVM oldBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
         oldBlockVM.Remove(model);
+        model.removeBlock(blockModel);
         //Reorder block positions to fit actual blocks
         fixBlockPositions(parentBlockVM);
     }
