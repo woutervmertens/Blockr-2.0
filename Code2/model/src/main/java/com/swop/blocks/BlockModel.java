@@ -90,12 +90,6 @@ public abstract class BlockModel implements Cloneable {
         this.position = position;
     }
 
-    public int getCount(){return 1;}
-
-    public boolean isHighlight() {
-        return this.isHighlight;
-    }
-
     public void setHighlightState(boolean isHighlight) {
         this.isHighlight = isHighlight;
     }

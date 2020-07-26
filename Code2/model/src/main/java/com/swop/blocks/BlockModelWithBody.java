@@ -63,18 +63,6 @@ public abstract class BlockModelWithBody extends BlockModel{
     @Override
     public abstract Polygon getPolygon();
 
-    /**
-     * @return Returns the number of blocks: blockWithBody + # bodyBlocks
-     */
-    @Override
-    public int getCount() {
-        int count = 1;
-        for (BlockModel blockModel : getBodyBlockModels()) {
-            count += blockModel.getCount();
-        }
-        return count;
-    }
-
     @Override
     public int getHeight() {
         int height = pillarWidth;

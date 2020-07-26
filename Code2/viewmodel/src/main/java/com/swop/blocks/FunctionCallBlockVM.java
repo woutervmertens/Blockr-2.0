@@ -11,7 +11,11 @@ public class FunctionCallBlockVM extends BlockVM {
     }
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
-        b.AddBlockToProgramFront(model);
+        BlockModel def = ((FunctionCallBlockModel)model).getDefinitionBlock();
+        if(def != null) {
+            FunctionDefinitionBlockVM defVM = (FunctionDefinitionBlockVM) BlockFactory.getInstance().createBlockVM(def);
+            defVM.Execute(gw, b);
+        }
         return SuccessState.SUCCESS;
     }
 }

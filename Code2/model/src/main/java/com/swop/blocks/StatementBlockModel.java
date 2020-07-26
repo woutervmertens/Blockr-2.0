@@ -113,12 +113,6 @@ public class StatementBlockModel extends BlockModelWithBody {
     }
 
     @Override
-    public int getCount() {
-        fillConditions();
-        return super.getCount() + conditions.size();
-    }
-
-    @Override
     public void updateConnectors() {
         super.updateConnectors();
         if(conditionConnector == null) return;
