@@ -9,6 +9,7 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
 
     public StatementBlockVM(StatementBlockModel model) {
         super(model);
+        assert(model != null);
     }
 
 

@@ -12,7 +12,7 @@ public class IfBlockVM extends StatementBlockVM {
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         if(super.isConditionValid(gw)){
-            b.AddBlockGroupToProgramFront(model.getBodyBlockModels());
+            b.AddBlockGroupToProgramFront(((IfBlockModel)model).getBodyBlockModels());
         }
         return SuccessState.SUCCESS;
     }

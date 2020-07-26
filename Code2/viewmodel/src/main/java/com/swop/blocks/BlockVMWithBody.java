@@ -5,7 +5,7 @@ import com.swop.ProgramAreaModel;
 import java.awt.*;
 
 public abstract class BlockVMWithBody extends BlockVM {
-    BlockModelWithBody model;
+
 
     public BlockVMWithBody(BlockModelWithBody model) {
         super(model);
@@ -16,7 +16,7 @@ public abstract class BlockVMWithBody extends BlockVM {
             int dx = position.x - model.getPosition().x;
             int dy = position.y - model.getPosition().y;
             model.setPosition(position);
-            for (BlockModel bodyBlockModel : model.getBodyBlockModels()) {
+            for (BlockModel bodyBlockModel : ((BlockModelWithBody)model).getBodyBlockModels()) {
                 bodyBlockModel.setPosition(new Point(bodyBlockModel.getPosition().x + dx, bodyBlockModel.getPosition().y + dy));
             }
         } catch (NullPointerException e) {
@@ -30,7 +30,7 @@ public abstract class BlockVMWithBody extends BlockVM {
      */
     @Override
     public void Remove(BlockModel parent) {
-        for (BlockModel bm : model.getBodyBlockModels())
+        for (BlockModel bm : ((BlockModelWithBody)model).getBodyBlockModels())
         {
             BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
             blockVM.Remove(parent);
@@ -42,8 +42,8 @@ public abstract class BlockVMWithBody extends BlockVM {
     public Connector getConnectorOrNull(Point position) {
         Connector res = super.getConnectorOrNull(position);
         if(res != null) return res;
-        if(model.bodyConnector.isOnConnector(position))
-            return model.bodyConnector;
+        if(((BlockModelWithBody)model).bodyConnector.isOnConnector(position))
+            return ((BlockModelWithBody)model).bodyConnector;
         return null;
     }
 }

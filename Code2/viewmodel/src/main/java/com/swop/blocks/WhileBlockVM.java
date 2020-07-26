@@ -13,7 +13,7 @@ public class WhileBlockVM extends StatementBlockVM {
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         if(super.isConditionValid(gw)){
             b.AddBlockToProgramFront(model);
-            b.AddBlockGroupToProgramFront(model.getBodyBlockModels());
+            b.AddBlockGroupToProgramFront(((WhileBlockModel)model).getBodyBlockModels());
         }
         return SuccessState.SUCCESS;
     }
