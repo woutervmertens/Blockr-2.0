@@ -26,16 +26,16 @@ public abstract class BlockVMWithBody extends BlockVM {
 
     /**
      * Calls remove on body, then removes itself
-     * @param b ProgramAreaModel
+     * @param parent parent BlockModel
      */
     @Override
-    public void Remove(ProgramAreaModel b) {
+    public void Remove(BlockModel parent) {
         for (BlockModel bm : model.getBodyBlockModels())
         {
             BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
-            blockVM.Remove(b);
+            blockVM.Remove(parent);
         }
-        super.Remove(b);
+        super.Remove(parent);
     }
 
     @Override

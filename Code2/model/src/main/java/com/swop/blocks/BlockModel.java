@@ -130,6 +130,8 @@ public abstract class BlockModel implements Cloneable {
         return nextBlock;
     }
 
+    public void setNextBlock(BlockModel model) {nextBlock = model;}
+
     public BlockModelType getBlockModelType(){return blockModelType;}
 
     public void updateConnectors(){

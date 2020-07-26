@@ -39,8 +39,12 @@ public class BlockVM implements Cloneable {
     }
 
     //Sets the links, calls remove on body
-    public void Remove(ProgramAreaModel b) {
-        return;//TODO: links the block below to the block above, or the block to the right, with the block to the left
+    public void Remove(BlockModel parent) {
+        if(parent != null){
+            BlockVM parentVM = BlockFactory.getInstance().createBlockVM(parent);
+            parentVM.setNext(model.getNext());
+        }
+        else if(model.getNext() != null)model.getNext().setIsFirstFlag(true);
     }
 
     public void updatePosition(Point ConnectorPos){
@@ -49,7 +53,7 @@ public class BlockVM implements Cloneable {
     };
 
     public BlockModel getNext() {
-        return model.nextBlock;
+        return model.getNext();
     }
 
     public Point getNextPosition(){
@@ -57,7 +61,7 @@ public class BlockVM implements Cloneable {
     }
 
     public void setNext(BlockModel next) {
-        this.model.nextBlock = next;
+        this.model.setNextBlock(next);
         model.setIsLastFlag(next == null);
     }
 
