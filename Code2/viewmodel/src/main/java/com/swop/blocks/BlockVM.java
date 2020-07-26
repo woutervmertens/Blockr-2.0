@@ -26,6 +26,8 @@ public class BlockVM implements Cloneable {
 
     public BlockModel getModel() { return model; }
 
+    public int getHeight(){return model.getHeight();}
+
     public void setPosition(Point pos){
         model.setPosition(pos);
     }
@@ -66,6 +68,7 @@ public class BlockVM implements Cloneable {
     }
 
     public Connector getConnectorOrNull(Point position){
+        if(model.nextConnector == null) return null;
         if(model.nextConnector.isOnConnector(position))
             return model.nextConnector;
         return null;

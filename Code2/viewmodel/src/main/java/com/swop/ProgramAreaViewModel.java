@@ -4,6 +4,7 @@ import com.swop.blocks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProgramAreaViewModel extends ScrollableViewModel {
@@ -96,7 +97,8 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         //Reorder block positions to fit actual blocks
         if(model.getParent(blockModel) == null) return;
         BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
-        fixBlockPositions(parentBlockVM);
+        //fixBlockPositions(parentBlockVM);
+        fixAllBlockPositions();
     }
 
     /**
@@ -117,11 +119,21 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         fixBlockPositions(parentBlockVM);
     }
 
+    private void fixAllBlockPositions(){
+        List<BlockModel> models = model.getAllBlocks();
+        for (BlockModel model : models)
+        {
+            fixBlockPositions(BlockFactory.getInstance().createBlockVM(model));
+        }
+        int k = 5;
+    }
+
     /***
      * Start correcting the model positions to the position of the parents connector position, starting after last correct Block @param startBlock
      */
     private void fixBlockPositions(BlockVM startBlockVM){
         if(startBlockVM == null) return;
+        startBlockVM.updatePosition(startBlockVM.getPosition());
         BlockModel nextModel = startBlockVM.getNext();
         BlockVM b;
         while(nextModel != null){

@@ -36,6 +36,18 @@ public abstract class BlockVMWithBody extends BlockVM {
         super.Remove(parent);
     }
 
+    @Override
+    public void updatePosition(Point ConnectorPos) {
+        super.updatePosition(ConnectorPos);
+        int gap = 0;
+        for (BlockModel bm : ((BlockModelWithBody)model).getBodyBlockModels())
+        {
+            BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
+            gap += blockVM.getHeight();
+        }
+        ((BlockModelWithBody)model).setGapSize(gap);
+    }
+
     public BlockModel getFirstBodyBlock(){
         return ((BlockModelWithBody)model).getFirstBodyBlockModel();
     }

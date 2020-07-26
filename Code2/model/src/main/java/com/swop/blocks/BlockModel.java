@@ -88,6 +88,7 @@ public abstract class BlockModel implements Cloneable {
     public void setPosition(Point position) {
         if (position == null) throw new IllegalArgumentException();
         this.position = position;
+        updateConnectors();
     }
 
     public void setHighlightState(boolean isHighlight) {
