@@ -4,8 +4,10 @@ import java.awt.*;
 
 public class GameWorldModel {
     GameWorld gameWorld;
-    public void setGameWorld(GameWorld gw){
+    GameWorldType gameWorldType;
+    public void setGameWorld(GameWorld gw, GameWorldType gwType){
         this.gameWorld = gw;
+        this.gameWorldType = gwType;
     }
 
 }

@@ -183,11 +183,13 @@ public class GameController {
     public void deleteBlock(BlockModel blockModel) {
         programAreaVM.RemoveBlock(blockModel);
         gameWorldVM.HandleReset();
+        programAreaVM.HandleReset();
     }
 
     public void addBlock(BlockModel blockModel) {
         programAreaVM.DropBlock(blockModel);
         gameWorldVM.HandleReset();
+        programAreaVM.HandleReset();
     }
 
     public void setPaletteVM(PaletteViewModel paletteVM) {
@@ -202,7 +204,7 @@ public class GameController {
 
     public void setGameWorldVM(GameWorldViewModel gameWorldVM) {
         this.gameWorldVM = gameWorldVM;
-        gameWorldVM.setGameWorld(gameWorldType.createNewInstance());
+        gameWorldVM.setGameWorld(gameWorldType.createNewInstance(), gameWorldType);
         addViewModel(this.gameWorldVM);
     }
 

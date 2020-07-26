@@ -131,7 +131,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      * @return a Block made with blockModel
      */
     public BlockVM GetNextToExecute(){
-        if(model.getBlockProgram().isEmpty()) GenerateProgram();
+        //if(model.getBlockProgram().isEmpty()) gameController.resetExecution();
 
         if(model.getBlockProgram().isEmpty())return null;
         BlockModel blockModel = model.getBlockProgram().poll();

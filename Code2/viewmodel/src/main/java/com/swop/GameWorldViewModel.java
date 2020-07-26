@@ -28,7 +28,7 @@ public class GameWorldViewModel extends ScrollableViewModel {
 
     @Override
     public void HandleReset() {
-
+        model.gameWorld = model.gameWorldType.createNewInstance();
     }
 
     @Override
@@ -43,5 +43,5 @@ public class GameWorldViewModel extends ScrollableViewModel {
     public GameWorld getGameWorld() {
         return model.gameWorld;
     }
-    public void setGameWorld(GameWorld gw) {model.setGameWorld(gw);}
+    public void setGameWorld(GameWorld gw, GameWorldType gwType) {model.setGameWorld(gw, gwType);}
 }
