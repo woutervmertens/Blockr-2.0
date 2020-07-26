@@ -12,6 +12,7 @@ public abstract class BlockModelWithBody extends BlockModel{
     protected int pillarWidth;
 
     protected Connector bodyConnector;
+    private Point bodyOffset;
 
     /**
      * Creates a block that can have a body.
@@ -21,7 +22,8 @@ public abstract class BlockModelWithBody extends BlockModel{
         this.titleHeight = data.getTitleHeight();
         this.pillarWidth = data.getPillarWidth();
         this.gapSize = data.getGapSize();
-        bodyConnector = new Connector(pointSum(position,ConnectorType.INNER_TOP.getOffset(data)));
+        bodyOffset = ConnectorType.INNER_TOP.getOffset(data);
+        bodyConnector = new Connector(pointSum(position,bodyOffset));
     }
 
     public BlockModel getNextBodyBlockModel() {
@@ -31,6 +33,7 @@ public abstract class BlockModelWithBody extends BlockModel{
     public void setNextBodyBlockModel(BlockModel nextBodyBlockModel) {
         this.nextBodyBlockModel = nextBodyBlockModel;
     }
+
 
     public List<BlockModel> getBodyBlockModels() {
         return bodyBlockModels;
@@ -73,5 +76,17 @@ public abstract class BlockModelWithBody extends BlockModel{
         height += getGapSize();
         height += titleHeight;
         return height;
+    }
+
+    @Override
+    public void updateConnectors() {
+        super.updateConnectors();
+        if(bodyConnector == null) return;
+        bodyConnector.setPosition(pointSum(position,bodyOffset));
+    }
+
+    @Override
+    public boolean hasConnectedBlock(BlockModel blockModel) {
+        return super.hasConnectedBlock(blockModel) || blockModel == nextBodyBlockModel;
     }
 }

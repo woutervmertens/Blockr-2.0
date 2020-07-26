@@ -12,6 +12,7 @@ public class StatementBlockModel extends BlockModelWithBody {
     private final int conditionWidth;
     protected Connector conditionConnector;
     protected ConditionBlockModel firstCondition;
+    private Point conditionOffset;
     /**
      * Creates a block that is a statement with the given position, width and height.
      */
@@ -20,7 +21,8 @@ public class StatementBlockModel extends BlockModelWithBody {
         this.conditionWidth = conditionWidth;
         this.color = Color.cyan;
         this.highlightColor = new Color(200,255,255);
-        conditionConnector = new Connector(pointSum(position,ConnectorType.RIGHT.getOffset(data)));
+        conditionOffset = ConnectorType.RIGHT.getOffset(data);
+        conditionConnector = new Connector(pointSum(position,conditionOffset));
     }
 
     @Override
@@ -113,5 +115,17 @@ public class StatementBlockModel extends BlockModelWithBody {
     public int getCount() {
         fillConditions();
         return super.getCount() + conditions.size();
+    }
+
+    @Override
+    public void updateConnectors() {
+        super.updateConnectors();
+        if(conditionConnector == null) return;
+        conditionConnector.setPosition(pointSum(position,conditionOffset));
+    }
+
+    @Override
+    public boolean hasConnectedBlock(BlockModel blockModel) {
+        return super.hasConnectedBlock(blockModel) || blockModel == firstCondition;
     }
 }
