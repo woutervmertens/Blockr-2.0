@@ -12,7 +12,7 @@ public class FunctionDefinitionBlockVM extends BlockVMWithBody {
 
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
-        b.AddBlockGroupToProgramFront(model.bodyBlockModels);
+        b.AddBlockGroupToProgramFront(model.getBodyBlockModels());
         return SuccessState.SUCCESS;
     }
 }

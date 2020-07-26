@@ -35,18 +35,18 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
 
         //gap
         pol.addPoint(position.x + pillarWidth, position.y + height);
-        pol.addPoint(position.x + pillarWidth, position.y + height + gapSize);
+        pol.addPoint(position.x + pillarWidth, position.y + height + getGapSize());
 
         //socket body
-        pol.addPoint(position.x + pillarWidth + step * 4, position.y + height + gapSize);
-        pol.addPoint(position.x + pillarWidth + step * 3, position.y + height + step + gapSize);
-        pol.addPoint(position.x + pillarWidth + step * 2, position.y + height + gapSize);
+        pol.addPoint(position.x + pillarWidth + step * 4, position.y + height + getGapSize());
+        pol.addPoint(position.x + pillarWidth + step * 3, position.y + height + step + getGapSize());
+        pol.addPoint(position.x + pillarWidth + step * 2, position.y + height + getGapSize());
 
         //gap bottom
-        pol.addPoint(position.x + width, position.y + gapSize + height);
-        pol.addPoint(position.x + width, position.y + height + pillarWidth + gapSize);
+        pol.addPoint(position.x + width, position.y + getGapSize() + height);
+        pol.addPoint(position.x + width, position.y + height + pillarWidth + getGapSize());
 
-        pol.addPoint(position.x, position.y + height + pillarWidth + gapSize);
+        pol.addPoint(position.x, position.y + height + pillarWidth + getGapSize());
         return pol;
     }
 

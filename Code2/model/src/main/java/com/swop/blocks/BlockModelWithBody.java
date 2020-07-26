@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BlockModelWithBody extends BlockModel{
-    protected List<BlockModel> bodyBlockModels = new ArrayList<>();
+    private List<BlockModel> bodyBlockModels = new ArrayList<>();
     private BlockModel nextBodyBlockModel = null;
-    protected int gapSize;
-    protected int titleHeight;
-    protected int pillarWidth;
+    private int gapSize;
+    private int titleHeight;
+    protected final int pillarWidth;
 
     protected Connector bodyConnector;
     private Point bodyOffset;
@@ -34,8 +34,21 @@ public abstract class BlockModelWithBody extends BlockModel{
         this.nextBodyBlockModel = nextBodyBlockModel;
     }
 
+    private void fillBody(){
+        bodyBlockModels.clear();
+        int newGapSize = 0;
+        //Fill conditions
+        BlockModel nextChild = nextBodyBlockModel;
+        while(nextChild != null){
+            bodyBlockModels.add(nextChild);
+            newGapSize += nextChild.getHeight();
+            nextChild = nextChild.nextBlock;
+        }
+        setGapSize(newGapSize);
+    }
 
     public List<BlockModel> getBodyBlockModels() {
+        fillBody();
         return bodyBlockModels;
     }
 
@@ -45,14 +58,6 @@ public abstract class BlockModelWithBody extends BlockModel{
 
     public void setGapSize(int gapSize) {
         this.gapSize = gapSize;
-    }
-
-    /**
-     * Increases the gap size with the given size.
-     * @param increase the given size
-     */
-    public void increaseGapSize(int increase) {
-        this.setGapSize(getGapSize() + increase);
     }
 
     @Override
