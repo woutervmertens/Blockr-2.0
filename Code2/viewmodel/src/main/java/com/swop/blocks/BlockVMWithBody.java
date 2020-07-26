@@ -25,29 +25,12 @@ public abstract class BlockVMWithBody extends BlockVM {
     }
 
     /**
-     * 1) Add the given block after the given existing block
-     * 2) And push all others inside the body
-     * 3) And make all the parents' gap sizes bigger.
-     * <p>
-     * If existing block is null add the given block at the start of the body
-     *
-     * @param blockModel The block to add.
-     * @param existingBlockModel The already existing block.
-     */
-    public void addBodyBlockAfter(BlockModel blockModel, BlockModel existingBlockModel) {
-        if (existingBlockModel == null) throw new IllegalArgumentException();
-        if (!model.bodyBlockModels.contains(existingBlockModel)) throw new IllegalArgumentException();
-        insertBodyBlockAtIndex(blockModel, model.bodyBlockModels.indexOf(existingBlockModel) + 1);
-
-    }
-
-    /**
      * Calls remove on body, then removes itself
      * @param b ProgramAreaModel
      */
     @Override
     public void Remove(ProgramAreaModel b) {
-        for (BlockModel bm : model.bodyBlockModels)
+        for (BlockModel bm : model.getBodyBlockModels())
         {
             BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
             blockVM.Remove(b);
@@ -55,31 +38,12 @@ public abstract class BlockVMWithBody extends BlockVM {
         super.Remove(b);
     }
 
-    /**
-     * Add the given block before the given existing block.
-     *
-     * @param blockModel The block to add.
-     * @param existingBlockModel The already existing block.
-     */
-    public void addBodyBlockBefore(BlockModel blockModel, BlockModel existingBlockModel) {
-        if (existingBlockModel == null) throw new IllegalArgumentException();
-        if (!model.bodyBlockModels.contains(existingBlockModel)) throw new IllegalArgumentException();
-        insertBodyBlockAtIndex(blockModel, model.bodyBlockModels.indexOf(existingBlockModel));
-    }
-
-    /**
-     * Add the given block at a certain index in the body.
-     *
-     * @param block The block to add.
-     * @param index The index.
-     */
-    public void insertBodyBlockAtIndex(BlockModel block, int index) {
-        // 1) Add to the body blocks of this block
-
-
-        // 2) Push all next body blocks down
-
-
-        // 3) If this is a statement, increase the gap and all eventual superior parent statements
+    @Override
+    public Connector getConnectorOrNull(Point position) {
+        Connector res = super.getConnectorOrNull(position);
+        if(res != null) return res;
+        if(model.bodyConnector.isOnConnector(position))
+            return model.bodyConnector;
+        return null;
     }
 }

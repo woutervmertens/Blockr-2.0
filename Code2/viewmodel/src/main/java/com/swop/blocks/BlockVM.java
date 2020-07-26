@@ -61,7 +61,6 @@ public class BlockVM implements Cloneable {
         model.setIsLastFlag(next == null);
     }
 
-    //TODO: override for body
     public Connector getConnectorOrNull(Point position){
         if(model.nextConnector.isOnConnector(position))
             return model.nextConnector;

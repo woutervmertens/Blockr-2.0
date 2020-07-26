@@ -3,6 +3,8 @@ package com.swop.blocks;
 import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 
+import java.awt.*;
+
 public abstract class StatementBlockVM extends BlockVMWithBody {
 
     public StatementBlockVM(StatementBlockModel model) {
@@ -31,5 +33,14 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
             blockVM.Remove(b);
         }
         super.Remove(b);
+    }
+
+    @Override
+    public Connector getConnectorOrNull(Point position) {
+        Connector res = super.getConnectorOrNull(position);
+        if (res != null) return res;
+        if (((StatementBlockModel) model).conditionConnector.isOnConnector(position))
+            return ((StatementBlockModel) model).conditionConnector;
+        return null;
     }
 }
