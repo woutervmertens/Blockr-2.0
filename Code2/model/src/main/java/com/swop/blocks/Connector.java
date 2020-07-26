@@ -5,13 +5,18 @@ import java.awt.*;
 public class Connector {
     private Point position;
     private int range;
+    private ConnectorType type;
 
     public Connector (Point position){
-        this(position,10);
+        this(position,10, ConnectorType.NEXT);
     }
-    public Connector (Point position, int range){
+    public Connector (Point position, ConnectorType type){
+        this(position,10, type);
+    }
+    public Connector (Point position, int range, ConnectorType type){
         this.position = position;
         this.range = range;
+        this.type = type;
     }
     public boolean isOnConnector(Point coordinates){
         return getDistance(coordinates,position) <= range;
@@ -23,6 +28,10 @@ public class Connector {
 
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public ConnectorType getType(){
+        return type;
     }
     /**
      * @param b Point1

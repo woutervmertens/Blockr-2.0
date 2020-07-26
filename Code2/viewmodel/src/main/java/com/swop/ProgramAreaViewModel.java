@@ -1,9 +1,6 @@
 package com.swop;
 
-import com.swop.blocks.BlockVM;
-import com.swop.blocks.BlockFactory;
-import com.swop.blocks.BlockModel;
-import com.swop.blocks.Connector;
+import com.swop.blocks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -65,14 +62,30 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public void DropBlock(BlockModel blockModel){
         assert isWithin(blockModel.getPosition().x,blockModel.getPosition().y);
         //Check AllBlocks for connector link and add block
-        BlockVM b;
+        BlockVM parentVM;
         for(BlockModel bm : model.getAllBlocks()){
-            b = BlockFactory.getInstance().createBlockVM(bm);
-            Connector c = b.getConnectorOrNull(blockModel.getPosition());
+            parentVM = BlockFactory.getInstance().createBlockVM(bm);
+            Connector c = parentVM.getConnectorOrNull(blockModel.getPosition());
             if(c != null) {
-                BlockModel bNext = b.getNext();
-                b.setNext(blockModel);
+                //Handle the parent next and retrieve new blocks' next
+                BlockModel bNext = null;
+                switch (c.getType()){
+                    case NEXT:
+                        bNext = parentVM.getNext();
+                        parentVM.setNext(blockModel);
+                        break;
+                    case BODY:
+                        bNext = ((BlockVMWithBody)parentVM).getFirstBodyBlock();
+                        ((BlockVMWithBody)parentVM).setFirstBodyBlock(blockModel);
+                        break;
+                    case CONDITION:
+                        bNext = ((StatementBlockVM)parentVM).getFirstCondition();
+                        ((StatementBlockVM)parentVM).setFirstCondition(blockModel);
+                        break;
+                }
+                //Snap new block into place
                 blockModel.setPosition(c.getPosition());
+                //Set next of new block
                 BlockVM newBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
                 newBlockVM.setNext(bNext);
                 blockModel.setIsFirstFlag(false);

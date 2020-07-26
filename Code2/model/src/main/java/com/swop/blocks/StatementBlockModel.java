@@ -21,8 +21,10 @@ public class StatementBlockModel extends BlockModelWithBody {
         this.conditionWidth = conditionWidth;
         this.color = Color.cyan;
         this.highlightColor = new Color(200,255,255);
-        conditionOffset = ConnectorType.RIGHT.getOffset(data);
-        conditionConnector = new Connector(pointSum(position,conditionOffset));
+        conditionOffset = ConnectorType.CONDITION.getOffset(data);
+        conditionConnector = new Connector(pointSum(position,conditionOffset),ConnectorType.CONDITION);
+        Point gapOffset = new Point(0,getHeight());
+        nextConnector = new Connector(pointSum(position,gapOffset));
     }
 
     @Override
@@ -117,6 +119,9 @@ public class StatementBlockModel extends BlockModelWithBody {
         super.updateConnectors();
         if(conditionConnector == null) return;
         conditionConnector.setPosition(pointSum(position,conditionOffset));
+        if(nextConnector == null) return;
+        Point gapOffset = new Point(0,getHeight());
+        nextConnector.setPosition(pointSum(position,gapOffset));
     }
 
     @Override

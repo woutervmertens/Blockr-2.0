@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class BlockModelWithBody extends BlockModel{
     private List<BlockModel> bodyBlockModels = new ArrayList<>();
-    private BlockModel nextBodyBlockModel = null;
+    private BlockModel firstBodyBlockModel = null;
     private int gapSize;
     private int titleHeight;
     protected final int pillarWidth;
@@ -22,23 +22,23 @@ public abstract class BlockModelWithBody extends BlockModel{
         this.titleHeight = data.getTitleHeight();
         this.pillarWidth = data.getPillarWidth();
         this.gapSize = data.getGapSize();
-        bodyOffset = ConnectorType.INNER_TOP.getOffset(data);
-        bodyConnector = new Connector(pointSum(position,bodyOffset));
+        bodyOffset = ConnectorType.BODY.getOffset(data);
+        bodyConnector = new Connector(pointSum(position,bodyOffset),ConnectorType.BODY);
     }
 
-    public BlockModel getNextBodyBlockModel() {
-        return nextBodyBlockModel;
+    public BlockModel getFirstBodyBlockModel() {
+        return firstBodyBlockModel;
     }
 
-    public void setNextBodyBlockModel(BlockModel nextBodyBlockModel) {
-        this.nextBodyBlockModel = nextBodyBlockModel;
+    public void setFirstBodyBlockModel(BlockModel firstBodyBlockModel) {
+        this.firstBodyBlockModel = firstBodyBlockModel;
     }
 
     private void fillBody(){
         bodyBlockModels.clear();
         int newGapSize = 0;
         //Fill conditions
-        BlockModel nextChild = nextBodyBlockModel;
+        BlockModel nextChild = firstBodyBlockModel;
         while(nextChild != null){
             bodyBlockModels.add(nextChild);
             newGapSize += nextChild.getHeight();
@@ -80,6 +80,6 @@ public abstract class BlockModelWithBody extends BlockModel{
 
     @Override
     public boolean hasConnectedBlock(BlockModel blockModel) {
-        return super.hasConnectedBlock(blockModel) || blockModel == nextBodyBlockModel;
+        return super.hasConnectedBlock(blockModel) || blockModel == firstBodyBlockModel;
     }
 }

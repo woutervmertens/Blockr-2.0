@@ -1,7 +1,5 @@
 package com.swop.blocks;
 
-import com.swop.ProgramAreaModel;
-
 import java.awt.*;
 
 public abstract class BlockVMWithBody extends BlockVM {
@@ -36,6 +34,14 @@ public abstract class BlockVMWithBody extends BlockVM {
             blockVM.Remove(parent);
         }
         super.Remove(parent);
+    }
+
+    public BlockModel getFirstBodyBlock(){
+        return ((BlockModelWithBody)model).getFirstBodyBlockModel();
+    }
+
+    public void setFirstBodyBlock(BlockModel block){
+        ((BlockModelWithBody)model).setFirstBodyBlockModel(block);
     }
 
     @Override

@@ -36,6 +36,14 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
         super.Remove(parent);
     }
 
+    public BlockModel getFirstCondition(){
+        return ((StatementBlockModel)model).getFirstBodyBlockModel();
+    }
+
+    public void setFirstCondition(BlockModel block){
+        ((StatementBlockModel)model).setFirstBodyBlockModel(block);
+    }
+
     @Override
     public Connector getConnectorOrNull(Point position) {
         Connector res = super.getConnectorOrNull(position);

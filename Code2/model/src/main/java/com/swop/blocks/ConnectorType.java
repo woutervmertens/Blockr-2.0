@@ -3,25 +3,18 @@ package com.swop.blocks;
 import java.awt.*;
 
 public enum ConnectorType {
-    TOP,
-    BOTTOM,
-    LEFT,
-    RIGHT,
-    INNER_TOP,
-    INNER_BOTTOM;
+    NEXT,
+    BODY,
+    CONDITION;
 
     public Point getOffset(StdBlockData data){
         switch (this){
-            case BOTTOM:
+            case NEXT:
                 return new Point(0,data.getHeight());
-            case RIGHT:
-                return new Point(data.getWidth(),0);
-            case INNER_TOP:
+            case CONDITION:
+                return new Point(data.getTitleWidth(),0);
+            case BODY:
                 return new Point(data.getPillarWidth(),data.getTitleHeight());
-            case INNER_BOTTOM:
-                return new Point(data.getPillarWidth(),data.getTitleHeight() + data.getGapSize());
-            case TOP:
-            case LEFT:
             default:
                 return new Point(0,0);
         }

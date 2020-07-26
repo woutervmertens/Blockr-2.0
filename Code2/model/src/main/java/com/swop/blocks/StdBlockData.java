@@ -3,7 +3,7 @@ package com.swop.blocks;
 import java.awt.*;
 
 public class StdBlockData {
-    private int width, height, titleHeight, pillarWidth, gapSize;
+    private int width, height, titleHeight, titleWidth, pillarWidth, gapSize;
     private Point position;
     private String text;
 
@@ -18,6 +18,7 @@ public class StdBlockData {
         this.pillarWidth = pillarWidth;
         this.gapSize = gapSize;
         this.text = text;
+        this.titleWidth = width - 20;
     }
 
     public int getWidth() {
@@ -47,4 +48,6 @@ public class StdBlockData {
     public int getGapSize() {
         return gapSize;
     }
+
+    public int getTitleWidth() {return titleWidth;}
 }
