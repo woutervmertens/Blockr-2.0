@@ -36,12 +36,19 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
         super.Remove(parent);
     }
 
+    @Override
+    public void replaceChild(BlockModel model) {
+        super.replaceChild(model);
+        if(getFirstCondition() == model)
+            setFirstCondition(model.getNext());
+    }
+
     public BlockModel getFirstCondition(){
         return ((StatementBlockModel)model).getFirstBodyBlockModel();
     }
 
     public void setFirstCondition(BlockModel block){
-        ((StatementBlockModel)model).setFirstBodyBlockModel(block);
+        ((StatementBlockModel)model).setFirstCondition((ConditionBlockModel) block);
     }
 
     @Override

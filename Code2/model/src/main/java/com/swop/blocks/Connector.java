@@ -23,7 +23,7 @@ public class Connector {
     }
 
     public Point getPosition() {
-        return position;
+        return (Point) position.clone();
     }
 
     public void setPosition(Point position) {

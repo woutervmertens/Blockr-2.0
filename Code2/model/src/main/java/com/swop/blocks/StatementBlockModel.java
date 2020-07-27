@@ -128,4 +128,8 @@ public class StatementBlockModel extends BlockModelWithBody {
     public boolean hasConnectedBlock(BlockModel blockModel) {
         return super.hasConnectedBlock(blockModel) || blockModel == firstCondition;
     }
+
+    public void setFirstCondition(ConditionBlockModel firstCondition) {
+        this.firstCondition = firstCondition;
+    }
 }

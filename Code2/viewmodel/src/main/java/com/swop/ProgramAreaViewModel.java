@@ -87,17 +87,14 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
                 //Snap new block into place
                 blockModel.setPosition(c.getPosition());
                 //Set next of new block
+                blockModel.setIsFirstFlag(false);
                 BlockVM newBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
                 newBlockVM.setNext(bNext);
-                blockModel.setIsFirstFlag(false);
                 break;
             }
         }
         model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
-        if(model.getParent(blockModel) == null) return;
-        BlockVM parentBlockVM = BlockFactory.getInstance().createBlockVM(model.getParent(blockModel));
-        //fixBlockPositions(parentBlockVM);
         fixAllBlockPositions();
     }
 
@@ -107,16 +104,12 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
         BlockModel parent = model.getParent(blockModel);
-        BlockVM parentBlockVM = null;
-        if(parent != null) {
-            parentBlockVM = BlockFactory.getInstance().createBlockVM(parent);
-        }
         //Call remove on block
         BlockVM oldBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
         oldBlockVM.Remove(parent);
         model.removeBlock(blockModel);
         //Reorder block positions to fit actual blocks
-        fixBlockPositions(parentBlockVM);
+        fixAllBlockPositions();
     }
 
     private void fixAllBlockPositions(){
@@ -125,7 +118,6 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         {
             fixBlockPositions(BlockFactory.getInstance().createBlockVM(model));
         }
-        int k = 5;
     }
 
     /***

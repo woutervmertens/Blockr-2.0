@@ -44,9 +44,19 @@ public class BlockVM implements Cloneable {
     public void Remove(BlockModel parent) {
         if(parent != null){
             BlockVM parentVM = BlockFactory.getInstance().createBlockVM(parent);
-            parentVM.setNext(model.getNext());
+            parentVM.replaceChild(model);
         }
-        else if(model.getNext() != null)model.getNext().setIsFirstFlag(true);
+        else if(model.getNext() != null)
+            model.getNext().setIsFirstFlag(true);
+    }
+
+    /**
+     * Takes old child, and replaces with next in line
+     * @param model old child
+     */
+    public void replaceChild(BlockModel model){
+        if(model.getNext() == model)
+            model.setNextBlock(model.getNext());
     }
 
     public void updatePosition(Point ConnectorPos){
@@ -64,7 +74,6 @@ public class BlockVM implements Cloneable {
 
     public void setNext(BlockModel next) {
         this.model.setNextBlock(next);
-        model.setIsLastFlag(next == null);
     }
 
     public Connector getConnectorOrNull(Point position){

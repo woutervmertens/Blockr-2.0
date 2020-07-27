@@ -89,7 +89,7 @@ public class MainViewModel extends ViewModel{
      * Calls the respective handler to reset the program.
      */
     private void resetProgramExecution() {
-        gameController.resetExecution();
+        gameController.callResetCommand();
     }
 
     @Override

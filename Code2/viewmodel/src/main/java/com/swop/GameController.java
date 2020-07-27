@@ -4,9 +4,7 @@ import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.StdBlockData;
-import com.swop.command.AddBlockCommand;
-import com.swop.command.ExecuteCommand;
-import com.swop.command.ICommand;
+import com.swop.command.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -137,6 +135,10 @@ public class GameController {
         executeCommand(new ExecuteCommand(this,programAreaVM, gameWorldVM.getGameWorld()));
     }
 
+    public void callResetCommand(){
+        executeCommand(new ResetCommand(this));
+    }
+
     public void resetExecution() {
         for (ViewModel vm : viewModels){
             vm.HandleReset();
@@ -214,6 +216,8 @@ public class GameController {
         {
             executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel().clone()));
         }
+        else
+            executeCommand(new DeleteBlockCommand(this,draggedBlockVM.getModel().clone()));
         draggedBlockVM = null;
     }
 

@@ -28,12 +28,21 @@ public abstract class BlockVMWithBody extends BlockVM {
      */
     @Override
     public void Remove(BlockModel parent) {
-        for (BlockModel bm : ((BlockModelWithBody)model).getBodyBlockModels())
-        {
+        BlockModel bm = getFirstBodyBlock();
+        while (bm != null){
+            setFirstBodyBlock(bm.getNext());
             BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
-            blockVM.Remove(parent);
+            blockVM.Remove(model);
+            bm = getFirstBodyBlock();
         }
         super.Remove(parent);
+    }
+
+    @Override
+    public void replaceChild(BlockModel model) {
+        super.replaceChild(model);
+        if(getFirstBodyBlock() == model)
+            setFirstBodyBlock(model.getNext());
     }
 
     @Override
