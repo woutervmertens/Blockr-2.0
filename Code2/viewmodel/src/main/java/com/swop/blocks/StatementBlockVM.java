@@ -28,11 +28,12 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
 
     @Override
     public void Remove(BlockModel parent) {
-        for (BlockModel bm : ((StatementBlockModel)model).getConditions())
+        /*for (BlockModel bm : ((StatementBlockModel)model).getConditions())
         {
             BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
             blockVM.Remove(parent);
-        }
+        }*/
+        setFirstCondition(null);
         super.Remove(parent);
     }
 
