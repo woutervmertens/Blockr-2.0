@@ -11,6 +11,7 @@ public class BlockVM implements Cloneable {
 
     public BlockVM(BlockModel model){
         this.model = model;
+        model.renewConnectors();
     }
     /**
      * @return Returns a clone of the given block.
@@ -46,8 +47,11 @@ public class BlockVM implements Cloneable {
             BlockVM parentVM = BlockFactory.getInstance().createBlockVM(parent);
             parentVM.replaceChild(model);
         }
-        else if(model.getNext() != null)
+        else if(model.getNext() != null){
             model.getNext().setIsFirstFlag(true);
+            model.setNextBlock(null);
+        }
+
     }
 
     /**
@@ -55,12 +59,12 @@ public class BlockVM implements Cloneable {
      * @param model old child
      */
     public void replaceChild(BlockModel model){
-        if(model.getNext() == model)
-            model.setNextBlock(model.getNext());
+        if(this.model.getNext() == model)
+            this.model.setNextBlock(model.getNext());
     }
 
     public void updatePosition(Point ConnectorPos){
-        if(ConnectorPos != null) model.position = ConnectorPos;
+        if(ConnectorPos != null) model.position = (Point) ConnectorPos.clone();
         model.updateConnectors();
     };
 

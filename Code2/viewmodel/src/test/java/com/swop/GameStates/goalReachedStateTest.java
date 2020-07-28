@@ -43,6 +43,6 @@ class goalReachedStateTest {
 
     @Test
     void getFeedback() {
-        assertEquals("GOAL REACHED!",state.getFeedback());
+        assertEquals("GOAL REACHED!",state.getFeedback(5));
     }
 }

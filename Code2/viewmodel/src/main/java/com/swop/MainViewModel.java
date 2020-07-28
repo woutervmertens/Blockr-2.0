@@ -18,7 +18,7 @@ public class MainViewModel extends ViewModel{
     }
 
     public String getFeedback(){
-        return "# blocks available: " + gameController.getNrBlocksAvailable() + "\n" + stateHandler.getFeedback();
+        return stateHandler.getFeedback();
     }
 
     public BlockVM getDraggedBlock(){
@@ -90,6 +90,7 @@ public class MainViewModel extends ViewModel{
      */
     private void resetProgramExecution() {
         gameController.callResetCommand();
+        HandleReset();
     }
 
     @Override
@@ -112,7 +113,7 @@ public class MainViewModel extends ViewModel{
 
     @Override
     public void HandleReset() {
-        return;
+        stateHandler.setStateDefault();
     }
 
     @Override

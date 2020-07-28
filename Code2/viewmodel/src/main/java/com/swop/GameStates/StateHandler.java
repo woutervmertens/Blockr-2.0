@@ -17,7 +17,7 @@ public class StateHandler {
     }
 
     public String getFeedback() {
-        return gameState.getFeedback();
+        return gameState.getFeedback(gameController.getNrBlocksAvailable());
     }
 
     public void HandleExecute() {
@@ -31,5 +31,8 @@ public class StateHandler {
 
     public void setStateGoal() {
         gameState = new goalReachedState();
+    }
+
+    public void setStateDefault() { gameState = new defaultState();
     }
 }

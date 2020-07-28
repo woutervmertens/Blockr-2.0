@@ -124,6 +124,11 @@ public abstract class BlockModel implements Cloneable {
         nextConnector.setPosition(new Point(position.x,position.y + getHeight()));
     }
 
+    public void renewConnectors(){
+        if(nextConnector == null) return;
+        nextConnector = new Connector(new Point(position.x,position.y + getHeight()));
+    }
+
     public boolean hasConnectedBlock(BlockModel blockModel){
         return nextBlock == blockModel;
     }

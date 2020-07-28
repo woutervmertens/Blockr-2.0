@@ -5,7 +5,7 @@ import com.swop.GameController;
 public class goalReachedState implements GameState{
     @Override
     public GameState execute(GameController gameController) {
-        gameController.resetExecution();
+        //gameController.resetExecution();
         return new defaultState();
     }
 
@@ -15,7 +15,7 @@ public class goalReachedState implements GameState{
     }
 
     @Override
-    public String getFeedback() {
+    public String getFeedback(int nrBlocksAvailable) {
         return "GOAL REACHED!";
     }
 }

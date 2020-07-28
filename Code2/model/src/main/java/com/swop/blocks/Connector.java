@@ -2,7 +2,7 @@ package com.swop.blocks;
 
 import java.awt.*;
 
-public class Connector {
+public class Connector implements Cloneable {
     private Point position;
     private int range;
     private ConnectorType type;
@@ -18,6 +18,19 @@ public class Connector {
         this.range = range;
         this.type = type;
     }
+
+    /**
+     * @return Returns a clone of the given block.
+     */
+    public Connector clone() {
+        try {
+            return (Connector) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean isOnConnector(Point coordinates){
         return getDistance(coordinates,position) <= range;
     }

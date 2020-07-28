@@ -43,6 +43,6 @@ class draggingBlockStateTest {
 
     @Test
     void getFeedback() {
-        assertEquals("",state.getFeedback());
+        assertEquals("# blocks available: 8",state.getFeedback(8));
     }
 }

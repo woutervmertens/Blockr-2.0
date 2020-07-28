@@ -79,6 +79,13 @@ public abstract class BlockModelWithBody extends BlockModel{
     }
 
     @Override
+    public void renewConnectors() {
+        super.renewConnectors();
+        if(bodyConnector == null) return;
+        bodyConnector = new Connector(pointSum(position,bodyOffset),ConnectorType.BODY);
+    }
+
+    @Override
     public boolean hasConnectedBlock(BlockModel blockModel) {
         return super.hasConnectedBlock(blockModel) || blockModel == firstBodyBlockModel;
     }

@@ -143,6 +143,7 @@ public class GameController {
         for (ViewModel vm : viewModels){
             vm.HandleReset();
         }
+        setLastSuccessState(SuccessState.FAILURE);
         RepaintEventController.getInstance().CallRepaint();
     }
 
@@ -214,10 +215,10 @@ public class GameController {
         if(draggedBlockVM == null) return;
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
-            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel().clone()));
+            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel()));
         }
         else
-            executeCommand(new DeleteBlockCommand(this,draggedBlockVM.getModel().clone()));
+            executeCommand(new DeleteBlockCommand(this,draggedBlockVM.getModel()));
         draggedBlockVM = null;
     }
 

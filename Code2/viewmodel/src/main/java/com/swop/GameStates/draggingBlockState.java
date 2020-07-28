@@ -19,7 +19,7 @@ public class draggingBlockState implements GameState{
     }
 
     @Override
-    public String getFeedback() {
-        return "";
+    public String getFeedback(int nrBlocksAvailable) {
+        return "# blocks available: " + nrBlocksAvailable;
     }
 }

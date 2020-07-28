@@ -125,6 +125,16 @@ public class StatementBlockModel extends BlockModelWithBody {
     }
 
     @Override
+    public void renewConnectors() {
+        super.renewConnectors();
+        if(conditionConnector == null) return;
+        conditionConnector = new Connector(pointSum(position,conditionOffset),ConnectorType.CONDITION);
+        if(nextConnector == null) return;
+        Point gapOffset = new Point(0,getHeight());
+        nextConnector.setPosition(pointSum(position,gapOffset));
+    }
+
+    @Override
     public boolean hasConnectedBlock(BlockModel blockModel) {
         return super.hasConnectedBlock(blockModel) || blockModel == firstCondition;
     }
