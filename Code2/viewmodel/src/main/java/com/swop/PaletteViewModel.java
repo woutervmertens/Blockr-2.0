@@ -5,88 +5,94 @@ import com.swop.blocks.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PaletteViewModel extends ScrollableViewModel {
     private PaletteModel model;
     private GameController gameController;
+    private StdBlockData defAcData;
+    private StdBlockData defPrData;
+    private StdBlockData defBodData;
     public PaletteViewModel(Point pos, int width, int height, GameController gameController) {
         super(pos, width, height);
         model = new PaletteModel();
         this.gameController = gameController;
+        defAcData = gameController.getDefaultActionData();
+        defPrData = gameController.getDefaultPredicateData();
+        defBodData = gameController.getDefaultBodyBlockData();
         fillModelWithSupportedBlocks(gameController);
     }
 
     private void fillModelWithSupportedBlocks(GameController gameController) {
         ArrayList<BlockButtonModel> blockBtnModels = new ArrayList<>();
-        StdBlockData defAcData = gameController.getDefaultActionData();
-        StdBlockData defPrData = gameController.getDefaultPredicateData();
-        StdBlockData defBodData = gameController.getDefaultBodyBlockData();
+
         int x = position.x;
-        int y = position.y;
+        model.setFreeY(position.y);
         for(Action action : gameController.getSupportedActions()){
-            blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defAcData.getHeight() + 10,
+            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defAcData.getHeight() + 10,
                     new ActionBlockModel(
                     new StdBlockData(
-                            new Point(x,y),
+                            new Point(x,model.getFreeY()),
                             defAcData.getWidth(),
                             defAcData.getHeight(),
                             action.toString()),action)));
-            y += defAcData.getHeight() + 10;
+            model.increaseFreeY(defAcData.getHeight() + 10);
         }
         for(Predicate predicate : gameController.getSupportedPredicates()){
-            blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defPrData.getHeight() + 10,
+            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defPrData.getHeight() + 10,
                     new ConditionBlockModel(
                     new StdBlockData(
-                            new Point(x,y),
+                            new Point(x,model.getFreeY()),
                             defPrData.getWidth(),
                             defPrData.getHeight(),
                             predicate.toString()),true,predicate)));
-            y += defPrData.getHeight() + 10;
+            model.increaseFreeY(defPrData.getHeight() + 10);
         }
         //NOT
-        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defPrData.getHeight() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defPrData.getHeight() + 10,
                 new ConditionBlockModel(
                 new StdBlockData(
-                        new Point(x,y),
+                        new Point(x,model.getFreeY()),
                         defPrData.getWidth(),
                         defPrData.getHeight(),
                         "Not"),false,null)));
-        y += defPrData.getHeight() + 10;
+        model.increaseFreeY(defPrData.getHeight() + 10);
         //IF
-        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
                 new IfBlockModel(
                 new StdBlockData(
-                        new Point(x,y),
+                        new Point(x,model.getFreeY()),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
                         "If"),defPrData.getWidth() + 10)));
-        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
+        model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
         //WHILE
-        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
                 new WhileBlockModel(
                 new StdBlockData(
-                        new Point(x,y),
+                        new Point(x,model.getFreeY()),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
                         "While"),defPrData.getWidth() + 10)));
-        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
+        model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
         //FUNCTION DEFINITION
         FunctionDefinitionBlockModel fDefMod = new FunctionDefinitionBlockModel(
                 new StdBlockData(
-                        new Point(x,y),
+                        new Point(x,model.getFreeY()),
                         defBodData.getWidth(),
                         defBodData.getHeight(),
-                        "0"));
-        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod));
-        y += defBodData.getHeight() + defBodData.getPillarWidth() + 10;
-        //FUNCTION CALL
-        blockBtnModels.add(new BlockButtonModel(new Point(x,y),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
+                        "" + model.getFreeDefTag()));
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod));
+        model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
+        //FUNCTION CALL (debug only)
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
-                        new Point(x,y),
+                        new Point(x,model.getFreeY()),
                         defAcData.getWidth(),
                         defAcData.getHeight(),
                         "0"),fDefMod)));
-
+        model.increaseFreeY(defAcData.getHeight() + 10);
         model.setButtons(blockBtnModels);
     }
 
@@ -103,8 +109,52 @@ public class PaletteViewModel extends ScrollableViewModel {
         return bs;
     }
 
-    public void addButton(BlockButtonModel buttonModel){
-        model.addButton(buttonModel);
+    public void addFuncCallButton(FunctionDefinitionBlockModel refDef){
+        model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
+                new StdBlockData(
+                        new Point(position.x,model.getFreeY()),
+                        defAcData.getWidth(),
+                        defAcData.getHeight(),
+                        refDef.getText()),refDef)));
+        model.increaseFreeY(defAcData.getHeight() + 10);
+        adaptScrollbar();
+    }
+
+    public void removeFuncCallButtons(FunctionDefinitionBlockModel refDef){
+        List<BlockButtonModel> callBtns = model.getButtons()
+                .stream()
+                .filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCCALL)
+                .filter(x -> ((FunctionCallBlockModel)(x.getBlockModel())).getDefinitionBlock() == refDef)
+                .collect(Collectors.toList());
+        for (BlockButtonModel btn : callBtns){
+            model.removeButton(btn);
+        }
+        adaptButtons();
+
+    }
+
+    private void adaptButtons() {
+        List<BlockButtonModel> btns = (List<BlockButtonModel>) model.getButtons();
+        model.setFreeY(position.y);
+        for (BlockButtonModel btn : btns){
+            btn.setPosition(new Point(position.x,model.getFreeY()));
+            model.increaseFreeY(btn.getHeight());
+        }
+        model.setButtons(btns);
+        adaptScrollbar();
+    }
+
+    public void addDefinitionButton(){
+        model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),
+                width,
+                defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+                new FunctionDefinitionBlockModel(
+                new StdBlockData(
+                        new Point(position.x,model.getFreeY()),
+                        defBodData.getWidth(),
+                        defBodData.getHeight(),
+                        "" + model.getFreeDefTag()))));
+        model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
         adaptScrollbar();
     }
 
