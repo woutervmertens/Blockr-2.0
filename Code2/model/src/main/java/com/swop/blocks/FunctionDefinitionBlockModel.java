@@ -20,6 +20,10 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
         blockModelType = BlockModelType.FUNCDEF;
     }
 
+    public void setText(String txt){
+        this.text = txt;
+    }
+
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();

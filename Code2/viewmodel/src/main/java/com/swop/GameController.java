@@ -185,6 +185,7 @@ public class GameController {
 
     public void deleteBlock(BlockModel blockModel) {
         programAreaVM.RemoveBlock(blockModel);
+        paletteVM.reactToBlockRemove(blockModel);
         gameWorldVM.HandleReset();
         programAreaVM.HandleReset();
     }

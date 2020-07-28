@@ -7,6 +7,7 @@ public class PaletteModel implements Cloneable{
     private int freeY = 0;
     private int freeDefTag = 0;
     private Collection<BlockButtonModel> buttons;
+    private BlockButtonModel funcDefBtn;
 
     public Collection<BlockButtonModel> getButtons(){
         return buttons;
@@ -58,5 +59,13 @@ public class PaletteModel implements Cloneable{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public BlockButtonModel getFuncDefBtn() {
+        return funcDefBtn;
+    }
+
+    public void setFuncDefBtn(BlockButtonModel funcDefBtn) {
+        this.funcDefBtn = funcDefBtn;
     }
 }
