@@ -1,11 +1,14 @@
 package com.swop;
 
+import com.swop.scrollbar.ScrollbarModel;
+
 import java.awt.*;
 
 public class ScrollBarViewModel extends ViewModel{
-    private boolean active;
-    public ScrollBarViewModel(Point pos, int width, int height) {
+    ScrollbarModel model;
+    public ScrollBarViewModel(Point pos, int height, int width) {
         super(pos, width, height);
+        model = new ScrollbarModel(position,height,width);
     }
 
     @Override
@@ -34,10 +37,26 @@ public class ScrollBarViewModel extends ViewModel{
     }
 
     public boolean isActive() {
-        return active;
+        return model.isActive();
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        model.setActive(active);
+    }
+
+    public Polygon getBGPoly(){
+        return model.getBackGroundPoly();
+    }
+
+    public Polygon getHandlePoly(){
+        return model.getHandlePoly();
+    }
+
+    public Color getBGColor(){
+        return model.getBGColor();
+    }
+
+    public Color getHandleColor(){
+        return model.getHandleColor();
     }
 }

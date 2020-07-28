@@ -11,13 +11,12 @@ public class ScrollBar extends View {
     }
     @Override
     public void draw(Graphics g) {
+        //Draw model
+        g.setColor(((ScrollBarViewModel)viewModel).getBGColor());
+        g.fillPolygon(((ScrollBarViewModel)viewModel).getBGPoly());
         if(((ScrollBarViewModel)viewModel).isActive()){
-            //Draw model
-        }
-        else
-        {
-            //grey out
+            g.setColor(((ScrollBarViewModel)viewModel).getHandleColor());
+            g.fillPolygon(((ScrollBarViewModel)viewModel).getHandlePoly());
         }
     }
-    //TODO
 }

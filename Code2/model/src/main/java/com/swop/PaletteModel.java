@@ -1,15 +1,13 @@
 package com.swop;
 
-import com.swop.blocks.BlockModel;
-
 import java.util.Collection;
 
 public class PaletteModel implements Cloneable{
     private boolean isHidden = false;
-    private Collection<BlockButtonModel> supportedBlocks;
+    private Collection<BlockButtonModel> buttons;
 
-    public Collection<BlockButtonModel> getSupportedBlocks(){
-        return supportedBlocks;
+    public Collection<BlockButtonModel> getButtons(){
+        return buttons;
     }
 
     public boolean isHidden() {
@@ -20,8 +18,16 @@ public class PaletteModel implements Cloneable{
         isHidden = hidden;
     }
 
-    public void setSupportedBlocks(Collection<BlockButtonModel> supportedBlocks) {
-        this.supportedBlocks = supportedBlocks;
+    public void setButtons(Collection<BlockButtonModel> buttons) {
+        this.buttons = buttons;
+    }
+
+    public void addButton(BlockButtonModel b){
+        buttons.add(b);
+    }
+
+    public void removeButton(BlockButtonModel b){
+        buttons.remove(b);
     }
 
     /**

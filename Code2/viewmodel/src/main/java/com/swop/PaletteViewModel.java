@@ -87,7 +87,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         defAcData.getHeight(),
                         "0"),fDefMod)));
 
-        model.setSupportedBlocks(blockBtnModels);
+        model.setButtons(blockBtnModels);
     }
 
     public boolean isHidden(){
@@ -95,7 +95,7 @@ public class PaletteViewModel extends ScrollableViewModel {
     }
 
     public Collection<BlockButton> getAllButtons(){
-        Collection<BlockButtonModel> bms = model.getSupportedBlocks();
+        Collection<BlockButtonModel> bms = model.getButtons();
         Collection<BlockButton> bs = new ArrayList<>();
         for (BlockButtonModel bm : bms){
             bs.add(new BlockButton(bm,gameController));
@@ -103,10 +103,19 @@ public class PaletteViewModel extends ScrollableViewModel {
         return bs;
     }
 
+    public void addButton(BlockButtonModel buttonModel){
+        model.addButton(buttonModel);
+        adaptScrollbar();
+    }
+
+    private void adaptScrollbar(){
+        //TODO: if buttonModel is in the scrollbuffer: activate scroll or change scrollheight
+    }
+
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
-        Collection<BlockButtonModel> bms = model.getSupportedBlocks();
+        Collection<BlockButtonModel> bms = model.getButtons();
         for (BlockButtonModel bm : bms){
             BlockButton b = new BlockButton(bm,gameController);
             b.HandleClick(x,y);

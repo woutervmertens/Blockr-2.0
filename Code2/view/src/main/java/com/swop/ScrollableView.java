@@ -15,8 +15,8 @@ public class ScrollableView extends View{
 
     private void instantiateScrollbar(){
         Point pos = (Point) viewModel.getPosition().clone();
-        pos.x = pos.x + viewModel.getWidth() - 25;
-        scrollBar = new ScrollBar(pos,viewModel.getHeight(),25);
+        pos.x = pos.x + viewModel.getWidth() - 10;
+        scrollBar = new ScrollBar(pos,viewModel.getHeight(),10);
         ((ScrollableViewModel) super.viewModel).addScrollBar((ScrollBarViewModel) scrollBar.viewModel);
     }
 
@@ -24,8 +24,8 @@ public class ScrollableView extends View{
     public void changeProperties(Point position, int height, int width) {
         super.changeProperties(position, height, width);
         Point pos = (Point) viewModel.getPosition().clone();
-        pos.x = pos.x + viewModel.getWidth() - 25;
-        scrollBar.changeProperties(pos,viewModel.getHeight(),25);
+        pos.x = pos.x + viewModel.getWidth() - scrollBar.viewModel.getWidth();
+        scrollBar.changeProperties(pos,viewModel.getHeight(),scrollBar.viewModel.getWidth());
     }
 
     @Override
