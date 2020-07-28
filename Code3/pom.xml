@@ -9,9 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>model</module>
-        <module>view</module>
-        <module>viewmodel</module>
+        <module>code-backend</module>
+        <module>code-frontend</module>
     </modules>
     <properties>
         <maven.compiler.source>1.11</maven.compiler.source>
