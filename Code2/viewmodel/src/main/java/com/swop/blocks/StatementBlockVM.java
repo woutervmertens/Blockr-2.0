@@ -1,7 +1,6 @@
 package com.swop.blocks;
 
 import com.swop.GameWorld;
-import com.swop.ProgramAreaModel;
 
 import java.awt.*;
 
@@ -53,10 +52,11 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
     }
 
     @Override
-    public Connector getConnectorOrNull(Point position) {
-        Connector res = super.getConnectorOrNull(position);
+    public Connector getConnectorOrNull(Point position, BlockModelType blockModelType) {
+        Connector res = super.getConnectorOrNull(position, blockModelType);
         if (res != null) return res;
-        if (((StatementBlockModel) model).conditionConnector.isOnConnector(position))
+        //Only conditions allowed
+        if (blockModelType == BlockModelType.CONDITION && ((StatementBlockModel) model).conditionConnector.isOnConnector(position))
             return ((StatementBlockModel) model).conditionConnector;
         return null;
     }

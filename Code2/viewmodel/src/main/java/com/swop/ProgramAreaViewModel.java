@@ -4,7 +4,6 @@ import com.swop.blocks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ProgramAreaViewModel extends ScrollableViewModel {
@@ -66,7 +65,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         BlockVM parentVM;
         for(BlockModel bm : model.getAllBlocks()){
             parentVM = BlockFactory.getInstance().createBlockVM(bm);
-            Connector c = parentVM.getConnectorOrNull(blockModel.getPosition());
+            Connector c = parentVM.getConnectorOrNull(blockModel.getPosition(), blockModel.getBlockModelType());
             if(c != null) {
                 //Handle the parent next and retrieve new blocks' next
                 BlockModel bNext = null;

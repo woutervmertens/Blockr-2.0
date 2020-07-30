@@ -80,9 +80,10 @@ public class BlockVM implements Cloneable {
         this.model.setNextBlock(next);
     }
 
-    public Connector getConnectorOrNull(Point position){
+    public Connector getConnectorOrNull(Point position, BlockModelType blockModelType){
         if(model.nextConnector == null) return null;
-        if(model.nextConnector.isOnConnector(position))
+        //Not condition or funcdef
+        if(!(blockModelType == BlockModelType.CONDITION || blockModelType == BlockModelType.FUNCDEF) && model.nextConnector.isOnConnector(position))
             return model.nextConnector;
         return null;
     }

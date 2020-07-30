@@ -67,10 +67,11 @@ public abstract class BlockVMWithBody extends BlockVM {
     }
 
     @Override
-    public Connector getConnectorOrNull(Point position) {
-        Connector res = super.getConnectorOrNull(position);
+    public Connector getConnectorOrNull(Point position, BlockModelType blockModelType) {
+        Connector res = super.getConnectorOrNull(position, blockModelType);
         if(res != null) return res;
-        if(((BlockModelWithBody)model).bodyConnector.isOnConnector(position))
+        //Not condition or funcdef
+        if(!(blockModelType == BlockModelType.CONDITION || blockModelType == BlockModelType.FUNCDEF) && ((BlockModelWithBody)model).bodyConnector.isOnConnector(position))
             return ((BlockModelWithBody)model).bodyConnector;
         return null;
     }
