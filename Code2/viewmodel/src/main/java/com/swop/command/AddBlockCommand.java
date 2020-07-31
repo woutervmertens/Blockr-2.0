@@ -21,6 +21,6 @@ public class AddBlockCommand extends GameCommand {
 
     @Override
     public void undo() {
-        super.execute();
+        super.undo();
     }
 }

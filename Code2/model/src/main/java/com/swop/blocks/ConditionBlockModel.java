@@ -22,6 +22,7 @@ public class ConditionBlockModel extends BlockModel {
         this.predicate = predicate;
         this.color = Color.ORANGE;
         this.highlightColor = new Color(255,255,145);
+        if(!isPredicate)nextConnector = new Connector(pointSum(position,ConnectorType.NEXTCONDITION.getOffset(data)));
         blockModelType = BlockModelType.CONDITION;
     }
 
@@ -52,5 +53,17 @@ public class ConditionBlockModel extends BlockModel {
         pol.addPoint(position.x, position.y + step * 4);
 
         return pol;
+    }
+
+    @Override
+    public void updateConnectors(){
+        if(nextConnector == null) return;
+        nextConnector.setPosition(new Point(position.x + getWidth(),position.y));
+    }
+
+    @Override
+    public void renewConnectors(){
+        if(nextConnector == null) return;
+        nextConnector = new Connector(new Point(position.x + getWidth(),position.y));
     }
 }

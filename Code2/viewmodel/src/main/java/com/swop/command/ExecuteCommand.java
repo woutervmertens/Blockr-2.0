@@ -3,6 +3,7 @@ package com.swop.command;
 import com.swop.GameController;
 import com.swop.GameWorld;
 import com.swop.ProgramAreaViewModel;
+import com.swop.SuccessState;
 
 public class ExecuteCommand extends GameCommand {
     private ProgramAreaViewModel programAreaViewModel;
@@ -18,11 +19,12 @@ public class ExecuteCommand extends GameCommand {
     public void execute() {
         super.execute();
         gameController.setLastSuccessState(programAreaViewModel.ExecuteNext(gameWorld));
+        if(gameController.getLastSuccessState() == SuccessState.FAILURE) undo();
     }
 
     @Override
     public void undo() {
-        super.execute();
+        super.undo();
     }
 
 }

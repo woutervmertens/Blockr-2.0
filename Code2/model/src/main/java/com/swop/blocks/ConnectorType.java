@@ -5,7 +5,8 @@ import java.awt.*;
 public enum ConnectorType {
     NEXT,
     BODY,
-    CONDITION;
+    CONDITION,
+    NEXTCONDITION;
 
     public Point getOffset(StdBlockData data){
         switch (this){
@@ -13,6 +14,8 @@ public enum ConnectorType {
                 return new Point(0,data.getHeight());
             case CONDITION:
                 return new Point(data.getTitleWidth(),0);
+            case NEXTCONDITION:
+                return new Point(data.getWidth(),0);
             case BODY:
                 return new Point(data.getPillarWidth(),data.getTitleHeight());
             default:
