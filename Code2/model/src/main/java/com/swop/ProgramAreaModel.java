@@ -19,11 +19,11 @@ public class ProgramAreaModel implements Cloneable{
         return BlockProgram;
     }
 
-    public void setBlockProgram(Queue<BlockModel> blockProgram) {
+    public void setBlockProgram(Deque<BlockModel> blockProgram) {
         BlockProgram = blockProgram;
     }
 
-    private Queue<BlockModel> BlockProgram = new LinkedList<>();
+    private Deque<BlockModel> BlockProgram = new LinkedList<>();
 
     /**
      * @return Returns a clone of the given block.
@@ -38,10 +38,12 @@ public class ProgramAreaModel implements Cloneable{
     }
 
     public void AddBlockToProgramFront(BlockModel block){
-        BlockProgram.add(block);
+        BlockProgram.addFirst(block);
     }
-    public void AddBlockGroupToProgramFront(Collection<BlockModel> blocks){
-        BlockProgram.addAll(blocks);
+    public void AddBlockGroupToProgramFront(List<BlockModel> blocks){
+        for (int i = blocks.size() - 1; i >= 0; i--) {
+            BlockProgram.addFirst(blocks.get(i));
+        }
     }
 
     public void removeBlock(BlockModel blockModel) {

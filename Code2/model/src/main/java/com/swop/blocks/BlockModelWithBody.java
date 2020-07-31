@@ -32,6 +32,10 @@ public abstract class BlockModelWithBody extends BlockModel{
 
     public void setFirstBodyBlockModel(BlockModel firstBodyBlockModel) {
         this.firstBodyBlockModel = firstBodyBlockModel;
+        if(this.firstBodyBlockModel != null) {
+            this.firstBodyBlockModel.setIsFirstFlag(false);
+            this.firstBodyBlockModel.setHighlightState(false);
+        }
     }
 
     private void fillBody(){

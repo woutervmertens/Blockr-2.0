@@ -20,6 +20,7 @@ public class ExecuteCommand extends GameCommand {
         super.execute();
         gameController.setLastSuccessState(programAreaViewModel.ExecuteNext(gameWorld));
         if(gameController.getLastSuccessState() == SuccessState.FAILURE) undo();
+        programAreaViewModel.setHighlight();
     }
 
     @Override

@@ -115,7 +115,13 @@ public abstract class BlockModel implements Cloneable {
         return nextBlock;
     }
 
-    public void setNextBlock(BlockModel model) {nextBlock = model;}
+    public void setNextBlock(BlockModel model) {
+        nextBlock = model;
+        if(nextBlock != null) {
+            nextBlock.setIsFirstFlag(false);
+            nextBlock.setHighlightState(false);
+        }
+    }
 
     public BlockModelType getBlockModelType(){return blockModelType;}
 

@@ -153,12 +153,14 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         BlockModel blockModel = model.getBlockProgram().poll();
         blockModel.setHighlightState(false);
 
+        return BlockFactory.getInstance().createBlockVM(blockModel);
+    }
+
+    public void setHighlight(){
         BlockModel nextBlock = model.getBlockProgram().peek();
         if (nextBlock != null) {
             nextBlock.setHighlightState(true);
         }
-
-        return BlockFactory.getInstance().createBlockVM(blockModel);
     }
 
     private List<BlockModel> findFirstBlock(){
