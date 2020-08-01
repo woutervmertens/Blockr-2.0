@@ -28,6 +28,11 @@ public class StatementBlockModel extends BlockModelWithBody {
     }
 
     @Override
+    public BlockModel clone() {
+        return null;
+    }
+
+    @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
         pol.addPoint(position.x, position.y);
@@ -104,6 +109,8 @@ public class StatementBlockModel extends BlockModelWithBody {
         fillConditions();
         return conditions;
     }
+
+    protected int getConditionWidth(){return conditionWidth;}
 
     /**
      * Is the given position on this statement block.

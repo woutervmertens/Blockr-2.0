@@ -20,6 +20,14 @@ public class BlockButtonModel implements Cloneable{
         updateBlockPos();
     }
 
+    /**
+     * @return Returns a clone of the given block.
+     */
+    public BlockButtonModel clone() {
+        BlockButtonModel cb = new BlockButtonModel((Point) position.clone(),width,height,blockModel.clone());
+        return cb;
+    }
+
     private void updateBlockPos(){
         Point newPos = (Point) this.position.clone();
         newPos.translate(15,5);

@@ -17,9 +17,15 @@ public class FunctionCallBlockModel extends BlockModel{
         this.definitionBlock = definitionBlock;
         this.color = Color.GRAY;
         this.highlightColor = Color.white;
-        definitionBlock.addCall(this);
+        //definitionBlock.addCall(this);
         blockModelType = BlockModelType.FUNCCALL;
         nextConnector = new Connector(pointSum(position,ConnectorType.NEXT.getOffset(data)));
+    }
+
+    @Override
+    public BlockModel clone() {
+        FunctionCallBlockModel cf = new FunctionCallBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),definitionBlock);
+        return cf;
     }
 
     public FunctionDefinitionBlockModel getDefinitionBlock() {

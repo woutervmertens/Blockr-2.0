@@ -26,6 +26,12 @@ public class ConditionBlockModel extends BlockModel {
         blockModelType = BlockModelType.CONDITION;
     }
 
+    @Override
+    public BlockModel clone() {
+        ConditionBlockModel cc = new ConditionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),isPredicate,predicate);
+        return cc;
+    }
+
     public boolean isPredicate() {
         return isPredicate;
     }

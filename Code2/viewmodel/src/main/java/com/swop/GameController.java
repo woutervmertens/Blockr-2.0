@@ -192,6 +192,7 @@ public class GameController {
 
     public void addBlock(BlockModel blockModel) {
         programAreaVM.DropBlock(blockModel);
+        paletteVM.reactToBlockCreate(blockModel);
         gameWorldVM.HandleReset();
         programAreaVM.HandleReset();
     }

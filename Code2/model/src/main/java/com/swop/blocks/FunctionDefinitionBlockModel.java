@@ -8,7 +8,7 @@ import java.util.List;
  * A block that defines a function.
  */
 public class FunctionDefinitionBlockModel extends BlockModelWithBody{
-    List<FunctionCallBlockModel> calls = new ArrayList<>();
+    //List<FunctionCallBlockModel> calls = new ArrayList<>();
     /**
      * Creates a block that defines a function with the given position, width and height.
      */
@@ -22,6 +22,12 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
 
     public void setText(String txt){
         this.text = txt;
+    }
+
+    @Override
+    public BlockModel clone() {
+        FunctionDefinitionBlockModel cf = new FunctionDefinitionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()));
+        return cf;
     }
 
     @Override
@@ -54,15 +60,11 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
         return pol;
     }
 
-    public List<FunctionCallBlockModel> getCalls() {
+    /*public List<FunctionCallBlockModel> getCalls() {
         return calls;
     }
 
     public void addCall(FunctionCallBlockModel callBlock) {
         calls.add(callBlock);
-    }
-
-    public void removeCall(FunctionCallBlockModel callBlock) {
-        calls.remove(callBlock);
-    }
+    }*/
 }

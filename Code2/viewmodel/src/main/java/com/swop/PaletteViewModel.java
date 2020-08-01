@@ -85,7 +85,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         "" + model.getFreeDefTag()));
         BlockButtonModel defBtn = new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod);
         blockBtnModels.add(defBtn);
-        model.setFuncDefBtn(defBtn);
+        model.increaseDefTag();
         model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
         /*//FUNCTION CALL (debug only)
         blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
@@ -150,6 +150,7 @@ public class PaletteViewModel extends ScrollableViewModel {
         BlockButtonModel defBtn = model.getFuncDefBtn();
         defBtn.setBlockModel(defBtn.getBlockModel().clone());
         ((FunctionDefinitionBlockModel)defBtn.getBlockModel()).setText("" + model.getFreeDefTag());
+        model.increaseDefTag();
     }
 
     private void adaptScrollbar(){
@@ -177,7 +178,6 @@ public class PaletteViewModel extends ScrollableViewModel {
             BlockButton b = new BlockButton(bm,gameController);
             b.HandleClick(x,y);
         }
-        reactToBlockCreate(gameController.getDraggedBlockVM().getModel());
         scrollBarViewModel.HandleMousePress(x,y);
     }
 

@@ -15,7 +15,7 @@ public class ProgramAreaModel implements Cloneable{
 
     private List<BlockModel> AllBlocks = new ArrayList<>();
 
-    public Queue<BlockModel> getBlockProgram() {
+    public Deque<BlockModel> getBlockProgram() {
         return BlockProgram;
     }
 
@@ -29,12 +29,10 @@ public class ProgramAreaModel implements Cloneable{
      * @return Returns a clone of the given block.
      */
     public ProgramAreaModel clone() {
-        try {
-            return (ProgramAreaModel) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
+        ProgramAreaModel cm = new ProgramAreaModel();
+        cm.setAllBlocks((List<BlockModel>) new ArrayList<>(getAllBlocks()).clone());
+        cm.setBlockProgram(new ArrayDeque<>(getBlockProgram()).clone());
+        return cm;
     }
 
     public void AddBlockToProgramFront(BlockModel block){

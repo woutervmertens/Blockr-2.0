@@ -80,6 +80,36 @@ public class ScrollBarViewModel extends ViewModel{
         return model.getHandleYPosition();
     }
 
+    @Override
+    public void setPosition(Point p) {
+        model.setPosition(p);
+    }
+
+    @Override
+    public void setHeight(int height) {
+        model.setHeight(height);
+    }
+
+    @Override
+    public void setWidth(int width) {
+        model.setWidth(width);
+    }
+
+    @Override
+    public Point getPosition() {
+        return model.getPosition();
+    }
+
+    @Override
+    public int getHeight() {
+        return model.getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return model.getWidth();
+    }
+
     private float normalize(int yValue){
         int min = model.getPosition().y;
         int max = min + model.getHeight();

@@ -1,5 +1,8 @@
 package com.swop;
 
+import com.swop.blocks.BlockModelType;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class PaletteModel implements Cloneable{
@@ -7,7 +10,6 @@ public class PaletteModel implements Cloneable{
     private int freeY = 0;
     private int freeDefTag = 0;
     private Collection<BlockButtonModel> buttons;
-    private BlockButtonModel funcDefBtn;
 
     public Collection<BlockButtonModel> getButtons(){
         return buttons;
@@ -38,7 +40,15 @@ public class PaletteModel implements Cloneable{
     }
 
     public int getFreeDefTag(){
-        return freeDefTag++;
+        return freeDefTag;
+    }
+
+    public void increaseDefTag(){
+        freeDefTag++;
+    }
+
+    public void setFreeDefTag(int freeDefTag){
+        this.freeDefTag = freeDefTag;
     }
 
     public void increaseFreeY(int incr){
@@ -50,22 +60,28 @@ public class PaletteModel implements Cloneable{
     }
 
     /**
-     * @return Returns a clone of the given block.
+     * @return Returns a clone of the given model.
      */
     public PaletteModel clone() {
-        try {
-            return (PaletteModel) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
+        PaletteModel cp = new PaletteModel();
+        cp.setHidden(isHidden);
+        cp.setFreeY(freeY);
+        cp.setFreeDefTag(freeDefTag);
+        Collection<BlockButtonModel> shallowClone = new ArrayList<>();
+        for (BlockButtonModel bbm : buttons) shallowClone.add(bbm.clone());
+        for (BlockButtonModel bbm : shallowClone) bbm.setBlockModel(bbm.getBlockModel().clone());
+        cp.setButtons(shallowClone);
+        return cp;
     }
 
     public BlockButtonModel getFuncDefBtn() {
-        return funcDefBtn;
+        BlockButtonModel defBtn = buttons.stream().filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCDEF).findFirst().orElse(null);
+        if(defBtn == null) throw new IllegalStateException("PaletteModel.getFuncDefBtn(): No FunctionDefinition Button found!");
+        return defBtn;
     }
 
     public void setFuncDefBtn(BlockButtonModel funcDefBtn) {
-        this.funcDefBtn = funcDefBtn;
+        BlockButtonModel defBtn = getFuncDefBtn();
+        defBtn.setBlockModel(funcDefBtn.getBlockModel());
     }
 }

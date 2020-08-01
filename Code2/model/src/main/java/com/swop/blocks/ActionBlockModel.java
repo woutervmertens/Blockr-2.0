@@ -23,6 +23,12 @@ public class ActionBlockModel extends BlockModel {
         blockModelType = BlockModelType.ACTION;
     }
 
+    @Override
+    public BlockModel clone() {
+        ActionBlockModel ca = new ActionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),action);
+        return ca;
+    }
+
     protected Action getAction()
     {
         return action;

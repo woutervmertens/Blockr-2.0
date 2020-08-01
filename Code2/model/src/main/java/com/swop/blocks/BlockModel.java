@@ -34,14 +34,7 @@ public abstract class BlockModel implements Cloneable {
     /**
      * @return Returns a clone of the given block.
      */
-    public BlockModel clone() {
-        try {
-            return (BlockModel) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    public abstract BlockModel clone();
 
     protected Point pointSum(Point a, Point b){
         return new Point(a.x + b.x,a.y + b.y);

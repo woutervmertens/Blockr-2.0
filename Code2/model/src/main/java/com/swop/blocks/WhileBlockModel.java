@@ -14,4 +14,10 @@ public class WhileBlockModel extends StatementBlockModel {
         blockModelType = BlockModelType.WHILE;
     }
 
+    @Override
+    public BlockModel clone() {
+        WhileBlockModel cs = new WhileBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()),getConditionWidth());
+        return cs;
+    }
+
 }
