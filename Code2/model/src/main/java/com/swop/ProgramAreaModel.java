@@ -30,8 +30,12 @@ public class ProgramAreaModel implements Cloneable{
      */
     public ProgramAreaModel clone() {
         ProgramAreaModel cm = new ProgramAreaModel();
-        cm.setAllBlocks((List<BlockModel>) new ArrayList<>(getAllBlocks()).clone());
-        cm.setBlockProgram(new ArrayDeque<>(getBlockProgram()).clone());
+        List<BlockModel> allclone = new ArrayList<>();
+        for(BlockModel bm : getAllBlocks()) allclone.add(bm.clone());
+        cm.setAllBlocks(allclone);
+        ArrayDeque<BlockModel> progclone = new ArrayDeque<>();
+        for(BlockModel bm : getBlockProgram()) progclone.add(bm.clone());
+        cm.setBlockProgram(progclone);
         return cm;
     }
 

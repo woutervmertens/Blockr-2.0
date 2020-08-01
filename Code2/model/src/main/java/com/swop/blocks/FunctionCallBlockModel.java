@@ -25,6 +25,9 @@ public class FunctionCallBlockModel extends BlockModel{
     @Override
     public BlockModel clone() {
         FunctionCallBlockModel cf = new FunctionCallBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),definitionBlock);
+        cf.setHighlightState(isHighlight);
+        cf.setNextBlock(getNext());
+        cf.setIsFirstFlag(isFirst());
         return cf;
     }
 

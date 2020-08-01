@@ -17,6 +17,12 @@ public class WhileBlockModel extends StatementBlockModel {
     @Override
     public BlockModel clone() {
         WhileBlockModel cs = new WhileBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()),getConditionWidth());
+        cs.setHighlightState(isHighlight);
+        cs.setNextBlock(getNext());
+        cs.setGapSize(getGapSize());
+        cs.setFirstBodyBlockModel(getFirstBodyBlockModel());
+        cs.setFirstCondition(getFirstCondition());
+        cs.setIsFirstFlag(isFirst());
         return cs;
     }
 

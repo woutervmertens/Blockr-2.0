@@ -27,6 +27,11 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
     @Override
     public BlockModel clone() {
         FunctionDefinitionBlockModel cf = new FunctionDefinitionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()));
+        cf.setHighlightState(isHighlight);
+        cf.setNextBlock(getNext());
+        cf.setFirstBodyBlockModel(getFirstBodyBlockModel());
+        cf.setGapSize(getGapSize());
+        cf.setIsFirstFlag(isFirst());
         return cf;
     }
 

@@ -149,4 +149,8 @@ public class StatementBlockModel extends BlockModelWithBody {
     public void setFirstCondition(ConditionBlockModel firstCondition) {
         this.firstCondition = firstCondition;
     }
+
+    protected ConditionBlockModel getFirstCondition(){
+        return firstCondition;
+    }
 }
