@@ -18,7 +18,7 @@ public class PaletteView extends View{
     {
         //Background
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
+        g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), ((ScrollableViewModel)viewModel).getFullHeight());
 
         //Hide if needed
         if (((PaletteViewModel)viewModel).isHidden()) return;

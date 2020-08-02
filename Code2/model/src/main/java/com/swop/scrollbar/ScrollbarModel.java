@@ -58,7 +58,7 @@ public class ScrollbarModel {
     }
 
     public void setHandleHeight(float percentage){
-        handle.setHeight((int) (height/percentage));
+        handle.setHeight((int) (height * percentage));
     }
 
     public boolean isWithinHandle(int x, int y){

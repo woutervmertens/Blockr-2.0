@@ -55,10 +55,10 @@ public class ScrollbarHandleModel {
 
     public Polygon getPolygon(){
         Polygon pol = new Polygon();
-        pol.addPoint(position.x, (int) (position.y + height*scroll_position - height/2));
-        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position - height/2));
-        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position + height/2));
-        pol.addPoint(position.x, (int) (position.y + height*scroll_position + height/2));
+        pol.addPoint(position.x, (int) (position.y + height*scroll_position));
+        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position));
+        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position + height));
+        pol.addPoint(position.x, (int) (position.y + height*scroll_position + height));
         return pol;
     }
 
@@ -71,7 +71,7 @@ public class ScrollbarHandleModel {
     public boolean isWithin(int x, int y) {
         return (x > position.x
                 && x < position.x + getWidth()
-                && y > position.y + height*scroll_position - height/2
-                && y < position.y + height*scroll_position + height/2);
+                && y > position.y + height*scroll_position
+                && y < position.y + height*scroll_position + height);
     }
 }

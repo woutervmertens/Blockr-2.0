@@ -156,6 +156,7 @@ public class PaletteViewModel extends ScrollableViewModel {
     private void adaptScrollbar(){
         //TODO: if buttonModel is in the scrollbuffer: activate scroll or change scrollheight
         scrollBarViewModel.setActive(true);
+        increaseSize();
     }
 
     public void reactToBlockCreate(BlockModel blockDropped){

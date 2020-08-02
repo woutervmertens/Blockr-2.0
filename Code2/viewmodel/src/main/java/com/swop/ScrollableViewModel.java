@@ -18,8 +18,17 @@ public abstract class ScrollableViewModel extends ViewModel{
         return (int) ((getHeight() + extraClipHeight) * scrollBarViewModel.getNormalizedYPos());
     }
 
+    public int getFullHeight(){
+        return getHeight() + extraClipHeight;
+    }
+
     public int offsetScrollPosition(int oldPos){
         return oldPos + getClipStart();
+    }
+
+    public void increaseSize(){
+        extraClipHeight += getHeight();
+        scrollBarViewModel.updateHandleHeight(getFullHeight());
     }
 
     public boolean isInScrollBuffer(Point pos){

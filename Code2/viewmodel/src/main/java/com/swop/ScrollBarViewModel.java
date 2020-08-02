@@ -116,4 +116,8 @@ public class ScrollBarViewModel extends ViewModel{
         float ret = (((float)yValue - min) / (max - min));
         return ret;
     }
+
+    public void updateHandleHeight(int totalHeight){
+        model.setHandleHeight((float)getHeight()/totalHeight);
+    }
 }
