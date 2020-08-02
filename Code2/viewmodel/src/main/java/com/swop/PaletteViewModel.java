@@ -30,7 +30,7 @@ public class PaletteViewModel extends ScrollableViewModel {
         int x = position.x;
         model.setFreeY(position.y);
         for(Action action : gameController.getSupportedActions()){
-            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defAcData.getHeight() + 10,
+            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defAcData.getHeight() + 10,
                     new ActionBlockModel(
                     new StdBlockData(
                             new Point(x,model.getFreeY()),
@@ -40,7 +40,7 @@ public class PaletteViewModel extends ScrollableViewModel {
             model.increaseFreeY(defAcData.getHeight() + 10);
         }
         for(Predicate predicate : gameController.getSupportedPredicates()){
-            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defPrData.getHeight() + 10,
+            blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defPrData.getHeight() + 10,
                     new ConditionBlockModel(
                     new StdBlockData(
                             new Point(x,model.getFreeY()),
@@ -50,7 +50,7 @@ public class PaletteViewModel extends ScrollableViewModel {
             model.increaseFreeY(defPrData.getHeight() + 10);
         }
         //NOT
-        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defPrData.getHeight() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defPrData.getHeight() + 10,
                 new ConditionBlockModel(
                 new StdBlockData(
                         new Point(x,model.getFreeY()),
@@ -59,7 +59,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         "Not"),false,null)));
         model.increaseFreeY(defPrData.getHeight() + 10);
         //IF
-        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
                 new IfBlockModel(
                 new StdBlockData(
                         new Point(x,model.getFreeY()),
@@ -68,7 +68,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         "If"),defPrData.getWidth() + 10)));
         model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
         //WHILE
-        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
+        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defBodData.getHeight() + defBodData.getPillarWidth() + 10,
                 new WhileBlockModel(
                 new StdBlockData(
                         new Point(x,model.getFreeY()),
@@ -83,7 +83,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         defBodData.getWidth(),
                         defBodData.getHeight(),
                         "" + model.getFreeDefTag()));
-        BlockButtonModel defBtn = new BlockButtonModel(new Point(x,model.getFreeY()),width,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod);
+        BlockButtonModel defBtn = new BlockButtonModel(new Point(x,model.getFreeY()),width-10,defBodData.getHeight() + defBodData.getPillarWidth() + 10,fDefMod);
         blockBtnModels.add(defBtn);
         model.increaseDefTag();
         model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
@@ -114,7 +114,7 @@ public class PaletteViewModel extends ScrollableViewModel {
     public void addFuncCallButton(FunctionDefinitionBlockModel refDef){
         model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
-                        new Point(position.x,model.getFreeY()),
+                        new Point(position.x,offsetScrollPosition(model.getFreeY())),
                         defAcData.getWidth(),
                         defAcData.getHeight(),
                         refDef.getText()),refDef)));
@@ -155,6 +155,7 @@ public class PaletteViewModel extends ScrollableViewModel {
 
     private void adaptScrollbar(){
         //TODO: if buttonModel is in the scrollbuffer: activate scroll or change scrollheight
+        scrollBarViewModel.setActive(true);
     }
 
     public void reactToBlockCreate(BlockModel blockDropped){
@@ -172,6 +173,7 @@ public class PaletteViewModel extends ScrollableViewModel {
 
     @Override
     public void HandleMousePress(int x, int y) {
+        y = offsetScrollPosition(y);
         if(!isWithin(x,y)) return;
         Collection<BlockButtonModel> bms = model.getButtons();
         for (BlockButtonModel bm : bms){
@@ -184,6 +186,7 @@ public class PaletteViewModel extends ScrollableViewModel {
     @Override
     public void HandleMouseRelease(int x, int y) {
         gameController.setDraggedBlockVM(null);
+        y = offsetScrollPosition(y);
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 

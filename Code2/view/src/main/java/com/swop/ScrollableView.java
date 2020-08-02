@@ -30,7 +30,10 @@ public class ScrollableView extends View{
 
     @Override
     public void draw(Graphics g) {
+        g.setClip(viewModel.getPosition().x,viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
+        g.translate(0,-((ScrollableViewModel) viewModel).getClipStart());
         newView.draw(g);
+        g.translate(0,((ScrollableViewModel) viewModel).getClipStart());
         scrollBar.draw(g);
     }
 }

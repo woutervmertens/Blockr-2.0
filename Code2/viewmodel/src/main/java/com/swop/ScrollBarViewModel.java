@@ -39,7 +39,7 @@ public class ScrollBarViewModel extends ViewModel{
     @Override
     public void HandleMouseDrag(int x, int y) {
         if(!model.isActive()) return;
-        if(isDragging && model.isWithinHandle(x,y)) model.setHandleYPosition(normalize(y));
+        if(isDragging) model.setHandleYPosition(normalize(y));
     }
 
     @Override
@@ -113,6 +113,7 @@ public class ScrollBarViewModel extends ViewModel{
     private float normalize(int yValue){
         int min = model.getPosition().y;
         int max = min + model.getHeight();
-        return 1 - ((yValue - min) / (max - min));
+        float ret = (((float)yValue - min) / (max - min));
+        return ret;
     }
 }

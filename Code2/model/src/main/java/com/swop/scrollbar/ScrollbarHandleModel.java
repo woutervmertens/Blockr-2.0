@@ -11,7 +11,7 @@ public class ScrollbarHandleModel {
 
     public ScrollbarHandleModel(Point position, int height, int width) {
         this.position = position;
-        this.scroll_position = 0.5f;
+        this.scroll_position = 0.0f;
         this.height = height;
         this.width = width;
         this.color = Color.gray;
