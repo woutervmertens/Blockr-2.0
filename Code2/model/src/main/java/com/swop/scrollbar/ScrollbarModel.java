@@ -52,8 +52,6 @@ public class ScrollbarModel {
     }
 
     public void setHandleYPosition(float y){
-        if(y < 0) y = 0.0f;
-        if(y > 1) y = 1.0f;
         handle.setScroll_position(y);
     }
 
@@ -101,5 +99,9 @@ public class ScrollbarModel {
                 && x < getPosition().x + getWidth()
                 && y > getPosition().y
                 && y < getPosition().y + getHeight());
+    }
+
+    public int getHandleHeight() {
+        return handle.getHeight();
     }
 }

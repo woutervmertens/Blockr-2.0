@@ -21,12 +21,12 @@ public class ScrollBarViewModel extends ViewModel{
         else if(normalize(y) < model.getHandleYPosition()){
             //click above handle
             float hPos = model.getHandleYPosition() - 0.1f;
-            model.setHandleYPosition(hPos);
+            setHandleYPosition(hPos);
         }
         else{
             //click below handle
             float hPos = model.getHandleYPosition() + 0.1f;
-            model.setHandleYPosition(hPos);
+            setHandleYPosition(hPos);
         }
     }
 
@@ -39,12 +39,18 @@ public class ScrollBarViewModel extends ViewModel{
     @Override
     public void HandleMouseDrag(int x, int y) {
         if(!model.isActive()) return;
-        if(isDragging) model.setHandleYPosition(normalize(y));
+        if(isDragging) setHandleYPosition(normalize(y));
     }
 
     @Override
     public void HandleReset() {
 
+    }
+
+    private void setHandleYPosition(float y){
+        if(y < 0) y = 0.0f;
+        if(y > (1.0f)) y = 1.0f;
+        model.setHandleYPosition(y);
     }
 
     @Override
@@ -112,12 +118,13 @@ public class ScrollBarViewModel extends ViewModel{
 
     private float normalize(int yValue){
         int min = model.getPosition().y;
-        int max = min + model.getHeight();
+        int max = min + model.getHeight() - model.getHandleHeight();
         float ret = (((float)yValue - min) / (max - min));
         return ret;
     }
 
     public void updateHandleHeight(int totalHeight){
-        model.setHandleHeight((float)getHeight()/totalHeight);
+        float y = ((float)getHeight()/totalHeight);
+        model.setHandleHeight(y);
     }
 }

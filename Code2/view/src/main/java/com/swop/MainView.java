@@ -43,6 +43,7 @@ public class MainView extends CanvasWindow {
 
         paintSections(g);
 
+        g.setClip(viewModel.getPosition().x,viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
         BlockView b = new BlockView(viewModel.getDraggedBlock());
         b.draw(g);
 
