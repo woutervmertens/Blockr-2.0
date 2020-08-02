@@ -12,7 +12,7 @@ public class ProgramAreaView extends View{
 
     public void draw(Graphics g) {
         g.setColor(Color.PINK);
-        g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());
+        g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), ((ScrollableViewModel)viewModel).getFullHeight());
 
         for (BlockVM blockVM : ((ProgramAreaViewModel)viewModel).getAllBlocks()) {
             BlockView b = new BlockView(blockVM);

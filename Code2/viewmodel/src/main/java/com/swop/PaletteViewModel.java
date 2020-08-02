@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PaletteViewModel extends ScrollableViewModel {
@@ -154,9 +155,11 @@ public class PaletteViewModel extends ScrollableViewModel {
     }
 
     private void adaptScrollbar(){
-        //TODO: if buttonModel is in the scrollbuffer: activate scroll or change scrollheight
-        scrollBarViewModel.setActive(true);
-        increaseSize();
+        Optional o = model.getButtons().stream().filter(x -> isInScrollBuffer(x.getPosition())).findAny();
+        if(o.isPresent()) {
+            scrollBarViewModel.setActive(true);
+            increaseSize();
+        }
     }
 
     public void reactToBlockCreate(BlockModel blockDropped){

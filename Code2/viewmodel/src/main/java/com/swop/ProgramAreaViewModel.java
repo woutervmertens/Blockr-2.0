@@ -5,6 +5,7 @@ import com.swop.blocks.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProgramAreaViewModel extends ScrollableViewModel {
     private ProgramAreaModel model = new ProgramAreaModel();
@@ -95,6 +96,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         model.getAllBlocks().add(blockModel);
         //Reorder block positions to fit actual blocks
         fixAllBlockPositions();
+        adaptScrollbar();
     }
 
     /**
@@ -204,6 +206,14 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
             bs.add(BlockFactory.getInstance().createBlockVM(bm));
         }
         return bs;
+    }
+
+    private void adaptScrollbar(){
+        Optional o = model.getAllBlocks().stream().filter(x -> isInScrollBuffer(x.getPosition())).findAny();
+        if(o.isPresent()) {
+            scrollBarViewModel.setActive(true);
+            increaseSize();
+        }
     }
 
     /**
