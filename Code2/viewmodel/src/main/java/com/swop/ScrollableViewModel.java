@@ -32,6 +32,6 @@ public abstract class ScrollableViewModel extends ViewModel{
     }
 
     public boolean isInScrollBuffer(Point pos){
-        return (pos.y > getHeight() + extraClipHeight - 40);
+        return (pos.y > getHeight() + extraClipHeight - 100);
     }
 }
