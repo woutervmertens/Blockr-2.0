@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class BlockButton {
     private BlockButtonModel model;
-    private GameController gameController;
+    private WindowGameControllerFacade gameController;
 
-    public BlockButton(BlockButtonModel model, GameController gameController) {
+    public BlockButton(BlockButtonModel model, WindowGameControllerFacade gameController) {
         this.model = model;
         this.gameController = gameController;
     }

@@ -1,9 +1,9 @@
 package com.swop.command;
 
-import com.swop.GameController;
+import com.swop.CommandGameControllerFacade;
 
 public class ResetCommand extends GameCommand{
-    public ResetCommand(GameController gameController) {
+    public ResetCommand(CommandGameControllerFacade gameController) {
         super(gameController);
     }
 

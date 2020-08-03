@@ -1,15 +1,12 @@
 package com.swop.command;
 
-import com.swop.GameController;
-import com.swop.GameWorld;
-import com.swop.ProgramAreaViewModel;
-import com.swop.SuccessState;
+import com.swop.*;
 
 public class ExecuteCommand extends GameCommand {
     private ProgramAreaViewModel programAreaViewModel;
     private GameWorld gameWorld;
 
-    public ExecuteCommand(GameController gameController, ProgramAreaViewModel programAreaViewModel, GameWorld gameWorld) {
+    public ExecuteCommand(CommandGameControllerFacade gameController, ProgramAreaViewModel programAreaViewModel, GameWorld gameWorld) {
         super(gameController);
         this.programAreaViewModel = programAreaViewModel;
         this.gameWorld = gameWorld;

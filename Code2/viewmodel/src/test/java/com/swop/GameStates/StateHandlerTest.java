@@ -17,17 +17,17 @@ class StateHandlerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(new MyGameWorldType());
-        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,gameController);
+        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setProgramAreaVM(pavm);
         GameWorldViewModel gwvm = new GameWorldViewModel(new Point(0,0),0,0);
         gameController.setGameWorldVM(gwvm);
-        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,gameController);
+        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setPaletteVM(pvm);
         ScrollBarViewModel sbvm = new ScrollBarViewModel(new Point(0,0),0,0);
         pavm.addScrollBar(sbvm);
         gwvm.addScrollBar(sbvm);
         pvm.addScrollBar(sbvm);
-        sh = new StateHandler(gameController);
+        sh = new StateHandler(new InputGameControllerFacade(gameController));
     }
 
     @Test

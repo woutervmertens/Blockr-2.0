@@ -1,14 +1,13 @@
 package com.swop.command;
 
-import com.swop.GameController;
+import com.swop.CommandGameControllerFacade;
 import com.swop.blocks.BlockModel;
 
-import java.awt.*;
 
 public class AddBlockCommand extends GameCommand {
     private final BlockModel blockModel;
 
-    public AddBlockCommand(GameController gameController, BlockModel blockModel) {
+    public AddBlockCommand(CommandGameControllerFacade gameController, BlockModel blockModel) {
         super(gameController);
         this.blockModel = blockModel;
     }

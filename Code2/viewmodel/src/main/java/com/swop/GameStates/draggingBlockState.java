@@ -1,11 +1,11 @@
 package com.swop.GameStates;
 
-import com.swop.GameController;
+import com.swop.InputGameControllerFacade;
 
 public class draggingBlockState implements GameState{
 
     @Override
-    public GameState execute(GameController gameController) {
+    public GameState execute(InputGameControllerFacade gameController) {
         //Remove draggingBlock
         gameController.resetExecution();
         gameController.executeNext();
@@ -13,7 +13,7 @@ public class draggingBlockState implements GameState{
     }
 
     @Override
-    public GameState release(GameController gameController, int x, int y) {
+    public GameState release(InputGameControllerFacade gameController, int x, int y) {
         gameController.dropDraggedBlock();
         return new defaultState();
     }

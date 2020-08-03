@@ -3,7 +3,6 @@ package com.swop;
 import com.swop.blocks.BlockVM;
 import com.swop.blocks.BlockFactory;
 import com.swop.blocks.BlockModel;
-import com.swop.blocks.StdBlockData;
 import com.swop.command.*;
 
 import java.awt.*;
@@ -107,11 +106,11 @@ public class GameController {
     }
 
     public void executeNext() {
-        executeCommand(new ExecuteCommand(this,programAreaVM, gameWorldVM.getGameWorld()));
+        executeCommand(new ExecuteCommand(new CommandGameControllerFacade(this),programAreaVM, gameWorldVM.getGameWorld()));
     }
 
     public void callResetCommand(){
-        executeCommand(new ResetCommand(this));
+        executeCommand(new ResetCommand(new CommandGameControllerFacade(this)));
     }
 
     public void resetExecution() {
@@ -179,10 +178,10 @@ public class GameController {
         if(draggedBlockVM == null) return;
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
-            executeCommand(new AddBlockCommand(this, draggedBlockVM.getModel()));
+            executeCommand(new AddBlockCommand(new CommandGameControllerFacade(this), draggedBlockVM.getModel()));
         }
         else
-            executeCommand(new DeleteBlockCommand(this,draggedBlockVM.getModel()));
+            executeCommand(new DeleteBlockCommand(new CommandGameControllerFacade(this),draggedBlockVM.getModel()));
         draggedBlockVM = null;
     }
 

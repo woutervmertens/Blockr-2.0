@@ -5,7 +5,7 @@ import com.swop.uiElements.BlockButtonView;
 import java.awt.*;
 
 public class PaletteView extends View{
-    public PaletteView(Point pos, int width, int height, GameController gameController){
+    public PaletteView(Point pos, int width, int height, WindowGameControllerFacade gameController){
         super.viewModel = new PaletteViewModel(pos, width, height,gameController);
     }
 

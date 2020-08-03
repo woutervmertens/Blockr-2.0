@@ -8,10 +8,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class MainViewModel extends ViewModel{
-    GameController gameController;
+    InputGameControllerFacade gameController;
     StateHandler stateHandler;
 
-    public MainViewModel(Point pos, int width, int height, GameController gameController) {
+    public MainViewModel(Point pos, int width, int height, InputGameControllerFacade gameController) {
         super(pos, width, height);
         this.gameController = gameController;
         stateHandler = new StateHandler(gameController);

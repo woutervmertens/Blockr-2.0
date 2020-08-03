@@ -17,11 +17,11 @@ class draggingBlockStateTest {
     void setUp() {
         state = new draggingBlockState();
         gameController = new GameController(new MyGameWorldType());
-        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,gameController);
+        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setProgramAreaVM(pavm);
         GameWorldViewModel gwvm = new GameWorldViewModel(new Point(0,0),0,0);
         gameController.setGameWorldVM(gwvm);
-        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,gameController);
+        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setPaletteVM(pvm);
         ScrollBarViewModel sbvm = new ScrollBarViewModel(new Point(0,0),0,0);
         pavm.addScrollBar(sbvm);
@@ -31,13 +31,13 @@ class draggingBlockStateTest {
 
     @Test
     void execute() {
-        GameState gs = state.execute(gameController);
+        GameState gs = state.execute(new InputGameControllerFacade(gameController));
         assertTrue(gs instanceof defaultState);
     }
 
     @Test
     void release() {
-        GameState gs = state.release(gameController,1,1);
+        GameState gs = state.release(new InputGameControllerFacade(gameController),1,1);
         assertTrue(gs instanceof defaultState);
     }
 

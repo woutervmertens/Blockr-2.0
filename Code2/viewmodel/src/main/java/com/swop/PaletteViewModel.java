@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class PaletteViewModel extends ScrollableViewModel {
     private PaletteModel model;
-    private GameController gameController;
+    private WindowGameControllerFacade gameController;
     private StdBlockData defAcData;
     private StdBlockData defPrData;
     private StdBlockData defBodData;
-    public PaletteViewModel(Point pos, int width, int height, GameController gameController) {
+    public PaletteViewModel(Point pos, int width, int height, WindowGameControllerFacade gameController) {
         super(pos, width, height);
         model = new PaletteModel();
         this.gameController = gameController;
@@ -25,7 +25,7 @@ public class PaletteViewModel extends ScrollableViewModel {
         fillModelWithSupportedBlocks(gameController);
     }
 
-    private void fillModelWithSupportedBlocks(GameController gameController) {
+    private void fillModelWithSupportedBlocks(WindowGameControllerFacade gameController) {
         ArrayList<BlockButtonModel> blockBtnModels = new ArrayList<>();
 
         int x = position.x;

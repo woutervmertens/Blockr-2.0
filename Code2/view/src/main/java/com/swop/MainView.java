@@ -21,11 +21,11 @@ public class MainView extends CanvasWindow {
      */
     protected MainView(String title, GameController gameController) {
         super(title);
-        viewModel = new MainViewModel(new Point(0, 0),width,height,gameController);
+        viewModel = new MainViewModel(new Point(0, 0),width,height,new InputGameControllerFacade(gameController));
 
         //Sections
-        paletteView = new ScrollableView(new PaletteView(new Point(0,0),this.width/4,this.height,gameController));
-        programAreaView = new ScrollableView(new ProgramAreaView(new Point(paletteView.viewModel.getWidth(),0), paletteView.viewModel.getWidth() * 2, paletteView.viewModel.getHeight(), gameController));
+        paletteView = new ScrollableView(new PaletteView(new Point(0,0),this.width/4,this.height,new WindowGameControllerFacade(gameController)));
+        programAreaView = new ScrollableView(new ProgramAreaView(new Point(paletteView.viewModel.getWidth(),0), paletteView.viewModel.getWidth() * 2, paletteView.viewModel.getHeight(), new WindowGameControllerFacade(gameController)));
         gameWorldView = new ScrollableView(new GameWorldView(new Point(paletteView.viewModel.getWidth() + programAreaView.viewModel.getWidth(),0), paletteView.viewModel.getWidth(), paletteView.viewModel.getHeight()));
         gameController.setPaletteVM((PaletteViewModel) paletteView.viewModel);
         gameController.setProgramAreaVM((ProgramAreaViewModel) programAreaView.viewModel);

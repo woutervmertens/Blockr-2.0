@@ -1,13 +1,13 @@
 package com.swop.command;
 
-import com.swop.GameController;
+import com.swop.CommandGameControllerFacade;
 import com.swop.GameSnapshot;
 
 public abstract class GameCommand implements ICommand {
-    protected GameController gameController;
+    protected CommandGameControllerFacade gameController;
     private GameSnapshot snapshot;
 
-    public GameCommand(GameController gameController) {
+    public GameCommand(CommandGameControllerFacade gameController) {
         this.gameController = gameController;
     }
 

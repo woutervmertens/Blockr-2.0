@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public class ProgramAreaViewModel extends ScrollableViewModel {
     private ProgramAreaModel model = new ProgramAreaModel();
-    private GameController gameController;
-    public ProgramAreaViewModel(Point pos, int width, int height, GameController gameController) {
+    private WindowGameControllerFacade gameController;
+    public ProgramAreaViewModel(Point pos, int width, int height, WindowGameControllerFacade gameController) {
         super(pos, width, height);
         this.gameController = gameController;
     }

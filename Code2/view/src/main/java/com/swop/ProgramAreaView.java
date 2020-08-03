@@ -6,7 +6,7 @@ import com.swop.uiElements.BlockView;
 import java.awt.*;
 
 public class ProgramAreaView extends View{
-    public ProgramAreaView(Point pos, int width, int height, GameController gameController) {
+    public ProgramAreaView(Point pos, int width, int height, WindowGameControllerFacade gameController) {
         viewModel = new ProgramAreaViewModel(pos, width, height, gameController);
     }
 

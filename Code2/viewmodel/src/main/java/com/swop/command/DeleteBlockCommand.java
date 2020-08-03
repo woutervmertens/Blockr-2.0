@@ -1,15 +1,12 @@
 package com.swop.command;
 
-import com.swop.GameController;
-import com.swop.GameSnapshot;
+import com.swop.CommandGameControllerFacade;
 import com.swop.blocks.BlockModel;
-
-import java.awt.*;
 
 public class DeleteBlockCommand extends GameCommand {
     private BlockModel blockModel;
 
-    public DeleteBlockCommand(GameController gameController, BlockModel blockModel) {
+    public DeleteBlockCommand(CommandGameControllerFacade gameController, BlockModel blockModel) {
         super(gameController);
         this.blockModel = blockModel;
     }

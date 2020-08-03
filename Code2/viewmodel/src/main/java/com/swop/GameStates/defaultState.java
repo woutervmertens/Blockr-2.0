@@ -1,17 +1,17 @@
 package com.swop.GameStates;
 
-import com.swop.GameController;
+import com.swop.InputGameControllerFacade;
 
 public class defaultState implements GameState{
     @Override
-    public GameState execute(GameController gameController) {
+    public GameState execute(InputGameControllerFacade gameController) {
         //Execute
         gameController.executeNext();
         return this;
     }
 
     @Override
-    public GameState release(GameController gameController, int x, int y) {
+    public GameState release(InputGameControllerFacade gameController, int x, int y) {
         gameController.CallReleaseInVms(x,y);
         return this;
     }

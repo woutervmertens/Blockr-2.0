@@ -1,12 +1,12 @@
 package com.swop.GameStates;
 
-import com.swop.GameController;
+import com.swop.InputGameControllerFacade;
 import com.swop.RepaintEventController;
 
 public class StateHandler {
     private GameState gameState = new defaultState();
-    private GameController gameController;
-    public StateHandler(GameController gameController){
+    private InputGameControllerFacade gameController;
+    public StateHandler(InputGameControllerFacade gameController){
         this.gameController = gameController;
     }
 

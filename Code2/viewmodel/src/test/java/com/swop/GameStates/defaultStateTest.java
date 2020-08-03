@@ -16,11 +16,11 @@ class defaultStateTest {
     void setUp() {
         state = new defaultState();
         gameController = new GameController(new MyGameWorldType());
-        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,gameController);
+        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setProgramAreaVM(pavm);
         GameWorldViewModel gwvm = new GameWorldViewModel(new Point(0,0),0,0);
         gameController.setGameWorldVM(gwvm);
-        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,gameController);
+        PaletteViewModel pvm = new PaletteViewModel(new Point(0,0),0,0,new WindowGameControllerFacade(gameController));
         gameController.setPaletteVM(pvm);
         ScrollBarViewModel sbvm = new ScrollBarViewModel(new Point(0,0),0,0);
         pavm.addScrollBar(sbvm);
@@ -30,12 +30,12 @@ class defaultStateTest {
 
     @Test
     void execute() {
-        assertEquals(state,state.execute(gameController));
+        assertEquals(state,state.execute(new InputGameControllerFacade(gameController)));
     }
 
     @Test
     void release() {
-        assertEquals(state,state.release(gameController,1,1));
+        assertEquals(state,state.release(new InputGameControllerFacade(gameController),1,1));
     }
 
     @Test
