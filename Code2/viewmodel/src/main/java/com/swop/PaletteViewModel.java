@@ -19,9 +19,9 @@ public class PaletteViewModel extends ScrollableViewModel {
         super(pos, width, height);
         model = new PaletteModel();
         this.gameController = gameController;
-        defAcData = DefaultActionData.getInstance();
-        defPrData = DefaultPredicateData.getInstance();
-        defBodData =DefaultBodyBlockData.getInstance();
+        defAcData = new DefaultActionData();
+        defPrData = new DefaultPredicateData();
+        defBodData = new DefaultBodyBlockData();
         fillModelWithSupportedBlocks(gameController);
     }
 
