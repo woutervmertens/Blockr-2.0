@@ -18,10 +18,6 @@ public class GameController {
     private GameWorldViewModel gameWorldVM;
     private GameWorldType gameWorldType;
 
-    private StdBlockData defaultActionData;
-    private StdBlockData defaultPredicateData;
-    private StdBlockData defaultBodyBlockData;
-
     private BlockVM draggedBlockVM = null;
 
     private SuccessState lastSuccessState = SuccessState.SUCCESS;
@@ -38,27 +34,6 @@ public class GameController {
     public GameController(GameWorldType gameWorldType){
         this.gameWorldType = gameWorldType;
         this.viewModels = new ArrayList<>();
-        defaultActionData = new StdBlockData(
-                new Point(0,0),
-                110,
-                30,
-                ""
-        );
-        defaultPredicateData = new StdBlockData(
-                new Point(0,0),
-                40,
-                30,
-                ""
-        );
-        defaultBodyBlockData = new StdBlockData(
-                new Point(0,0),
-                70,
-                30,
-                30,
-                10,
-                0,
-                ""
-        );
     }
 
     private void addViewModel(ViewModel newVM){
@@ -154,19 +129,6 @@ public class GameController {
 
     public Collection<Predicate> getSupportedPredicates(){
         return gameWorldType.getSupportedPredicates();
-    }
-
-
-    public StdBlockData getDefaultActionData() {
-        return defaultActionData;
-    }
-
-    public StdBlockData getDefaultPredicateData() {
-        return defaultPredicateData;
-    }
-
-    public StdBlockData getDefaultBodyBlockData() {
-        return defaultBodyBlockData;
     }
 
     public BlockVM getDraggedBlockVM(){
