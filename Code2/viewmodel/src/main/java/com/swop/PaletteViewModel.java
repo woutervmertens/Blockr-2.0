@@ -25,6 +25,10 @@ public class PaletteViewModel extends ScrollableViewModel {
         fillModelWithSupportedBlocks(gameController);
     }
 
+    /**
+     * Fills the PaletteModel with BlockButtons for every supported BlockModel.
+     * @param gameController a facade to talk to the GameController
+     */
     private void fillModelWithSupportedBlocks(WindowGameControllerFacade gameController) {
         ArrayList<BlockButtonModel> blockBtnModels = new ArrayList<>();
 
@@ -88,14 +92,6 @@ public class PaletteViewModel extends ScrollableViewModel {
         blockBtnModels.add(defBtn);
         model.increaseDefTag();
         model.increaseFreeY(defBodData.getHeight() + defBodData.getPillarWidth() + 10);
-        /*//FUNCTION CALL (debug only)
-        blockBtnModels.add(new BlockButtonModel(new Point(x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
-                new StdBlockData(
-                        new Point(x,model.getFreeY()),
-                        defAcData.getWidth(),
-                        defAcData.getHeight(),
-                        "0"),fDefMod)));
-        model.increaseFreeY(defAcData.getHeight() + 10);*/
         model.setButtons(blockBtnModels);
     }
 
@@ -103,6 +99,9 @@ public class PaletteViewModel extends ScrollableViewModel {
         return model.isHidden();
     }
 
+    /**
+     * @return a Collection of BlockButtons
+     */
     public Collection<BlockButton> getAllButtons(){
         Collection<BlockButtonModel> bms = model.getButtons();
         Collection<BlockButton> bs = new ArrayList<>();
@@ -112,6 +111,10 @@ public class PaletteViewModel extends ScrollableViewModel {
         return bs;
     }
 
+    /**
+     * Adds a FunctionCallButton linked to a given FunctionDefinitionBlockModel.
+     * @param refDef the FunctionDefinitionModel to reference in the Call
+     */
     public void addFuncCallButton(FunctionDefinitionBlockModel refDef){
         model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
@@ -123,6 +126,10 @@ public class PaletteViewModel extends ScrollableViewModel {
         adaptScrollbar();
     }
 
+    /**
+     * Rempoves all FunctionCallButtons referencing the given FunctionDefinitionBlockModel
+     * @param refDef the FunctionDefinitionModel referenced in the Call
+     */
     public void removeFuncCallButtons(FunctionDefinitionBlockModel refDef){
         List<BlockButtonModel> callBtns = model.getButtons()
                 .stream()
@@ -133,20 +140,26 @@ public class PaletteViewModel extends ScrollableViewModel {
             model.removeButton(btn);
         }
         adaptButtons();
-
     }
 
+    /**
+     * Adapts the position and width of all the buttons and resets the model data, then calls to handle the scrollbar
+     */
     private void adaptButtons() {
         List<BlockButtonModel> btns = (List<BlockButtonModel>) model.getButtons();
         model.setFreeY(position.y);
         for (BlockButtonModel btn : btns){
             btn.setPosition(new Point(position.x,model.getFreeY()));
+            btn.setWidth(getWidth() - scrollBarViewModel.getWidth() - 1);
             model.increaseFreeY(btn.getHeight());
         }
         model.setButtons(btns);
         adaptScrollbar();
     }
 
+    /**
+     * Adjusts the FunctionDefinitionButton to a new BlockModel with a different tag.
+     */
     public void adjustDefinitionButton(){
         BlockButtonModel defBtn = model.getFuncDefBtn();
         defBtn.setBlockModel(defBtn.getBlockModel().clone());
@@ -154,6 +167,9 @@ public class PaletteViewModel extends ScrollableViewModel {
         model.increaseDefTag();
     }
 
+    /**
+     * If any BlockButton is in the ScrollBuffer; activates the scrollbar and increases the size of the scrollable area.
+     */
     private void adaptScrollbar(){
         Optional o = model.getButtons().stream().filter(x -> isInScrollBuffer(x.getPosition())).findAny();
         if(o.isPresent()) {
@@ -162,6 +178,10 @@ public class PaletteViewModel extends ScrollableViewModel {
         }
     }
 
+    /**
+     * Reacts to a block being created in the Program Area; if it is a Function Definition, creates a Function Call Button for it
+     * @param blockDropped the BlockModel dropped in the Program Area
+     */
     public void reactToBlockCreate(BlockModel blockDropped){
         if(blockDropped.getBlockModelType() == BlockModelType.FUNCDEF) {
             addFuncCallButton((FunctionDefinitionBlockModel)blockDropped);
@@ -169,12 +189,22 @@ public class PaletteViewModel extends ScrollableViewModel {
         }
     }
 
-    public void reactToBlockRemove(BlockModel blockDropped){
-        if(blockDropped.getBlockModelType() == BlockModelType.FUNCDEF) {
-            removeFuncCallButtons((FunctionDefinitionBlockModel)blockDropped);
+    /**
+     * Reacts to a block being removed from the Program Area; if it is a Function Definition, removes the Function Call Button for it
+     * @param removedBlock the block being removed from the Program Area
+     */
+    public void reactToBlockRemove(BlockModel removedBlock){
+        if(removedBlock.getBlockModelType() == BlockModelType.FUNCDEF) {
+            removeFuncCallButtons((FunctionDefinitionBlockModel)removedBlock);
         }
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMousePress(int x, int y) {
         y = offsetScrollPosition(y);
@@ -187,6 +217,12 @@ public class PaletteViewModel extends ScrollableViewModel {
         scrollBarViewModel.HandleMousePress(x,y);
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseRelease(int x, int y) {
         gameController.setDraggedBlockVM(null);
@@ -194,6 +230,12 @@ public class PaletteViewModel extends ScrollableViewModel {
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseDrag(int x, int y) {
         scrollBarViewModel.HandleMouseDrag(x,y);
@@ -211,5 +253,11 @@ public class PaletteViewModel extends ScrollableViewModel {
 
     public void setModel(PaletteModel model){
         this.model = model;
+    }
+
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+        adaptButtons();
     }
 }

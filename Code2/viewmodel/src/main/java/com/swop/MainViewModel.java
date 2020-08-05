@@ -25,6 +25,9 @@ public class MainViewModel extends ViewModel{
         return gameController.getDraggedBlockVM();
     }
 
+    /**
+     * Calls the appropriate response for supported Key Inputs
+     */
     public void handleKeyInput(int id, int keyCode, boolean isHoldingCtrl, boolean isHoldingShift){
         if (id == KeyEvent.KEY_PRESSED) {
             switch (keyCode) {
@@ -43,6 +46,9 @@ public class MainViewModel extends ViewModel{
         }
     }
 
+    /**
+     * Calls the appropriate response for supported Mouse Inputs
+     */
     public void handleMouseInput(int id, int x,int y){
         switch (id) {
             case MouseEvent.MOUSE_PRESSED:
@@ -93,6 +99,9 @@ public class MainViewModel extends ViewModel{
         HandleReset();
     }
 
+    /**
+     * Calls the appropriate handler for MousePress
+     */
     @Override
     public void HandleMousePress(int x, int y) {
         gameController.HandleMousePress(x,y);
@@ -100,17 +109,26 @@ public class MainViewModel extends ViewModel{
             stateHandler.setStateDrag();
     }
 
+    /**
+     * Calls the appropriate handler for MouseRelease
+     */
     @Override
     public void HandleMouseRelease(int x, int y) {
         stateHandler.HandleMouseRelease(x, y);
     }
 
+    /**
+     * Calls the appropriate handler for MouseDrag
+     */
     @Override
     public void HandleMouseDrag(int x, int y) {
 
         gameController.HandleMouseDrag(x,y);
     }
 
+    /**
+     * Calls the appropriate handler for Reset
+     */
     @Override
     public void HandleReset() {
         stateHandler.setStateDefault();

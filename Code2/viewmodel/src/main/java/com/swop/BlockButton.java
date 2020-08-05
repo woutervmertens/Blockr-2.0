@@ -14,6 +14,12 @@ public class BlockButton {
         this.gameController = gameController;
     }
 
+    /**
+     * React to a MouseClick on (x,y):
+     *  Calls GameController to set dragged block to clone of respective BlockModel.
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     public void HandleClick(int x, int y){
         if(!model.isWithin(x,y)) return;
         gameController.setDraggedBlockVM(model.getBlockModel().clone());

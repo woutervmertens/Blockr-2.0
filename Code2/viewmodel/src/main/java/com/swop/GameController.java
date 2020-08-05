@@ -39,6 +39,11 @@ public class GameController {
         viewModels.add(newVM);
     }
 
+    /**
+     * Calls HandleMousePress for every ViewModel and flags for repaint.
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     public void HandleMousePress(int x, int y){
         for (ViewModel vm : viewModels){
             vm.HandleMousePress(x,y);
@@ -46,12 +51,22 @@ public class GameController {
         RepaintEventController.getInstance().CallRepaint();
     }
 
+    /**
+     * Calls HandleMouseRelease for every ViewModel.
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     public void CallReleaseInVms(int x, int y){
         for (ViewModel vm : viewModels){
             vm.HandleMouseRelease(x,y);
         }
     }
 
+    /**
+     * Changes the position of the dragged block or calls HandleMouseDrag for every ViewModel and flags for repaint.
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     public void HandleMouseDrag(int x, int y){
         if(draggedBlockVM != null)
             draggedBlockVM.updatePosition(new Point(x,y));
@@ -105,14 +120,23 @@ public class GameController {
         redoStack.clear();
     }
 
+    /**
+     * Calls execute on a new Execute Command for the next Block in the Program
+     */
     public void executeNext() {
         executeCommand(new ExecuteCommand(new CommandGameControllerFacade(this),programAreaVM, gameWorldVM.getGameWorld()));
     }
 
+    /**
+     * Calls execute on a new Reset Command
+     */
     public void callResetCommand(){
         executeCommand(new ResetCommand(new CommandGameControllerFacade(this)));
     }
 
+    /**
+     * Calls HandleReset in every ViewModel, flags fro repaint.
+     */
     public void resetExecution() {
         for (ViewModel vm : viewModels){
             vm.HandleReset();
@@ -134,16 +158,28 @@ public class GameController {
         return draggedBlockVM;
     }
 
+    /**
+     * Creates a Memento GameSnapshot for the current state of every ViewModel.
+     * @return the GameSnapshot of the current state.
+     */
     public GameSnapshot createSnapshot() {
         return new GameSnapshot(gameWorldVM.getGameWorld().createSnapshot(),paletteVM.getModel(),programAreaVM.getModel());
     }
 
+    /**
+     * Restores the state of the given GameSnapshot Memento.
+     * @param snapshot the GameSnapshot to restore to.
+     */
     public void restoreSnapshot(GameSnapshot snapshot) {
         gameWorldVM.getGameWorld().restoreSnapshot(snapshot.getGameWorldSnapshot());
         paletteVM.setModel(snapshot.getPaletteModel());
         programAreaVM.setModel(snapshot.getProgramAreaModel());
     }
 
+    /**
+     * Calls to remove the given BlockModel from the ProgramArea, calls for a reaction from the Palette and resets GameWorld and ProgramArea.
+     * @param blockModel the BlockModel to remove.
+     */
     public void deleteBlock(BlockModel blockModel) {
         programAreaVM.RemoveBlock(blockModel);
         paletteVM.reactToBlockRemove(blockModel);
@@ -151,6 +187,10 @@ public class GameController {
         programAreaVM.HandleReset();
     }
 
+    /**
+     * Calls to add the given BlockModel to the ProgramArea, calls for a reaction from the Palette and resets GameWorld and ProgramArea.
+     * @param blockModel the BlockModel to add.
+     */
     public void addBlock(BlockModel blockModel) {
         programAreaVM.DropBlock(blockModel);
         paletteVM.reactToBlockCreate(blockModel);
@@ -174,6 +214,9 @@ public class GameController {
         addViewModel(this.gameWorldVM);
     }
 
+    /**
+     * Drops the BlockModel being dragged at the current position and calls the appropriate Commands.
+     */
     public void dropDraggedBlock() {
         if(draggedBlockVM == null) return;
         if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
@@ -191,7 +234,6 @@ public class GameController {
             return;
         }
         draggedBlockVM = BlockFactory.getInstance().createBlockVM(bm);
-
     }
 
     public SuccessState getLastSuccessState() {

@@ -15,6 +15,15 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         this.gameController = gameController;
     }
 
+    /**
+     * React to a MousePress on (x,y):
+     *  checks all the blocks to find the one being pressed
+     *  set the dragged block in the GameController
+     *  remove the block from the program area data
+     *  if no block was pressed, pass the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
@@ -29,16 +38,32 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         scrollBarViewModel.HandleMousePress(x,y);
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseRelease(int x, int y) {
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
+    /**
+     * React to a MouseDrag on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseDrag(int x, int y) {
         scrollBarViewModel.HandleMouseDrag(x,y);
     }
 
+    /**
+     * React to a Reset call:
+     *  Generates a new program.
+     */
     @Override
     public void HandleReset() {
         GenerateProgram();
@@ -58,7 +83,8 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
     }
 
     /**
-     * Checks all blocks for a connector link and adds the @param blockModel in the correct position, then reorders the blocks
+     * Checks all blocks for a connector link and adds the blockModel in the correct position, then reorders the blocks and adapts the scrollbar.
+     * @param blockModel the BlockModel to drop
      */
     public void DropBlock(BlockModel blockModel){
         assert isWithin(blockModel.getPosition().x,blockModel.getPosition().y);
@@ -113,6 +139,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         fixAllBlockPositions();
     }
 
+    /**
+     * Call fixBlockPosition for every BlockModel
+     */
     private void fixAllBlockPositions(){
         List<BlockModel> models = model.getAllBlocks();
         for (BlockModel model : models)
@@ -121,7 +150,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         }
     }
 
-    /***
+    /**
      * Start correcting the model positions to the position of the parents connector position, starting after last correct Block @param startBlock
      */
     private void fixBlockPositions(BlockVM startBlockVM){
@@ -137,6 +166,11 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         }
     }
 
+    /**
+     * Gets the next BlockModel to execute and calls execute on it
+     * @param gw the GameWorld
+     * @return the SuccessState of the execution.
+     */
     public SuccessState ExecuteNext(GameWorld gw){
         BlockVM b = GetNextToExecute();
         return (b == null)? SuccessState.FAILURE : b.Execute(gw,model);
@@ -158,6 +192,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         return BlockFactory.getInstance().createBlockVM(blockModel);
     }
 
+    /**
+     * Marks the highlight flag in the next BlockModel
+     */
     public void setHighlight(){
         BlockModel nextBlock = model.getBlockProgram().peek();
         if (nextBlock != null) {
@@ -165,6 +202,10 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         }
     }
 
+    /**
+     * Finds the all the blockModels marked as "First"
+     * @return a List of BlockModels
+     */
     private List<BlockModel> findFirstBlock(){
         List<BlockModel> firsts = new ArrayList<>();
         for(BlockModel bm : model.getAllBlocks()){
@@ -208,6 +249,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
         return bs;
     }
 
+    /**
+     * If any BlockModel is in the ScrollBuffer; activates the scrollbar and increases the size of the scrollable area.
+     */
     private void adaptScrollbar(){
         Optional o = model.getAllBlocks().stream().filter(x -> isInScrollBuffer(x.getPosition())).findAny();
         if(o.isPresent()) {

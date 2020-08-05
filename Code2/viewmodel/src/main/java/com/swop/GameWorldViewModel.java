@@ -10,22 +10,44 @@ public class GameWorldViewModel extends ScrollableViewModel {
         model = new GameWorldModel();
     }
 
+    /**
+     * React to a MousePress on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMousePress(int x, int y) {
         if(!isWithin(x,y)) return;
         scrollBarViewModel.HandleMousePress(x,y);
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseRelease(int x, int y) {
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
+    /**
+     * React to a MouseDrag on (x,y):
+     *  Passes the call along to the scrollbar
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseDrag(int x, int y) {
         scrollBarViewModel.HandleMouseDrag(x,y);
     }
 
+    /**
+     * React to a Reset:
+     *  creates a new instance of the GameWorld
+     */
     @Override
     public void HandleReset() {
         model.gameWorld = model.gameWorldType.createNewInstance();
@@ -36,6 +58,10 @@ public class GameWorldViewModel extends ScrollableViewModel {
         return model;
     }
 
+    /**
+     * Calls paint in the GameWorld
+     * @param g the Graphics object
+     */
     public void paint(Graphics g){
         model.gameWorld.paint(g, position);
     }
