@@ -4,6 +4,9 @@ import com.swop.blocks.BlockModel;
 
 import java.util.Collection;
 
+/**
+ * Allows limited communication between various Window element classes and the GameController
+ */
 public class WindowGameControllerFacade {
     GameController gameController;
     public WindowGameControllerFacade(GameController gameController){

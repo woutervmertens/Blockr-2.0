@@ -12,14 +12,12 @@ public class AddBlockCommand extends GameCommand {
         this.blockModel = blockModel;
     }
 
+    /**
+     * Calls GameCommand execute and calls gameController to add the block
+     */
     @Override
     public void execute() {
         super.execute();
         gameController.addBlock(blockModel);
-    }
-
-    @Override
-    public void undo() {
-        super.undo();
     }
 }

@@ -11,12 +11,13 @@ public class DeleteBlockCommand extends GameCommand {
         this.blockModel = blockModel;
     }
 
+    /**
+     * Calls GameCommand execute, and calls gameController to delete the block
+     */
+    @Override
     public void execute() {
         super.execute();
         gameController.deleteBlock(blockModel);
     }
 
-    public void undo() {
-        super.undo();
-    }
 }

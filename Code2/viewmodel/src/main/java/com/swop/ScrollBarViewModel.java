@@ -12,6 +12,15 @@ public class ScrollBarViewModel extends ViewModel{
         model = new ScrollbarModel(position,height,width);
     }
 
+    /**
+     * React to a MousePress on (x,y):
+     *  if the scrollbar is active and (x,y) is on the scrollbar:
+     *  if it's on the handle, start dragging
+     *  else if the click is above the handle move it up a bit
+     *  else the click is below the handle, move it down a bit
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMousePress(int x, int y) {
         if(!model.isActive() || !model.isWithin(x,y)) return;
@@ -30,29 +39,50 @@ public class ScrollBarViewModel extends ViewModel{
         }
     }
 
+    /**
+     * React to a MouseRelease on (x,y):
+     *  if the scrollbar is active stop dragging
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseRelease(int x, int y) {
         if(!model.isActive()) return;
         isDragging = false;
     }
 
+    /**
+     * React to a MouseDrag on (x,y):
+     *  if the scrollbar is active and we're dragging, change the handle position accordingly
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
     @Override
     public void HandleMouseDrag(int x, int y) {
         if(!model.isActive()) return;
         if(isDragging) setHandleYPosition(normalize(y));
     }
 
+    /**
+     * Does nothing.
+     */
     @Override
-    public void HandleReset() {
+    public void HandleReset() {}
 
-    }
-
+    /**
+     * Change the handle y position, within limits.
+     * @param y the new y position (normalised)
+     */
     private void setHandleYPosition(float y){
         if(y < 0) y = 0.0f;
         if(y > (1.0f)) y = 1.0f;
         model.setHandleYPosition(y);
     }
 
+    /**
+     * Does nothing.
+     * @return null
+     */
     @Override
     public Object getModel() {
         return null;
@@ -116,6 +146,11 @@ public class ScrollBarViewModel extends ViewModel{
         return model.getWidth();
     }
 
+    /**
+     * Normalises an int for the height of the scrollbar
+     * @param yValue an int to normalise
+     * @return the normalised float
+     */
     private float normalize(int yValue){
         int min = model.getPosition().y;
         int max = min + model.getHeight() - model.getHandleHeight();
@@ -123,6 +158,10 @@ public class ScrollBarViewModel extends ViewModel{
         return ret;
     }
 
+    /**
+     * Changes the size of the handle with start height divided by the current height of the scrollbar
+     * @param totalHeight the current height of the scrollbar
+     */
     public void updateHandleHeight(int totalHeight){
         float y = ((float)getHeight()/totalHeight);
         model.setHandleHeight(y);

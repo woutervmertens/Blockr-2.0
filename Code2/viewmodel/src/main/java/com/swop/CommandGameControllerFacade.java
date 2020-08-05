@@ -2,6 +2,9 @@ package com.swop;
 
 import com.swop.blocks.BlockModel;
 
+/**
+ * Allows limited communication between Commands and the GameController
+ */
 public class CommandGameControllerFacade {
     GameController gameController;
     public CommandGameControllerFacade(GameController gameController){

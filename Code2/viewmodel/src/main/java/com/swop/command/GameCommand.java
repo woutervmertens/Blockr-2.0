@@ -11,11 +11,17 @@ public abstract class GameCommand implements ICommand {
         this.gameController = gameController;
     }
 
+    /**
+     * Creates a snapshot of all window elements
+     */
     @Override
     public void execute() {
         snapshot = gameController.createSnapshot();
     }
 
+    /**
+     * Restores the snapshot of all window elements
+     */
     @Override
     public void undo() {
         gameController.restoreSnapshot(snapshot);

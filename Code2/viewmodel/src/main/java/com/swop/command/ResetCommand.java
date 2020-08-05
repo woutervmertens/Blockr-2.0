@@ -7,14 +7,12 @@ public class ResetCommand extends GameCommand{
         super(gameController);
     }
 
+    /**
+     * Calls GameCommand execute and calls to reset execution
+     */
     @Override
     public void execute() {
         super.execute();
         gameController.resetExecution();
-    }
-
-    @Override
-    public void undo() {
-        super.undo();
     }
 }

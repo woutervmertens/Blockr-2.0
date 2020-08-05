@@ -3,6 +3,9 @@ package com.swop;
 import com.swop.blocks.BlockModel;
 import com.swop.blocks.BlockVM;
 
+/**
+ * Allows limited communication between various input related classes and the GameController
+ */
 public class InputGameControllerFacade {
     GameController gameController;
     public InputGameControllerFacade(GameController gameController){

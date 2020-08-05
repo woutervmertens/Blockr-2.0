@@ -12,17 +12,15 @@ public class ExecuteCommand extends GameCommand {
         this.gameWorld = gameWorld;
     }
 
+    /**
+     * Calls GameCommand execute, execute next in the program area VM and handles illegal actions and calls on program area VM to handle the highlight
+     */
     @Override
     public void execute() {
         super.execute();
         gameController.setLastSuccessState(programAreaViewModel.ExecuteNext(gameWorld));
         if(gameController.getLastSuccessState() == SuccessState.FAILURE) undo();
         programAreaViewModel.setHighlight();
-    }
-
-    @Override
-    public void undo() {
-        super.undo();
     }
 
 }
