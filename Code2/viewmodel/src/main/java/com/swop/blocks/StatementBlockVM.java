@@ -14,6 +14,8 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
 
     /**
      * @return Returns true or false according to the combination of conditions are true or false.
+     *
+     * @param gw the GameWorld
      */
     protected boolean isConditionValid(GameWorld gw) {
         if(!((StatementBlockModel)model).checkConditions()) return false;

@@ -11,6 +11,8 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
     //List<FunctionCallBlockModel> calls = new ArrayList<>();
     /**
      * Creates a block that defines a function with the given position, width and height.
+     *
+     * @param data standard data container for the Block
      */
     public FunctionDefinitionBlockModel(StdBlockData data) {
         super(data);

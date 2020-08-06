@@ -31,7 +31,6 @@ public class StateHandler {
 
     /**
      * Calls the execute for the current GameState, flags a repaint.
-     * @return feedback for the user.
      */
     public void HandleExecute() {
         gameState = gameState.execute(gameController);

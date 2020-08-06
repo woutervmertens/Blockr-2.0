@@ -19,6 +19,8 @@ public abstract class BlockModelWithBody extends BlockModel{
 
     /**
      * Creates a block that can have a body.
+     *
+     * @param data standard data container for the Block
      */
     protected BlockModelWithBody(StdBlockData data) {
         super(data);

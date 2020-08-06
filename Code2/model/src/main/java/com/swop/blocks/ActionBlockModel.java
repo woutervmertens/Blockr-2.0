@@ -12,6 +12,8 @@ public class ActionBlockModel extends BlockModel {
 
     /**
      * Creates an actionBlock with the given position, width, height and action.
+     *
+     * @param data standard data container for the Block
      * @param action The action that the actionBlock can perform on the gameworld.
      */
     public ActionBlockModel(StdBlockData data, Action action) {

@@ -340,6 +340,8 @@ public class CanvasWindow {
      * @param id event id
      * @param keyCode event key code
      * @param keyChar event key char
+     * @param isControlDown CTRL is held down
+     * @param isShiftDown SHIFT is held down
      */
     protected void handleKeyEvent(int id, int keyCode, char keyChar, boolean isControlDown, boolean isShiftDown) {
     }

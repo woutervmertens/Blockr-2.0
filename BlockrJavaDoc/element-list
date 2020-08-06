@@ -1,5 +1,6 @@
 com.swop
 com.swop.blocks
 com.swop.command
-com.swop.handlers
+com.swop.GameStates
+com.swop.scrollbar
 com.swop.uiElements

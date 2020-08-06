@@ -15,6 +15,9 @@ public class StatementBlockModel extends BlockModelWithBody {
     private Point conditionOffset;
     /**
      * Creates a block that is a statement with the given position, width and height.
+     *
+     * @param data standard data container for the Block
+     * @param conditionWidth the width of a condition Block
      */
     public StatementBlockModel(StdBlockData data, int conditionWidth) {
         super(data);

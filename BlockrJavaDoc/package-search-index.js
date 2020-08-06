@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.swop"},{"l":"com.swop.blocks"},{"l":"com.swop.command"},{"l":"com.swop.handlers"},{"l":"com.swop.uiElements"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.swop"},{"l":"com.swop.blocks"},{"l":"com.swop.command"},{"l":"com.swop.GameStates"},{"l":"com.swop.scrollbar"},{"l":"com.swop.uiElements"}]

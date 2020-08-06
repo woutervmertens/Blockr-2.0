@@ -8,6 +8,9 @@ import java.awt.*;
 public class IfBlockModel extends StatementBlockModel {
     /**
      * creates a block that is an if-statement with the given position, width and height.
+     *
+     * @param data standard data container for the Block
+     * @param conditionWidth the width of a condition Block
      */
     public IfBlockModel(StdBlockData data, int conditionWidth) {
         super(data,conditionWidth);

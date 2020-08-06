@@ -10,6 +10,8 @@ public class FunctionCallBlockModel extends BlockModel{
 
     /**
      * Creates a functionCallBlock with the given position, width, height and definitionBlock.
+     *
+     * @param data standard data container for the Block
      * @param definitionBlock the given functionDefinitionBlock that it calls.
      */
     public FunctionCallBlockModel(StdBlockData data, FunctionDefinitionBlockModel definitionBlock) {

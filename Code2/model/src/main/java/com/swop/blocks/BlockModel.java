@@ -25,6 +25,8 @@ public abstract class BlockModel implements Cloneable {
 
     /**
      * Creates a block with the given position, width and height.
+     *
+     * @param data standard data container for the Block
      */
     protected BlockModel(StdBlockData data) {
         this.setPosition(data.getPosition());

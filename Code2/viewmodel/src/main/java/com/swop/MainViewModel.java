@@ -27,6 +27,11 @@ public class MainViewModel extends ViewModel{
 
     /**
      * Calls the appropriate response for supported Key Inputs
+     *
+     * @param id the Key ID of the pressed key
+     * @param keyCode the KeyCode of the pressed key
+     * @param isHoldingCtrl is the user also holding down CTRL?
+     * @param isHoldingShift is the user also holding down SHIFT?
      */
     public void handleKeyInput(int id, int keyCode, boolean isHoldingCtrl, boolean isHoldingShift){
         if (id == KeyEvent.KEY_PRESSED) {
@@ -48,6 +53,10 @@ public class MainViewModel extends ViewModel{
 
     /**
      * Calls the appropriate response for supported Mouse Inputs
+     *
+     * @param id the Input ID
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
      */
     public void handleMouseInput(int id, int x,int y){
         switch (id) {

@@ -127,6 +127,8 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
 
     /**
      * Removes @param blockModel from the program area and corrects the positions of the other blocks.
+     *
+     * @param blockModel the BlockModel to remove
      */
     public void RemoveBlock(BlockModel blockModel){
         //Get parent
@@ -218,7 +220,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      * Clears the current program
      * Generates a new one if all conditions are met:
      *  - Only one group of blocks (except function definitions)
-     *  -> Iterate through the blocks and add them to the program (don't handle bodies)
+     *  - Iterate through the blocks and add them to the program (don't handle bodies)
      */
     public void GenerateProgram(){
         model.getBlockProgram().clear();

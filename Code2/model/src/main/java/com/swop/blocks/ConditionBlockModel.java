@@ -12,7 +12,9 @@ public class ConditionBlockModel extends BlockModel {
     private final Predicate predicate;
 
     /**
-     * create a condition BLock
+     * create a condition Block
+     *
+     * @param data standard data container for the Block
      * @param isPredicate Variable registering whether the to make block is a predicate (true) otherwise NOT (false).
      * @param predicate predicate of the block
      */
