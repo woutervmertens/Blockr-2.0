@@ -3,6 +3,9 @@ package com.swop.blocks;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * The Block base.
+ */
 public abstract class BlockModel implements Cloneable {
     protected String text;
     protected final int step;

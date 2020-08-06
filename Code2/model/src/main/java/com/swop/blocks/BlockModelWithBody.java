@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Block composite holding other Blocks in its body
+ */
 public abstract class BlockModelWithBody extends BlockModel{
     private List<BlockModel> bodyBlockModels = new ArrayList<>();
     private BlockModel firstBodyBlockModel = null;

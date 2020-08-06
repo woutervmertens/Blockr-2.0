@@ -2,6 +2,9 @@ package com.swop.blocks;
 
 import java.awt.*;
 
+/**
+ * The connection point between two Blocks
+ */
 public class Connector {
     private Point position;
     private int range;

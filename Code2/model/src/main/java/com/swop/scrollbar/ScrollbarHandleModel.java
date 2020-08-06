@@ -2,6 +2,9 @@ package com.swop.scrollbar;
 
 import java.awt.*;
 
+/**
+ * The intractable Handle of the scrollbar
+ */
 public class ScrollbarHandleModel {
     private Point position;
     private float scroll_position;

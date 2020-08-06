@@ -1,7 +1,8 @@
 package com.swop;
 
-import java.awt.*;
-
+/**
+ * The data for the GameWorld Window
+ */
 public class GameWorldModel {
     GameWorld gameWorld;
     GameWorldType gameWorldType;

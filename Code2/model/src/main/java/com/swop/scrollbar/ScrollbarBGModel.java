@@ -2,6 +2,9 @@ package com.swop.scrollbar;
 
 import java.awt.*;
 
+/**
+ * The Background of the scrollbar.
+ */
 public class ScrollbarBGModel {
     private Point position;
     private int height;

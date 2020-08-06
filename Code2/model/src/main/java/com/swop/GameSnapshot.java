@@ -1,5 +1,8 @@
 package com.swop;
 
+/**
+ * A Memento for the current state of the game.
+ */
 public class GameSnapshot {
     private Snapshot gameWorldSnapshot;
     private PaletteModel paletteModel;

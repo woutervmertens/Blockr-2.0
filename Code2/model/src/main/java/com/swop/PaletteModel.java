@@ -5,6 +5,9 @@ import com.swop.blocks.BlockModelType;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * The data for the Palette Window
+ */
 public class PaletteModel implements Cloneable{
     private boolean isHidden = false;
     private int freeY = 0;
@@ -74,6 +77,10 @@ public class PaletteModel implements Cloneable{
         return cp;
     }
 
+    /**
+     * Filters through all the buttons to find the one representing the Function Definition
+     * @return The BlockButtonModel for the FunctionDefinition or null
+     */
     public BlockButtonModel getFuncDefBtn() {
         BlockButtonModel defBtn = buttons.stream().filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCDEF).findFirst().orElse(null);
         if(defBtn == null) throw new IllegalStateException("PaletteModel.getFuncDefBtn(): No FunctionDefinition Button found!");
