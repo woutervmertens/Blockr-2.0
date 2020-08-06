@@ -1,5 +1,8 @@
 package com.swop.blocks;
 
+/**
+ * Singleton object which creates respective viewmodels for each supported BlockModel type.
+ */
 public class BlockFactory {
     private static BlockFactory instance = null;
     private BlockFactory(){}
@@ -8,7 +11,13 @@ public class BlockFactory {
         return instance;
     }
 
+    /**
+     * Creates a new ViewModel for the given BlockModel
+     * @param model the BlockModel to create a ViewModel for
+     * @return a BlockViewModel
+     */
     public BlockVM createBlockVM(BlockModel model){
+        if(model == null) return null;
         switch(model.getBlockModelType()){
             case ACTION:
                 return new ActionBlockVM((ActionBlockModel) model);
@@ -22,9 +31,8 @@ public class BlockFactory {
                 return new IfBlockVM((IfBlockModel) model);
             case WHILE:
                 return new WhileBlockVM((WhileBlockModel) model);
-            case NULL:
+            default:
                 throw new IllegalArgumentException("Unsupported BlockModel");
         }
-        return null;
     }
 }

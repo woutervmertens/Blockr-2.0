@@ -16,6 +16,12 @@ public class ConditionBlockVM extends BlockVM {
         return null;
     }
 
+    /**
+     * Returns a Connector for which the position and BlockModelType are valid or returns null.
+     * @param position the position to check
+     * @param blockModelType the BlockModelType to check
+     * @return a Connector or null
+     */
     @Override
     public Connector getConnectorOrNull(Point position, BlockModelType blockModelType){
         if(model.nextConnector == null) return null;

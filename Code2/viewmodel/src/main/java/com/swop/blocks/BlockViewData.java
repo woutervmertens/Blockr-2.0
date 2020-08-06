@@ -2,6 +2,9 @@ package com.swop.blocks;
 
 import java.awt.*;
 
+/**
+ * A data structure to send to the view.
+ */
 public class BlockViewData {
     private String text;
     private Point textPosition;

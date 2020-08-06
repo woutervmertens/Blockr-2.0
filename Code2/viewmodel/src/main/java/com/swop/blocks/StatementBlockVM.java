@@ -13,9 +13,9 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
 
 
     /**
-     * @return Returns true or false according to the combination of conditions are true or false.
-     *
+     * Checks all Conditions if they are valid together
      * @param gw the GameWorld
+     * @return Returns true or false according to the combination of conditions are true or false.
      */
     protected boolean isConditionValid(GameWorld gw) {
         if(!((StatementBlockModel)model).checkConditions()) return false;
@@ -27,17 +27,20 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
         else return false;
     }
 
+    /**
+     * Unlinks the first condition then calls parent method.
+     * @param parent parent BlockModel
+     */
     @Override
     public void Remove(BlockModel parent) {
-        /*for (BlockModel bm : ((StatementBlockModel)model).getConditions())
-        {
-            BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
-            blockVM.Remove(parent);
-        }*/
         setFirstCondition(null);
         super.Remove(parent);
     }
 
+    /**
+     * Calls parent method and handles first condition.
+     * @param model old child
+     */
     @Override
     public void replaceChild(BlockModel model) {
         super.replaceChild(model);
@@ -46,13 +49,19 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
     }
 
     public BlockModel getFirstCondition(){
-        return ((StatementBlockModel)model).getFirstBodyBlockModel();
+        return ((StatementBlockModel)model).getFirstCondition();
     }
 
     public void setFirstCondition(BlockModel block){
         ((StatementBlockModel)model).setFirstCondition((ConditionBlockModel) block);
     }
 
+    /**
+     * Calls parent method, if it returns null; it checks the Connector for the Conditions.
+     * @param position the position to check
+     * @param blockModelType the BlockModelType to check
+     * @return a Connector or null
+     */
     @Override
     public Connector getConnectorOrNull(Point position, BlockModelType blockModelType) {
         Connector res = super.getConnectorOrNull(position, blockModelType);

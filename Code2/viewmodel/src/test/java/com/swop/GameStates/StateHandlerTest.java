@@ -37,7 +37,7 @@ class StateHandlerTest {
 
     @Test
     void getFeedback() {
-        assertEquals("",sh.getFeedback());
+        assertEquals("# blocks available: 20",sh.getFeedback());
     }
 
     @Test
@@ -51,8 +51,10 @@ class StateHandlerTest {
     }
 
     @Test
-    void setStateGoal() {
+    void setState() {
         sh.setStateGoal();
         assertEquals("GOAL REACHED!",sh.getFeedback());
+        sh.setStateDefault();
+        assertEquals("# blocks available: 20",sh.getFeedback());
     }
 }

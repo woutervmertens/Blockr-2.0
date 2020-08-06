@@ -9,6 +9,13 @@ public class FunctionCallBlockVM extends BlockVM {
     protected FunctionCallBlockVM(FunctionCallBlockModel model) {
         super(model);
     }
+
+    /**
+     * Calls Execute on the referenced FunctionDefinition.
+     * @param gw the GameWorld
+     * @param b the ProgramAreaModel
+     * @return SuccessState.Success
+     */
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         BlockModel def = ((FunctionCallBlockModel)model).getDefinitionBlock();

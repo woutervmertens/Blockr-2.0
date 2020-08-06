@@ -10,6 +10,12 @@ public class FunctionDefinitionBlockVM extends BlockVMWithBody {
         super(model);
     }
 
+    /**
+     * Adds all models in the body to the front of the program.
+     * @param gw the GameWorld
+     * @param b the ProgramAreaModel
+     * @return SuccessState.SUCCESS
+     */
     @Override
     public SuccessState Execute(GameWorld gw, ProgramAreaModel b) {
         b.AddBlockGroupToProgramFront(((FunctionDefinitionBlockModel)model).getBodyBlockModels());

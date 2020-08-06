@@ -78,6 +78,10 @@ public class StatementBlockModel extends BlockModelWithBody {
         pol.addPoint(position.x, position.y + height + pillarWidth + getGapSize());
         return pol;
     }
+
+    /**
+     * Iterates through the Conditions, adding them to a list.
+     */
     private void fillConditions(){
         conditions.clear();
         //Fill conditions
@@ -89,7 +93,7 @@ public class StatementBlockModel extends BlockModelWithBody {
     }
 
     /**
-     * @return conditionlist is not empty,no NOT at the end and no predicate before the end
+     * @return conditionlist is not empty, no NOT at the end and no predicate before the end
      */
     protected boolean checkConditions(){
         fillConditions();
@@ -108,22 +112,22 @@ public class StatementBlockModel extends BlockModelWithBody {
         return true;
     }
 
-    public List<ConditionBlockModel> getConditions() {
-        fillConditions();
-        return conditions;
-    }
-
     protected int getConditionWidth(){return conditionWidth;}
 
     /**
      * Is the given position on this statement block.
      * This method is overridden bcs statementBlocks should only be clicked on their upper part (conditionWidth).
+     * @param x the x position to check
+     * @param y the y position to check
      */
     @Override
     public boolean isWithin(int x, int y) {
         return (x > getPosition().x && x < getPosition().x + conditionWidth) && (y > getPosition().y && y < getPosition().y + getHeight());
     }
 
+    /**
+     * Updates the positions of the connectors
+     */
     @Override
     public void updateConnectors() {
         super.updateConnectors();
@@ -134,6 +138,9 @@ public class StatementBlockModel extends BlockModelWithBody {
         nextConnector.setPosition(pointSum(position,gapOffset));
     }
 
+    /**
+     * Replaces the connectors with new versions.
+     */
     @Override
     public void renewConnectors() {
         super.renewConnectors();

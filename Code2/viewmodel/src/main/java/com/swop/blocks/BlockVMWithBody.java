@@ -9,36 +9,20 @@ public abstract class BlockVMWithBody extends BlockVM {
         super(model);
     }
 
-    public void setPosition(Point position) {
-        try {
-            int dx = position.x - model.getPosition().x;
-            int dy = position.y - model.getPosition().y;
-            model.setPosition(position);
-            for (BlockModel bodyBlockModel : ((BlockModelWithBody)model).getBodyBlockModels()) {
-                bodyBlockModel.setPosition(new Point(bodyBlockModel.getPosition().x + dx, bodyBlockModel.getPosition().y + dy));
-            }
-        } catch (NullPointerException e) {
-            model.setPosition(position);
-        }
-    }
-
     /**
      * Calls remove on body, then removes itself
      * @param parent parent BlockModel
      */
     @Override
     public void Remove(BlockModel parent) {
-        /*BlockModel bm = getFirstBodyBlock();
-        while (bm != null){
-            setFirstBodyBlock(bm.getNext());
-            BlockVM blockVM = BlockFactory.getInstance().createBlockVM(bm);
-            blockVM.Remove(model);
-            bm = getFirstBodyBlock();
-        }*/
         setFirstBodyBlock(null);
         super.Remove(parent);
     }
 
+    /**
+     * Calls parent method and handles first child in body.
+     * @param model old child
+     */
     @Override
     public void replaceChild(BlockModel model) {
         super.replaceChild(model);
@@ -46,6 +30,10 @@ public abstract class BlockVMWithBody extends BlockVM {
             setFirstBodyBlock(model.getNext());
     }
 
+    /**
+     * Calls parent method and the gap size.
+     * @param ConnectorPos the new position
+     */
     @Override
     public void updatePosition(Point ConnectorPos) {
         super.updatePosition(ConnectorPos);
@@ -66,6 +54,12 @@ public abstract class BlockVMWithBody extends BlockVM {
         ((BlockModelWithBody)model).setFirstBodyBlockModel(block);
     }
 
+    /**
+     * Calls parent method, if it returns null; it checks the Connector for the body.
+     * @param position the position to check
+     * @param blockModelType the BlockModelType to check
+     * @return a Connector or null
+     */
     @Override
     public Connector getConnectorOrNull(Point position, BlockModelType blockModelType) {
         Connector res = super.getConnectorOrNull(position, blockModelType);

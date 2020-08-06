@@ -87,8 +87,4 @@ public class PaletteModel implements Cloneable{
         return defBtn;
     }
 
-    public void setFuncDefBtn(BlockButtonModel funcDefBtn) {
-        BlockButtonModel defBtn = getFuncDefBtn();
-        defBtn.setBlockModel(funcDefBtn.getBlockModel());
-    }
 }
