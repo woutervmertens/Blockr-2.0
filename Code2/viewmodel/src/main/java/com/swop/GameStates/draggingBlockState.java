@@ -2,6 +2,9 @@ package com.swop.GameStates;
 
 import com.swop.InputGameControllerFacade;
 
+/**
+ * The logic for when a block is being dragged.
+ */
 public class draggingBlockState implements GameState{
 
     /**

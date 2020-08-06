@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
+/**
+ * The Logic for an Action Block.
+ */
 public class ActionBlockVM extends BlockVM {
     protected ActionBlockVM(ActionBlockModel model) {
         super(model);

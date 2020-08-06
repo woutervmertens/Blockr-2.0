@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
+/**
+ * The Logic for an If Statement Block.
+ */
 public class IfBlockVM extends StatementBlockVM {
     public IfBlockVM(IfBlockModel model){
         super(model);

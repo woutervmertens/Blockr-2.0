@@ -4,6 +4,9 @@ import com.swop.scrollbar.ScrollbarModel;
 
 import java.awt.*;
 
+/**
+ * The logic for the ScrollBar View.
+ */
 public class ScrollBarViewModel extends ViewModel{
     ScrollbarModel model;
     private boolean isDragging = false;

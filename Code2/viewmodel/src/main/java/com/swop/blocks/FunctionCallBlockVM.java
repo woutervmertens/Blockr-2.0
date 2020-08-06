@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
+/**
+ * The Logic for a Function Call Block.
+ */
 public class FunctionCallBlockVM extends BlockVM {
 
     protected FunctionCallBlockVM(FunctionCallBlockModel model) {

@@ -17,6 +17,10 @@ public class IfBlockModel extends StatementBlockModel {
         blockModelType = BlockModelType.IF;
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this IfBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         IfBlockModel cs = new IfBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()),getConditionWidth());

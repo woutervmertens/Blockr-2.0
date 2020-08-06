@@ -1,14 +1,17 @@
 package com.swop.uiElements;
 
-import com.swop.BlockButton;
+import com.swop.BlockButtonViewModel;
 
 import java.awt.*;
 
+/**
+ * The ui for a button in the palette.
+ */
 public class BlockButtonView {
-    private BlockButton viewModel;
+    private BlockButtonViewModel viewModel;
     private BlockView block;
 
-    public BlockButtonView(BlockButton viewModel){
+    public BlockButtonView(BlockButtonViewModel viewModel){
         this.viewModel = viewModel;
         block = new BlockView(viewModel.getBlock());
     }

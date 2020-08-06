@@ -4,7 +4,9 @@ import com.swop.uiElements.BlockView;
 
 import java.awt.*;
 
-
+/**
+ * The ui for the Main Window.
+ */
 public class MainView extends CanvasWindow {
     //Windows
     private View paletteView;

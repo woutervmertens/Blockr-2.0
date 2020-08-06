@@ -4,6 +4,9 @@ import com.swop.uiElements.ScrollBar;
 
 import java.awt.*;
 
+/**
+ * The ui for a Window with a scrollbar.
+ */
 public class ScrollableView extends View{
     private View newView;
     private ScrollBar scrollBar;

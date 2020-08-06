@@ -2,6 +2,9 @@ package com.swop.blocks;
 
 import java.awt.*;
 
+/**
+ * The base logic class for every block that holds additional blocks in a body.
+ */
 public abstract class BlockVMWithBody extends BlockVM {
 
 

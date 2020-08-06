@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
+/**
+ * The Logic for a While Loop Block.
+ */
 public class WhileBlockVM extends StatementBlockVM {
     public WhileBlockVM(WhileBlockModel model){
         super(model);

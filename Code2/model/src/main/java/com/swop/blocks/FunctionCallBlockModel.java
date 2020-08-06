@@ -24,6 +24,10 @@ public class FunctionCallBlockModel extends BlockModel{
         nextConnector = new Connector(pointSum(position,ConnectorType.NEXT.getOffset(data)));
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this FunctionCallBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         FunctionCallBlockModel cf = new FunctionCallBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),definitionBlock);
@@ -37,6 +41,10 @@ public class FunctionCallBlockModel extends BlockModel{
         return definitionBlock;
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();

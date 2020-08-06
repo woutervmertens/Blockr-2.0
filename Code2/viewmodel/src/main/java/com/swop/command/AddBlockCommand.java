@@ -3,7 +3,9 @@ package com.swop.command;
 import com.swop.CommandGameControllerFacade;
 import com.swop.blocks.BlockModel;
 
-
+/**
+ * The command that adds a block to the program area.
+ */
 public class AddBlockCommand extends GameCommand {
     private final BlockModel blockModel;
 

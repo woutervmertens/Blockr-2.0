@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScrollBarViewModelTest {
 
+
     @BeforeEach
     void setUp() {
     }
@@ -37,5 +38,53 @@ class ScrollBarViewModelTest {
 
     @Test
     void setActive() {
+    }
+
+    @Test
+    void getBGPoly() {
+    }
+
+    @Test
+    void getHandlePoly() {
+    }
+
+    @Test
+    void getBGColor() {
+    }
+
+    @Test
+    void getHandleColor() {
+    }
+
+    @Test
+    void getNormalizedYPos() {
+    }
+
+    @Test
+    void setPosition() {
+    }
+
+    @Test
+    void setHeight() {
+    }
+
+    @Test
+    void setWidth() {
+    }
+
+    @Test
+    void getPosition() {
+    }
+
+    @Test
+    void getHeight() {
+    }
+
+    @Test
+    void getWidth() {
+    }
+
+    @Test
+    void updateHandleHeight() {
     }
 }

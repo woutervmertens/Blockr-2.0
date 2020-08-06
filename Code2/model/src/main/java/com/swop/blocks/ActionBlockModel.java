@@ -25,6 +25,10 @@ public class ActionBlockModel extends BlockModel {
         blockModelType = BlockModelType.ACTION;
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this ActionBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         ActionBlockModel ca = new ActionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),action);
@@ -39,6 +43,10 @@ public class ActionBlockModel extends BlockModel {
         return action;
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();

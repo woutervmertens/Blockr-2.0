@@ -2,6 +2,9 @@ package com.swop;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * The launch class.
+ */
 public class Main {
 
 

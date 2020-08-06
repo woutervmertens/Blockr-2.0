@@ -5,6 +5,9 @@ import com.swop.uiElements.BlockView;
 
 import java.awt.*;
 
+/**
+ * The ui for the ProgramArea Window.
+ */
 public class ProgramAreaView extends View{
     public ProgramAreaView(Point pos, int width, int height, WindowGameControllerFacade gameController) {
         viewModel = new ProgramAreaViewModel(pos, width, height, gameController);

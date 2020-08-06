@@ -2,6 +2,9 @@ package com.swop.blocks;
 
 import java.awt.*;
 
+/**
+ * The types of connectors.
+ */
 public enum ConnectorType {
     NEXT,
     BODY,

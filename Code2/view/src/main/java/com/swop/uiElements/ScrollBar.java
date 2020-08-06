@@ -5,6 +5,9 @@ import com.swop.View;
 
 import java.awt.*;
 
+/**
+ * The ui for a scrollbar.
+ */
 public class ScrollBar extends View {
     public ScrollBar(Point position, int height, int width){
         viewModel = new ScrollBarViewModel(position, height, width);

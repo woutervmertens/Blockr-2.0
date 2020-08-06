@@ -3,6 +3,9 @@ package com.swop.GameStates;
 import com.swop.InputGameControllerFacade;
 import com.swop.RepaintEventController;
 
+/**
+ * The Controller of the GameStates.
+ */
 public class StateHandler {
     private GameState gameState = new defaultState();
     private InputGameControllerFacade gameController;

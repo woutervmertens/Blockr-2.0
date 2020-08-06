@@ -2,6 +2,9 @@ package com.swop;
 
 import java.awt.*;
 
+/**
+ * The base logic for any ViewModel with a View.
+ */
 public abstract class ViewModel {
     protected Point position;
     protected int width;

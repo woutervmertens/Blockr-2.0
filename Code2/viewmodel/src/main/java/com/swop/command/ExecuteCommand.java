@@ -2,6 +2,9 @@ package com.swop.command;
 
 import com.swop.*;
 
+/**
+ * The command that execute a block in the program area.
+ */
 public class ExecuteCommand extends GameCommand {
     private ProgramAreaViewModel programAreaViewModel;
     private GameWorld gameWorld;

@@ -4,6 +4,9 @@ import com.swop.uiElements.BlockButtonView;
 
 import java.awt.*;
 
+/**
+ * The ui for the Palette Window.
+ */
 public class PaletteView extends View{
     public PaletteView(Point pos, int width, int height, WindowGameControllerFacade gameController){
         super.viewModel = new PaletteViewModel(pos, width, height,gameController);
@@ -24,7 +27,7 @@ public class PaletteView extends View{
         if (((PaletteViewModel)viewModel).isHidden()) return;
 
         //Get data
-        for (BlockButton blockBtn : ((PaletteViewModel)viewModel).getAllButtons()) {
+        for (BlockButtonViewModel blockBtn : ((PaletteViewModel)viewModel).getAllButtons()) {
             BlockButtonView btnView = new BlockButtonView(blockBtn);
             btnView.draw(g);
         }

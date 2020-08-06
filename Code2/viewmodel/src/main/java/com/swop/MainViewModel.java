@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * The logic for the Main View.
+ */
 public class MainViewModel extends ViewModel{
     InputGameControllerFacade gameController;
     StateHandler stateHandler;

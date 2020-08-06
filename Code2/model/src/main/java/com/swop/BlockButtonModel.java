@@ -5,7 +5,7 @@ import com.swop.blocks.BlockModel;
 import java.awt.*;
 
 /**
- * A BlockButton, containing a BlockModel
+ * A BlockButton, containing a BlockModel.
  */
 public class BlockButtonModel implements Cloneable{
     private Point position;

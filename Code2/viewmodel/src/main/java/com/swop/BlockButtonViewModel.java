@@ -5,11 +5,14 @@ import com.swop.blocks.BlockFactory;
 
 import java.awt.*;
 
-public class BlockButton {
+/**
+ * The logic for a button in the palette.
+ */
+public class BlockButtonViewModel {
     private BlockButtonModel model;
     private WindowGameControllerFacade gameController;
 
-    public BlockButton(BlockButtonModel model, WindowGameControllerFacade gameController) {
+    public BlockButtonViewModel(BlockButtonModel model, WindowGameControllerFacade gameController) {
         this.model = model;
         this.gameController = gameController;
     }

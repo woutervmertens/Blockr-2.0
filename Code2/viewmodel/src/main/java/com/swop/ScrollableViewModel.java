@@ -2,6 +2,9 @@ package com.swop;
 
 import java.awt.*;
 
+/**
+ * The logic for a View with a ScrollBar.
+ */
 public abstract class ScrollableViewModel extends ViewModel{
     protected ScrollBarViewModel scrollBarViewModel;
     private int extraClipHeight = 0;
@@ -55,6 +58,6 @@ public abstract class ScrollableViewModel extends ViewModel{
      * @return the boolean answer to the check
      */
     public boolean isInScrollBuffer(Point pos){
-        return (pos.y > getHeight() + extraClipHeight - 100);
+        return (pos.y > getFullHeight() - 100);
     }
 }

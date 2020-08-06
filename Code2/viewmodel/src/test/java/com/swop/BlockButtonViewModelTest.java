@@ -9,13 +9,13 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BlockButtonTest {
+class BlockButtonViewModelTest {
 
-    BlockButton blockButton;
+    BlockButtonViewModel blockButton;
 
     @BeforeEach
     void setUp() {
-        blockButton = new BlockButton(new BlockButtonModel(new Point(0,0),10,10,new ActionBlockModel(new StdBlockData(new Point(78,1),5,5,""),null)),null);
+        blockButton = new BlockButtonViewModel(new BlockButtonModel(new Point(0,0),10,10,new ActionBlockModel(new StdBlockData(new Point(78,1),5,5,""),null)),null);
     }
 
     @Test

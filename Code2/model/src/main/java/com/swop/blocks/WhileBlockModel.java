@@ -17,6 +17,10 @@ public class WhileBlockModel extends StatementBlockModel {
         blockModelType = BlockModelType.WHILE;
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this WhileBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         WhileBlockModel cs = new WhileBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()),getConditionWidth());

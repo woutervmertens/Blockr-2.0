@@ -26,6 +26,10 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
         this.text = txt;
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this FunctionDefinitionBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         FunctionDefinitionBlockModel cf = new FunctionDefinitionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()));
@@ -37,6 +41,10 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
         return cf;
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
@@ -66,12 +74,4 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
         pol.addPoint(position.x, position.y + height + pillarWidth + getGapSize());
         return pol;
     }
-
-    /*public List<FunctionCallBlockModel> getCalls() {
-        return calls;
-    }
-
-    public void addCall(FunctionCallBlockModel callBlock) {
-        calls.add(callBlock);
-    }*/
 }

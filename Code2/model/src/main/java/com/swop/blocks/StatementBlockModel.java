@@ -35,6 +35,10 @@ public class StatementBlockModel extends BlockModelWithBody {
         return null;
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();
@@ -151,6 +155,11 @@ public class StatementBlockModel extends BlockModelWithBody {
         nextConnector.setPosition(pointSum(position,gapOffset));
     }
 
+    /**
+     * Is the given block connected to this block by one of its connectors?
+     * @param blockModel the block to check for
+     * @return the boolean answer
+     */
     @Override
     public boolean hasConnectedBlock(BlockModel blockModel) {
         return super.hasConnectedBlock(blockModel) || blockModel == firstCondition;

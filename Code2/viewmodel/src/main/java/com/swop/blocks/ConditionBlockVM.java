@@ -6,6 +6,9 @@ import com.swop.SuccessState;
 
 import java.awt.*;
 
+/**
+ * The Logic for a Condition Block.
+ */
 public class ConditionBlockVM extends BlockVM {
     public ConditionBlockVM(ConditionBlockModel model){
         super(model);

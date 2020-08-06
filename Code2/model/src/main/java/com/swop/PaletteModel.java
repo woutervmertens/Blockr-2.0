@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * The data for the Palette Window
+ * The data for the Palette Window.
  */
 public class PaletteModel implements Cloneable{
     private boolean isHidden = false;

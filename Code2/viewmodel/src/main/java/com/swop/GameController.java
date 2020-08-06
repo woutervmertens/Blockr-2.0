@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Stack;
 
+/**
+ * The main controller, holds undo/redo stacks and directs commands and data between classes.
+ */
 public class GameController {
     private ArrayList<ViewModel> viewModels;
     private PaletteViewModel paletteVM;

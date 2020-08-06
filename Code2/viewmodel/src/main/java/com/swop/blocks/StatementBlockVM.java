@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 
 import java.awt.*;
 
+/**
+ * The base logic class for Statement Blocks.
+ */
 public abstract class StatementBlockVM extends BlockVMWithBody {
 
     public StatementBlockVM(StatementBlockModel model) {

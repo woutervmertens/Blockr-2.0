@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * The logic for the Palette View.
+ */
 public class PaletteViewModel extends ScrollableViewModel {
     private PaletteModel model;
     private WindowGameControllerFacade gameController;
@@ -102,11 +105,11 @@ public class PaletteViewModel extends ScrollableViewModel {
     /**
      * @return a Collection of BlockButtons
      */
-    public Collection<BlockButton> getAllButtons(){
+    public Collection<BlockButtonViewModel> getAllButtons(){
         Collection<BlockButtonModel> bms = model.getButtons();
-        Collection<BlockButton> bs = new ArrayList<>();
+        Collection<BlockButtonViewModel> bs = new ArrayList<>();
         for (BlockButtonModel bm : bms){
-            bs.add(new BlockButton(bm,gameController));
+            bs.add(new BlockButtonViewModel(bm,gameController));
         }
         return bs;
     }
@@ -211,7 +214,7 @@ public class PaletteViewModel extends ScrollableViewModel {
         if(!isWithin(x,y)) return;
         Collection<BlockButtonModel> bms = model.getButtons();
         for (BlockButtonModel bm : bms){
-            BlockButton b = new BlockButton(bm,gameController);
+            BlockButtonViewModel b = new BlockButtonViewModel(bm,gameController);
             b.HandleClick(x,y);
         }
         scrollBarViewModel.HandleMousePress(x,y);

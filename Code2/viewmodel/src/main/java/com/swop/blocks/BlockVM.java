@@ -6,6 +6,9 @@ import com.swop.SuccessState;
 
 import java.awt.*;
 
+/**
+ * The base logic class for all blocks.
+ */
 public class BlockVM{
     protected BlockModel model;
 

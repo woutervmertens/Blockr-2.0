@@ -1,66 +1,73 @@
 package com.swop;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProgramAreaViewModelTest {
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void handleMousePress() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void handleMouseRelease() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void handleMouseDrag() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void handleReset() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getModel() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setModel() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getAllBlocks() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void dropBlock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void removeBlock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void executeNext() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getNextToExecute() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void setHighlight() {
+    }
+
+    @Test
     void generateProgram() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getAllBlockVMs() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getNumBlocksUsed() {
     }
 }

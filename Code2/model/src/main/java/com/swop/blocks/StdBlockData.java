@@ -3,7 +3,7 @@ package com.swop.blocks;
 import java.awt.*;
 
 /**
- * A container for the data passed to every Block
+ * A container for the data passed to every Block.
  */
 public class StdBlockData {
     private int width, height, titleHeight, titleWidth, pillarWidth, gapSize;

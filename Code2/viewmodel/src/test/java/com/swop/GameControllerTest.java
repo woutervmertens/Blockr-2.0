@@ -1,11 +1,11 @@
 package com.swop;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GameControllerTest {
+
 
     @BeforeEach
     void setUp() {
@@ -44,6 +44,10 @@ class GameControllerTest {
     }
 
     @Test
+    void callResetCommand() {
+    }
+
+    @Test
     void resetExecution() {
     }
 
@@ -53,18 +57,6 @@ class GameControllerTest {
 
     @Test
     void getSupportedPredicates() {
-    }
-
-    @Test
-    void getDefaultActionData() {
-    }
-
-    @Test
-    void getDefaultPredicateData() {
-    }
-
-    @Test
-    void getDefaultBodyBlockData() {
     }
 
     @Test

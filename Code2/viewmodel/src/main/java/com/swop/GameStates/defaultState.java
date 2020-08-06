@@ -2,6 +2,9 @@ package com.swop.GameStates;
 
 import com.swop.InputGameControllerFacade;
 
+/**
+ * The default state logic.
+ */
 public class defaultState implements GameState{
     /**
      * Calls the GameController to execute the next block

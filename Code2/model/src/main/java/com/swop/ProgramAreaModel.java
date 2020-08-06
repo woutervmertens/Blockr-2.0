@@ -5,7 +5,7 @@ import com.swop.blocks.BlockModel;
 import java.util.*;
 
 /**
- * The data for the Program Area Window
+ * The data for the Program Area Window.
  */
 public class ProgramAreaModel implements Cloneable{
     public List<BlockModel> getAllBlocks() {

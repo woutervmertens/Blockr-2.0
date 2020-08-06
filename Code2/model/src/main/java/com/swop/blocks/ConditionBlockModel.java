@@ -28,6 +28,10 @@ public class ConditionBlockModel extends BlockModel {
         blockModelType = BlockModelType.CONDITION;
     }
 
+    /**
+     * Clones the object.
+     * @return A copy of this ConditionBlockModel object.
+     */
     @Override
     public BlockModel clone() {
         ConditionBlockModel cc = new ConditionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),isPredicate,predicate);
@@ -42,6 +46,10 @@ public class ConditionBlockModel extends BlockModel {
     }
     public Predicate getPredicate() { return predicate;}
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     @Override
     public Polygon getPolygon() {
         Polygon pol = new Polygon();

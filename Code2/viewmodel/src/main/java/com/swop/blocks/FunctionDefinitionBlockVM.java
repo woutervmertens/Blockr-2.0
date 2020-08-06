@@ -4,6 +4,9 @@ import com.swop.GameWorld;
 import com.swop.ProgramAreaModel;
 import com.swop.SuccessState;
 
+/**
+ * The Logic for a Function Definition Block.
+ */
 public class FunctionDefinitionBlockVM extends BlockVMWithBody {
 
     public FunctionDefinitionBlockVM(FunctionDefinitionBlockModel model) {

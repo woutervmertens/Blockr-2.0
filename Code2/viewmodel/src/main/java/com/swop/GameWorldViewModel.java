@@ -2,6 +2,9 @@ package com.swop;
 
 import java.awt.*;
 
+/**
+ * The logic for the GameWorld View.
+ */
 public class GameWorldViewModel extends ScrollableViewModel {
     GameWorldModel model;
 

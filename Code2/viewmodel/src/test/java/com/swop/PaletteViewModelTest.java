@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PaletteViewModelTest {
 
+
     @BeforeEach
     void setUp() {
     }
@@ -17,6 +18,26 @@ class PaletteViewModelTest {
 
     @Test
     void getAllButtons() {
+    }
+
+    @Test
+    void addFuncCallButton() {
+    }
+
+    @Test
+    void removeFuncCallButtons() {
+    }
+
+    @Test
+    void adjustDefinitionButton() {
+    }
+
+    @Test
+    void reactToBlockCreate() {
+    }
+
+    @Test
+    void reactToBlockRemove() {
     }
 
     @Test
@@ -41,5 +62,9 @@ class PaletteViewModelTest {
 
     @Test
     void setModel() {
+    }
+
+    @Test
+    void setWidth() {
     }
 }

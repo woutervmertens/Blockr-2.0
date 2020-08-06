@@ -3,7 +3,7 @@ package com.swop.blocks;
 import java.awt.*;
 
 /**
- * The default data for action blocks
+ * The default data for action blocks.
  */
 public class DefaultActionData extends StdBlockData{
     public DefaultActionData() {

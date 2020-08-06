@@ -3,6 +3,9 @@ package com.swop.command;
 import com.swop.CommandGameControllerFacade;
 import com.swop.blocks.BlockModel;
 
+/**
+ * The command that removes a block from the program area.
+ */
 public class DeleteBlockCommand extends GameCommand {
     private BlockModel blockModel;
 

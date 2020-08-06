@@ -1,7 +1,7 @@
 package com.swop;
 
 /**
- * The data for the GameWorld Window
+ * The data for the GameWorld Window.
  */
 public class GameWorldModel {
     GameWorld gameWorld;

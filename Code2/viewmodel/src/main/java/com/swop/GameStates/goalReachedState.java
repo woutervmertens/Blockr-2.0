@@ -2,6 +2,9 @@ package com.swop.GameStates;
 
 import com.swop.InputGameControllerFacade;
 
+/**
+ * The state logic for when the goal has been reached.
+ */
 public class goalReachedState implements GameState{
     /**
      * Does nothing.

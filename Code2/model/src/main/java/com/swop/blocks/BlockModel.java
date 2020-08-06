@@ -113,6 +113,10 @@ public abstract class BlockModel implements Cloneable {
         return nextBlock;
     }
 
+    /**
+     * Sets the next block as the block given and handles the highlight.
+     * @param model the BlockModel to inject
+     */
     public void setNextBlock(BlockModel model) {
         nextBlock = model;
         if(nextBlock != null) {
@@ -123,16 +127,27 @@ public abstract class BlockModel implements Cloneable {
 
     public BlockModelType getBlockModelType(){return blockModelType;}
 
+    /**
+     * Updates the positions of the connectors
+     */
     public void updateConnectors(){
         if(nextConnector == null) return;
         nextConnector.setPosition(new Point(position.x,position.y + getHeight()));
     }
 
+    /**
+     * Exchanges the connectors with new ones.
+     */
     public void renewConnectors(){
         if(nextConnector == null) return;
         nextConnector = new Connector(new Point(position.x,position.y + getHeight()));
     }
 
+    /**
+     * Is the given block connected to this block by one of its connectors?
+     * @param blockModel the block to check for
+     * @return the boolean answer
+     */
     public boolean hasConnectedBlock(BlockModel blockModel){
         return nextBlock == blockModel;
     }

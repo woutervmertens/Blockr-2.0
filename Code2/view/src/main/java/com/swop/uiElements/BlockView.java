@@ -5,6 +5,9 @@ import com.swop.blocks.BlockViewData;
 
 import java.awt.*;
 
+/**
+ * The ui for a block.
+ */
 public class BlockView {
     private BlockVM viewModel;
 

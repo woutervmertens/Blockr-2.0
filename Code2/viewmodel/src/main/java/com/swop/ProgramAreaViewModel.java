@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The logic for the ProgramArea View.
+ */
 public class ProgramAreaViewModel extends ScrollableViewModel {
     private ProgramAreaModel model = new ProgramAreaModel();
     private WindowGameControllerFacade gameController;
