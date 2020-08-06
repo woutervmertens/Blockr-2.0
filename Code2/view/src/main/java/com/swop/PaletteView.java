@@ -10,7 +10,7 @@ public class PaletteView extends View{
     }
 
     /**
-     * Paints the available buttons
+     * Paints the available buttons and background
      *
      * @param g Graphics Objects
      */

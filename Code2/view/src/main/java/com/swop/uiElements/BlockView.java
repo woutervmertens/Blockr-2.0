@@ -10,6 +10,10 @@ public class BlockView {
 
     public BlockView(BlockVM viewModel){this.viewModel = viewModel;}
 
+    /**
+     * Draws the Block.
+     * @param g Graphics object
+     */
     public void draw(Graphics g){
         if(viewModel == null) return;
         BlockViewData data = viewModel.getViewData();

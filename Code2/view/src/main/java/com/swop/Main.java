@@ -5,6 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
 
 
+    /**
+     * Creates a GameWorldType and GameController and launches the main window.
+     * @param args String denoting which GameWorldType class to use.
+     */
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("No world argument given, shutting down.");

@@ -9,6 +9,11 @@ public class ScrollBar extends View {
     public ScrollBar(Point position, int height, int width){
         viewModel = new ScrollBarViewModel(position, height, width);
     }
+
+    /**
+     * Draws the Scrollbar.
+     * @param g Graphics object
+     */
     @Override
     public void draw(Graphics g) {
         //Draw model

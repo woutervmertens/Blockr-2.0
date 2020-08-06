@@ -10,6 +10,11 @@ public class ProgramAreaView extends View{
         viewModel = new ProgramAreaViewModel(pos, width, height, gameController);
     }
 
+    /**
+     * Paints the background and all the blocks in the Program Area
+     *
+     * @param g Graphics Objects
+     */
     public void draw(Graphics g) {
         g.setColor(Color.PINK);
         g.fillRect(viewModel.getPosition().x, viewModel.getPosition().y, viewModel.getWidth(), ((ScrollableViewModel)viewModel).getFullHeight());

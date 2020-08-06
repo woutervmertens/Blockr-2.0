@@ -7,6 +7,10 @@ public class GameWorldView extends View{
         viewModel = new GameWorldViewModel(pos, width, height);
     }
 
+    /**
+     * Draws the GameWorld.
+     * @param g Graphics object
+     */
     public void draw(Graphics g) {
         ((GameWorldViewModel)viewModel).paint(g);
     }

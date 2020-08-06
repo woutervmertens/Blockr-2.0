@@ -13,6 +13,9 @@ public class ScrollableView extends View{
         instantiateScrollbar();
     }
 
+    /**
+     * Creates a new Scrollbar
+     */
     private void instantiateScrollbar(){
         Point pos = (Point) viewModel.getPosition().clone();
         pos.x = pos.x + viewModel.getWidth() - 10;
@@ -20,6 +23,13 @@ public class ScrollableView extends View{
         ((ScrollableViewModel) super.viewModel).addScrollBar((ScrollBarViewModel) scrollBar.viewModel);
     }
 
+    /**
+     * Changes the properties of the window section and its scrollbar
+     *
+     * @param position the new Position Point
+     * @param height the new height
+     * @param width the new width
+     */
     @Override
     public void changeProperties(Point position, int height, int width) {
         super.changeProperties(position, height, width);
@@ -28,6 +38,11 @@ public class ScrollableView extends View{
         scrollBar.changeProperties(pos,height,scrollBar.viewModel.getWidth());
     }
 
+    /**
+     * Paints the available buttons
+     *
+     * @param g Graphics Objects
+     */
     @Override
     public void draw(Graphics g) {
         g.setClip(viewModel.getPosition().x,viewModel.getPosition().y, viewModel.getWidth(), viewModel.getHeight());

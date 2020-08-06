@@ -13,6 +13,10 @@ public class BlockButtonView {
         block = new BlockView(viewModel.getBlock());
     }
 
+    /**
+     * Draws the BlockButton.
+     * @param g Graphics object
+     */
     public void draw(Graphics g){
         if(viewModel == null) return;
         g.setColor(viewModel.getBGColor());
