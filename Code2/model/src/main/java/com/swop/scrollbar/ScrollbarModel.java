@@ -25,6 +25,10 @@ public class ScrollbarModel {
         return position;
     }
 
+    /**
+     * Sets the position of this Model and the models of the Handle and the background.
+     * @param position the new position
+     */
     public void setPosition(Point position) {
         this.position = position;
         background.setPosition(position);
@@ -35,6 +39,10 @@ public class ScrollbarModel {
         return height;
     }
 
+    /**
+     * Sets the height of this Model and the model of the background.
+     * @param height the new height
+     */
     public void setHeight(int height) {
         this.height = height;
         background.setHeight(height);
@@ -44,6 +52,10 @@ public class ScrollbarModel {
         return width;
     }
 
+    /**
+     * Sets the width of this Model and the models of the Handle and the background.
+     * @param width the new width
+     */
     public void setWidth(int width) {
         this.width = width;
         background.setWidth(width);

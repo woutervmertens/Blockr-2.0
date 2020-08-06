@@ -31,6 +31,9 @@ public class BlockButtonModel implements Cloneable{
         return cb;
     }
 
+    /**
+     * Updates the position of the BlockModel within this button.
+     */
     private void updateBlockPos(){
         Point newPos = (Point) this.position.clone();
         newPos.translate(15,5);
@@ -41,6 +44,10 @@ public class BlockButtonModel implements Cloneable{
         return position;
     }
 
+    /**
+     * Sets the position of this button and calls to handle the BlockModel within.
+     * @param position the new position
+     */
     public void setPosition(Point position) {
         this.position = position;
         updateBlockPos();
@@ -83,6 +90,10 @@ public class BlockButtonModel implements Cloneable{
                 && y < getPosition().y + getHeight());
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     public Polygon getBGPolygon() {
         Polygon pol = new Polygon();
         pol.addPoint(position.x, position.y);

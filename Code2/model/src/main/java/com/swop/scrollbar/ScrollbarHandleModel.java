@@ -56,6 +56,10 @@ public class ScrollbarHandleModel {
         return color;
     }
 
+    /**
+     * Creates and return the polygon for the View to display.
+     * @return a Polygon object
+     */
     public Polygon getPolygon(){
         Polygon pol = new Polygon();
         pol.addPoint(position.x, (int) (position.y + height*scroll_position));
