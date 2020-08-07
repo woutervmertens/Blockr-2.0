@@ -50,7 +50,9 @@ public abstract class ScrollableViewModel extends ViewModel{
      * Increases the size of the scrollable area.
      */
     public void increaseSize(){
+        int oldHeight = getFullHeight();
         extraClipHeight += getHeight();
+        scrollBarViewModel.handleNewMaxHeight(oldHeight,getFullHeight());
         scrollBarViewModel.updateHandleHeight(getFullHeight());
     }
 

@@ -169,4 +169,8 @@ public class ScrollBarViewModel extends ViewModel{
         float y = ((float)getHeight()/totalHeight)*(2.0f/3.0f);
         model.setHandleHeight(y);
     }
+
+    public void handleNewMaxHeight(int oldHeight, int newHeight) {
+        model.setHandleYPosition(model.getHandleYPosition()*((float)oldHeight/newHeight));
+    }
 }
