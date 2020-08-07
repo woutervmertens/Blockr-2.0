@@ -170,6 +170,11 @@ public class ScrollBarViewModel extends ViewModel{
         model.setHandleHeight(y);
     }
 
+    /**
+     * Changes the handle position when the height of the scrollable area changes.
+     * @param oldHeight the old height of the scrollable area
+     * @param newHeight the new height of the scrollable area
+     */
     public void handleNewMaxHeight(int oldHeight, int newHeight) {
         model.setHandleYPosition(model.getHandleYPosition()*((float)oldHeight/newHeight));
     }
