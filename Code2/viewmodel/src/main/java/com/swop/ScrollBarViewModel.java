@@ -156,7 +156,7 @@ public class ScrollBarViewModel extends ViewModel{
      */
     private float normalize(int yValue){
         int min = model.getPosition().y;
-        int max = min + model.getHeight() - model.getHandleHeight();
+        int max = model.getHeight() - model.getHandleHeight();
         float ret = (((float)yValue - min) / (max - min));
         return ret;
     }
@@ -166,7 +166,7 @@ public class ScrollBarViewModel extends ViewModel{
      * @param totalHeight the current height of the scrollbar
      */
     public void updateHandleHeight(int totalHeight){
-        float y = ((float)getHeight()/totalHeight);
+        float y = ((float)getHeight()/totalHeight)*(2.0f/3.0f);
         model.setHandleHeight(y);
     }
 }

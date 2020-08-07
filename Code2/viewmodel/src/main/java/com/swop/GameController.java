@@ -63,6 +63,7 @@ public class GameController {
         for (ViewModel vm : viewModels){
             vm.HandleMouseRelease(x,y);
         }
+        setDraggedBlockVM(null);
     }
 
     /**

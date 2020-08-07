@@ -8,14 +8,14 @@ import java.awt.*;
 public class ScrollbarHandleModel {
     private Point position;
     private float scroll_position;
-    private int height;
+    private int height, maxHeight, maxDrawPosition;
     private int width;
     private Color color;
 
     public ScrollbarHandleModel(Point position, int height, int width) {
         this.position = position;
         this.scroll_position = 0.0f;
-        this.height = height;
+        this.maxHeight = height;
         this.width = width;
         this.color = Color.gray;
     }
@@ -42,6 +42,7 @@ public class ScrollbarHandleModel {
 
     public void setHeight(int height) {
         this.height = height;
+        maxDrawPosition = maxHeight - height;
     }
 
     public int getWidth() {
@@ -62,10 +63,10 @@ public class ScrollbarHandleModel {
      */
     public Polygon getPolygon(){
         Polygon pol = new Polygon();
-        pol.addPoint(position.x, (int) (position.y + height*scroll_position));
-        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position));
-        pol.addPoint(position.x + width, (int) (position.y + height*scroll_position + height));
-        pol.addPoint(position.x, (int) (position.y + height*scroll_position + height));
+        pol.addPoint(position.x, (int) (position.y + maxDrawPosition*scroll_position));
+        pol.addPoint(position.x + width, (int) (position.y + maxDrawPosition*scroll_position));
+        pol.addPoint(position.x + width, (int) (position.y + maxDrawPosition*scroll_position + height));
+        pol.addPoint(position.x, (int) (position.y + maxDrawPosition*scroll_position + height));
         return pol;
     }
 
@@ -78,7 +79,7 @@ public class ScrollbarHandleModel {
     public boolean isWithin(int x, int y) {
         return (x > position.x
                 && x < position.x + getWidth()
-                && y > position.y + height*scroll_position
-                && y < position.y + height*scroll_position + height);
+                && y > position.y + maxDrawPosition*scroll_position
+                && y < position.y + maxDrawPosition*scroll_position + height);
     }
 }

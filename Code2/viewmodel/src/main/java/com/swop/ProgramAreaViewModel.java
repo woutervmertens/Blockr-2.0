@@ -29,7 +29,9 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      */
     @Override
     public void HandleMousePress(int x, int y) {
+        int oldy = y;
         if(!isWithin(x,y)) return;
+        y = offsetScrollPosition(y);
         for (BlockModel bm : model.getAllBlocks())
         {
             if(bm.isWithin(x,y)) {
@@ -38,7 +40,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
                 return;
             }
         }
-        scrollBarViewModel.HandleMousePress(x,y);
+        scrollBarViewModel.HandleMousePress(x,oldy);
     }
 
     /**
@@ -90,7 +92,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      * @param blockModel the BlockModel to drop
      */
     public void DropBlock(BlockModel blockModel){
-        assert isWithin(blockModel.getPosition().x,blockModel.getPosition().y);
+        blockModel.setPosition(new Point(blockModel.getPosition().x,offsetScrollPosition(blockModel.getPosition().y)));
         //Check AllBlocks for connector link and add block
         BlockVM parentVM;
         for(BlockModel bm : model.getAllBlocks()){

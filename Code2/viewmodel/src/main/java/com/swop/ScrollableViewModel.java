@@ -25,7 +25,9 @@ public abstract class ScrollableViewModel extends ViewModel{
      */
     public int getClipStart()
     {
-        return (int) ((getHeight() + extraClipHeight) * scrollBarViewModel.getNormalizedYPos());
+        int totalHeight = (extraClipHeight);
+        float scrollPos = scrollBarViewModel.getNormalizedYPos();
+        return (int) (totalHeight * scrollPos);
     }
 
     /**
@@ -59,5 +61,13 @@ public abstract class ScrollableViewModel extends ViewModel{
      */
     public boolean isInScrollBuffer(Point pos){
         return (pos.y > getFullHeight() - 100);
+    }
+
+    @Override
+    protected boolean isWithin(int x, int y) {
+        return (x > getPosition().x
+                && x < getPosition().x + getWidth()
+                && y > getPosition().y
+                && y < getPosition().y + getHeight());
     }
 }

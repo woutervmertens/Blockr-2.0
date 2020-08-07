@@ -9,11 +9,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScrollableViewModelTest {
     ScrollableViewModel gwvm;
+    GameController gc;
+    ProgramAreaViewModel pavm;
 
     @BeforeEach
     void setUp() {
         gwvm = new GameWorldViewModel(new Point(0,0),50,50);
+        gc = new GameController(new MyGameWorldType());
+        pavm = new ProgramAreaViewModel(new Point(0,0),300,600,new WindowGameControllerFacade(gc));
         gwvm.addScrollBar(new ScrollBarViewModel(new Point(40,0),50,10));
+        pavm.addScrollBar(new ScrollBarViewModel(new Point(40,0),50,10));
     }
 
     @Test
@@ -31,6 +36,14 @@ class ScrollableViewModelTest {
     @Test
     void offsetScrollPosition() {
         assertEquals(50,gwvm.offsetScrollPosition(50));
+        pavm.increaseSize();
+        pavm.scrollBarViewModel.setActive(true);
+        pavm.scrollBarViewModel.model.setHandleYPosition(1.0f);
+        assertEquals(1200,pavm.offsetScrollPosition(600));
+        assertEquals(600,pavm.offsetScrollPosition(0));
+        pavm.scrollBarViewModel.model.setHandleYPosition(0.5f);
+        assertEquals(900,pavm.offsetScrollPosition(600));
+        assertEquals(300,pavm.offsetScrollPosition(0));
     }
 
     @Test

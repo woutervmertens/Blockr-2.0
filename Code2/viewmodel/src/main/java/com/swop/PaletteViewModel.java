@@ -210,14 +210,15 @@ public class PaletteViewModel extends ScrollableViewModel {
      */
     @Override
     public void HandleMousePress(int x, int y) {
-        y = offsetScrollPosition(y);
+        int oldy = y;
         if(!isWithin(x,y)) return;
+        y = offsetScrollPosition(y);
         Collection<BlockButtonModel> bms = model.getButtons();
         for (BlockButtonModel bm : bms){
             BlockButtonViewModel b = new BlockButtonViewModel(bm,gameController);
             b.HandleClick(x,y);
         }
-        scrollBarViewModel.HandleMousePress(x,y);
+        scrollBarViewModel.HandleMousePress(x,oldy);
     }
 
     /**
@@ -228,8 +229,6 @@ public class PaletteViewModel extends ScrollableViewModel {
      */
     @Override
     public void HandleMouseRelease(int x, int y) {
-        gameController.setDraggedBlockVM(null);
-        y = offsetScrollPosition(y);
         scrollBarViewModel.HandleMouseRelease(x,y);
     }
 
