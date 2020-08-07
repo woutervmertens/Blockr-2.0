@@ -16,4 +16,5 @@ public class WindowGameControllerFacade {
     public Collection<Action> getSupportedActions() { return gameController.getSupportedActions();}
     public Collection<Predicate> getSupportedPredicates() {return gameController.getSupportedPredicates();}
     public void setDraggedBlockVM(BlockModel bm) {gameController.setDraggedBlockVM(bm);}
+    public int getNrBlocksAvailable() {return gameController.getNrBlocksAvailable();}
 }

@@ -186,6 +186,7 @@ public class PaletteViewModel extends ScrollableViewModel {
      * @param blockDropped the BlockModel dropped in the Program Area
      */
     public void reactToBlockCreate(BlockModel blockDropped){
+        model.setHidden(gameController.getNrBlocksAvailable() <= 0);
         if(blockDropped.getBlockModelType() == BlockModelType.FUNCDEF) {
             addFuncCallButton((FunctionDefinitionBlockModel)blockDropped);
             adjustDefinitionButton();
@@ -197,6 +198,7 @@ public class PaletteViewModel extends ScrollableViewModel {
      * @param removedBlock the block being removed from the Program Area
      */
     public void reactToBlockRemove(BlockModel removedBlock){
+        model.setHidden(gameController.getNrBlocksAvailable() <= 0);
         if(removedBlock.getBlockModelType() == BlockModelType.FUNCDEF) {
             removeFuncCallButtons((FunctionDefinitionBlockModel)removedBlock);
         }

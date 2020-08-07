@@ -3,17 +3,18 @@ package com.swop;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PaletteViewModelTest {
 
-
+    GameController gc;
+    PaletteViewModel pvm;
     @BeforeEach
     void setUp() {
-    }
-
-    @Test
-    void isHidden() {
+        gc = new GameController(new MyGameWorldType());
+        pvm = new PaletteViewModel(new Point(0,0),300,600,new WindowGameControllerFacade(gc));
     }
 
     @Test
@@ -54,14 +55,6 @@ class PaletteViewModelTest {
 
     @Test
     void handleReset() {
-    }
-
-    @Test
-    void getModel() {
-    }
-
-    @Test
-    void setModel() {
     }
 
     @Test

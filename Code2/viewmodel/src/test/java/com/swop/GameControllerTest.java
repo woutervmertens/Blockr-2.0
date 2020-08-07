@@ -132,12 +132,4 @@ class GameControllerTest {
     @Test
     void setDraggedBlockVM() {
     }
-
-    @Test
-    void getLastSuccessState() {
-    }
-
-    @Test
-    void setLastSuccessState() {
-    }
 }

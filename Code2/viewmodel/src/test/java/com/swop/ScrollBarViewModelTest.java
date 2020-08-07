@@ -8,10 +8,12 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScrollBarViewModelTest {
+    ScrollBarViewModel sbvm;
 
     @BeforeEach
     void setUp() {
-
+        sbvm = new ScrollBarViewModel(new Point(0,0),50,10);
+        sbvm.setActive(true);
     }
 
     @Test
