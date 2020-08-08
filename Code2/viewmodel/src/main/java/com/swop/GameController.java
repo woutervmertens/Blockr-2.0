@@ -139,7 +139,7 @@ public class GameController {
     }
 
     /**
-     * Calls HandleReset in every ViewModel, flags fro repaint.
+     * Calls HandleReset in every ViewModel, flags for repaint.
      */
     public void resetExecution() {
         for (ViewModel vm : viewModels){

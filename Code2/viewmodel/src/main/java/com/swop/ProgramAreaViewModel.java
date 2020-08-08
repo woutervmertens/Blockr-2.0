@@ -189,9 +189,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
      * Checks and flags if the blockModel is the last element, if not it sets the highlight for the next block
      * @return a Block made with blockModel
      */
-    public BlockVM GetNextToExecute(){
-        //if(model.getBlockProgram().isEmpty()) gameController.resetExecution();
-
+    private BlockVM GetNextToExecute(){
         if(model.getBlockProgram().isEmpty())return null;
         BlockModel blockModel = model.getBlockProgram().poll();
         blockModel.setHighlightState(false);

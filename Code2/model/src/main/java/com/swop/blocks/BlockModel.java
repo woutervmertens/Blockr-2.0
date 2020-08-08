@@ -45,10 +45,6 @@ public abstract class BlockModel implements Cloneable {
         return new Point(a.x + b.x,a.y + b.y);
     }
 
-    public int getStep() {
-        return step;
-    }
-
     public int getWidth() {
         return width;
     }

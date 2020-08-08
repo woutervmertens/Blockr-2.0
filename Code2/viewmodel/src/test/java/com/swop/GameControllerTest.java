@@ -1,10 +1,8 @@
 package com.swop;
 
 
-import com.swop.blocks.ActionBlockModel;
-import com.swop.blocks.ActionBlockVM;
-import com.swop.blocks.BlockFactory;
-import com.swop.blocks.StdBlockData;
+import com.swop.blocks.*;
+import com.swop.command.AddBlockCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,11 +12,12 @@ import java.awt.*;
 class GameControllerTest {
     GameController gc;
     StdBlockData s;
+    ProgramAreaViewModel pavm;
 
     @BeforeEach
     void setUp() {
         gc = new GameController(new MyGameWorldType());
-        ProgramAreaViewModel pavm = new ProgramAreaViewModel(new Point(0,0),10,10,new WindowGameControllerFacade(gc));
+        pavm = new ProgramAreaViewModel(new Point(0,0),10,10,new WindowGameControllerFacade(gc));
         gc.setProgramAreaVM(pavm);
         GameWorldViewModel gwvm = new GameWorldViewModel(new Point(10,0),10,10);
         gc.setGameWorldVM(gwvm);
@@ -55,81 +54,68 @@ class GameControllerTest {
 
     @Test
     void handleMouseDrag() {
+        gc.HandleMouseDrag(50,50);
+        assertTrue(RepaintEventController.getInstance().ShouldRepaint());
+        gc.setDraggedBlockVM(new ActionBlockModel(s,MyAction.MOVE_DOWN));
+        gc.HandleMouseDrag(50,50);
+        assertEquals(50,gc.getDraggedBlockVM().getPosition().x);
+        assertTrue(RepaintEventController.getInstance().ShouldRepaint());
     }
 
     @Test
     void getNrBlocksAvailable() {
-    }
-
-    @Test
-    void undoCommand() {
-    }
-
-    @Test
-    void redoCommand() {
-    }
-
-    @Test
-    void executeCommand() {
-    }
-
-    @Test
-    void executeNext() {
+        assertEquals(20,gc.getNrBlocksAvailable());
+        pavm.DropBlock(new ActionBlockModel(s,MyAction.MOVE_DOWN));
+        assertEquals(19,gc.getNrBlocksAvailable());
     }
 
     @Test
     void callResetCommand() {
+        gc.executeCommand(new AddBlockCommand(new CommandGameControllerFacade(gc),new ActionBlockModel(s,MyAction.MOVE_DOWN)));
+        assertEquals(19,gc.getNrBlocksAvailable());
+        gc.undoCommand();
+        assertEquals(20,gc.getNrBlocksAvailable());
+        gc.redoCommand();
+        assertEquals(19,gc.getNrBlocksAvailable());
+        gc.callResetCommand();
+        assertEquals(19,gc.getNrBlocksAvailable());
     }
 
     @Test
     void resetExecution() {
-    }
-
-    @Test
-    void getSupportedActions() {
-    }
-
-    @Test
-    void getSupportedPredicates() {
-    }
-
-    @Test
-    void getDraggedBlockVM() {
-    }
-
-    @Test
-    void createSnapshot() {
+        gc.resetExecution();
+        assertEquals(SuccessState.FAILURE,gc.getLastSuccessState());
+        assertTrue(RepaintEventController.getInstance().ShouldRepaint());
     }
 
     @Test
     void restoreSnapshot() {
+        GameSnapshot snap = gc.createSnapshot();
+        gc.executeCommand(new AddBlockCommand(new CommandGameControllerFacade(gc),new ActionBlockModel(s,MyAction.MOVE_DOWN)));
+        assertEquals(19,gc.getNrBlocksAvailable());
+        gc.restoreSnapshot(snap);
+        assertEquals(20,gc.getNrBlocksAvailable());
     }
 
     @Test
-    void deleteBlock() {
-    }
-
-    @Test
-    void addBlock() {
-    }
-
-    @Test
-    void setPaletteVM() {
-    }
-
-    @Test
-    void setProgramAreaVM() {
-    }
-
-    @Test
-    void setGameWorldVM() {
+    void deleteAddBlock() {
+        FunctionDefinitionBlockModel f = new FunctionDefinitionBlockModel(s);
+        gc.addBlock(f);
+        assertEquals(19,gc.getNrBlocksAvailable());
+        gc.deleteBlock(f);
+        assertEquals(20,gc.getNrBlocksAvailable());
     }
 
     @Test
     void dropDraggedBlock() {
-    }
-
-    @Test
-    void setDraggedBlockVM() {
+        FunctionDefinitionBlockModel f = new FunctionDefinitionBlockModel(s);
+        f.setPosition(new Point(1,1));
+        gc.setDraggedBlockVM(f);
+        gc.dropDraggedBlock();
+        assertEquals(19,gc.getNrBlocksAvailable());
+        f.setPosition(new Point(-1,-1));
+        gc.setDraggedBlockVM(f);
+        gc.dropDraggedBlock();
+        assertEquals(20,gc.getNrBlocksAvailable());
     }
 }

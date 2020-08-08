@@ -118,7 +118,7 @@ public class PaletteViewModel extends ScrollableViewModel {
      * Adds a FunctionCallButton linked to a given FunctionDefinitionBlockModel.
      * @param refDef the FunctionDefinitionModel to reference in the Call
      */
-    public void addFuncCallButton(FunctionDefinitionBlockModel refDef){
+    private void addFuncCallButton(FunctionDefinitionBlockModel refDef){
         model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
                         new Point(position.x,offsetScrollPosition(model.getFreeY())),
@@ -133,7 +133,7 @@ public class PaletteViewModel extends ScrollableViewModel {
      * Rempoves all FunctionCallButtons referencing the given FunctionDefinitionBlockModel
      * @param refDef the FunctionDefinitionModel referenced in the Call
      */
-    public void removeFuncCallButtons(FunctionDefinitionBlockModel refDef){
+    private void removeFuncCallButtons(FunctionDefinitionBlockModel refDef){
         List<BlockButtonModel> callBtns = model.getButtons()
                 .stream()
                 .filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCCALL)
@@ -163,7 +163,7 @@ public class PaletteViewModel extends ScrollableViewModel {
     /**
      * Adjusts the FunctionDefinitionButton to a new BlockModel with a different tag.
      */
-    public void adjustDefinitionButton(){
+    private void adjustDefinitionButton(){
         BlockButtonModel defBtn = model.getFuncDefBtn();
         defBtn.setBlockModel(defBtn.getBlockModel().clone());
         ((FunctionDefinitionBlockModel)defBtn.getBlockModel()).setText("" + model.getFreeDefTag());
