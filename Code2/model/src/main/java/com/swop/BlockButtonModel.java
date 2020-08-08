@@ -57,10 +57,6 @@ public class BlockButtonModel implements Cloneable{
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public int getWidth() {
         return width;
     }
