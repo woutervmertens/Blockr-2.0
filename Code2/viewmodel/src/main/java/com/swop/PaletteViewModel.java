@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * The logic for the Palette View.
@@ -119,6 +120,14 @@ public class PaletteViewModel extends ScrollableViewModel {
      * @param refDef the FunctionDefinitionModel to reference in the Call
      */
     private void addFuncCallButton(FunctionDefinitionBlockModel refDef){
+        if(model.getButtons()
+                .stream()
+                .filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCCALL)
+                .filter(x -> ((FunctionCallBlockModel)(x.getBlockModel())).getDefinitionBlock() == refDef)
+                .findAny().isPresent()){
+            return;
+        }
+
         model.addButton(new BlockButtonModel(new Point(position.x,model.getFreeY()),width,defAcData.getHeight() + 10,new FunctionCallBlockModel(
                 new StdBlockData(
                         new Point(position.x,offsetScrollPosition(model.getFreeY())),
@@ -127,6 +136,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                         refDef.getText()),refDef)));
         model.increaseFreeY(defAcData.getHeight() + 10);
         adaptScrollbar();
+        adjustDefinitionButton();
     }
 
     /**
@@ -138,7 +148,7 @@ public class PaletteViewModel extends ScrollableViewModel {
                 .stream()
                 .filter(x -> x.getBlockModel().getBlockModelType() == BlockModelType.FUNCCALL)
                 .filter(x -> ((FunctionCallBlockModel)(x.getBlockModel())).getDefinitionBlock() == refDef)
-                .collect(Collectors.toList());
+                .collect(toList());
         for (BlockButtonModel btn : callBtns){
             model.removeButton(btn);
         }
@@ -189,7 +199,6 @@ public class PaletteViewModel extends ScrollableViewModel {
         model.setHidden(gameController.getNrBlocksAvailable() <= 0);
         if(blockDropped.getBlockModelType() == BlockModelType.FUNCDEF) {
             addFuncCallButton((FunctionDefinitionBlockModel)blockDropped);
-            adjustDefinitionButton();
         }
     }
 
