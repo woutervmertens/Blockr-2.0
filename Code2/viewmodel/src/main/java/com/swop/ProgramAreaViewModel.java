@@ -120,7 +120,7 @@ public class ProgramAreaViewModel extends ScrollableViewModel {
                 //Set next of new block
                 blockModel.setIsFirstFlag(false);
                 BlockVM newBlockVM = BlockFactory.getInstance().createBlockVM(blockModel);
-                newBlockVM.setNext(bNext);
+                if(bNext != blockModel)newBlockVM.setNext(bNext);
                 break;
             }
         }

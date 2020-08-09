@@ -34,7 +34,7 @@ public class ConditionBlockModel extends BlockModel {
      */
     @Override
     public BlockModel clone() {
-        ConditionBlockModel cc = new ConditionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),isPredicate,predicate);
+        ConditionBlockModel cc = new ConditionBlockModel(new StdBlockData(new Point(getPosition().x,getPosition().y),getWidth(),getHeight(),getText()),isPredicate,predicate);
         cc.setHighlightState(isHighlight);
         cc.setNextBlock(getNext());
         cc.setIsFirstFlag(isFirst());

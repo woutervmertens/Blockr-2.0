@@ -31,7 +31,7 @@ public class ActionBlockModel extends BlockModel {
      */
     @Override
     public BlockModel clone() {
-        ActionBlockModel ca = new ActionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),getHeight(),getText()),action);
+        ActionBlockModel ca = new ActionBlockModel(new StdBlockData(new Point(getPosition().x,getPosition().y),getWidth(),getHeight(),getText()),action);
         ca.setHighlightState(isHighlight);
         ca.setNextBlock(getNext());
         ca.setIsFirstFlag(isFirst());

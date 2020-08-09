@@ -46,16 +46,16 @@ class TestScenarios {
     void scenario1(){
         setUpMy();
         //Add blocks
-        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,100);
+        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,100);     //Go Right
         mvm.handleMouseInput(MouseEvent.MOUSE_DRAGGED ,120,100);
         mvm.handleMouseInput(MouseEvent.MOUSE_RELEASED ,120,100);
-        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,135);
+        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,135);     //Go Down
         mvm.handleMouseInput(MouseEvent.MOUSE_DRAGGED ,120,130);
         mvm.handleMouseInput(MouseEvent.MOUSE_RELEASED ,120,130);
-        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,100);
+        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,100);     //Go Right
         mvm.handleMouseInput(MouseEvent.MOUSE_DRAGGED ,120,160);
         mvm.handleMouseInput(MouseEvent.MOUSE_RELEASED ,120,160);
-        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,135);
+        mvm.handleMouseInput(MouseEvent.MOUSE_PRESSED ,40,135);     //Go Down
         mvm.handleMouseInput(MouseEvent.MOUSE_DRAGGED ,120,190);
         mvm.handleMouseInput(MouseEvent.MOUSE_RELEASED ,120,190);
         //Execute

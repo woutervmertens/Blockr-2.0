@@ -23,7 +23,7 @@ public class IfBlockModel extends StatementBlockModel {
      */
     @Override
     public BlockModel clone() {
-        IfBlockModel cs = new IfBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()),getConditionWidth());
+        IfBlockModel cs = new IfBlockModel(new StdBlockData(new Point(getPosition().x,getPosition().y),getWidth(),height,getText()),getConditionWidth());
         cs.setHighlightState(isHighlight);
         cs.setNextBlock(getNext());
         cs.setGapSize(getGapSize());

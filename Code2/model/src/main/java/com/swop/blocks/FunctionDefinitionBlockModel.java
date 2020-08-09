@@ -32,7 +32,7 @@ public class FunctionDefinitionBlockModel extends BlockModelWithBody{
      */
     @Override
     public BlockModel clone() {
-        FunctionDefinitionBlockModel cf = new FunctionDefinitionBlockModel(new StdBlockData((Point) getPosition().clone(),getWidth(),height,getText()));
+        FunctionDefinitionBlockModel cf = new FunctionDefinitionBlockModel(new StdBlockData(new Point(getPosition().x,getPosition().y),getWidth(),height,getText()));
         cf.setHighlightState(isHighlight);
         cf.setNextBlock(getNext());
         cf.setFirstBodyBlockModel(getFirstBodyBlockModel());
