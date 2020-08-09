@@ -1,0 +1,29 @@
+## Use Case 6: Scrolling
+### Scope: Blockr programming game
+### Level: User goal
+### Primary Actor: User of the game
+### Stakeholders and Interests:
+- Player: Wants an easy way to scroll up and down on any section of the game by dragging a slider.
+	Wants to move the hande of the scrollbar up or down when clicking on the scrollbar above or below the 		slider.
+
+### Preconditions:
+- The scrollbar is active.
+
+### Success Guarantee (or Postconditions):
+All elements in the respective section are offset by an amount according to the position of the slider and only visible if they are within the window.
+
+### Main Success Scenario;
+1. User moves the mouse cursor over the slider then presses the left mouse key.
+2. While pressing the left mouse key, the user moves the mouse cursor up or down and then releases the left mouse key.
+3. System adapts the position of the slider in accordance with the mouse movements.
+4. System adapts the contents of the respective section in accordance with the position of the slider.
+5. System only draws the contents positioned within the window.
+
+### Extensions (or Alternative Flows):
+*a At any time, any content is positioned in the buffer at the bottom of the available scroll space.
+	1. System activates the scrollbar.
+	2. System extends the available scroll space.
+1-3a. User moves the mouse cursor on the scrollbar above the slider and clicks the left mouse key.
+	1. System moves the slider up.
+1-3b. User moves the mouse cursor on the scrollbar below the slider and clicks the left mouse key.
+	1. System moves the slider down.
