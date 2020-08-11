@@ -1,5 +1,9 @@
-java -classpath gameworldapi.jar;impl.jar;client.jar
-com.swop.Main
-com.swop.ImplGameWorldType
+java -classpath gameworldapi.jar;impl.jar;client.jar com.swop.Main com.swop.ImplGameWorldType
+
+mygame:
+java -classpath gameworldapi.jar;mygame.jar;Blockr.jar com.swop.Main com.swop.MyGameWorldType
+
+robotgame:
+java -classpath gameworldapi.jar;robotgame.jar;Blockr.jar com.swop.Main com.swop.RobotGameWorldType
 
 vervang impl (met mygame of robotgame) en client (met blockr of simplegameapp)
