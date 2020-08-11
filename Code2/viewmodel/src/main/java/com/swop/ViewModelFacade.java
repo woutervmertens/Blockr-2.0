@@ -75,7 +75,7 @@ public class ViewModelFacade {
             vm.HandleMouseDrag(x, y);
         }
     }
-    
+
     /**
      * Calls all viewmodels to handle reset.
      */
