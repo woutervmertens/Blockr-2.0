@@ -14,10 +14,7 @@ import java.util.Stack;
  * The main controller, holds undo/redo stacks and directs commands and data between classes.
  */
 public class GameController {
-    private ArrayList<ViewModel> viewModels;
-    private PaletteViewModel paletteVM;
-    private ProgramAreaViewModel programAreaVM;
-    private GameWorldViewModel gameWorldVM;
+    private ViewModelFacade viewModelFacade;
     private GameWorldType gameWorldType;
 
     private BlockVM draggedBlockVM = null;
@@ -35,11 +32,7 @@ public class GameController {
 
     public GameController(GameWorldType gameWorldType){
         this.gameWorldType = gameWorldType;
-        this.viewModels = new ArrayList<>();
-    }
-
-    private void addViewModel(ViewModel newVM){
-        viewModels.add(newVM);
+        viewModelFacade = new ViewModelFacade();
     }
 
     /**
@@ -48,9 +41,7 @@ public class GameController {
      * @param y the y position of the mouse
      */
     public void HandleMousePress(int x, int y){
-        for (ViewModel vm : viewModels){
-            vm.HandleMousePress(x,y);
-        }
+        viewModelFacade.ChainMousePress(x,y);
         RepaintEventController.getInstance().CallRepaint();
     }
 
@@ -60,9 +51,7 @@ public class GameController {
      * @param y the y position of the mouse
      */
     public void CallReleaseInVms(int x, int y){
-        for (ViewModel vm : viewModels){
-            vm.HandleMouseRelease(x,y);
-        }
+        viewModelFacade.ChainMouseRelease(x,y);
         setDraggedBlockVM(null);
     }
 
@@ -75,15 +64,13 @@ public class GameController {
         if(draggedBlockVM != null)
             draggedBlockVM.updatePosition(new Point(x,y));
         else {
-            for (ViewModel vm : viewModels) {
-                vm.HandleMouseDrag(x, y);
-            }
+            viewModelFacade.ChainMouseDrag(x,y);
         }
         RepaintEventController.getInstance().CallRepaint();
     }
 
     public int getNrBlocksAvailable() {
-        return 20 - programAreaVM.getNumBlocksUsed();
+        return 20 - viewModelFacade.getProgramAreaVM().getNumBlocksUsed();
     }
 
     /**
@@ -128,7 +115,7 @@ public class GameController {
      * Calls execute on a new Execute Command for the next Block in the Program
      */
     public void executeNext() {
-        executeCommand(new ExecuteCommand(new CommandGameControllerFacade(this),programAreaVM, gameWorldVM.getGameWorld()));
+        executeCommand(new ExecuteCommand(new CommandGameControllerFacade(this),viewModelFacade.getProgramAreaVM(), viewModelFacade.getGameWorldVM().getGameWorld()));
     }
 
     /**
@@ -142,9 +129,7 @@ public class GameController {
      * Calls HandleReset in every ViewModel, flags for repaint.
      */
     public void resetExecution() {
-        for (ViewModel vm : viewModels){
-            vm.HandleReset();
-        }
+        viewModelFacade.ChainReset();
         setLastSuccessState(SuccessState.FAILURE);
         RepaintEventController.getInstance().CallRepaint();
     }
@@ -167,7 +152,7 @@ public class GameController {
      * @return the GameSnapshot of the current state.
      */
     public GameSnapshot createSnapshot() {
-        return new GameSnapshot(gameWorldVM.getGameWorld().createSnapshot(),paletteVM.getModel(),programAreaVM.getModel());
+        return new GameSnapshot(viewModelFacade.getGameWorldVM().getGameWorld().createSnapshot(),viewModelFacade.getPaletteVM().getModel(),viewModelFacade.getProgramAreaVM().getModel());
     }
 
     /**
@@ -175,9 +160,9 @@ public class GameController {
      * @param snapshot the GameSnapshot to restore to.
      */
     public void restoreSnapshot(GameSnapshot snapshot) {
-        gameWorldVM.getGameWorld().restoreSnapshot(snapshot.getGameWorldSnapshot());
-        paletteVM.setModel(snapshot.getPaletteModel());
-        programAreaVM.setModel(snapshot.getProgramAreaModel());
+        viewModelFacade.getGameWorldVM().getGameWorld().restoreSnapshot(snapshot.getGameWorldSnapshot());
+        viewModelFacade.getPaletteVM().setModel(snapshot.getPaletteModel());
+        viewModelFacade.getProgramAreaVM().setModel(snapshot.getProgramAreaModel());
     }
 
     /**
@@ -185,10 +170,10 @@ public class GameController {
      * @param blockModel the BlockModel to remove.
      */
     public void deleteBlock(BlockModel blockModel) {
-        programAreaVM.RemoveBlock(blockModel);
-        paletteVM.reactToBlockRemove(blockModel);
-        gameWorldVM.HandleReset();
-        programAreaVM.HandleReset();
+        viewModelFacade.getProgramAreaVM().RemoveBlock(blockModel);
+        viewModelFacade.getPaletteVM().reactToBlockRemove(blockModel);
+        viewModelFacade.getGameWorldVM().HandleReset();
+        viewModelFacade.getProgramAreaVM().HandleReset();
     }
 
     /**
@@ -196,26 +181,23 @@ public class GameController {
      * @param blockModel the BlockModel to add.
      */
     public void addBlock(BlockModel blockModel) {
-        programAreaVM.DropBlock(blockModel);
-        paletteVM.reactToBlockCreate(blockModel);
-        gameWorldVM.HandleReset();
-        programAreaVM.HandleReset();
+        viewModelFacade.getProgramAreaVM().DropBlock(blockModel);
+        viewModelFacade.getPaletteVM().reactToBlockCreate(blockModel);
+        viewModelFacade.getGameWorldVM().HandleReset();
+        viewModelFacade.getProgramAreaVM().HandleReset();
     }
 
     public void setPaletteVM(PaletteViewModel paletteVM) {
-        this.paletteVM = paletteVM;
-        addViewModel(this.paletteVM);
+        viewModelFacade.setPaletteVM(paletteVM);
     }
 
     public void setProgramAreaVM(ProgramAreaViewModel programAreaVM) {
-        this.programAreaVM = programAreaVM;
-        addViewModel(this.programAreaVM);
+        viewModelFacade.setProgramAreaVM(programAreaVM);
     }
 
     public void setGameWorldVM(GameWorldViewModel gameWorldVM) {
-        this.gameWorldVM = gameWorldVM;
         gameWorldVM.setGameWorld(gameWorldType.createNewInstance(), gameWorldType);
-        addViewModel(this.gameWorldVM);
+        viewModelFacade.setGameWorldVM(gameWorldVM);
     }
 
     /**
@@ -223,7 +205,7 @@ public class GameController {
      */
     public void dropDraggedBlock() {
         if(draggedBlockVM == null) return;
-        if(programAreaVM.isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
+        if(viewModelFacade.getProgramAreaVM().isWithin(draggedBlockVM.getPosition().x, draggedBlockVM.getPosition().y))
         {
             executeCommand(new AddBlockCommand(new CommandGameControllerFacade(this), draggedBlockVM.getModel()));
         }

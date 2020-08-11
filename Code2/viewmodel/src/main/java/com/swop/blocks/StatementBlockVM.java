@@ -3,6 +3,7 @@ package com.swop.blocks;
 import com.swop.GameWorld;
 
 import java.awt.*;
+import java.util.List;
 
 /**
  * The base logic class for Statement Blocks.
@@ -22,8 +23,9 @@ public abstract class StatementBlockVM extends BlockVMWithBody {
      */
     protected boolean isConditionValid(GameWorld gw) {
         if(!((StatementBlockModel)model).checkConditions()) return false;
-        int size = ((StatementBlockModel)model).conditions.size();
-        ConditionBlockModel last = ((StatementBlockModel)model).conditions.get(size - 1);
+        List<ConditionBlockModel> conditions = ((StatementBlockModel)model).fillConditions();
+        int size = conditions.size();
+        ConditionBlockModel last = conditions.get(size - 1);
         // if length is even then there is an odd number of not blocks -> opposite of the result of wallInFront(world)
         if (size % 2 == 0) return !gw.evaluate(last.getPredicate());
         else if (last.isPredicate()) return gw.evaluate(last.getPredicate());

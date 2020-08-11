@@ -8,7 +8,6 @@ import java.util.List;
  * A block that is a statement.
  */
 public class StatementBlockModel extends BlockModelWithBody {
-    protected List<ConditionBlockModel> conditions = new ArrayList<>();
     private final int conditionWidth;
     protected Connector conditionConnector;
     protected ConditionBlockModel firstCondition;
@@ -85,22 +84,24 @@ public class StatementBlockModel extends BlockModelWithBody {
 
     /**
      * Iterates through the Conditions, adding them to a list.
+     * @return A list of ConditionBlockModels
      */
-    private void fillConditions(){
-        conditions.clear();
+    public List<ConditionBlockModel> fillConditions(){
+        List<ConditionBlockModel> conditions = new ArrayList<>();
         //Fill conditions
         ConditionBlockModel nextCondition = firstCondition;
         while(nextCondition != null){
             conditions.add(nextCondition);
             nextCondition = (ConditionBlockModel) nextCondition.nextBlock;
         }
+        return conditions;
     }
 
     /**
      * @return conditionlist is not empty, no NOT at the end and no predicate before the end
      */
     protected boolean checkConditions(){
-        fillConditions();
+        List<ConditionBlockModel> conditions = fillConditions();
 
         //Check conditions
         if (conditions.isEmpty()) return false;

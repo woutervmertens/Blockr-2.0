@@ -8,7 +8,6 @@ import java.util.List;
  * A Block composite holding other Blocks in its body.
  */
 public abstract class BlockModelWithBody extends BlockModel{
-    private List<BlockModel> bodyBlockModels = new ArrayList<>();
     private BlockModel firstBodyBlockModel = null;
     private int gapSize;
     private int titleHeight;
@@ -49,9 +48,10 @@ public abstract class BlockModelWithBody extends BlockModel{
 
     /**
      * Iterates through the body to fill up a list of the blocks within and adapts the gap size.
+     * @return A list of BlockModels
      */
-    private void fillBody(){
-        bodyBlockModels.clear();
+    private List<BlockModel> fillBody(){
+        List<BlockModel> bodyBlockModels = new ArrayList<>();
         int newGapSize = 0;
         //Fill conditions
         BlockModel nextChild = firstBodyBlockModel;
@@ -61,11 +61,11 @@ public abstract class BlockModelWithBody extends BlockModel{
             nextChild = nextChild.nextBlock;
         }
         setGapSize(newGapSize);
+        return bodyBlockModels;
     }
 
     public List<BlockModel> getBodyBlockModels() {
-        fillBody();
-        return bodyBlockModels;
+        return fillBody();
     }
 
     public int getGapSize() {
